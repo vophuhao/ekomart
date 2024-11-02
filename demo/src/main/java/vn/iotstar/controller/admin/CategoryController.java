@@ -29,15 +29,15 @@ public class CategoryController {
 		List<Category> list=categoryService.findAll();
 		model.addAttribute("categories", list);
 	
-		return "admin/category-list";
+		return "admin/list";
 	}
 
-	@GetMapping("/add")
-	public  String addCategory() {
-		
-		
-		return "admin/add-category";
-	}
+//	@GetMapping("/add")
+//	public  String addCategory() {
+//		
+//		
+//		return "admin/add-category";
+//	}
 	@PostMapping("/add")
 	public String add(@Valid Category category, BindingResult result, Model model,RedirectAttributes redirectAttributes) {
 		/*
@@ -48,20 +48,20 @@ public class CategoryController {
 		categoryService.save(category);
 		return "redirect:/admin/categories";
 	}
-	
-	@GetMapping("/edit/{id}")
-	public String edit(@PathVariable("id") long id, ModelMap model) {
-		Category category = categoryService.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
-		model.addAttribute("category", category);
-		return "admin/edit-category";
-	}
-
-	@PostMapping("/update")
-	public String update(@Valid Category category, BindingResult result, Model model) {
-		if (result.hasErrors()) {
-			return "admin/home";
-		}
-		categoryService.save(category);
-		return "redirect:/admin/categories";
-	}
+//	
+//	@GetMapping("/edit/{id}")
+//	public String edit(@PathVariable("id") long id, ModelMap model) {
+//		Category category = categoryService.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
+//		model.addAttribute("category", category);
+//		return "admin/edit-category";
+//	}
+//
+//	@PostMapping("/update")
+//	public String update(@Valid Category category, BindingResult result, Model model) {
+//		if (result.hasErrors()) {
+//			return "admin/home";
+//		}
+//		categoryService.save(category);
+//		return "redirect:/admin/categories";
+//	}
 }
