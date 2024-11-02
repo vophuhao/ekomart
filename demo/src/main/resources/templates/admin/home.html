@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
+<head>
+
+<meta charset="UTF-8">
+<meta name="description"
+	content="Ekomart-Grocery-Store(e-Commerce) HTML Template: A sleek, responsive, and user-friendly HTML template designed for online grocery stores.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="Grocery, Store, stores">
+<title>Dashboard Ekomart-Grocery-Store HTML Template</title>
+<link rel="shortcut icon" type="image/x-icon"
+	href="/admin/images/fav.png">
+<!-- plugins css -->
+<link rel="stylesheet preload" href="/admin/css/plugins.css" as="style">
+<link rel="stylesheet preload"
+	href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"
+	as="style">
+<link rel="stylesheet preload" href="/admin/css/style.css" as="style">
+
+ <script type="text/javascript">
+        var successMessage = /*[[${successMessage}]]*/ null;
+        if (successMessage) {
+            alert(successMessage);
+        }
+    </script>
+
+</head>
+<body>
+	<div class="ekomart_dashboard">
+		<div th:replace="~{admin/fragments/sidebar::sidebar}"></div>
+
+		<div class="right-area-body-content">
+			<div class="body-root-inner">
+				<div layout:fragment="content"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="anywhere-home"></div>
+	<form th:action="@{/admin/categories/add}" method="POST"
+							th:object="${category}">
+		<div id="side-bar"
+		class="side-bar header-two right-collups-add-product">
+		<button class="close-icon-menu">
+			<i class="far fa-times"></i>
+		</button>
+		<!-- inner menu area desktop start -->
+		<div class="right-collups-area-top">
+			<h6 class="title">Add New Category</h6>
+			<p>Add information and add new category</p>
+		</div>
+		<div class="input-main-wrapper">
+			<div class="single-input">
+				<label  for="one" >Category Name</label> <input type="text" id="one" name="categoryName" 
+					placeholder=""></input>
+			</div>
+			<div class="single-input">
+				<label for="Two">Category ID</label> <input type="text" id="Two" name="categoryId"
+					placeholder="">
+			</div>
+			<div class="single-input">
+				<label>
+						    <input type="checkbox" name="status" value="1">
+						    Active
+						</label>
+			</div>
+			<div class="button-area-botton-wrapper-p-list">
+				<button class="rts-btn btn-primary" type="submit" action="">Save</button>
+				<button class="rts-btn btn-primary bg-transparent">Cancel</button>
+			</div>
+		</div>
+	</div>
+	
+	</form>
+	
+
+	<!-- all plugins js here -->
+	<script src="/admin/js/plugins.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/apexcharts@3.27.0/dist/apexcharts.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+	<!-- main js Custom -->
+	<script src="/admin/js/main.js"></script>
+	<!-- rts header area end -->
+
+
+</body>
+</html>
