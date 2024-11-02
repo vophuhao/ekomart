@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import vn.iotstar.entity.Category;
 
-public interface ICategoryService {
+public interface AdminICategoryService {
 
 	Category getById(Long id);
 

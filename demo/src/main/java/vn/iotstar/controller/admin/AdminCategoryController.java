@@ -15,14 +15,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ch.qos.logback.core.model.Model;
 import jakarta.validation.Valid;
 import vn.iotstar.entity.Category;
-import vn.iotstar.service.admin.ICategoryService;
+import vn.iotstar.service.admin.AdminICategoryService;
 
 @Controller
 @RequestMapping("/admin/categories")
-public class CategoryController {
+public class AdminCategoryController {
 	
 	@Autowired
-	ICategoryService categoryService;
+	AdminICategoryService categoryService;
 	@RequestMapping("")
 	public String listCategory(ModelMap model)
 	{

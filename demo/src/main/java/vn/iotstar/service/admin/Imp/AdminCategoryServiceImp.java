@@ -7,15 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.iotstar.entity.Category;
-import vn.iotstar.repository.admin.CategoryRepository;
-import vn.iotstar.service.admin.ICategoryService;
+import vn.iotstar.repository.admin.AdminCategoryRepository;
+import vn.iotstar.service.admin.AdminICategoryService;
 
 @Service
-public class CategoryServiceImp implements ICategoryService{
-	@Autowired 
-	CategoryRepository categoryRepository;
 
-	public CategoryServiceImp(CategoryRepository categoryRepository) {
+public class AdminCategoryServiceImp implements AdminICategoryService{
+	@Autowired 
+	AdminCategoryRepository categoryRepository;
+
+	public AdminCategoryServiceImp(AdminCategoryRepository categoryRepository) {
 	
 		this.categoryRepository = categoryRepository;
 	}
