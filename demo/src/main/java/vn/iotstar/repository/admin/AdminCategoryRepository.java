@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import vn.iotstar.entity.Category;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface AdminCategoryRepository extends JpaRepository<Category, Long> {
 
 	 Optional<Category> findByCategoryId(String categoryId);
 	 

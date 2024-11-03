@@ -28,10 +28,6 @@ import lombok.NoArgsConstructor;
 
 public class Product implements Serializable {
 	
-	
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -52,17 +48,17 @@ public class Product implements Serializable {
     private LocalDate date;
 
 	
-	  @ManyToOne  
-	  @JoinColumn(name = "categoryId") 
-	  private Category category;
+	@ManyToOne  
+	@JoinColumn(name = "categoryId") 
+	private Category category;
 
 
-//    @ManyToOne
-//    @JoinColumn(name = "shop_id")
-//    private Shop shop;
-//
-//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<ProductImage> images;
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProductImage> images;
 //
 //    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 //    private List<OrderDetail> orderDetails;
