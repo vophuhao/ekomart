@@ -39,44 +39,40 @@ public class AdminCategoryController {
 		return "admin/list";
 	}
 
-//	@GetMapping("/add")
-//	public  String addCategory() {
-//		
-//		
-//		return "admin/home";
-//	}
-//	@PostMapping("/add")
-//	public ModelAndView add(@Valid @ModelAttribute("category") CategoryModel cateModel, BindingResult result, Model model,RedirectAttributes redirectAttributes) {
-//		if(result.hasErrors()) {
-//	        return new ModelAndView("admin/home2", "category", cateModel);
-//	    }
-//
-//	    Category entity = new Category();
-//	    BeanUtils.copyProperties(cateModel, entity);
-//	    categoryService.save(entity);
-//	    redirectAttributes.addFlashAttribute("message", "Category saved successfully!");
-//	    return new ModelAndView("redirect:/admin/categories");
-//	}
-//	
-//	@GetMapping("/edit/{id}")
-//	public String edit(@PathVariable("id") Long id, ModelMap model) {
-//		Category category = categoryService.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
-//		model.addAttribute("category", category);
-//	    return "admin/home"; // Render home.html with the category
-//	}
-//	@GetMapping("/edit/{id}")
-//	public String edit(@PathVariable("id") long id, ModelMap model) {
-//		Category category = categoryService.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
-//		model.addAttribute("category", category);
-//		return "admin/edit-category";
-//	}
-//
-//	@GetMapping("/add")
-//	public ModelAndView add() {
-//	    CategoryModel category = new CategoryModel();
-//	    category.setIsEdit(false);
-//	    return new ModelAndView("admin/home", "category", category);
-//	}
+	/*
+	 * @GetMapping("/add") public String addCategory() {
+	 * 
+	 * 
+	 * return "admin/home"; }
+	 * 
+	 * @PostMapping("/add") public ModelAndView
+	 * add(@Valid @ModelAttribute("category") CategoryModel cateModel, BindingResult
+	 * result, Model model,RedirectAttributes redirectAttributes) {
+	 * if(result.hasErrors()) { return new ModelAndView("admin/home2", "category",
+	 * cateModel); }
+	 * 
+	 * Category entity = new Category(); BeanUtils.copyProperties(cateModel,
+	 * entity); categoryService.save(entity);
+	 * redirectAttributes.addFlashAttribute("message",
+	 * "Category saved successfully!"); return new
+	 * ModelAndView("redirect:/admin/categories"); }
+	 * 
+	 * @GetMapping("/edit/{id}") public String edit(@PathVariable("id") Long id,
+	 * ModelMap model) { Category category =
+	 * categoryService.findById(id).orElseThrow(() -> new
+	 * RuntimeException("Not found")); model.addAttribute("category", category);
+	 * return "admin/home"; // Render home.html with the category }
+	 * 
+	 * @GetMapping("/edit/{id}") public String edit(@PathVariable("id") long id,
+	 * ModelMap model) { Category category =
+	 * categoryService.findById(id).orElseThrow(() -> new
+	 * RuntimeException("Not found")); model.addAttribute("category", category);
+	 * return "admin/edit-category"; }
+	 * 
+	 * @GetMapping("/add") public ModelAndView add() { CategoryModel category = new
+	 * CategoryModel(); category.setIsEdit(false); return new
+	 * ModelAndView("admin/home", "category", category); }
+	 */
 
 	/*
 	 * @GetMapping("/edit/{id}") public ModelAndView edit(@PathVariable("id") Long
@@ -112,12 +108,10 @@ public class AdminCategoryController {
 		                                      
 	
 	
-//	@PostMapping("/save")
-//	public String update(@Valid Category category, BindingResult result, Model model) {
-//		if (result.hasErrors()) {
-//			return "admin/home";
-//		}
-//		categoryService.save(category);
-//		return "redirect:/admin/categories";
-//	}
+	/*
+	 * @PostMapping("/save") public String update(@Valid Category category,
+	 * BindingResult result, Model model) { if (result.hasErrors()) { return
+	 * "admin/home"; } categoryService.save(category); return
+	 * "redirect:/admin/categories"; }
+	 */
 }
