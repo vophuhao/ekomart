@@ -1,20 +1,26 @@
 package vn.iotstar.controller.admin;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ch.qos.logback.core.model.Model;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import vn.iotstar.entity.Category;
+import vn.iotstar.model.CategoryModel;
 import vn.iotstar.service.admin.AdminICategoryService;
 
 @Controller
@@ -23,6 +29,7 @@ public class AdminCategoryController {
 	
 	@Autowired
 	AdminICategoryService categoryService;
+	
 	@RequestMapping("")
 	public String listCategory(ModelMap model)
 	{
@@ -36,19 +43,27 @@ public class AdminCategoryController {
 //	public  String addCategory() {
 //		
 //		
-//		return "admin/add-category";
+//		return "admin/home";
 //	}
-	@PostMapping("/add")
-	public String add(@Valid Category category, BindingResult result, Model model,RedirectAttributes redirectAttributes) {
-		/*
-		 * System.out.print(category); if (result.hasErrors()) { return
-		 * "redirect:/admin/categories"; }
-		 */
-		 redirectAttributes.addFlashAttribute("successMessage", "Category saved successfully!");
-		categoryService.save(category);
-		return "redirect:/admin/categories";
-	}
+//	@PostMapping("/add")
+//	public ModelAndView add(@Valid @ModelAttribute("category") CategoryModel cateModel, BindingResult result, Model model,RedirectAttributes redirectAttributes) {
+//		if(result.hasErrors()) {
+//	        return new ModelAndView("admin/home2", "category", cateModel);
+//	    }
+//
+//	    Category entity = new Category();
+//	    BeanUtils.copyProperties(cateModel, entity);
+//	    categoryService.save(entity);
+//	    redirectAttributes.addFlashAttribute("message", "Category saved successfully!");
+//	    return new ModelAndView("redirect:/admin/categories");
+//	}
 //	
+//	@GetMapping("/edit/{id}")
+//	public String edit(@PathVariable("id") Long id, ModelMap model) {
+//		Category category = categoryService.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
+//		model.addAttribute("category", category);
+//	    return "admin/home"; // Render home.html with the category
+//	}
 //	@GetMapping("/edit/{id}")
 //	public String edit(@PathVariable("id") long id, ModelMap model) {
 //		Category category = categoryService.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
@@ -56,7 +71,48 @@ public class AdminCategoryController {
 //		return "admin/edit-category";
 //	}
 //
-//	@PostMapping("/update")
+//	@GetMapping("/add")
+//	public ModelAndView add() {
+//	    CategoryModel category = new CategoryModel();
+//	    category.setIsEdit(false);
+//	    return new ModelAndView("admin/home", "category", category);
+//	}
+
+	/*
+	 * @GetMapping("/edit/{id}") public ModelAndView edit(@PathVariable("id") Long
+	 * id,HttpSession session) { Optional<Category> optCategory =
+	 * categoryService.findById(id); CategoryModel cateModel = new CategoryModel();
+	 * if(optCategory.isPresent()) { Category entity = optCategory.get();
+	 * BeanUtils.copyProperties(entity, cateModel); cateModel.setIsEdit(true);
+	 * session.setAttribute("category",entity); return new
+	 * ModelAndView("admin/home", "category", cateModel); } return new
+	 * ModelAndView("redirect:/admin/categories", "message",
+	 * "Category does not exist!"); }
+	 */
+	
+	@PostMapping("/save")
+	public ModelAndView saveOrUpdate(
+	        @Valid @ModelAttribute("category") CategoryModel cateModel,
+	        BindingResult result,
+	        RedirectAttributes redirectAttributes) {
+	    if(result.hasErrors()) {
+	        return new ModelAndView("admin/home", "category", cateModel);
+	    }
+
+	    Category entity = new Category();
+	    BeanUtils.copyProperties(cateModel, entity);
+	    categoryService.save(entity);
+	    redirectAttributes.addFlashAttribute("message", "Category saved successfully!");
+	    return new ModelAndView("redirect:/admin/categories");
+	}
+	
+
+
+
+		                                      
+	
+	
+//	@PostMapping("/save")
 //	public String update(@Valid Category category, BindingResult result, Model model) {
 //		if (result.hasErrors()) {
 //			return "admin/home";

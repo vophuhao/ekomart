@@ -17,7 +17,7 @@
 						</ul>
 					</div>
 				</div>
-				<button class="rts-btn btn-primary menu-btn">+ Add</button>
+				<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="|addCategory()|">+ Add</button>
 			</div>
 		</div>
 		<div class="product-top-filter-area-l">
@@ -79,15 +79,17 @@
 									</div>
 								</td>
 								<td class="text-end">
-                                                <div class="between-stock-table action">                                     
-                                                    <img src="/admin/images/grocery/%6015.png" alt="">
-                                                    <div class="action-edit-deleate">
-                                                        <span class="rts-btn btn-primary menu-btn" th:object="${category}">Edit</span>
-                                                        <span>Delete</span>
-                                                    </div>
-                                                </div>
-                                </td>
-
+									<div class="between-stock-table action">
+										<img src="/admin/images/grocery/%6015.png" alt="">
+										<div class="action-edit-deleate">
+<!-- 											<a class="rts-btn btn-primary menu-btn"
+												th:href="@{'/admin/categories/edit/'+ ${cate.id}}">Edit</a> -->
+											<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="|getCategoryById('${cate.id}')|"
+												>Edit</button> 
+											<span>Delete</span>
+										</div>
+									</div>
+								</td>
 
 							</tr>
 

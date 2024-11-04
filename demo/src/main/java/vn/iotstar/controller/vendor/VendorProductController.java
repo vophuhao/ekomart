@@ -1,27 +1,20 @@
 package vn.iotstar.controller.vendor;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.ui.Model;
 import jakarta.validation.Valid;
 import vn.iotstar.entity.Product;
-import vn.iotstar.service.admin.AdminIProductService;
 import vn.iotstar.service.vendor.VendorIProductService;
 
 @Controller
-@RequestMapping("/vendor/{id}/products") // id goc cua shop 
+@RequestMapping("/vendor/{shopId}/products") // id goc cua shop 
 public class VendorProductController {
 
     @Autowired
@@ -33,22 +26,22 @@ public class VendorProductController {
                               @RequestParam(value = "status", required = false) Integer status,
                               @RequestParam(value = "display", required = false) Integer display) 
     {
-        List<Product> list = productService.findProductsByShopId(id);
+        List<Product> list = productService.getProductsByShopId(id);
         model.addAttribute("products", list);
 
         if (productName != null) {
-            Optional<Product> listByName = productService.findByName(productName);
-            model.addAttribute("listByName", listByName.orElse(null));
+            List<Product> listByName = productService.findByName(productName,id);
+            model.addAttribute("listByName", listByName);
         }
 
         if (status != null) {
-            Optional<Product> listByStatus = productService.findByStatus(status);
-            model.addAttribute("listByStatus", listByStatus.orElse(null));
+            List<Product> listByStatus = productService.findByStatus(status,id);
+            model.addAttribute("listByStatus", listByStatus);
         }
 
         if (display != null) {
-            Optional<Product> listByDisplay = productService.findByDisplay(display);
-            model.addAttribute("listByDisplay", listByDisplay.orElse(null));
+            List<Product> listByDisplay = productService.findByDisplay(display,id);
+            model.addAttribute("listByDisplay", listByDisplay);
         }
 
         return "vendor/product-list";

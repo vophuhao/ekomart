@@ -12,7 +12,6 @@ import vn.iotstar.entity.Shop;
 
 @Repository
 public interface VendorProductRepository extends JpaRepository<Product, Long> {
-	List<Product> findByProductId(String productId);
 	 
 	 Optional<Product> findByDisplay(int display);
 	 

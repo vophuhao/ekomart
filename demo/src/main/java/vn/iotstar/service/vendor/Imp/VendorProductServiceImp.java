@@ -19,8 +19,6 @@ public class VendorProductServiceImp implements VendorIProductService {
 	@Autowired
 	VendorProductRepository productRepository;
 	
-	@Autowired
-	private VendorShopRepository shopRepository;
 
 	@Override
 	public <S extends Product> S save(S entity) {
@@ -51,24 +49,28 @@ public class VendorProductServiceImp implements VendorIProductService {
 	}
 
 	@Override
-	public Optional<Product> findByDisplay(int display) {
-		return productRepository.findByDisplay(display);
+	public List<Product> findByDisplay(int display,Long shopId) {
+		
+		 Optional<Product> products =  productRepository.findByDisplay(display);
+		 return products.stream()
+                 .filter(pro -> pro.getShop() != null && pro.getShop().getId().equals(shopId))
+                 .collect(Collectors.toList()); // Collect results into a List
 	}
 
 	@Override
-	public Optional<Product> findByStatus(int status) {
-		return productRepository.findByStatus(status);
+	public List<Product> findByStatus(int status,Long shopId) {
+		 Optional<Product> products = productRepository.findByStatus(status);
+		 return products.stream()
+                 .filter(pro -> pro.getShop() != null && pro.getShop().getId().equals(shopId))
+                 .collect(Collectors.toList()); // Collect results into a List
 	}
 
 	@Override
-	public Optional<Product> findByName(String productName) {
-		return productRepository.findByName(productName);
-	}
-
-	@Override
-	public List<Product> findAllProductsByShopId(Long shopId) {
-	        Shop shop = shopRepository.findByShopId(shopId);
-	        return productRepository.findByShop(shop);
+	public List<Product> findByName(String productName,Long shopId) {
+		 Optional<Product> products = productRepository.findByName(productName);
+		 return products.stream()
+                 .filter(pro -> pro.getShop() != null && pro.getShop().getId().equals(shopId))
+                 .collect(Collectors.toList()); // Collect results into a List
 	}
 
 
