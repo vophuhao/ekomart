@@ -19,6 +19,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vn.iotstar.model.CategoryModel;
 
 @Entity
 @Data
@@ -51,7 +52,6 @@ public class Product implements Serializable {
 	@ManyToOne  
 	@JoinColumn(name = "categoryId") 
 	private Category category;
-
 
     @ManyToOne
     @JoinColumn(name = "shop_id")

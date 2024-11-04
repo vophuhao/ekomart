@@ -15,18 +15,17 @@ public interface VendorIProductService {
 
 	<S extends Product> S save(S entity);
 
-	Optional<Product> findByName(String productName);
+	List<Product> findByName(String productName,Long shopId);
 
-	Optional<Product> findByStatus(int status);
+	List<Product> findByStatus(int status,Long shopId);
 
-	Optional<Product> findByDisplay(int display);
-
-	Optional<Product> findByProductId(String productId);
-
-	List<Product> findAllProductsByShopId(Long shopId);
+	List<Product> findByDisplay(int display,Long shopId);
 
 	List<Product> getProductsByShopId(Long shopId);
 
+<<<<<<< HEAD
 	List<Product> findProductsByShopId(Long id);
+=======
+>>>>>>> mun
 
 }
