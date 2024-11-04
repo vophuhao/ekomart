@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 //package vn.iotstar.repository.vendor;
 //
 //
@@ -24,7 +24,7 @@
 //	 List<Product> findByShop(Shop shop);
 //	 
 //}
-=======
+
 package vn.iotstar.repository.vendor;
 
 
@@ -49,4 +49,4 @@ public interface VendorProductRepository extends JpaRepository<Product, Long> {
 	 List<Product> findByShop(Shop shop);
 	 
 }
->>>>>>> mun
+

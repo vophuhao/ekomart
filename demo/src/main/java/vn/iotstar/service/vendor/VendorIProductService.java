@@ -23,9 +23,8 @@ public interface VendorIProductService {
 
 	List<Product> getProductsByShopId(Long shopId);
 
-<<<<<<< HEAD
+
 	List<Product> findProductsByShopId(Long id);
-=======
->>>>>>> mun
+
 
 }

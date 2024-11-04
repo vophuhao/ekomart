@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 //package vn.iotstar.service.vendor.Imp;
 //
 //import java.util.List;
@@ -88,7 +88,7 @@
 //
 //	
 //}
-=======
+
 package vn.iotstar.service.vendor.Imp;
 
 import java.util.List;
@@ -164,8 +164,14 @@ public class VendorProductServiceImp implements VendorIProductService {
                  .collect(Collectors.toList()); // Collect results into a List
 	}
 
+	@Override
+	public List<Product> findProductsByShopId(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 	
 }
->>>>>>> mun
+
