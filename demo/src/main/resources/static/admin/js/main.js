@@ -1161,7 +1161,7 @@
 
 
 const getCategoryById = (id) => {
-	fetch(`http://localhost:5000/api/v1/admin/edit/${id}`)
+	fetch(`http://localhost:8888/api/v1/admin/edit/${id}`)
 		.then(resp => { return resp.json() })
 		.then(category => {
 			console.log(category)
@@ -1175,13 +1175,12 @@ const getCategoryById = (id) => {
 			categoryId.value = category?.categoryId
 			status.checked = category?.status == 1 ? true : false
 
-
 		})
 }
 
 
 const addCategory = () => {
-	fetch(`http://localhost:5000/api/v1/admin/add`)
+	fetch(`http://localhost:8888/api/v1/admin/add`)
 		.then(resp => { return resp.json() })
 		.then(category => {
 			console.log(category)

@@ -23,8 +23,4 @@ public interface VendorIProductService {
 
 	List<Product> getProductsByShopId(Long shopId);
 
-
-	List<Product> findProductsByShopId(Long id);
-
-
 }
