@@ -1,4 +1,4 @@
-package vn.iotstar.controller.admin;
+package vn.iotstar.controller.vendor;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 
-@RequestMapping("/admin")
-public class homeAdminController {
+@RequestMapping("/vendor")
+public class homeVendorController {
 	
 	@GetMapping("/home")
-	public String homeAdmin() {
+	public String homeView() {
 		
-		return "admin/home-content";
+		return "vendor/home";
 	}
 }
