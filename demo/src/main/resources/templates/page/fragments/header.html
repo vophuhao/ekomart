@@ -112,9 +112,14 @@
 							</form>
 						</div>
 						<div class="accont-wishlist-cart-area-header">
-							<a class="btn-border-only account"> <i
-								class="fa-light fa-user"></i> Account
-							</a> <a class="btn-border-only wishlist"> <i
+							<div th:if="${Name !=null}">
+								<a class="btn-border-only account"> <i
+								class="fa-light fa-user"></i> <span th:text = "*{Name}"></span>
+							</a> 
+							</div>
+							
+							
+							<a class="btn-border-only wishlist"> <i
 								class="fa-regular fa-heart"></i> Wishlist <span class="number">2</span>
 							</a>
 							<div class="btn-border-only cart category-hover-header">
@@ -205,9 +210,17 @@
 								</div>
 								<a class="over_link"></a>
 							</div>
-							<a th:href="@{/logout}" class="btn-border-only account">
-								<i class="fa-light fa-user">Logout  </i>
+							<div th:if="${Name !=null}">
+								<a  th:href="@{/logout}" class="btn-border-only account">
+								<i class="fa-light fa-user">  </i>Logout
 							</a>
+							</div>
+							
+							<div th:if="${Name ==null}">
+								<a  th:href="@{/login}" class="btn-border-only account">
+								<i class="fa-light fa-user">  </i>Login
+							</a>
+							</div>
 						</div>
 					</div>
 				</div>

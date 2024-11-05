@@ -1,4 +1,3 @@
-
 package vn.iotstar.repository.vendor;
 
 import java.util.Optional;
