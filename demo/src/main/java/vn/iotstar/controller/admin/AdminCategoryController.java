@@ -1,6 +1,7 @@
 package vn.iotstar.controller.admin;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.validation.Valid;
 import vn.iotstar.entity.Category;
 import vn.iotstar.model.CategoryModel;
+import vn.iotstar.service.IStorageService;
 import vn.iotstar.service.admin.AdminICategoryService;
 
 @Controller
@@ -24,6 +26,9 @@ public class AdminCategoryController {
 	
 	@Autowired
 	AdminICategoryService categoryService;
+	
+	@Autowired
+	IStorageService storageService;
 	
 	@RequestMapping("")
 	public String listCategory(ModelMap model)
@@ -86,15 +91,23 @@ public class AdminCategoryController {
 	        @Valid @ModelAttribute("category") CategoryModel cateModel,
 	        BindingResult result,
 	        RedirectAttributes redirectAttributes) {
-	    if(result.hasErrors()) {
-	        return new ModelAndView("admin/home", "category", cateModel);
-	    }
-
-	    Category entity = new Category();
-	    BeanUtils.copyProperties(cateModel, entity);
-	    categoryService.save(entity);
-	    redirectAttributes.addFlashAttribute("message", "Category saved successfully!");
-	    return new ModelAndView("redirect:/admin/categories");
+		 if(result.hasErrors()) {
+		        return new ModelAndView("admin/home", "category", cateModel);
+		    }
+		    Category entity = new Category();
+		    BeanUtils.copyProperties(cateModel, entity);
+		    if(!cateModel.getImageFile().isEmpty()) {
+		    	//lưu file vào trường poster
+		    	UUID uuid = UUID.randomUUID();
+		    	String uuString = uuid.toString();
+		    	entity.setImage (storageService.getSorageFilename(cateModel.getImageFile(), uuString));
+		    	storageService.store(cateModel.getImageFile(), entity.getImage());
+		    	}
+		    
+		    System.out.print(entity);
+		    categoryService.save(entity);
+		    redirectAttributes.addFlashAttribute("message", "Category saved successfully!");
+		    return new ModelAndView("redirect:/admin/categories");
 	}
 	
 
