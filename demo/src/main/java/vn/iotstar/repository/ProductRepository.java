@@ -1,12 +1,6 @@
-<<<<<<< HEAD:demo/src/main/java/vn/iotstar/repository/vendor/VendorProductRepository.java
-package vn.iotstar.repository.vendor;
 
-
-import java.util.List;
-=======
 package vn.iotstar.repository;
 
->>>>>>> mun:demo/src/main/java/vn/iotstar/repository/ProductRepository.java
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;

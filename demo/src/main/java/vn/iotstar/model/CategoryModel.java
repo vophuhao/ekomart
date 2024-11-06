@@ -12,11 +12,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-<<<<<<< HEAD
 @NoArgsConstructor
 
-=======
->>>>>>> mun
 public class CategoryModel implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
