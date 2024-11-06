@@ -1,21 +1,31 @@
 package vn.iotstar.controller.admin;
 
+
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import jakarta.validation.Valid;
 import vn.iotstar.entity.Category;
 import vn.iotstar.model.CategoryModel;
+import vn.iotstar.service.IStorageService;
 import vn.iotstar.service.admin.AdminICategoryService;
 
 @Controller
@@ -25,12 +35,23 @@ public class AdminCategoryController {
 	@Autowired
 	AdminICategoryService categoryService;
 	
+	@Autowired
+	IStorageService storageService;
+	
+	@GetMapping("/images/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serverFile(@PathVariable String filename){ 
+		
+		Resource file =storageService.loadAsResource(filename); 
+		
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
+	}
 	@RequestMapping("")
 	public String listCategory(ModelMap model)
 	{
 		List<Category> list=categoryService.findAll();
 		model.addAttribute("categories", list);
-	
+		
 		return "admin/list";
 	}
 
@@ -86,15 +107,23 @@ public class AdminCategoryController {
 	        @Valid @ModelAttribute("category") CategoryModel cateModel,
 	        BindingResult result,
 	        RedirectAttributes redirectAttributes) {
-	    if(result.hasErrors()) {
-	        return new ModelAndView("admin/home", "category", cateModel);
-	    }
-
-	    Category entity = new Category();
-	    BeanUtils.copyProperties(cateModel, entity);
-	    categoryService.save(entity);
-	    redirectAttributes.addFlashAttribute("message", "Category saved successfully!");
-	    return new ModelAndView("redirect:/admin/categories");
+		 if(result.hasErrors()) {
+		        return new ModelAndView("admin/home", "category", cateModel);
+		    }
+		    Category entity = new Category();
+		    BeanUtils.copyProperties(cateModel, entity);
+		    if(!cateModel.getImageFile().isEmpty()) {
+		    	//lưu file vào trường poster
+		    	UUID uuid = UUID.randomUUID();
+		    	String uuString = uuid.toString();
+		    	entity.setImage (storageService.getSorageFilename(cateModel.getImageFile(), uuString));
+		    	storageService.store(cateModel.getImageFile(), entity.getImage());
+		    	}
+		    
+		    System.out.print(entity);
+		    categoryService.save(entity);
+		    redirectAttributes.addFlashAttribute("message", "Category saved successfully!");
+		    return new ModelAndView("redirect:/admin/categories");
 	}
 	
 

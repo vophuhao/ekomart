@@ -2,9 +2,11 @@ package vn.iotstar.service.admin.Imp;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import vn.iotstar.entity.Category;
 import vn.iotstar.repository.admin.AdminCategoryRepository;
@@ -28,7 +30,26 @@ public class AdminCategoryServiceImp implements AdminICategoryService{
 
 	@Override
 	public <S extends Category> S save(S entity) {
-		return categoryRepository.save(entity);
+		if(entity.getCategoryId() == null) {
+			UUID uuid =UUID.randomUUID();
+			String uuString = uuid.toString();
+			entity.setCategoryId(uuString);
+			return categoryRepository.save(entity);
+			}
+		else {
+			if(entity.getId()!=null)
+			{
+				Optional<Category> opt=findById(entity.getId());
+				if(opt.isPresent()) {
+					if(StringUtils.isEmpty(entity.getImage())) { entity.setImage(opt.get().getImage());
+				}else {
+					entity.setImage(entity.getImage());
+				}
+			}
+		}
+		
+			return categoryRepository.save(entity);
+		}
 	}
 
 	@Override

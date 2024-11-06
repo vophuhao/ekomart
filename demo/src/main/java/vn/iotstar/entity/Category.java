@@ -29,14 +29,15 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-   
+	
     private String categoryId;
     private String categoryName;
+    private String image;
     private int status;
 
 	
-	 @OneToMany(mappedBy = "category", fetch = FetchType.LAZY) private
-	 List<Product> products;
+	 @OneToMany(mappedBy = "category", fetch = FetchType.LAZY) 
+	 private List<Product> products;
 	 
 
 }
