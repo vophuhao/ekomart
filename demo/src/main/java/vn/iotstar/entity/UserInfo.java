@@ -27,4 +27,7 @@ public class UserInfo {
 	
 	@OneToOne(mappedBy = "user")
 	private ForgotPassword forgotpassword;
+	
+	@OneToOne(mappedBy = "user")
+	private Shop shop;
 }

@@ -1,19 +1,18 @@
-<!-- <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="description" content="Ekomart-Grocery-Store(e-Commerce) HTML Template: A sleek, responsive, and user-friendly HTML template designed for online grocery stores.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Grocery, Store, stores">
     <title>Ekomart-Grocery-Store(e-Commerce) HTML Template</title>
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/fav.png}">
-    plugins css
+    <!-- plugins css -->
     <link rel="stylesheet preload" th:href="@{/view/css/plugins.css}" as="style">
     <link rel="stylesheet preload" th:href="@{/view/css/style.css}" as="style">
 </head>
 <body>
-    rts register area start
-    <div class="rts-register-area rts-section-gap bg_light-1">
+ <div class="rts-register-area rts-section-gap bg_light-1">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -21,19 +20,21 @@
                         <div class="logo-area mb--0">
                             <img class="mb--10" th:src="@{/view/images/logo/fav.png}" alt="logo">
                         </div>
-                        <h3 class="title">Login Into Your Account</h3>
-                        Message
-                        <p style="color:red;"><span th:text = "*{error}"></span></p>
-                        <form th:action="@{/authenticate}" method="post" class="registration-form">
+                        <h3 class="title">Register to open your Shop</h3>
+                        <form th:action="@{/register}" method="post" th:object="${shop}" class="registration-form">
                             <div class="input-wrapper">
-                                <label for="username">User name*</label>
-        						<input type="text" id="username" name="username" required>
+                                <label for="name">Tên shop *</label>
+        						<input type="text" id="name" th:field="*{name}" required>
                             </div>
                             <div class="input-wrapper">
-                                <label for="password">Password*</label>
-       							<input type="password" id="password" name="password" required>
+                                <label for="email">Email*</label>
+        						<input type="email" id="email" th:field="*{email}" required>
                             </div>
-                            <button type="submit" class="rts-btn btn-primary">Login Account</button>
+                            <div class="input-wrapper">
+                                <label for="password">Mật Khẩu*</label>
+        						<input type="password" id="password" th:field="*{password}" required>
+                            </div>
+                            <button type="submit" class="rts-btn btn-primary">Register Account</button>
                             <div class="another-way-to-registration">
                                 <div class="registradion-top-text">
                                     <span>Or Register With</span>
@@ -46,9 +47,7 @@
                                         <img th:src="@{/view/images/form/facebook.svg}" alt="login">
                                     </a>
                                 </div>
-                                <p>Forgot Password? <a th:href="@{/forgotPassword/verifyMail}">Khôi Phục</a></p>
-                                <p>Chưa có tài khoản? <a th:href="@{/register}">Đăng Ký</a></p>
-                                
+                                <p>Already Have Account? <a th:href="@{/login}">Login</a></p>
                             </div>
                         </form>
                     </div>
@@ -56,6 +55,5 @@
             </div>
         </div>
     </div>
-    rts register area end
 </body>
-</html>  -->
+</html>
