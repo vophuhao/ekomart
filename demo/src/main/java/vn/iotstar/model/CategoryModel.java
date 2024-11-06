@@ -12,7 +12,6 @@ import vn.iotstar.entity.Product;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 public class CategoryModel implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

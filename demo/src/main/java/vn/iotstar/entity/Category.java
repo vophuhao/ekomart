@@ -1,4 +1,4 @@
-package vn.iotstar.entity;
+ package vn.iotstar.entity;
 
 import java.io.Serializable;
 import java.util.List;
