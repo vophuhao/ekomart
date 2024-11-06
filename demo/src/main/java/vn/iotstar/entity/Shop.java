@@ -10,7 +10,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,16 +38,19 @@ public class Shop implements Serializable{
     private String description;
     private String sdt;
     private String email;
-
-//    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
-//    private List<AddressShop> addresses;
-//
-//	/*
-//	 * @OneToOne
-//	 * 
-//	 * @JoinColumn(name = "owner_id")
-//	 */
-//	/* private User owner; */
+    private int status;
+    private int display;
+    
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private AddressShop address;
+    
+    @OneToOne( cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @JoinColumn(name = "identifi_id")
+    private IdentificationInfo info;
+    
+    @OneToOne
+	private UserInfo user;
 
     @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products;
