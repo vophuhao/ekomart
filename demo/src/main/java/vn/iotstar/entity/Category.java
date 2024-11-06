@@ -36,8 +36,8 @@ public class Category implements Serializable {
     private int status;
 
 	
-	 @OneToMany(mappedBy = "category", fetch = FetchType.LAZY) private
-	 List<Product> products;
+	 @OneToMany(mappedBy = "category", fetch = FetchType.LAZY) 
+	 private List<Product> products;
 	 
 
 }
