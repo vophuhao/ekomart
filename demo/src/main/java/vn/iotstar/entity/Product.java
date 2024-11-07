@@ -57,8 +57,11 @@ public class Product implements Serializable {
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ProductImage> images;
+    private String image;
+ 
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<ProductImage> images;
+    
 //
 //    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 //    private List<OrderDetail> orderDetails;

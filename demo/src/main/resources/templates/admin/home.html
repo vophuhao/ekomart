@@ -31,7 +31,9 @@
 		<div th:replace="~{admin/fragments/sidebar::sidebar}"></div>
 
 		<div class="right-area-body-content">
+				<div th:replace="~{admin/fragments/header::header}"></div>
 			<div class="body-root-inner">
+			
 				<div layout:fragment="content"></div>
 			</div>
 		</div>
