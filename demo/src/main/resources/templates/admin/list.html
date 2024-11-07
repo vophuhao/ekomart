@@ -47,6 +47,7 @@
 						<thead class="mb--20">
 							<tr>
 								<th>STT</th>
+								<th>Category Image</th>
 								<th>Category ID</th>
 								<th>Category Name</th>
 								<th>Deploy</th>
@@ -56,15 +57,22 @@
 						<tbody>
 
 							<tr th:each="cate : ${categories}">
-								<td width="30%">
+								<td width="10%">
 
 									<div class="name">
 										<p th:text="${cate.id}"></p>
 									</div>
 
 								</td>
+								<td width="30%">
+
+									<div class="item-image-and-name">
+										<img th:src="${'/admin/categories/images/' + cate.image}" alt="">
+									</div>
+
+								</td>
 								<td>
-									<div class="name">
+									<div class="name" style="color:black;font-weight:bold">
 										<p th:text="${cate.categoryId}"></p>
 									</div>
 								</td>
@@ -80,13 +88,8 @@
 								</td>
 								<td class="text-end">
 									<div class="between-stock-table action">
-										<img src="/admin/images/grocery/%6015.png" alt="">
-										<div class="action-edit-deleate">
-<!-- 											<a class="rts-btn btn-primary menu-btn"
-												th:href="@{'/admin/categories/edit/'+ ${cate.id}}">Edit</a> -->
-											<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="|getCategoryById('${cate.id}')|"
-												>Edit</button> 
-											<span>Delete</span>
+											<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="getCategoryById('${cate.id}')|">Edit</button> 
+											<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="getCategoryById('${cate.id}')|">Delete</button> 
 										</div>
 									</div>
 								</td>

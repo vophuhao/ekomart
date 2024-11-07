@@ -1,5 +1,5 @@
-package vn.iotstar.repository.admin;
 
+package vn.iotstar.repository;
 
 import java.util.Optional;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import vn.iotstar.entity.Product;
 
 @Repository
-public interface AdminProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 	 Optional<Product> findByProductId(String productId);	
 	 
 	 Optional<Product> findByDisplay(int display);

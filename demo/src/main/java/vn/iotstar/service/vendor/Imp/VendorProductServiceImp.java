@@ -8,16 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.iotstar.entity.Product;
-import vn.iotstar.entity.Shop;
-import vn.iotstar.repository.vendor.VendorProductRepository;
-import vn.iotstar.repository.vendor.VendorShopRepository;
+import vn.iotstar.repository.ProductRepository;
 import vn.iotstar.service.vendor.VendorIProductService;
 
 @Service
 public class VendorProductServiceImp implements VendorIProductService {
 
 	@Autowired
-	VendorProductRepository productRepository;
+	ProductRepository productRepository;
 	
 
 	@Override

@@ -76,7 +76,7 @@
 	 -->
 
 	<div id="anywhere-home"></div>
-	<form th:action="@{/admin/categories/save}" method="POST" th:object="${category}">
+	<form th:action="@{/admin/categories/save}" method="POST" th:object="${category}" enctype="multipart/form-data" >
 		<div id="side-bar"
 			class="side-bar header-two right-collups-add-product">
 			<button class="close-icon-menu" type="button">
@@ -87,10 +87,6 @@
 				<p>Save information of category</p>
 			</div>
 			<div class="input-main-wrapper">
-				<div class="single-input">
-					<label for="id">ID</label> <input type="text"
-						id="id" name="id" placeholder=""></input>
-				</div>
 				<div class="single-input">
 					<label for="categoryName">Category Name</label> <input type="text"
 						id="categoryName" name="categoryName" placeholder=""></input>
@@ -103,7 +99,24 @@
 					<label> <input type="checkbox" id="status" name="status"
 						value="1"> Active
 					</label>
+				</div>			
+				<div class="single-input">
+					<script type="text/javascript">
+					function chooseFile(fileInput) {
+						if (fileInput.files && fileInput.files[0]) {
+							var reader = new FileReader();
+							reader.onload = function(e) {
+								$('#images').attr("src", e.target.result);
+							}
+							reader.readAsDataURI(fileInput.files[0]);
+						}
+					}
+				</script>
+				<img id="images">
+				<label >Category Image</label> 
+				<input type="file" name="imageFile" id="imageFile" aria-describedby="imageFile" onchange="chooseFile(this)" />
 				</div>
+				
 				<div class="button-area-botton-wrapper-p-list">
 					<button class="rts-btn btn-primary" type="submit">Save</button>
 					<button class="rts-btn btn-primary bg-transparent" type="button">Cancel</button>
@@ -112,7 +125,7 @@
 		</div>
 	</form>
 
-	
+
 	<!-- all plugins js here -->
 	<script src="/admin/js/plugins.js"></script>
 	<script

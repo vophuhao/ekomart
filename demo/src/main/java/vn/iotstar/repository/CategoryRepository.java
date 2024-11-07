@@ -1,4 +1,4 @@
-package vn.iotstar.repository.admin;
+package vn.iotstar.repository;
 
 import java.util.Optional;
 
@@ -8,11 +8,6 @@ import org.springframework.stereotype.Repository;
 import vn.iotstar.entity.Category;
 
 @Repository
-public interface AdminCategoryRepository extends JpaRepository<Category, Long> {
-
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 	 Optional<Category> findByCategoryId(String categoryId);
-	 
 }
-
-	
-
