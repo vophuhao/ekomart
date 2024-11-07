@@ -14,7 +14,7 @@ import vn.iotstar.entity.Product;
 import vn.iotstar.service.vendor.VendorIProductService;
 
 @Controller
-@RequestMapping("/vendor/{shopId}/products") // id goc cua shop 
+@RequestMapping("/vendor/products") // id goc cua shop 
 public class VendorProductController {
 
     @Autowired
@@ -46,7 +46,15 @@ public class VendorProductController {
 
         return "vendor/product-list";
     }
-
+    @GetMapping("/add")
+    public String addProduct() {
+    	return "vendor/product-add";
+    }
+    @GetMapping("/list")
+    public String listProduct() {
+    	return "vendor/product-list";
+    }
+    
     @GetMapping("/display/{id}")
     public String edit(@PathVariable("id") long id, Model model) {
         Product product = productService.getById(id);
