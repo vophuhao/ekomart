@@ -39,16 +39,12 @@ public class Product implements Serializable {
     private String productId;
     private String name;
     private String description;
-    private double price;
-    private int life; // in months
+    private double price;  
     private int count;
     private int sold;
     private int status;
     private int display;
     
-    private LocalDate date;
-
-	
 	@ManyToOne  
 	@JoinColumn(name = "categoryId") 
 	private Category category;

@@ -1,0 +1,78 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/home.html}" >
+    <!-- vendor-grid-top-area start -->
+<div layout:fragment="content">
+    <div class="vendor-grid-top-search-area" >
+        <h5 class="title">Vendors Card</h5>
+        <form action="#" class="input-area-search-head-vendor">
+            <input type="text" placeholder="Search vendors (by name or ID)...">
+            <a href="#" class="rts-btn btn-primary radious-sm with-icon">
+                <div class="btn-text">
+                    Search
+                </div>
+                <div class="arrow-icon">
+                    <i class="fa-light fa-magnifying-glass"></i>
+                </div>
+                <div class="arrow-icon">
+                    <i class="fa-light fa-magnifying-glass"></i>
+                </div>
+            </a>
+        </form>
+    </div>
+    <!-- vendor-grid-top-area end -->
+     <div class="vendor-list-main-wrapper">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Vendors</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td width="40%">
+                                <a href="#" class="itemside">
+                                    <div class="left">
+                                        <img src="/admin/images/vendor/01.svg" class="img-sm img-avatar" alt="Userpic">
+                                    </div>
+                                    <div class="info pl-3">
+                                        <h6 class="title">Food Forulard</h6>
+                                        <div class="stars-wrapper">
+                                            <div class="stars">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                            </div>
+                                            <span>4.50 out of 5</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </td>
+                            <td><p>
+                                530 Post Ct  El Dorado Hills California, United States
+                            </p></td>
+                            
+                            <td>
+                            	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Duyet</button>
+									<!-- The Modal -->
+								
+							</td>
+                            <td class="text-end">
+                                <a href="#" class="rts-btn btn-primary " style="display:inline !important">View details</a>
+                            </td>
+                        </tr>
+                       
+                                               
+                    </tbody>
+                </table>
+                <!-- table-responsive.// -->
+            </div>
+        </div>
+     </div>
