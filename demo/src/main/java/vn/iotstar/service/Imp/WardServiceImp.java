@@ -3,10 +3,8 @@ package vn.iotstar.service.Imp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.iotstar.entity.WardEntity;
-import vn.iotstar.model.District;
 import vn.iotstar.model.Ward;
 import vn.iotstar.repository.WardRepository;
-import vn.iotstar.service.IDistrictService;
 import vn.iotstar.service.IWardService;
 
 import java.util.ArrayList;

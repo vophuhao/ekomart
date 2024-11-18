@@ -7,11 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.springframework.web.client.RestTemplate;
 import vn.iotstar.entity.AddressShop;
 import vn.iotstar.entity.IdentificationInfo;
 import vn.iotstar.entity.Shop;
@@ -30,7 +28,7 @@ public class RegisterVendorController {
 	private IUserService userServicer;
 	
 	@GetMapping("/form1")
-	public String showForm1(ModelMap model,HttpSession session) {
+	public String showForm1(ModelMap model) {
 		Optional<UserInfo> user = userServicer.findById(2);
 		Shop shop = new Shop();
 		AddressShop address = new AddressShop();
@@ -47,7 +45,7 @@ public class RegisterVendorController {
 	}
 
 	@PostMapping("/save")
-	public String registerSuccess(@Valid Shop shop, BindingResult result, ModelMap model) {
+	public String registerSuccess(@Valid Shop shop, BindingResult result) {
 		if (result.hasErrors()) {
 			return "vendor/register-shop-form1";
 		}
