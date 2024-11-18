@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <div class="sidebar_left" th:fragment="sidebar">
             <a href="index.html" class="logo">
                 <img src="/admin/images/logo/logo.svg" alt="logo" height="32" width="131">
@@ -17,17 +19,7 @@
                         <li><a class="mobile-menu-link" href="#">Coming Soon</a></li>
                     </ul>
                 </li>
-                   <li class="single-menu-item">
-                    <a href="#" class="with-plus">
-                        <img src="/admin/images/icons/04.svg" alt="icon" class="icon">
-                        <p>Category</p>
-                    </a>
-                    <ul class="submenu mm-collapse parent-nav">
-                        <li><a class="mobile-menu-link" th:href="@{http://localhost:8888/admin/categories}">List</a></li>
-                        <li><a class="mobile-menu-link" href="#">Edit</a></li>
-                    </ul>
-                </li>
-                <!-- signle menu item -->
+                  
                 <!-- single menu item -->
                 <li class="single-menu-item">
                     <a href="#" class="with-plus">
@@ -35,8 +27,8 @@
                         <p>Order</p>
                     </a>
                     <ul class="submenu mm-collapse parent-nav">
-                        <li><a class="mobile-menu-link" href="order.html">Order</a></li>
-                        <li><a class="mobile-menu-link" href="order-details.html">Order Details</a></li>
+                        <li><a class="mobile-menu-link" th:href="@{/vendor/oder/list}">Order</a></li>
+                        <li><a class="mobile-menu-link" th:href="@{/vendor/oder/detail}">Order Details</a></li>
                     </ul>
                 </li>
                 <!-- signle menu item -->
@@ -47,36 +39,24 @@
                         <p>Product</p>
                     </a>
                     <ul class="submenu mm-collapse parent-nav">
-                        <li><a class="mobile-menu-link" href="product-list.html">product List</a></li>
+                        <li><a class="mobile-menu-link"  th:href="@{/vendor/products/list}">product List</a></li>
+                    </ul>
+                    <ul class="submenu mm-collapse">
+                        <li><a class="mobile-menu-link" th:href="@{/vendor/products/add}">Add Product</a></li>
                     </ul>
                 </li>
                 <!-- signle menu item -->
-                <!-- single menu item -->
-                <!-- signle menu item -->
+               
                 <!-- single menu item -->
                 <li class="single-menu-item">
                     <a href="#" class="with-plus">
                         <img src="/admin/images/icons/03.svg" alt="icon" class="icon">
                         <p>Add Product</p>
                     </a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="add-product.html">Add Product</a></li>
-                    </ul>
+                    
                 </li>
                 <!-- signle menu item -->
-                <!-- single menu item -->
-                <li class="single-menu-item">
-                    <a href="#" class="with-plus">
-                        <img src="/admin/images/icons/04.svg" alt="icon" class="icon">
-                        <p>Vendor</p>
-                    </a>
-                    <ul class="submenu mm-collapse parent-nav">
-                        <li><a class="mobile-menu-link" href="vendor-grid.html">Vendor Grid</a></li>
-                        <li><a class="mobile-menu-link" th:href="@{/admin/vendor/list}">Vendor List</a></li>
-                        <li><a class="mobile-menu-link" href="vendor-details.html">Vendor Details</a></li>
-                    </ul>
-                </li>
-                <!-- signle menu item -->
+         
                 <!-- single menu item -->
                 <li class="single-menu-item">
                     <a href="transaction.html">
@@ -93,14 +73,7 @@
                     </a>
                 </li>
                 <!-- signle menu item -->
-                <!-- single menu item -->
-                <li class="single-menu-item">
-                    <a href="brand.html">
-                        <img src="/admin/images/icons/16.svg" alt="icon" class="icon">
-                        <p>Brand</p>
-                    </a>
-                </li>
-                <!-- signle menu item -->
+              
                 <!-- single menu item -->
                 <li class="single-menu-item">
                     <a href="#" class="with-plus">

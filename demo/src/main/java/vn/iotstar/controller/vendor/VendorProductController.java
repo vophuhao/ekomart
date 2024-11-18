@@ -1,25 +1,43 @@
 package vn.iotstar.controller.vendor;
 
-import java.util.List;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 import jakarta.validation.Valid;
+import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
+import vn.iotstar.model.CategoryModel;
+import vn.iotstar.model.productModel;
+import vn.iotstar.service.IStorageService;
+import vn.iotstar.service.admin.AdminICategoryService;
 import vn.iotstar.service.vendor.VendorIProductService;
 
 @Controller
-@RequestMapping("/vendor/{shopId}/products") // id goc cua shop 
+@RequestMapping("/vendor/products") // id goc cua shop 
 public class VendorProductController {
 
     @Autowired
     VendorIProductService productService;
-
+    
+    @Autowired
+    AdminICategoryService categoryService;
+    
+    
+    
+    @Autowired 
+    IStorageService storageService;
+    
+    
     @GetMapping("")
     public String listProduct(@PathVariable("id") Long id, ModelMap model, 
                               @RequestParam(value = "name", required = false) String productName,
@@ -46,7 +64,51 @@ public class VendorProductController {
 
         return "vendor/product-list";
     }
-
+    @GetMapping("/add")
+    public String addProduct(Model model) {
+    	
+    	List<Category> categoryList=categoryService.findAll();
+    	model.addAttribute("cateList",categoryList);
+    	System.out.print(categoryList);
+    	return "vendor/product-add";
+    }
+    @GetMapping("/list")
+    public String listProduct() {
+    	return "vendor/product-list";
+    }
+    
+    @PostMapping("/add")
+    public ModelAndView addNewProduct(@Valid @ModelAttribute("products") productModel productModel ,
+	        BindingResult result,
+	        RedirectAttributes redirectAttributes)
+    {
+    	if(result.hasErrors()) {
+	        return new ModelAndView("vendor/product-list", "products", productModel);
+	    }
+    	Category cate=new Category();
+    	cate=categoryService.getById(productModel.getCategoryId());
+    	System.out.print(cate);
+	    Product entity = new Product();
+	    BeanUtils.copyProperties(productModel, entity);
+	    entity.setCategory(cate);
+	    entity.setStatus(0);
+	    entity.setDisplay(0);
+	   entity.setShop(null);
+	    if(!productModel.getRts_images1().isEmpty()) {
+	    	//lưu file vào trường poster
+	    	UUID uuid = UUID.randomUUID();
+	    	String uuString = uuid.toString();
+	    	entity.setImage (storageService.getSorageFilename(productModel.getRts_images1(), uuString));
+	    	storageService.store(productModel.getRts_images1(), entity.getImage());
+	    	}
+	    
+	    System.out.print(entity);
+	   productService.save(entity);
+	    redirectAttributes.addFlashAttribute("message", "Product saved successfully!");
+	    return new ModelAndView("redirect:/vendor/products/list");
+    }
+    
+    
     @GetMapping("/display/{id}")
     public String edit(@PathVariable("id") long id, Model model) {
         Product product = productService.getById(id);

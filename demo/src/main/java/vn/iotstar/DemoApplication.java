@@ -20,7 +20,7 @@ public class DemoApplication {
 	@Bean
 	CommandLineRunner init(IStorageService storageService) {
 		return (args) -> {
-			storageService.deleteAll();
+			
 			storageService.init();
 		};
 	}

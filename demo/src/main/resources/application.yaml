@@ -11,7 +11,7 @@ spring:
 #    password: password
     url: "jdbc:mysql://localhost:3306/ekomart"
     username: root
-    password: Munlatrang.04
+    password: 1234
 
     #db cua tiendat
 #    url: "jdbc:mysql://localhost:3306/springb3_security6"
@@ -60,4 +60,5 @@ storage:
 #            required: true
 #          ssl:
 #            protocols: TLSv1.2
+
 
