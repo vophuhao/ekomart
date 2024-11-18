@@ -32,14 +32,14 @@ public class AddressShop implements Serializable {
 
 	private String addressName;    // mun them phan name và sdt 
 	private String addressSdt;
-	private String province;
-	private String district;
-	private String street;   // mun them phần phường 
+	private Long provinceId;
+	private Long districtId;
+	private Long streetId;
 	private String detail;
 
 	
 	@OneToOne(mappedBy = "address")
 	private Shop shop;
-	 
+
 
 }

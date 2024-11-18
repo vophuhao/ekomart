@@ -1173,7 +1173,7 @@ const getCategoryById = (id) => {
 			id.value = category?.id
 			categoryName.value = category?.categoryName
 			categoryId.value = category?.categoryId
-			status.checked = category?.status == 1 ? true : false
+			status.checked = category?.status === 1
 
 		})
 }
@@ -1192,7 +1192,7 @@ const addCategory = () => {
 			id.value = category?.id
 			categoryName.value = category?.categoryName
 			categoryId.value = category?.categoryId
-			status.checked = category?.status == 1 ? true : false
+			status.checked = category?.status === 1
 		})
 }
 
