@@ -1,14 +1,12 @@
 package vn.iotstar.entity;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,9 +19,7 @@ import lombok.NoArgsConstructor;
 
 public class AddressShop implements Serializable {
 
-	/**
-	 * 
-	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,14 +28,14 @@ public class AddressShop implements Serializable {
 
 	private String addressName;    // mun them phan name và sdt 
 	private String addressSdt;
-	private String province;
-	private String district;
-	private String street;   // mun them phần phường 
+	private Long provinceId;
+	private Long districtId;
+	private Long streetId;
 	private String detail;
 
 	
 	@OneToOne(mappedBy = "address")
 	private Shop shop;
-	 
+
 
 }
