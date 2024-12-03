@@ -8,7 +8,7 @@ spring:
   datasource:
     url: "jdbc:mysql://localhost:3306/ekomart"
     username: root
-    password: 1234
+    password: baynhet
 
     #db cua tiendat
 #    url: "jdbc:mysql://localhost:3306/springb3_security6"
