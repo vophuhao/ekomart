@@ -4,4 +4,6 @@ import java.util.List;
 
 public interface IDistrictService {
     List<District> findAllByProvinceId(Long provinceId);
+    String getNameById(Long id);
 }
+

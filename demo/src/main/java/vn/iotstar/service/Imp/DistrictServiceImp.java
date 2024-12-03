@@ -31,4 +31,9 @@ public class DistrictServiceImp implements IDistrictService {
         }
         return districts;
     }
+
+    @Override
+    public String getNameById(Long id) {
+        return districtRepository.findById(id).get().getName();
+    }
 }

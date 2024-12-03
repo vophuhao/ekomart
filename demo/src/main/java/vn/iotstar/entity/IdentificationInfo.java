@@ -3,6 +3,8 @@ package vn.iotstar.entity;
 import java.io.Serial;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +28,7 @@ public class IdentificationInfo implements Serializable{
 	private Long id;
 
 	private String type;
-	private String number;
+	private String numberi;
 	private String name;
 	private String beforeImage;
 	private String afterImage;

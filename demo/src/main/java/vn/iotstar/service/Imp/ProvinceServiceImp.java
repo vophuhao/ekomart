@@ -31,4 +31,9 @@ public class ProvinceServiceImp implements IProvinceService {
         }
         return provinces;
     }
+
+    @Override
+    public String getNameById(Long id) {
+        return provinceRepository.findById(id).get().getSlug();
+    }
 }

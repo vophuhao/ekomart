@@ -1196,6 +1196,43 @@ const addCategory = () => {
 		})
 }
 
+const getVendorById = (id) => {
+	fetch(`http://localhost:8888/api/v1/admin/vendor/approve/${id}`)
+		.then(resp => { return resp.json() })
+		.then(vendor => {
+			console.log(vendor)
+			const id = document.getElementById("vendorId")
+			id.value = vendor?.id
+
+		})
+}
+
+const getVendorDetailById = (id) => {
+	fetch(`http://localhost:8888/api/v1/admin/vendor/details/${id}`)
+		.then(resp => { return resp.json() })
+		.then(vendor => {
+			console.log(vendor)
+			const id = document.getElementById("vendorId")
+			const addressName = document.getElementById("addressName")
+			const addressSdt = document.getElementById("addressSdt")
+			const provinceId = document.getElementById("provinceId")
+			const type = document.getElementById("type")
+			const numberi = document.getElementById("numberi")
+			const name = document.getElementById("name")
+			const beforeImage = document.getElementById("beforeImage")
+			const afterImage = document.getElementById("afterImage")
+
+			id.value = vendor?.id
+			addressName.value = vendor?.address.addressName
+			addressSdt.value=vendor?.address.addressSdt
+			provinceId.value = vendor?.address.detail + " , " + vendor?.ward + " , " + vendor?.district + " , " + vendor?.province
+			type.value=vendor?.info.type
+			numberi.value = vendor?.info.numberi
+			name.value=vendor?.info.name
+			beforeImage.value = vendor?.info.beforeImage
+			afterImage.value=vendor?.info.afterImage
+		})
+}
 
 
 

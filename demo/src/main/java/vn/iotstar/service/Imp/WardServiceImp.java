@@ -30,4 +30,9 @@ public class WardServiceImp implements IWardService {
         }
         return wards;
     }
+
+    @Override
+    public String getNameById(Long districtId) {
+        return wardRepository.findById(districtId).get().getName();
+    }
 }

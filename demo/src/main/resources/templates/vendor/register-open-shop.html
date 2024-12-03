@@ -72,16 +72,16 @@
 							<div>Form of identification: </div>
 
 							<input class="form-check-input stored" type="radio" name="type" id="cccd" th:field="*{info.type}"
-								   value="cccd" checked />
+								   value="Identity Card" checked />
 							<label class="form-check-label" for="cccd">Identity Card</label>
 
 							<input class="form-check-input stored" type="radio" name="type" id="hochieu" th:field="*{info.type}"
-								   value="hochieu" />
+								   value="Passport" />
 							<label class="form-check-label" for="hochieu">Passport</label><br>
 
 							<div class="single-input">
 								<label class="form-label" for="typeNumber">Identity number</label>
-								<input type="text" id="typeNumber" class="form-control form-control-lg" th:field="*{info.number}"/>
+								<input type="text" id="typeNumber" class="form-control form-control-lg" th:field="*{info.numberi}"/>
 							</div>
 						</div>
 

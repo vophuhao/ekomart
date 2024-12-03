@@ -136,24 +136,111 @@
 		</div>
 	</form>
 
-						<div class="modal fade" id="myModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content" style="height:300px">
-									<div class="modal-header">
-								        <h2 class="modal-title">Modal title</h2>
-								        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								      </div>
-										<!-- Modal body -->
-										<div class="modal-body"><h2>Ban có muốn duyệt cho shop này</h2></div>
-						
-										<!-- Modal footer -->
-										 <div class="modal-footer" style="height:20%">
-							        		   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width:25%;height:80%">Close</button>
-        										<button type="button" class="btn btn-primary" style="width:30%;height:80%">Save changes</button>
-						      			</div>
-									</div>
+	<form th:action="@{/admin/vendor/update}" method="POST"
+		  th:object="${vendor}" enctype="multipart/form-data">
+		<div class="modal fade" id="myModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content" style="height:300px">
+					<div class="modal-header">
+						<h2 class="modal-title">Modal title</h2>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					  </div>
+						<!-- Modal body -->
+						<div class="modal-body"><h2>Ban có muốn duyệt cho shop này</h2>
+
+							<!--Id gốc phải để lại để controller nó biết là đang edit,chỉ ẩn nó thâu-->
+							<div class="single-input" style="display: none">
+								<label for="vendorId">Id</label>
+								<input type="text" id="vendorId" name="id" placeholder="">
+							</div>
+
+							<label>
+								<input type="radio" value="1" id="approve" name="display"> Approve
+							</label>
+
+							<label>
+								<input type="radio" value="-1" id="reject" name="display"> Reject
+							</label>
+
+						</div>
+						<!-- Modal footer -->
+						 <div class="modal-footer" style="height:20%">
+							   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width:25%;height:80%">Close</button>
+								<button type="submit" class="btn btn-primary" style="width:30%;height:80%">Save changes</button>
+						</div>
+					</div>
+				</div>
+		</div>
+	</form>
+
+	<form th:action="@{/admin/vendor/update}" method="POST" th:object="${vendor}" enctype="multipart/form-data">
+		<div class="modal fade" id="shopDetailModal" aria-hidden="true" aria-labelledby="shopDetailModalLabel" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title" id="shopDetailModalLabel" style="color:#629D23">Shop Detail</h2>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<!-- Address Section -->
+					<div class="modal-body">
+						<fieldset>
+							<legend><strong style="color:black">Address Shop</strong></legend>
+							<div class="row mb-10">
+								<div class="col-md-6">
+									<label for="addressName" class="form-label">Name</label>
+									<input type="text" id="addressName" name="addressName" class="form-control py-3" readonly>
 								</div>
+								<div class="col-md-6">
+									<label for="addressSdt" class="form-label">Phone Number</label>
+									<input type="text" id="addressSdt" name="addressSdt" class="form-control py-3" readonly>
 								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<label for="provinceId" class="form-label">Address</label>
+									<input type="text" id="provinceId" name="provinceId" class="form-control py-3"
+										   readonly>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+
+					<!-- Identification Section -->
+					<div class="modal-body">
+						<fieldset>
+							<legend><strong style="color:black">Identification Information</strong></legend>
+							<div class="row mb-10">
+								<div class="col-md-2">
+									<label for="type" class="form-label">Type</label>
+									<input type="text" id="type" name="type" class="form-control py-3" readonly>
+								</div>
+								<div class="col-md-5">
+									<label for="numberi" class="form-label">Identification Number</label>
+									<input type="text" id="numberi" name="numberi" class="form-control py-3" readonly>
+								</div>
+								<div class="col-md-5">
+									<label for="name" class="form-label">Name</label>
+									<input type="text" id="name" name="name" class="form-control py-3" readonly>
+								</div>
+							</div>
+							<div class="row mb-10">
+								<div class="col-md-6">
+									<label for="beforeImage" class="form-label">Before Image</label>
+									<input type="image" id="beforeImage" name="beforeImage" class="cccd-image" readonly>
+								</div>
+								<div class="col-md-6">
+									<label for="afterImage" class="form-label">After Image</label>
+									<input type="image" id="afterImage" name="afterImage" class="cccd-image" readonly>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
 	<!-- all plugins js here -->
 	<script src="/admin/js/plugins.js"></script>
 	<script

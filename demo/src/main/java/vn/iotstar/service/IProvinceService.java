@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IProvinceService {
     List<Province> findAll();
+    String getNameById(Long id);
 }
