@@ -2,11 +2,13 @@ package vn.iotstar.controller.admin;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import vn.iotstar.entity.AddressShop;
 import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Shop;
 import vn.iotstar.model.CategoryModel;
@@ -37,24 +39,28 @@ public class VendorRestController {
     }
     @GetMapping("/details/{id}")
     public VendorModel showDetails(@PathVariable("id") Long id) {
-        Optional<Shop> optShop = adminShopService.findById(id);
-        Long provinceId = optShop.get().getAddress().getProvinceId();
-        Long districtId = optShop.get().getAddress().getDistrictId();
-        Long streetId = optShop.get().getAddress().getStreetId();
+        Optional<Shop> shop = adminShopService.findById(id);
+        if (shop.isPresent()) {
 
-        String province = provinceService.getNameById(provinceId);
-        String district = districtService.getNameById(districtId);
-        String ward = wardService.getNameById(streetId);
+            AddressShop address = shop.get().getAddress();
 
-        VendorModel vendorModel = new VendorModel();
-        vendorModel = VendorModel.toDTO(optShop.get());
-        vendorModel.setProvince(province);
-        vendorModel.setDistrict(district);
-        vendorModel.setWard(ward);
-        // Convert the Shop entity to VendorModel
-        return vendorModel;
+            String province = provinceService.getNameById(address.getProvinceId());
+            String district = districtService.getNameById(address.getDistrictId());
+            String ward = wardService.getNameById(address.getStreetId());
+
+            VendorModel vendorModel = VendorModel.toDTO(shop.get());
+            vendorModel.setProvince(province);
+            vendorModel.setDistrict(district);
+            vendorModel.setWard(ward);
+
+            return vendorModel;
+        }
+        else {
+            return null;
+        }
 
     }
+
 
 
 
