@@ -35,6 +35,6 @@ public class homeController {
 //        String username = jwtUtil.extractUsername(token);
 //		
 //        model.addAttribute("Name", username);
-		return "page/home";
+		return "page/home-content";
 	}
 }
