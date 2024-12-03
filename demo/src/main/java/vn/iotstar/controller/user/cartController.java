@@ -30,6 +30,7 @@ public class cartController {
 	public String paymentCart(@ModelAttribute("productPayment") productPayment ProductPayment, Model model, RedirectAttributes redirectAttributes)
 	{
 		 model.addAttribute("productPayment", new productPayment());
+		 System.out.print(ProductPayment);
 		if (ProductPayment == null) {
 	        // Kiểm tra nếu đối tượng productPayment là null
 	        System.out.println("productPayment is null!");

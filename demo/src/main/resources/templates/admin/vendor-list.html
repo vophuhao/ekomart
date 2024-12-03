@@ -20,11 +20,7 @@
             </a>
         </form>
     </div>
-    private String name;
-    private String avatar;
-    private String description;
-    private String sdt;
-    private String email;
+
     <!-- vendor-grid-top-area end -->
      <div class="vendor-list-main-wrapper">
         <div class="card-body">
@@ -84,9 +80,9 @@
 							</td>
 
                             <td width="10%">
-                                <p th:if="${vendor.display == -1}" th:text="'Rejected'"></p>
-                                <p th:if="${vendor.display == 1}" th:text="'Accepted'"></p>
-                                <button th:if="${vendor.display == 0}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" th:onclick="|getVendorById('${vendor.id}')|">Approve</button>
+                                <p th:if="${vendor.display == -1}" style="color:firebrick" th:text="'Rejected'"></p>
+                                <p th:if="${vendor.display == 1}" style="color:green" th:text="'Accepted'"></p>
+                                <button th:if="${vendor.display == 0}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#vendorModal" th:onclick="|getVendorById('${vendor.id}')|">Approve</button>
                             </td>
 
                             <td width="20%" class="text-end">
@@ -101,3 +97,5 @@
             </div>
         </div>
      </div>
+
+                           

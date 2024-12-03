@@ -17,7 +17,7 @@ public interface AdminIProductService {
 
 	Optional<Product> findByName(String productName);
 
-	Optional<Product> findByStatus(int status);
+	List<Product> findByStatus(int status);
 
 	Optional<Product> findByDisplay(int display);
 

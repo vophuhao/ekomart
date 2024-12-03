@@ -13,12 +13,8 @@ spring:
 #    url: "jdbc:mysql://localhost:3306/ekomart"
 #    username: root
 #    password: 1234
-#    password: Munlatrang.04
 
-    #db cua tiendat
-#    url: "jdbc:mysql://localhost:3306/springb3_security6"
-#    username: security_su
-#    password: 1234567@a$
+
   servlet:
    multipart:
      enabled: true
