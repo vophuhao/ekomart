@@ -62,90 +62,54 @@
 						<div class="title-sp-1">Thành tiền</div>
 					</div>
 				</div>
-				<div class="product-list">
-					<div class="product-info">
-						<div class="pro-shop">Shop Genshin Impact</div>
-						<div class="product">
-							<div class="product-info-1">
-								<div style="flex: 4">
-									<img class="img-pro"
-										src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/11/Genshin-Impact-Nahida.jpg">
-									<span>Nahida</span>
+				<form th:action="@{/cart/payment}" th:method="post">
+					<!-- <div th:each="item, i : ${cart.items}"> -->
+						<div class="product-list">
+							<div class="product-info">
+								<div class="pro-shop">Shop Genshin Impact</div>
+								<div class="product">
+									<div class="product-info-1">
+										<div style="flex: 4">
+											<img class="img-pro"
+												src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/11/Genshin-Impact-Nahida.jpg">
+											<span>Nahida</span>
+										</div>
+										<span style="flex: 2">Loại: Cute pho mai que</span> 
+										<span
+											class="title-sp-1">100.000</span> 
+											<span class="title-sp-1">1</span>
+										<span class="title-sp-1">100.000</span>
+									</div>
 								</div>
-								<span style="flex: 2">Loại: Cute pho mai que</span> <span
-									class="title-sp-1">100.000</span> <span class="title-sp-1">1</span>
-								<span class="title-sp-1">100.000</span>
-							</div>
-						</div>
-						<div class="voucher-shop">
-							<div></div>
-							<div class="voucher-shop-info">
-								<div style="display: flex; justify-content: space-between">
-									<span>Voucher của Shop</span>
-									<button class="btn-voucher">Chọn voucher</button>
+								<div class="voucher-shop">
+									<div></div>
+									<div class="voucher-shop-info">
+										<div style="display: flex; justify-content: space-between">
+											<span>Voucher của Shop</span>
+											<button class="btn-voucher">Chọn voucher</button>
+										</div>
+									</div>
+								</div>
+								<div class="ptvanchuyen">
+									<div class="message">
+										<span style="display: flex; width: 80px;">Lời nhắn:</span> <input class="luuy"
+											placeholder="Lưu ý cho người bán"></input>
+									</div>
+									<div class="vanchuyen">
+										<span style="flex: 5">Phương thức vận chuyển:</span>
+										<span style="flex: 4" class="shippingMethod">Chuẩn</span>
+										<button class="changeButton" style="flex: 4; color: #05a !important;">Thay đổi</button>
+										<span style="flex: 4; text-align: right;" class="shippingCost">20.000</span>
+									</div>
+								</div>
+								<div class="tongtien">
+									<span>Tổng tiền: 100.000</span>
 								</div>
 							</div>
-						</div>
-						<div class="ptvanchuyen">
-							<div class="message">
-								<span style="display: flex; width: 80px;">Lời nhắn:</span> <input class="luuy"
-									placeholder="Lưu ý cho người bán"></input>
-							</div>
-							<div class="vanchuyen">
-								<span style="flex: 5">Phương thức vận chuyển:</span>
-								<span style="flex: 4" class="shippingMethod">Chuẩn</span>
-								<button class="changeButton" style="flex: 4; color: #05a !important;">Thay đổi</button>
-								<span style="flex: 4; text-align: right;" class="shippingCost">20.000</span>
-							</div>
-						</div>
-						<div class="tongtien">
-							<span>Tổng tiền: 100.000</span>
 						</div>
 					</div>
-				</div>
-
-				<div class="product-list">
-					<div class="product-info">
-						<div class="pro-shop">Shop Genshin Impact</div>
-						<div class="product">
-							<div class="product-info-1">
-								<div style="flex: 4">
-									<img class="img-pro"
-										src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/11/Genshin-Impact-Nahida.jpg">
-									<span>Nahida</span>
-								</div>
-								<span style="flex: 2">Loại: Cute pho mai que</span> <span
-									class="title-sp-1">100.000</span> <span class="title-sp-1">1</span>
-								<span class="title-sp-1">100.000</span>
-							</div>
-						</div>
-						<div class="voucher-shop">
-							<div></div>
-							<div class="voucher-shop-info">
-								<div style="display: flex; justify-content: space-between">
-									<span>Voucher của Shop</span>
-									<button class="btn-voucher">Chọn voucher</button>
-								</div>
-							</div>
-						</div>
-						<div class="ptvanchuyen">
-							<div class="message">
-								<span style="display: flex; width: 80px;">Lời nhắn:</span> <input class="luuy"
-									placeholder="Lưu ý cho người bán"></input>
-							</div>
-							<div class="vanchuyen">
-								<span style="flex: 5">Phương thức vận chuyển:</span>
-								<span style="flex: 4" class="shippingMethod">Chuẩn</span>
-								<button class="changeButton" style="flex: 4; color: #05a !important;">Thay đổi</button>
-								<span style="flex: 4; text-align: right;" class="shippingCost">20.000</span>
-							</div>
-						</div>
-						<div class="tongtien">
-							<span>Tổng tiền: 100.000</span>
-						</div>
-					</div>
-				</div>
-			</div>
+				</form>
+				
 			<div style="margin-top: -13px;">
 				<div class="pro-voucher">
 					<span>Eko Voucher</span>

@@ -57,7 +57,7 @@ public class VendorProductServiceImp implements VendorIProductService {
 
 	@Override
 	public List<Product> findByStatus(int status,Long shopId) {
-		 Optional<Product> products = productRepository.findByStatus(status);
+		 List<Product> products = productRepository.findByStatus(status);
 		 return products.stream()
                  .filter(pro -> pro.getShop() != null && pro.getShop().getId().equals(shopId))
                  .collect(Collectors.toList()); // Collect results into a List

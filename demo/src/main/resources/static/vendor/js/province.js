@@ -1,62 +1,76 @@
 $(document).ready(function () {
-  //Lấy tỉnh thành
-  $.getJSON("https://esgoo.net/api-tinhthanh/1/0.htm", function (data_tinh) {
-    if (data_tinh.error == 0) {
-      $.each(data_tinh.data, function (key_tinh, val_tinh) {
-        $("#tinh").append(
-          '<option value="' +
-            val_tinh.id +
-            '">' +
-            val_tinh.full_name +
-            "</option>"
-        );
-      });
-      $("#tinh").change(function (e) {
-        var idtinh = $(this).val();
-        //Lấy quận huyện
-        $.getJSON(
-          "https://esgoo.net/api-tinhthanh/2/" + idtinh + ".htm",
-          function (data_quan) {
-            if (data_quan.error == 0) {
-              $("#quan").html('<option value="0">Quận Huyện</option>');
-              $("#phuong").html('<option value="0">Phường Xã</option>');
-              $.each(data_quan.data, function (key_quan, val_quan) {
-                $("#quan").append(
-                  '<option value="' +
-                    val_quan.id +
-                    '">' +
-                    val_quan.full_name +
-                    "</option>"
-                );
-              });
-              //Lấy phường xã
-              $("#quan").change(function (e) {
-                var idquan = $(this).val();
-                $.getJSON(
-                  "https://esgoo.net/api-tinhthanh/3/" + idquan + ".htm",
-                  function (data_phuong) {
-                    if (data_phuong.error == 0) {
-                      $("#phuong").html('<option value="0">Phường Xã</option>');
-                      $.each(
-                        data_phuong.data,
-                        function (key_phuong, val_phuong) {
-                          $("#phuong").append(
-                            '<option value="' +
-                              val_phuong.id +
-                              '">' +
-                              val_phuong.full_name +
-                              "</option>"
-                          );
-                        }
-                      );
-                    }
-                  }
-                );
-              });
-            }
-          }
-        );
-      });
-    }
-  });
+    //Lấy tỉnh thành
+
+
+    fetch(`http://localhost:8888/api/v1/vendor/provinces`)
+        .then(resp => {
+            return resp.json()
+        })
+        .then(province => {
+            province.forEach((item) => {
+                $('#tinh').append(
+                    `<option value="${item.id}"> 
+                ${item.slug}
+              </option>`
+                )
+
+            })
+
+        })
+
+    // Load districts when a province is selected
+    $('#tinh').change(function () {
+        var provinceId = $(this).val();
+        $('#huyen').empty().append('<option selected disabled>Select District</option>'); // Clear previous districts
+        $('#phuong').empty().append('<option selected disabled>Select Ward</option>'); // Clear wards as well
+        if (provinceId) {
+            getDistrict(provinceId);
+        }
+    });
+
+    // Load wards when a district is selected
+    $('#huyen').change(function () {
+        var districtId = $(this).val();
+        $('#phuong').empty().append('<option selected disabled>Select Ward</option>'); // Clear previous wards
+        if (districtId) {
+            getWard(districtId);
+        }
+    });
 });
+const getDistrict = (provinceId) => {
+    fetch(`http://localhost:8888/api/v1/vendor/districts/${provinceId}`)
+        .then(resp => {
+            return resp.json()
+        })
+        .then(district => {
+            district.forEach((item) => {
+
+                $('#huyen').append(
+                    `<option value="${item.id}"> 
+                ${item.name}
+              </option>`
+                )
+
+            })
+        })
+
+}
+
+const getWard = (districtId) => {
+    fetch(`http://localhost:8888/api/v1/vendor/wards/${districtId}`)
+        .then(resp => {
+            return resp.json()
+        })
+        .then(ward => {
+            console.log(ward)
+            ward.forEach((item) => {
+                $('#phuong').append(
+                    `<option value="${item.id}"> 
+                ${item.name}
+              </option>`
+                )
+            })
+        })
+}
+
+// $("#phuong option:selected").text()

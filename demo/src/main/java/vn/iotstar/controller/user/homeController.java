@@ -20,21 +20,21 @@ public class homeController {
 	
 	@GetMapping("/home")
 	public String homeView(HttpServletRequest request, Model model) {
-		String token = null;
-		// Lấy cookie từ request
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("JWT".equals(cookie.getName())) {
-                    token = cookie.getValue();
-                    break;
-                }
-            }
-        }
-        
-        String username = jwtUtil.extractUsername(token);
-		
-        model.addAttribute("Name", username);
-		return "page/home";
+//		String token = null;
+//		// Lấy cookie từ request
+//        Cookie[] cookies = request.getCookies();
+//        if (cookies != null) {
+//            for (Cookie cookie : cookies) {
+//                if ("JWT".equals(cookie.getName())) {
+//                    token = cookie.getValue();
+//                    break;
+//                }
+//            }
+//        }
+//        
+//        String username = jwtUtil.extractUsername(token);
+//		
+//        model.addAttribute("Name", username);
+		return "page/home-content";
 	}
 }

@@ -23,8 +23,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import jakarta.validation.Valid;
+import vn.iotstar.DTO.CategoryDTO;
 import vn.iotstar.entity.Category;
 import vn.iotstar.model.CategoryModel;
+
 import vn.iotstar.service.IStorageService;
 import vn.iotstar.service.admin.AdminICategoryService;
 
@@ -49,10 +51,11 @@ public class AdminCategoryController {
 	@RequestMapping("")
 	public String listCategory(ModelMap model)
 	{
-		List<Category> list=categoryService.findAll();
+		List<CategoryDTO> list=categoryService.findAllCategoryDTO();
+	
 		model.addAttribute("categories", list);
-		
-		return "admin/list";
+//		
+		return "admin/category-list";
 	}
 
 	/*

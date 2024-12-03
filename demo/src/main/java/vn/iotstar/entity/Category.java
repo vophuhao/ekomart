@@ -3,6 +3,9 @@
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,6 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@JsonIgnoreProperties({"products"})
 public class Category implements Serializable {
 	
 	/**
@@ -37,6 +41,7 @@ public class Category implements Serializable {
 
 	
 	 @OneToMany(mappedBy = "category", fetch = FetchType.LAZY) 
+	 
 	 private List<Product> products;
 	 
 

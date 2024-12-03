@@ -10,10 +10,10 @@ spring:
     username: root
     password: baynhet
 
-    #db cua tiendat
-#    url: "jdbc:mysql://localhost:3306/springb3_security6"
-#    username: security_su
-#    password: 1234567@a$
+#    url: "jdbc:mysql://100.126.177.112:3306/ekomart"
+#    username: root
+#    password: 1234
+
   servlet:
    multipart:
      enabled: true
@@ -57,4 +57,5 @@ storage:
 #            required: true
 #          ssl:
 #            protocols: TLSv1.2
+
 
