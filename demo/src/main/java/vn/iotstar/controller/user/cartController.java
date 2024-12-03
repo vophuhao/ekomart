@@ -56,30 +56,43 @@ public class cartController {
 	public String paymentCart(@ModelAttribute("productPayment") productPayment ProductPayment, Model model, RedirectAttributes redirectAttributes)
 	{
 		 model.addAttribute("productPayment", new productPayment());
-		 System.out.print(ProductPayment);
-		if (ProductPayment == null) {
-	        // Kiểm tra nếu đối tượng productPayment là null
-	        System.out.println("productPayment is null!");
-	        return "errorPage"; // Hoặc xử lý lỗi thích hợp
-	    }
-		else {
-			
-		 List<SelectedProduct> selectedProducts = ProductPayment.getSelectedProduct();
-				 if (selectedProducts == null) {
-				        // Kiểm tra nếu selectedProducts là null
-				        System.out.println("selectedProducts is null!");
-				        return "errorPage";
-				    }
-				 else
-				 {
-					 selectedProducts = selectedProducts.stream()
-			        .filter(SelectedProduct::getProductSelected)
-			        .collect(Collectors.toList());
-		 	
-					 System.out.print(selectedProducts);
-	       
-				 return "page/cart-payment";}
-		}
+
+		 if (ProductPayment == null) {
+		     // Kiểm tra nếu đối tượng ProductPayment là null
+		     System.out.println("ProductPayment is null!");
+		     return "errorPage"; // Hoặc xử lý lỗi thích hợp
+		 } else {
+		     // Lấy danh sách các sản phẩm từ ProductPayment
+		     List<SelectedProduct> selectedProducts = ProductPayment.getSelectedProduct();
+
+		     if (selectedProducts == null) {
+		         // Nếu danh sách null, in thông báo và chuyển đến trang lỗi
+		         System.out.println("selectedProducts is null!");
+		         return "errorPage";
+		     } else {
+		         // Lọc các sản phẩm có productSelected = true
+		         selectedProducts = selectedProducts.stream()
+		                 .filter(SelectedProduct::getProductSelected) // Điều kiện lọc: productSelected = true
+		                 .collect(Collectors.toList());
+
+		         // Kiểm tra nếu danh sách sau khi lọc rỗng
+		         if (selectedProducts.isEmpty()) {
+		             System.out.println("No selected products found!");
+		             return "errorPage"; // Hoặc trả về trang thông báo khác
+		         }
+
+		         // Thêm danh sách đã lọc vào model để hiển thị trên view
+		         model.addAttribute("selectedProducts", selectedProducts);
+
+		         // In danh sách các sản phẩm đã chọn (dành cho debug)
+		         System.out.println("Selected Products: " + selectedProducts);
+
+		         // Chuyển hướng đến trang thanh toán
+		         return "page/cart-payment";
+		     }
+		 }
+
 	}
+
 }
 

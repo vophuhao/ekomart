@@ -28586,6 +28586,27 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
 [dir=rtl] .rts-ltr-rtl-setting-button-area.active {
   right: 0;
 }
+.address{
+	border: 1px solid #ddd;
+	width:250px;
+	height:200px;
+}
+.nice-select {
+  display: none !important;
+}
+select {
+  display: inline-block !important;
+}
+.total-pay
+{
+	display:block !important;
+	
+	margin: 40px;
+}
+.total-pay p {
+    font-size: 1rem;
+    margin: 0;
+}
 
 .thanhtoan-image{
   display: flex;
@@ -28989,5 +29010,28 @@ html.no-scroll {
 .active-btn {
   border: 2px solid green;
   outline: none;
+}
+
+.total-pay .text-primary {
+    color: #0d6efd; /* Màu xanh dương Bootstrap */
+}
+
+.total-pay .text-success {
+    color: #198754; /* Màu xanh lá Bootstrap */
+}
+
+.payment-method label {
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.payment-method .form-check-input {
+    margin-right: 10px;
+}
+
+.bottom-cupon-code-cart-area .btn {
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 5px;
 }
 /*# sourceMappingURL=../maps/style.css.map */
