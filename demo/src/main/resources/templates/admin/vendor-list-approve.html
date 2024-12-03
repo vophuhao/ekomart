@@ -120,6 +120,32 @@
                                 <i class="fa-solid fa-phone-volume"></i>
                                 <p>+1 (511) 934-8170
                                 </p>
+                            </td>
+
+                            <td width="10%">
+                            	<p th:text="${vendor.status == 0 ? 'Close' : 'Open'}"></p>
+							</td>
+
+                            <td width="10%">
+                                <p th:if="${vendor.display == -1}" th:text="'Rejected'"></p>
+                                <p th:if="${vendor.display == 1}" th:text="'Accepted'"></p>
+                                <button th:if="${vendor.display == 0}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" th:onclick="|getVendorById('${vendor.id}')|">Approve</button>
+                            </td>
+
+                            <td width="20%" class="text-end">
+                                <a class="rts-btn btn-primary " style="display:inline !important" data-bs-toggle="modal" data-bs-target="#shopDetailModal" th:onclick="|getVendorDetailById('${vendor.id}')|">details</a>
+                            </td>
+                        </tr>
+                       
+                                               
+                    </tbody>
+                </table>
+                <!-- table-responsive.// -->
+            </div>
+        </div>
+     </div>
+</div>
+
                             </div>
                             <a href="vendor-details.html" class="rts-btn btn-primary radious-sm with-icon">
                                 <div class="btn-text">
@@ -322,3 +348,4 @@
                  </div>
                 <!-- bottom footer areas start -->
 </div>
+

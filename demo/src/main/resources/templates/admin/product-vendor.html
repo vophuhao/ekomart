@@ -47,53 +47,48 @@
 						<thead class="mb--20">
 							<tr>
 								<th>STT</th>
-								<th>Category Image</th>
-								<th>Category ID</th>
+								<th>Product Image</th>
+								<th>Product Name</th>
 								<th>Category Name</th>
-								<th>Deploy</th>
+								<th>Shop Name</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-
-							<tr th:each="cate : ${categories}">
+							<tr th:each="product,iterStat : ${listProduct}">
 								<td width="10%">
-
 									<div class="name">
-										<p th:text="${cate.id}"></p>
+										<p th:text="${iterStat.index+1}"></p> 
 									</div>
-
 								</td>
 								<td width="30%">
-
 									<div class="item-image-and-name">
-										<img th:src="${'/admin/categories/images/' + cate.image}" alt="">
+										<img th:src="${'/admin/vendor/product/images/' + product.image}" alt="">
 									</div>
-
 								</td>
 								<td>
 									<div class="name" style="color:black;font-weight:bold">
-										<p th:text="${cate.categoryId}"></p>
+										<p th:text="${product.name}"></p>
 									</div>
 								</td>
 								<td>
 									<div class="name">
-										<p th:text="${cate.categoryName}"></p>
+										<p th:text="${product.category.categoryName}"></p>
 									</div>
 								</td>
 								<td>
 									<div class="name">
-										<p th:text="${cate.status}"></p>
+										<p th:text="phuhao"></p>
 									</div>
 								</td>
 								<td class="text-end">
-									<div class="between-stock-table action">
-											<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="getCategoryById('${cate.id}')|">Edit</button> 
-											<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="getCategoryById('${cate.id}')|">Delete</button> 
-										</div>
+									<div class="between-stock-table action">																			
+												<!-- Scrollable modal -->
+												<button type="button" class="btn btn-success" >
+  													<a th:href=@{/admin/vendor/product/detail?id={id}(id=${product.id})}>View</a>
+												</button>												
 									</div>
 								</td>
-
 							</tr>
 
 						</tbody>
@@ -115,15 +110,7 @@
 		</ul>
 	</div>
 	<!-- bottom footer areas end -->
-
-
-
 </div>
-
-
-
 <!-- rts header area start -->
-
-
 </html>
 <!-- /main-content-wrap -->

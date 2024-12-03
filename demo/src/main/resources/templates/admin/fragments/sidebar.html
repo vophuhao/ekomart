@@ -1,3 +1,5 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <div class="sidebar_left" th:fragment="sidebar">
             <a href="index.html" class="logo">
                 <img src="/admin/images/logo/logo.svg" alt="logo" height="32" width="131">
@@ -47,7 +49,7 @@
                         <p>Product</p>
                     </a>
                     <ul class="submenu mm-collapse parent-nav">
-                        <li><a class="mobile-menu-link" href="product-list.html">product List</a></li>
+                        <li><a class="mobile-menu-link" th:href="@{/admin/vendor/product}">product List</a></li>
                     </ul>
                 </li>
                 <!-- signle menu item -->
@@ -71,9 +73,9 @@
                         <p>Vendor</p>
                     </a>
                     <ul class="submenu mm-collapse parent-nav">
-                        <li><a class="mobile-menu-link" href="vendor-grid.html">Vendor Grid</a></li>
+                        <li><a class="mobile-menu-link" th:href="@{/admin/vendor/list/approve}">Vendor List Approve</a></li>
                         <li><a class="mobile-menu-link" th:href="@{/admin/vendor/list}">Vendor List</a></li>
-                        <li><a class="mobile-menu-link" href="vendor-details.html">Vendor Details</a></li>
+                        
                     </ul>
                 </li>
                 <!-- signle menu item -->
