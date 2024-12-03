@@ -3,6 +3,7 @@ package vn.iotstar.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,13 +41,15 @@ public class Shop implements Serializable{
     private String email;
     private int status;
     private int display;
-    
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")
+    @JsonIgnore
     private AddressShop address;
     
-    @OneToOne( cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @OneToOne( cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     @JoinColumn(name = "identifi_id")
+    @JsonIgnore
     private IdentificationInfo info;
     
     @OneToOne
