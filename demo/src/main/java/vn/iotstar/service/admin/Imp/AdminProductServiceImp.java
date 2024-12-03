@@ -48,7 +48,7 @@ public class AdminProductServiceImp implements AdminIProductService {
 	}
 
 	@Override
-	public Optional<Product> findByStatus(int status) {
+	public List<Product> findByStatus(int status) {
 		return productRepository.findByStatus(status);
 	}
 
@@ -56,6 +56,8 @@ public class AdminProductServiceImp implements AdminIProductService {
 	public Optional<Product> findByName(String productName) {
 		return productRepository.findByName(productName);
 	}
+	
+	
 	
 	
 	

@@ -69,7 +69,7 @@ public class VendorProductController {
     	
     	List<Category> categoryList=categoryService.findAll();
     	model.addAttribute("cateList",categoryList);
-    	System.out.print(categoryList);
+    	
     	return "vendor/product-add";
     }
     @GetMapping("/list")
@@ -87,7 +87,7 @@ public class VendorProductController {
 	    }
     	Category cate=new Category();
     	cate=categoryService.getById(productModel.getCategoryId());
-    	System.out.print(cate);
+    	
 	    Product entity = new Product();
 	    BeanUtils.copyProperties(productModel, entity);
 	    entity.setCategory(cate);
@@ -102,7 +102,7 @@ public class VendorProductController {
 	    	storageService.store(productModel.getRts_images1(), entity.getImage());
 	    	}
 	    
-	    System.out.print(entity);
+	   
 	   productService.save(entity);
 	    redirectAttributes.addFlashAttribute("message", "Product saved successfully!");
 	    return new ModelAndView("redirect:/vendor/products/list");

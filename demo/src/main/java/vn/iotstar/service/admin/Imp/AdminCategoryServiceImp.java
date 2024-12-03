@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import vn.iotstar.DTO.CategoryDTO;
 import vn.iotstar.entity.Category;
+
 import vn.iotstar.repository.CategoryRepository;
 import vn.iotstar.service.admin.AdminICategoryService;
 
@@ -57,6 +59,8 @@ public class AdminCategoryServiceImp implements AdminICategoryService{
 		return categoryRepository.findAll();
 	}
 
+	
+
 	@Override
 	public Optional<Category> findById(Long id) {
 		return categoryRepository.findById(id);
@@ -65,6 +69,17 @@ public class AdminCategoryServiceImp implements AdminICategoryService{
 	@Override
 	public Category getById(Long id) {
 		return categoryRepository.getById(id);
+	}
+
+	@Override
+	public List<CategoryDTO> findAllCategoryDTO() {
+		return categoryRepository.findAllCategoryDTO();
+	}
+
+	@Override
+	public List<CategoryDTO> findAllCate() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

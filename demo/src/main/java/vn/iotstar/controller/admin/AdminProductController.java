@@ -40,11 +40,7 @@ public class AdminProductController {
             model.addAttribute("listByName", listByName.orElse(null));
         }
 
-        if (status != null) {
-            Optional<Product> listByStatus = productService.findByStatus(status);
-            model.addAttribute("listByStatus", listByStatus.orElse(null));
-        }
-
+      
         if (display != null) {
             Optional<Product> listByDisplay = productService.findByDisplay(display);
             model.addAttribute("listByDisplay", listByDisplay.orElse(null));
