@@ -8,7 +8,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import vn.iotstar.entity.AddressShop;
 import vn.iotstar.entity.IdentificationInfo;
@@ -18,7 +17,7 @@ import vn.iotstar.service.user.IUserService;
 import vn.iotstar.service.vendor.VendorIRegisterService;
 
 @Controller
-@RequestMapping("/vendor/register")
+@RequestMapping("/vendor")
 public class RegisterVendorController {
 
 	@Autowired
@@ -27,7 +26,7 @@ public class RegisterVendorController {
 	@Autowired
 	private IUserService userServicer;
 	
-	@GetMapping("/form1")
+	@GetMapping("/register")
 	public String showForm1(ModelMap model) {
 		Optional<UserInfo> user = userServicer.findById(2);
 		Shop shop = new Shop();
@@ -40,14 +39,14 @@ public class RegisterVendorController {
 			   shop.setInfo(info);
 		   }
 			model.addAttribute("shop",shop);
-		return "vendor/register-shop-form1";
+		return "vendor/register-open-shop";
 
 	}
 
-	@PostMapping("/save")
+	@PostMapping("/register/save")
 	public String registerSuccess(@Valid Shop shop, BindingResult result) {
 		if (result.hasErrors()) {
-			return "vendor/register-shop-form1";
+			return "vendor/register-open-shop";
 		}
 		// set mặc định là shop active
 		shop.setStatus(1);

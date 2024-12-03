@@ -2,7 +2,6 @@ package vn.iotstar.controller.admin;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -16,10 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import vn.iotstar.entity.Product;
 import vn.iotstar.service.IStorageService;
 import vn.iotstar.service.admin.AdminIProductService;
+import jakarta.validation.Valid;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import vn.iotstar.entity.Shop;
+import vn.iotstar.service.admin.AdminShopService;
+import java.util.ArrayList;
 
 
 @Controller
@@ -27,7 +31,11 @@ import vn.iotstar.service.admin.AdminIProductService;
 public class VendorAdminController {
 
 	@Autowired
+
 	AdminIProductService productService;
+
+	AdminShopService adminShopService;
+
 	
 	@Autowired
 	IStorageService storageService;
@@ -41,10 +49,14 @@ public class VendorAdminController {
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
 	}
 	@GetMapping("/list")
-	public String listVendor()
+	public String listVendor(ModelMap model)
 	{
+		List<Shop> list = new ArrayList<>();
+		list = adminShopService.findAll();
+		model.addAttribute("list", list);
 		return "admin/vendor-list";
 	}
+
 	
 	@GetMapping("/list/approve")
 	public String listVendorApprove()
@@ -99,4 +111,18 @@ public class VendorAdminController {
 		return new ModelAndView ("redirect:/admin/vendor/product");
 	}
 	
+
+	@PostMapping("/update")
+	public String update(@Valid Shop vendor, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "admin/home";
+		}
+		Optional<Shop> optVendor = adminShopService.findById(vendor.getId());
+		if (optVendor.isPresent()) {
+			Shop existingVendor = optVendor.get();
+			existingVendor.setDisplay(vendor.getDisplay());
+			adminShopService.save(existingVendor); // Lưu đối tượng đã cập nhật
+		}
+		return "redirect:/admin/vendor/list";
+	}
 }

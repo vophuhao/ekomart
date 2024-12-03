@@ -16808,3 +16808,12 @@ edit .quantity-edit button {
     border-bottom-left-radius: var(--bs-modal-inner-border-radius);
     flex-wrap: nowrap;
 }
+
+.cccd-image {
+  width: 300px; /* Chiều rộng ảnh */
+  height: 200px; /* Chiều cao ảnh */
+  object-fit: cover; /* Cắt hoặc co giãn để vừa khung hình */
+  border: 1px solid #ccc; /* Tùy chọn: Viền để dễ nhận biết */
+  border-radius: 5px; /* Tùy chọn: Bo góc nhẹ */
+  margin-top:40px;
+}

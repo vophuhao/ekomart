@@ -20,6 +20,11 @@
             </a>
         </form>
     </div>
+    private String name;
+    private String avatar;
+    private String description;
+    private String sdt;
+    private String email;
     <!-- vendor-grid-top-area end -->
      <div class="vendor-list-main-wrapper">
         <div class="card-body">
@@ -27,22 +32,25 @@
                 <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>Vendors</th>
-                            <th>Address</th>
+                            <th>Vendors</th> <!--Bao gom name va avatar !-->
+                            <th>Vendor ID</th>
+                            <th>Phone</th>
+                            <th>Email</th>
                             <th>Status</th>
+                            <th>Approve</th>
                             <th class="text-end">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td width="40%">
+                        <tr th:each="vendor: ${list}">
+                            <td width="30%">
                                 <a href="#" class="itemside">
                                     <div class="left">
-                                        <img src="/admin/images/vendor/01.svg" class="img-sm img-avatar" alt="Userpic">
+                                        <img th:src="${vendor.avatar}" class="img-sm img-avatar" alt="Userpic">
                                     </div>
                                     <div class="info pl-3">
-                                        <h6 class="title">Food Forulard</h6>
-                                        <div class="stars-wrapper">
+                                        <h6 class="title" th:text="${vendor.name}"></h6>
+    <!--                                    <div class="stars-wrapper">
                                             <div class="stars">
                                                 <i class="fa-solid fa-star"></i>
                                                 <i class="fa-solid fa-star"></i>
@@ -51,21 +59,38 @@
                                                 <i class="fa-solid fa-star"></i>
                                             </div>
                                             <span>4.50 out of 5</span>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </a>
                             </td>
-                            <td><p>
-                                530 Post Ct  El Dorado Hills California, United States
-                            </p></td>
-                            
-                            <td>
-                            	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Duyet</button>
-									<!-- The Modal -->
-								
+
+                            <td >
+                                <p th:text="${vendor.shopId}">
+                                </p>
+                            </td>
+
+                            <td width="10%">
+                                <p th:text="${vendor.sdt}">
+                                </p>
+                            </td>
+
+                            <td width="20%">
+                                <p th:text="${vendor.email}">
+                                </p>
+                            </td>
+
+                            <td width="10%">
+                            	<p th:text="${vendor.status == 0 ? 'Close' : 'Open'}"></p>
 							</td>
-                            <td class="text-end">
-                                <a href="#" class="rts-btn btn-primary " style="display:inline !important">View details</a>
+
+                            <td width="10%">
+                                <p th:if="${vendor.display == -1}" th:text="'Rejected'"></p>
+                                <p th:if="${vendor.display == 1}" th:text="'Accepted'"></p>
+                                <button th:if="${vendor.display == 0}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" th:onclick="|getVendorById('${vendor.id}')|">Approve</button>
+                            </td>
+
+                            <td width="20%" class="text-end">
+                                <a class="rts-btn btn-primary " style="display:inline !important" data-bs-toggle="modal" data-bs-target="#shopDetailModal" th:onclick="|getVendorDetailById('${vendor.id}')|">details</a>
                             </td>
                         </tr>
                        
