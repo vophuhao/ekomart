@@ -1,0 +1,129 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/home.html}">
+<div class="body-root-inner" layout:fragment="content">
+	<div class="transection">
+		<div class="title-right-actioin-btn-wrapper-product-list">
+			<h3 class="title">Category</h3>
+			<div class="button-wrapper">
+				<div class="single-select">
+					<div class="nice-select" tabindex="0">
+						<span class="current">Export</span>
+						<ul class="list">
+							<li data-value="Default Sorting" data-display="Export"
+								class="option selected">Export</li>
+							<li data-value="1" class="option">CSV</li>
+							<li data-value="2" class="option">PDF</li>
+						</ul>
+					</div>
+				</div>
+				<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="|addCategory()|">+ Add</button>
+			</div>
+		</div>
+		<div class="product-top-filter-area-l">
+			<div class="left-area-button-fiulter">
+				<!-- single product button -->
+				<div class="signle-product-single-button">
+					<span>All 250 </span>
+				</div>
+				<!-- single product button end -->
+				<!-- single product button -->
+				<div class="signle-product-single-button">
+					<span>New Item 150</span>
+				</div>
+				<!-- single product button end -->
+				<!-- single product button -->
+				<div class="signle-product-single-button">
+					<span>Disabled 154</span>
+				</div>
+				<!-- single product button end -->
+			</div>
+		</div>
+		<div class="vendor-list-main-wrapper product-wrapper">
+			<div class="card-body table-product-select">
+				<div class="table-responsive">
+					<table class="table table-hover display" id="example"
+						cellspacing="0" width="100%">
+						<thead class="mb--20">
+							<tr>
+								<th>STT</th>
+								<th>Category Image</th>
+								<th>Category ID</th>
+								<th>Category Name</th>
+								<th>Deploy</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr th:each="cate : ${categories}">
+								<td width="10%">
+
+									<div class="name">
+										<p th:text="${cate.id}"></p>
+									</div>
+
+								</td>
+								<td width="30%">
+
+									<div class="item-image-and-name">
+										<img th:src="${'/admin/categories/images/' + cate.image}" alt="">
+									</div>
+
+								</td>
+								<td>
+									<div class="name" style="color:black;font-weight:bold">
+										<p th:text="${cate.categoryId}"></p>
+									</div>
+								</td>
+								<td>
+									<div class="name">
+										<p th:text="${cate.categoryName}"></p>
+									</div>
+								</td>
+								<td>
+									<div class="name">
+										<p th:text="${cate.status}"></p>
+									</div>
+								</td>
+								<td class="text-end">
+									<div class="between-stock-table action">
+											<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="|getCategoryById('${cate.id}')|">Edit</button>
+											<button class="rts-btn btn-primary menu-btn" type="button">Delete</button>
+										</div>
+
+								</td>
+
+							</tr>
+
+						</tbody>
+					</table>
+					<!-- table-responsive.// -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- bottom footer areas start -->
+	<div class="footer-copyright">
+		<div class="left">
+			<p>Copyright © 2024 All Right Reserved.</p>
+		</div>
+		<ul>
+			<li><a href="#">Terms</a></li>
+			<li><a href="#">Privacy</a></li>
+			<li><a href="#">Help</a></li>
+		</ul>
+	</div>
+	<!-- bottom footer areas end -->
+
+
+
+</div>
+
+
+
+<!-- rts header area start -->
+
+
+</html>
+<!-- /main-content-wrap -->

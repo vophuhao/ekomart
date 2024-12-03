@@ -6,6 +6,9 @@ server:
 
 spring:
   datasource:
+#    url: "jdbc:mysql://26.168.186.68:3306/ekomart"
+#    username: username
+#    password: password
     url: "jdbc:mysql://localhost:3306/ekomart"
     username: root
     password: 1234

@@ -91,9 +91,15 @@
 				<p>Save information of category</p>
 			</div>
 			<div class="input-main-wrapper">
+
+				<!--Id gốc phải để lại để controller nó biết là đang edit,chỉ ẩn nó thâu-->
+				<div class="single-input" style="display:none">
+					<label for="id">Id</label> <input type="text"
+					   id="id" name="id" placeholder="">
+				</div>
 				<div class="single-input">
 					<label for="categoryName">Category Name</label> <input type="text"
-						id="categoryName" name="categoryName" placeholder=""></input>
+						id="categoryName" name="categoryName" placeholder="">
 				</div>
 				<div class="single-input">
 					<label for="categoryId">Category ID</label> <input type="text"
@@ -119,6 +125,7 @@
 					<img id="images"> <label>Category Image</label> <input
 						type="file" name="imageFile" id="imageFile"
 						aria-describedby="imageFile" onchange="chooseFile(this)" />
+
 				</div>
 
 				<div class="button-area-botton-wrapper-p-list">

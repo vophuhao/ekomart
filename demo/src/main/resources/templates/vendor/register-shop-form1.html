@@ -29,7 +29,7 @@
 </style>
 </head>
 <body>
-	<form th:action="@{/vendor/register/form2}" id = "form1" method="post" th:object="${shop}">
+	<form th:action="@{/vendor/register/save}" id = "form1" method="post" th:object="${shop}">
 		<label class="form-label" for="shopName">Tên shop</label> 
 		<input type="text" id="shopName" th:field="*{name}" class="form-control form-control-lg" />		
 
@@ -40,20 +40,20 @@
 		<!-- Address Shop -->
 		<div>
 			<label for="fullName" class="form-label">Họ và tên</label>
-			<input type="text" class="form-control form-control-lg" id="fullName" th:field="*{address.addressName}" name="name"/>			
+			<input type="text" class="form-control form-control-lg" id="fullName" th:field="*{address.addressName}" name="name"/>
 
 			<label for="sdt" class="sdt">Số điện thoại</label>
-			<input type="text" class="form-control form-control-lg" id="sdt" th:field="*{address.addressSdt}" name ="sdt"/> 
+			<input type="text" class="form-control form-control-lg" id="sdt" th:field="*{address.addressSdt}" name ="sdt"/>
 
 
 			<div class="css_select_div">
-				<select class="css_select" id="tinh" name="tinh"  th:field="*{address.province}"
+				<select class="css_select" id="tinh" name="tinh" th:field="*{address.provinceId}"
 					title="Chọn Tỉnh Thành">
 					<option value="0">Tỉnh Thành</option>
-				</select> <select class="css_select" id="quan" name="quan"  th:field="*{address.district}"
+				</select> <select class="css_select" id="huyen" name="huyen"  th:field="*{address.districtId}"
 					title="Chọn Quận Huyện">
 					<option value="0">Quận Huyện</option>
-				</select> <select class="css_select" id="phuong" name="phuong"  th:field="*{address.street}"
+				</select> <select class="css_select" id="phuong" name="phuong"  th:field="*{address.streetId}"
 					title="Chọn Phường Xã">
 					<option value="0">Phường Xã</option>
 				</select>
@@ -70,12 +70,45 @@
 		<input type="text" id="phone" class="form-control form-control-lg" th:field="*{sdt}" /> 
 
 
+		<h6 class="mb-2 pb-1">Hình thức định danh: </h6>
+
+		<input class="form-check-input stored" type="radio" name="type" id="cccd" th:field="*{info.type}"
+			   value="cccd" checked />
+		<label class="form-check-label" for="cccd">Căn cước công dân</label>
+
+		<input class="form-check-input stored" type="radio" name="type" id="cmnd" th:field="*{info.type}"
+			   value="cmnd" />
+		<label class="form-check-label" for="cmnd">Chứng minh nhân dân</label>
+
+		<input class="form-check-input stored" type="radio" name="type" id="hochieu" th:field="*{info.type}"
+			   value="hochieu" />
+		<label class="form-check-label" for="hochieu">Hộ chiếu</label><br>
+
+		<label class="form-label" for="typeNumber">Số định danh</label>
+		<input type="text" id="typeNumber" class="form-control form-control-lg" th:field="*{info.number}"/>
+
+		<label class="form-label" for="infocationName">Tên</label>
+		<input type="text" id="infocationName" class="form-control form-control-lg" th:field="*{info.name}" />
 
 
+		<label for="beforeImage">Mặt trước : </label><br>
+		<img id = "beforeImages" height = "150" width = "200" src = ""/>
+		<input type="file" onchange="chooseFile(this,'beforeImages')" id="beforeImage" name="beforeImage" th:field="*{info.beforeImage}"><br><br>
+
+
+		<label for="afterImage">Mặt sau : </label><br>
+		<img id = "afterImages" height = "150" width = "200" src = ""/>
+		<input type="file" onchange="chooseFile(this,'afterImages')" id="afterImage" name="afterImage" th:field="*{info.afterImage}"><br><br>
+
+		<input class="form-check-input me-3" type="checkbox" name="confirm" id="confirm"/>
+		<label class="form-check-label text-black" for="confirm">
+			I do accept the <a href="#!" class="text-black">Terms and Conditions</a> of your
+			site.
+		</label>
 
 		<div class="mt-4 pt-2">
-			<button data-mdb-ripple-init class="btn btn-primary btn-lg"
-				type="submit">Tiếp</button>
+			<button data-mdb-ripple-init class="btn btn-primary btn-lg" id="submit" name="submit" disabled
+					type="submit">Hoàn tất</button>
 		</div>
 
 	</form>
@@ -85,6 +118,33 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
+	<!--	Script cho phần tải ảnh lên -->
+	<script>
+		function chooseFile(fileInput, imageId) {
+			if (fileInput.files && fileInput.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#' + imageId).attr('src', e.target.result);
+				};
+				reader.readAsDataURL(fileInput.files[0]);
+			}
+		}
+	</script>
+
+	<!--	JavaScript check nếu đồng ý điều khoản thì mới cho bấm nút hoàn tất, không thì nohope -->
+	<script>
+		$(document).ready(function () {
+			//using jQuery code
+			$('#confirm').on('change', function (e) {
+				if (e.currentTarget.checked) {
+					$('#submit').prop('disabled', false); // Enable the submit button
+				} else {
+					$('#submit').prop('disabled', true); // Disable the submit button
+				}
+			})
+		})
+	</script>
+
 
 	<script src="/vendor/js/province.js"></script>
 </body>
