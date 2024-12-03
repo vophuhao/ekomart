@@ -1,0 +1,352 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/home.html}" >
+    <!-- rts header area end -->
+<div layout:fragment="content">
+	 <!-- vendor-grid-top-area start -->
+                <div class="vendor-grid-top-search-area">
+                    <h5 class="title">Vendors Card</h5>
+                    <form action="#" class="input-area-search-head-vendor">
+                        <input type="text" placeholder="Search vendors (by name or ID)...">
+                        <a href="#" class="rts-btn btn-primary radious-sm with-icon">
+                            <div class="btn-text">
+                                Search
+                            </div>
+                            <div class="arrow-icon">
+                                <i class="fa-light fa-magnifying-glass"></i>
+                            </div>
+                            <div class="arrow-icon">
+                                <i class="fa-light fa-magnifying-glass"></i>
+                            </div>
+                        </a>
+                    </form>
+                </div>
+                <!-- vendor-grid-top-area end -->
+                 <div class="row mt--10 g-xl-5 g-lg-4 g-4">
+                    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="single-vendor-area">
+                            <div class="logo-vendor">
+                                <img src="/admin/images/vendor/01.svg" alt="vendor">
+                            </div>
+                            <h3 class="title animated fadeIn">Fresh Iuice Bar <span class="closed">Closed</span></h3>
+                            <div class="stars-area">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>4.50 out of 5</span>
+                            </div>
+                            <div class="location">
+                                <i class="fa-regular fa-location-dot"></i>
+                                <p>530 Post Ct  El Dorado Hills
+                                    California ,United States</p>
+                            </div>
+                            <div class="location">
+                                <i class="fa-solid fa-phone-volume"></i>
+                                <p>+1 (511) 934-8170
+                                </p>
+                            </div>
+                            <a th:href="@{/admin/vendor/detail}" class="rts-btn btn-primary radious-sm with-icon">
+                                <div class="btn-text">
+                                    Visit Store
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="single-vendor-area">
+                            <div class="logo-vendor">
+                                <img src="/admin/images/vendor/02.svg" alt="vendor">
+                            </div>
+                            <h3 class="title animated fadeIn">Brazilian Food<span class="open">Open</span></h3>
+                            <div class="stars-area">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>4.50 out of 5</span>
+                            </div>
+                            <div class="location">
+                                <i class="fa-regular fa-location-dot"></i>
+                                <p>530 Post Ct  El Dorado Hills
+                                    California ,United States</p>
+                            </div>
+                            <div class="location">
+                                <i class="fa-solid fa-phone-volume"></i>
+                                <p>+1 (511) 934-8170
+                                </p>
+                            </div>
+                            <a href="vendor-details.html" class="rts-btn btn-primary radious-sm with-icon">
+                                <div class="btn-text">
+                                    Visit Store
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="single-vendor-area">
+                            <div class="logo-vendor">
+                                <img src="/admin/images/vendor/03.svg" alt="vendor">
+                            </div>
+                            <h3 class="title animated fadeIn">Fresh Iuice Bar<span class="open">Open</span></h3>
+                            <div class="stars-area">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>4.50 out of 5</span>
+                            </div>
+                            <div class="location">
+                                <i class="fa-regular fa-location-dot"></i>
+                                <p>530 Post Ct  El Dorado Hills
+                                    California ,United States</p>
+                            </div>
+                            <div class="location">
+                                <i class="fa-solid fa-phone-volume"></i>
+                                <p>+1 (511) 934-8170
+                                </p>
+
+                            </td>
+
+                            <td width="10%">
+                            	<p th:text="${vendor.status == 0 ? 'Close' : 'Open'}"></p>
+							</td>
+
+                            <td width="10%">
+                                <p th:if="${vendor.display == -1}" th:text="'Rejected'"></p>
+                                <p th:if="${vendor.display == 1}" th:text="'Accepted'"></p>
+                                <button th:if="${vendor.display == 0}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" th:onclick="|getVendorById('${vendor.id}')|">Approve</button>
+                            </td>
+
+                            <td width="20%" class="text-end">
+                                <a class="rts-btn btn-primary " style="display:inline !important" data-bs-toggle="modal" data-bs-target="#shopDetailModal" th:onclick="|getVendorDetailById('${vendor.id}')|">details</a>
+                            </td>
+                        </tr>
+                       
+                                               
+                    </tbody>
+                </table>
+                <!-- table-responsive.// -->
+            </div>
+        </div>
+     </div>
+</div>
+
+                            </div>
+                            <a href="vendor-details.html" class="rts-btn btn-primary radious-sm with-icon">
+                                <div class="btn-text">
+                                    Visit Store
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="single-vendor-area">
+                            <div class="logo-vendor">
+                                <img src="/admin/images/vendor/04.svg" alt="vendor">
+                            </div>
+                            <h3 class="title animated fadeIn">Food Character <span class="open">Open</span></h3>
+                            <div class="stars-area">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>4.50 out of 5</span>
+                            </div>
+                            <div class="location">
+                                <i class="fa-regular fa-location-dot"></i>
+                                <p>530 Post Ct  El Dorado Hills
+                                    California ,United States</p>
+                            </div>
+                            <div class="location">
+                                <i class="fa-solid fa-phone-volume"></i>
+                                <p>+1 (511) 934-8170
+                                </p>
+                            </div>
+                            <a href="vendor-details.html" class="rts-btn btn-primary radious-sm with-icon">
+                                <div class="btn-text">
+                                    Visit Store
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="single-vendor-area">
+                            <div class="logo-vendor">
+                                <img src="/admin/images/vendor/05.svg" alt="vendor">
+                            </div>
+                            <h3 class="title animated fadeIn">Authentic Grocery <span class="open">Open</span></h3>
+                            <div class="stars-area">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>4.50 out of 5</span>
+                            </div>
+                            <div class="location">
+                                <i class="fa-regular fa-location-dot"></i>
+                                <p>530 Post Ct  El Dorado Hills
+                                    California ,United States</p>
+                            </div>
+                            <div class="location">
+                                <i class="fa-solid fa-phone-volume"></i>
+                                <p>+1 (511) 934-8170
+                                </p>
+                            </div>
+                            <a href="vendor-details.html" class="rts-btn btn-primary radious-sm with-icon">
+                                <div class="btn-text">
+                                    Visit Store
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="single-vendor-area">
+                            <div class="logo-vendor">
+                                <img src="/admin/images/vendor/06.svg" alt="vendor">
+                            </div>
+                            <h3 class="title animated fadeIn">Food Character <span class="open">Open</span></h3>
+                            <div class="stars-area">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>4.50 out of 5</span>
+                            </div>
+                            <div class="location">
+                                <i class="fa-regular fa-location-dot"></i>
+                                <p>530 Post Ct  El Dorado Hills
+                                    California ,United States</p>
+                            </div>
+                            <div class="location">
+                                <i class="fa-solid fa-phone-volume"></i>
+                                <p>+1 (511) 934-8170
+                                </p>
+                            </div>
+                            <a href="vendor-details.html" class="rts-btn btn-primary radious-sm with-icon">
+                                <div class="btn-text">
+                                    Visit Store
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="single-vendor-area">
+                            <div class="logo-vendor">
+                                <img src="/admin/images/vendor/07.svg" alt="vendor">
+                            </div>
+                            <h3 class="title animated fadeIn">Fresh Food<span class="open">Open</span></h3>
+                            <div class="stars-area">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>4.50 out of 5</span>
+                            </div>
+                            <div class="location">
+                                <i class="fa-regular fa-location-dot"></i>
+                                <p>530 Post Ct  El Dorado Hills
+                                    California ,United States</p>
+                            </div>
+                            <div class="location">
+                                <i class="fa-solid fa-phone-volume"></i>
+                                <p>+1 (511) 934-8170
+                                </p>
+                            </div>
+                            <a href="vendor-details.html" class="rts-btn btn-primary radious-sm with-icon">
+                                <div class="btn-text">
+                                    Visit Store
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="single-vendor-area">
+                            <div class="logo-vendor">
+                                <img src="/admin/images/vendor/08.svg" alt="vendor">
+                            </div>
+                            <h3 class="title animated fadeIn">Botanic Natural <span class="open">Open</span></h3>
+                            <div class="stars-area">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>4.50 out of 5</span>
+                            </div>
+                            <div class="location">
+                                <i class="fa-regular fa-location-dot"></i>
+                                <p>530 Post Ct  El Dorado Hills
+                                    California ,United States</p>
+                            </div>
+                            <div class="location">
+                                <i class="fa-solid fa-phone-volume"></i>
+                                <p>+1 (511) 934-8170
+                                </p>
+                            </div>
+                            <a href="vendor-details.html" class="rts-btn btn-primary radious-sm with-icon">
+                                <div class="btn-text">
+                                    Visit Store
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                 </div>
+                <!-- bottom footer areas start -->
+</div>
+
