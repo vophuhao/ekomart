@@ -2,6 +2,7 @@ package vn.iotstar.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.catalina.User;
@@ -16,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,10 +36,18 @@ public class Orders implements Serializable{/**
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	private String oderId;
-    private LocalDate orderDate;
-    private String status; // New, Confirmed, Shipping, Delivered, Canceled, Returned
+	private LocalDateTime date; // Thêm ngày giờ
+
+    
+    private int status; // New, Confirmed, Shipping, Delivered, Canceled, Returned
     private int totalPay;
 
+    @PrePersist
+    public void onCreate() {
+        if (date == null) {
+            date = LocalDateTime.now(); // Gán ngày giờ hiện tại khi tạo mới
+        }
+    }
 	/*
 	 * @ManyToOne
 	 * 
