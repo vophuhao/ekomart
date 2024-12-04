@@ -88,82 +88,56 @@
 							</div>
 						</div>
 						<form th:action="@{/user/cart/payment}" th:method="get" th:object="${productPayment}">
-							<!-- Sản phẩm 1 -->
-							<div class="single-cart-area-list main  item-parent">
-                            <div class="product-main-cart">
-                                <div class="close section-activation">
-                                    <i class="fa-regular fa-x"></i>
-                                </div>
-                                <div class="thumbnail">
-                                    <img src="assets/images/shop/02.png" alt="shop">
-                                </div>
-                                <div class="information">
-                                	<input  name="selectedProduct[0].productName" type="hidden" value="SunChips Minis, Garden Salsa Flavored Canister, Multigrain Chips" ></input>
-                                    <h6 class="title">SunChips Minis, Garden Salsa Flavored Canister, Multigrain Chips</h6>
-                                     <input name="selectedProduct[0].productId" type="hidden" value="SKU:BG-1001"></input>
-                                    <span >SKU:BG-1001</span>
-                                </div>
-                            </div>
-                            <div class="price">
-                            	<input name="selectedProduct[0].productPrice" type="hidden" value="550"> 
-                                <p>$550.00</p>
-                            </div>
-                            <div class="quantity">
-                                <div class="quantity-edit">
-                                    <input type="text" class="input" value="1" name="selectedProduct[0].productQuantity">
-                                    <div class="button-wrapper-action">
-                                        <button type="button" class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                        <button type="button" class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="subtotal">
-                                <p >$550.00</p>
-                            </div>
-                             <div class="subtotal">
-                              <input type="hidden" name="selectedProduct[0].productSelected" value="0" class="hiddenInput">
-								<input type="checkbox" name="selectedProduct[0].productSelected" value="1" class="checkboxInput" onchange="toggleHiddenInput(this)">
-                            </div>
-                        </div>
-                        <div class="single-cart-area-list main  item-parent">
-                            <div class="product-main-cart">
-                                <div class="close section-activation">
-                                    <i class="fa-regular fa-x"></i>
-                                </div>
-                                <div class="thumbnail">
-                                    <img src="assets/images/shop/02.png" alt="shop">
-                                </div>
-                                <div class="information">
-                                	 <input  name="selectedProduct[1].productName" type="hidden" value="SunChips Minis, Garden Salsa Flavored Canister, Multigrain Chips" ></input>
-                                    <h6 class="title">SunChips Minis, Garden Salsa Flavored Canister, Multigrain Chips</h6>
-                                     <input  name="selectedProduct[1].productId" type="hidden" value="SKU:BG-1001">
-                                    <span >SKU:BG-1001</span>
-                                </div>
-                            </div>
-                            <div class="price">
-                            	<input name="selectedProduct[1].productPrice" type="hidden" value="550">
-                                <p>$550.00</p>
-                            </div>
-                            <div class="quantity">
-                                <div class="quantity-edit">
-                                    <input type="text" class="input" value="1" name="selectedProduct[1].productQuantity">
-                                    <div class="button-wrapper-action">
-                                        <button type="button" class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                        <button type="button" class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="subtotal">
-                                <p >$550.00</p>
-                            </div>
-                             <div class="subtotal">
-                                 <input type="hidden" name="selectedProduct[1].productSelected" value="0" class="hiddenInput">
-								<input type="checkbox" name="selectedProduct[1].productSelected" value="1" class="checkboxInput" onchange="toggleHiddenInput(this)">
-                            </div>
-                        </div>
-                         <div class="single-cart-area-list main  item-parent">
-                         	<button class="rts-btn btn-primary" type="submit">Pay</button>
-                         </div>    
+							<div th:each="item, i : ${cart.items}">
+								<div class="single-cart-area-list main item-parent">
+									<div class="product-main-cart">
+										<div class="close section-activation">
+											<i class="fa-regular fa-x"></i>
+										</div>
+										<div class="thumbnail">
+											<img src="assets/images/shop/02.png" alt="shop">
+										</div>
+										<div class="information">
+											<!-- Hidden inputs -->
+											<input type="hidden"
+												th:name="'selectedProduct[' + ${i.index} + '].productId'"
+												th:value="${item.product.id}" />   
+
+											<input type="hidden"
+												th:name="'selectedProduct[' + ${i.index} + '].productName'" th:value="${item.product.name}" />
+											<h6 class="title" th:text="${item.product.name}"></h6>
+											<span th:text="${item.product.id}"></span>
+										</div>
+									</div>
+									<div class="price">
+									<input type="hidden" th:name="'selectedProduct[' + ${i.index} + '].productPrice'" th:value="${item.price}" />
+										<p th:text="${item.price}"></p>
+									</div>
+									<div class="quantity">
+										<div class="quantity-edit">
+											<input type="hidden" th:name="'selectedProduct[' + ${i.index} + '].productQuantity'" th:value="${item.quantity}" />
+											<h6 class="title" th:text="${item.quantity}"></h6>
+											<div class="button-wrapper-action">
+												<button type="button" class="button">
+													<i class="fa-regular fa-chevron-down"></i>
+												</button>
+												<button type="button" class="button plus">
+													+<i class="fa-regular fa-chevron-up"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+									<div class="subtotal">
+										<p th:text="${item.price * item.quantity}"></p>
+									</div>
+									<div class="subtotal">
+										<!-- Checkbox with product id as value -->
+										<input type="hidden" th:name="'selectedProduct[' + ${i.index} + '].productSelected'" value="0" class="hiddenInput"/>
+										<input type="checkbox" th:name="'selectedProduct[' + ${i.index} + '].productSelected'" value="1" class="checkboxInput" onchange="toggleHiddenInput(this)">
+									</div>
+								</div>
+							</div>
+							<button class="rts-btn btn-primary" type="submit">Pay</button>    
 						</form>
 
 					</div>
