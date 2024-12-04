@@ -46,6 +46,16 @@ public class VendorAdminController {
 		
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
 	}
+	@GetMapping("/images/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serverFile1(@PathVariable String filename){
+
+		Resource file =storageService.loadAsResource(filename);
+
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
+	}
+
+
 	@GetMapping("/list")
 	public String listVendor(ModelMap model)
 	{
