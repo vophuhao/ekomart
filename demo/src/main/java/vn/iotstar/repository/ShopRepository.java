@@ -13,4 +13,5 @@ public interface ShopRepository extends JpaRepository<Shop, Long>{
     Optional<Shop> findById(Long shopId);
     List<Shop> findByDisplay(int display);
     List<Shop> findAll();
+    
 }

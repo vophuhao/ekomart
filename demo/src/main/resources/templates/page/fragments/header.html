@@ -18,7 +18,6 @@
 			</div>
 		</div>
 	</div>
-<a href="http://localhost:8888/vendor/register/order">Order</a>
 	<div class="search-header-area-main">
 		<div class="container-2">
 			<div class="row">
@@ -113,109 +112,27 @@
 							</form>
 						</div>
 						<div class="accont-wishlist-cart-area-header">
-							<div th:if="${Name !=null}">
+							<div th:if="${session.username !=null}">
 								<a th:href="@{/user/account}" class="btn-border-only account"> <i
-								class="fa-light fa-user"></i> <span th:text = "*{Name}"></span>
+								class="fa-light fa-user"></i> <span th:text = "*{session.username}"></span>
 							</a> 
 							</div>		
-							<a class="btn-border-only wishlist" th:if="${Name !=null}"> <i
+							<a class="btn-border-only wishlist" th:if="${session.username !=null}"> <i
 								class="fa-regular fa-heart"></i> Wishlist <span class="number">2</span>
 							</a>
-							<div th:if="${Name !=null}" class="btn-border-only cart category-hover-header">
+							<div th:if="${session.username !=null}" class="btn-border-only cart category-hover-header">
+								
 								<i class="fa-sharp fa-regular fa-cart-shopping"></i> <span
 									class="text">My Cart</span> <span class="number">2</span>
-								<div class="category-sub-menu card-number-show">
-									<h5 class="shopping-cart-number">Shopping Cart (03)</h5>
-									<div class="cart-item-1 border-top">
-										<div class="img-name">
-											<div class="thumbanil">
-												<img src="/view/images/shop/cart-1.png" alt="">
-											</div>
-											<div class="details">
-												<a>
-													<h5 class="title">Foster Farms Breast Nuggets Shaped
-														Chicken</h5>
-												</a>
-												<div class="number">
-													1 <i class="fa-regular fa-x"></i> <span>$36.00</span>
-												</div>
-											</div>
-										</div>
-										<div class="close-c1">
-											<i class="fa-regular fa-x"></i>
-										</div>
-									</div>
-									<div class="cart-item-1">
-										<div class="img-name">
-											<div class="thumbanil">
-												<img src="/view/images/shop/05.png" alt="">
-											</div>
-											<div class="details">
-												<a>
-													<h5 class="title">Foster Farms Breast Nuggets Shaped
-														Chicken</h5>
-												</a>
-												<div class="number">
-													1 <i class="fa-regular fa-x"></i> <span>$36.00</span>
-												</div>
-											</div>
-										</div>
-										<div class="close-c1">
-											<i class="fa-regular fa-x"></i>
-										</div>
-									</div>
-									<div class="cart-item-1">
-										<div class="img-name">
-											<div class="thumbanil">
-												<img src="/view/images/shop/04.png" alt="">
-											</div>
-											<div class="details">
-												<a>
-													<h5 class="title">Foster Farms Breast Nuggets Shaped
-														Chicken</h5>
-												</a>
-												<div class="number">
-													1 <i class="fa-regular fa-x"></i> <span>$36.00</span>
-												</div>
-											</div>
-										</div>
-										<div class="close-c1">
-											<i class="fa-regular fa-x"></i>
-										</div>
-									</div>
-									<div class="sub-total-cart-balance">
-										<div class="bottom-content-deals mt--10">
-											<div class="top">
-												<span>Sub Total:</span> <span class="number-c">$108.00</span>
-											</div>
-											<div class="single-progress-area-incard">
-												<div class="progress">
-													<div class="progress-bar wow fadeInLeft" role="progressbar"
-														style="width: 80%" aria-valuenow="25" aria-valuemin="0"
-														aria-valuemax="100"></div>
-												</div>
-											</div>
-											<p>
-												Spend More <span>$125.00</span> to reach <span>Free
-													Shipping</span>
-											</p>
-										</div>
-										<div
-											class="button-wrapper d-flex align-items-center justify-content-between">
-											<a class="rts-btn btn-primary ">View Cart</a> <a
-												class="rts-btn btn-primary border-only">CheckOut</a>
-										</div>
-									</div>
-								</div>
-								<a class="over_link"></a>
+								<a th:href="@{/user/cart}" class="over_link"></a>
 							</div>
-							<div th:if="${Name !=null}">
+							<div th:if="${session.username !=null}">
 								<a  th:href="@{/logout}" class="btn-border-only account">
 								<i class="fa-light fa-user">  </i>Logout
 							</a>
 							</div>
 							
-							<div th:if="${Name ==null}">
+							<div th:if="${session.username ==null}">
 								<a  th:href="@{/login}" class="btn-border-only account">
 								<i class="fa-light fa-user">  </i>Login
 							</a>
@@ -240,88 +157,14 @@
 											<li><a class="sub-b">Home</a></li>
 
 										</ul></li>
-									<li class="parent"><a>About</a></li>
-									<li class="parent with-megamenu"><a th:href="@{#}">Shop</a>
-										<div class="rts-megamenu">
-											<div class="wrapper">
-												<div class="row align-items-center">
-													<div class="col-lg-8">
-														<div class="megamenu-item-wrapper">
-															<!-- single item areas start -->
-															<div class="single-megamenu-wrapper">
-																<p class="title">Shop Layout</p>
-																<ul>
-																	<li><a>Shop Grid Sidebar</a></li>
-																	<li><a>Shop list Sidebar</a></li>
-																	<li><a>Shop Top Filter Grid</a></li>
-																	<li><a>Shop Top Filter List</a></li>
-																</ul>
-															</div>
-															<!-- single item areas end -->
-															<!-- single item areas start -->
-															<div class="single-megamenu-wrapper">
-																<p class="title">Shop Details</p>
-																<ul>
-																	<li><a class="sub-b">Shop Details</a></li>
-																	<li><a class="sub-b">Shop Details V2</a></li>
-																	<li><a class="sub-b">Shop Details V3</a></li>
-																	<li><a class="sub-b">Shop Details V4</a></li>
-																</ul>
-															</div>
-															<!-- single item areas end -->
-															<!-- single item areas start -->
-															<div class="single-megamenu-wrapper">
-																<p class="title">Product Feature</p>
-																<ul>
-																	<li><a class="sub-b">Variable product</a></li>
-																	<li><a class="sub-b">Affiliate product</a></li>
-																	<li><a class="sub-b">Shop Details Group</a></li>
-																	<li><a class="sub-b">Shop Compare</a></li>
-																</ul>
-															</div>
-															<!-- single item areas end -->
-															<!-- single item areas start -->
-															<div class="single-megamenu-wrapper">
-																<p class="title">Shop Others</p>
-																<ul>
-																	<li><a class="sub-b">Cart</a></li>
-																	<li><a class="sub-b">Checkout</a></li>
-																	<li><a class="sub-b">Track Order</a></li>
-																</ul>
-															</div>
-															<!-- single item areas end -->
-														</div>
-													</div>
-													<div class="col-lg-4">
-														<a class="feature-add-megamenu-area"> <img
-															src="/view/images/feature/05.jpg" alt="feature_product">
-														</a>
-													</div>
-												</div>
-											</div>
-										</div></li>
 									<li class="parent has-dropdown"><a class="nav-link"
 										th:href="@{#}">Vendors</a>
 										<ul class="submenu">
 											<li><a class="sub-b">Vendor List</a></li>
-											<li><a class="sub-b">Vendor Grid</a></li>
-											<li><a class="sub-b">Vendor Details</a></li>
 										</ul></li>
 									<li class="parent has-dropdown"><a class="nav-link"
 										th:href="@{#}">Pages</a>
-										<ul class="submenu">
-											<li><a class="sub-b">About</a></li>
-											<li><a class="sub-b">Store</a></li>
-											<li><a class="sub-b">Faq's</a></li>
-											<li><a class="sub-b">Invoice</a></li>
-											<li><a class="sub-b">Contact</a></li>
-											<li><a class="sub-b">Register</a></li>
-											<li><a class="sub-b">Login</a></li>
-											<li><a class="sub-b">Privacy Policy</a></li>
-											<li><a class="sub-b">Cookies Policy</a></li>
-											<li><a class="sub-b">Terms & Condition</a></li>
-											<li><a class="sub-b">Error</a></li>
-										</ul></li>
+									</li>
 									<li class="parent has-dropdown"><a class="nav-link"
 										th:href="@{#}">Blog</a>
 										<ul class="submenu">

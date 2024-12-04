@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class homeVendorController {
 	
 	@GetMapping("/home")
-	public String homeView() {
+	public String homeVendor() {
 		
 		return "vendor/home";
 	}

@@ -18512,6 +18512,8 @@ li.with-megamenu:hover .rts-megamenu {
   transition: 0.3s;
   font-size: 16px;
   margin-bottom: 10px;
+  overflow: hidden;
+    white-space: nowrap;  
 }
 
 .single-shopping-card-one .body-content a:hover .title {
@@ -23214,7 +23216,8 @@ body.modal-open {
 
 .single-cart-area-list.head .product-main {
   flex-basis: 64%;
-  text-align: center;
+  text-align: left;
+  padding-left: 250px;
 }
 
 .single-cart-area-list.head .price {
@@ -23260,11 +23263,12 @@ body.modal-open {
 }
 
 .single-cart-area-list.main .product-main-cart {
-  flex-basis: 64%;
+  flex-basis: 70%;
   display: flex;
   gap: 16px;
   align-items: center;
   position: relative;
+  margin-left: 80px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -23309,14 +23313,23 @@ body.modal-open {
 
 .single-cart-area-list.main .price {
   flex-basis: 12%;
+  margin-left: 50px;
 }
 
 .single-cart-area-list.main .quantity {
   flex-basis: 12%;
+  margin-left: 20px;
 }
 
 .single-cart-area-list.main .subtotal {
   flex-basis: 12%;
+  margin-left: 40px;
+}
+
+.single-cart-area-list.main .subtotal-1 {
+  flex-basis: 12%;
+  margin-left: 40px;
+  margin-right: 20px;
 }
 
 .single-cart-area-list.main .quantity-edit {
@@ -28633,8 +28646,10 @@ select {
 }
 
 .main{
-  margin: 0 auto 70px;
-  width: 1000px;
+  margin: auto;
+  margin-bottom: 50px;
+  width: 100%;
+  max-width: 1500px;
   padding: 5px;
 }
 
@@ -29033,5 +29048,27 @@ html.no-scroll {
     font-size: 1rem;
     font-weight: 600;
     border-radius: 5px;
+}
+
+.single-cart-area-list-button{
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  height: 100px;
+}
+
+.container-payment{
+	max-width: 1250px;
+    margin: auto;
+    padding: 0 15px;
+}
+
+.swiper-container .swiper-slide {
+  width: auto;  /* Hoặc xác định một chiều rộng cụ thể */
+}
+
+.image-and-action-area-wrapper img{
+	width: auto;
+	height: 230px;
 }
 /*# sourceMappingURL=../maps/style.css.map */
