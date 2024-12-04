@@ -791,38 +791,6 @@
       });
     },
 
-    unloadImage1: function name() {
-      $("#before_image").click(function (e) {
-        $("#rts_images0").click();
-      });
-
-      function rtsPreview() {
-        const [file] = rts_images0.files;
-        if (file) {
-          before_image.src = URL.createObjectURL(file);
-        }
-      }
-      $("#rts_images0").change(function () {
-        rtsPreview(this);
-      });
-    },
-
-    unloadImage2: function name() {
-      $("#after_image").click(function (e) {
-        $("#rts_images2").click();
-      });
-
-      function rtsPreview() {
-        const [file] = rts_images2.files;
-        if (file) {
-          after_image.src = URL.createObjectURL(file);
-        }
-      }
-      $("#rts_images2").change(function () {
-        rtsPreview(this);
-      });
-    },
-
     niceSelect: function () {
       (function ($) {
         $.fn.niceSelect = function (method) {
@@ -1262,6 +1230,38 @@
         rtlTheme();
       });
     },
+    unloadImage1: function name() {
+      $("#before_image").click(function (e) {
+        $("#rts_images0").click();
+      });
+
+      function rtsPreview() {
+        const [file] = rts_images0.files;
+        if (file) {
+          before_image.src = URL.createObjectURL(file);
+        }
+      }
+      $("#rts_images0").change(function () {
+        rtsPreview(this);
+      });
+    },
+
+    unloadImage2: function name() {
+      $("#after_image").click(function (e) {
+        $("#rts_images2").click();
+      });
+
+      function rtsPreview() {
+        const [file] = rts_images2.files;
+        if (file) {
+          after_image.src = URL.createObjectURL(file);
+        }
+      }
+      $("#rts_images2").change(function () {
+        rtsPreview(this);
+      });
+    },
+
   };
 
   rtsJs.m();
