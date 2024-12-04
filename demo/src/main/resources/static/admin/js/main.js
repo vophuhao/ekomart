@@ -1207,6 +1207,18 @@ const getVendorById = (id) => {
 		})
 }
 
+const getProductById = (id) => {
+	fetch(`http://localhost:8888/api/v1/admin/vendor/approveProduct/${id}`)
+		.then(resp => { return resp.json() })
+		.then(product => {
+			console.log(product)
+			const id = document.getElementById("productId")
+			id.value = product?.id
+
+		})
+}
+
+
 const getVendorDetailById = (id) => {
 	fetch(`http://localhost:8888/api/v1/admin/vendor/details/${id}`)
 		.then(resp => { return resp.json() })

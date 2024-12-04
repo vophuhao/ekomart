@@ -31,15 +31,13 @@ import java.util.ArrayList;
 public class VendorAdminController {
 
 	@Autowired
-
-	AdminIProductService productService;
-
-	AdminShopService adminShopService;
-
-	
+	private AdminIProductService productService;
+	@Autowired
+	private AdminShopService adminShopService;
 	@Autowired
 	IStorageService storageService;
-	
+
+
 	@GetMapping("/product/images/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serverFile(@PathVariable String filename){ 
@@ -51,8 +49,7 @@ public class VendorAdminController {
 	@GetMapping("/list")
 	public String listVendor(ModelMap model)
 	{
-		List<Shop> list = new ArrayList<>();
-		list = adminShopService.findAll();
+		List<Shop> list = adminShopService.findAll();
 		model.addAttribute("list", list);
 		return "admin/vendor-list";
 	}
@@ -74,7 +71,7 @@ public class VendorAdminController {
 	@GetMapping("/product")
 	public String productVendor(Model model)
 	{
-		List<Product> listProduct=productService.findByStatus(0);
+		List<Product> listProduct=productService.findAll();
 	
 		model.addAttribute("listProduct",listProduct);
 		
@@ -89,12 +86,17 @@ public class VendorAdminController {
 		
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
 	}
-	@GetMapping("/product/detail")
-	public String productVendorDetail(@RequestParam("id") Long id, Model model)
+	@GetMapping("/product/detail/{id}")
+	public String productVendorDetail(@PathVariable("id") Long id, Model model)
 	{
 		Product product=new Product();
 		product=productService.getById(id);
-	
+		Optional<Shop> shop = adminShopService.findById(product.getShop().getId());
+		if(shop.isPresent())
+		{
+			model.addAttribute("shop",shop.get());
+			System.out.print("hello");
+		}
 		model.addAttribute("product",product);
 		return "admin/product-detail";
 	}
@@ -103,7 +105,7 @@ public class VendorAdminController {
 	public ModelAndView productVendorDetailsetStatus(@RequestParam("id") Long id, Model model)
 	{
 		
-	       System.out.print(id);
+		System.out.print(id);
 		Product product=new Product();
 		product=productService.getById(id);
 		product.setStatus(1);
@@ -124,5 +126,16 @@ public class VendorAdminController {
 			adminShopService.save(existingVendor); // Lưu đối tượng đã cập nhật
 		}
 		return "redirect:/admin/vendor/list";
+	}
+
+	@PostMapping("/updateProduct")
+	public String updateProduct(@Valid Product product, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "admin/home";
+		}
+		Product existingProduct = productService.getById(product.getId());
+		existingProduct.setDisplay(product.getDisplay());
+		productService.save(existingProduct); // Lưu đối tượng đã cập nhật
+		return "redirect:/admin/vendor/product";
 	}
 }

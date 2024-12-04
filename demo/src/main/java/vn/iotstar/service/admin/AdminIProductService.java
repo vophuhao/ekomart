@@ -23,4 +23,6 @@ public interface AdminIProductService {
 
 	Optional<Product> findByProductId(String productId);
 
+	Optional<Product> findById(Long id);
+
 }
