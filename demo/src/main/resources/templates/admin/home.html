@@ -165,7 +165,8 @@
 		// Gán URL hiện tại làm action cho form
 		document.getElementById("myForm").action = currentUrl;
 	</script>
-	<form id="myForm" method="post">
+	<form th:action="@{/admin/vendor/updateProduct}" method="POST"
+	th:object="${product}" enctype="multipart/form-data">
 		<div class="modal fade" id="productModal" aria-hidden="true"
 			aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
@@ -177,9 +178,21 @@
 					</div>
 					<!-- Modal body -->
 					<div class="modal-body">
-						<h2>Ban có muốn duyệt cho sản phẩm này</h2>
-					</div>
+						<h2>Do you want to approve this product?</h2>
 
+						<!--Id gốc phải để lại để controller nó biết là đang edit,chỉ ẩn nó thâu-->
+						<div class="single-input" >
+							<label for="vendorId">Id</label>
+							<input type="text" id="productId" name="id" placeholder="">
+						</div>
+						<label>
+							<input type="radio" value="1" id="product-accept" name="display"> Approve
+						</label>
+						<label>
+							<input type="radio" value="-1" id="product-reject" name="display"> Reject
+						</label>
+
+					</div>
 					<!-- Modal footer -->
 					<div class="modal-footer" style="height: 20%">
 						<button type="button" class="btn btn-secondary"
@@ -192,8 +205,8 @@
 		</div>
 	</form>
 	<form th:action="@{/admin/vendor/update}" method="POST"
-		th:object="${vendor}" enctype="multipart/form-data">
-		<div class="modal fade" id="myModal" aria-hidden="true"
+		th:object="${shop}" enctype="multipart/form-data">
+		<div class="modal fade" id="vendorModal" aria-hidden="true"
 			aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content" style="height: 300px">
@@ -211,13 +224,12 @@
 							<label for="vendorId">Id</label> <input type="text" id="vendorId"
 								name="id" placeholder="">
 						</div>
-
-						<label> <input type="radio" value="1" id="approve"
-							name="display"> Approve
-						</label> <label> <input type="radio" value="-1" id="reject"
-							name="display"> Reject
+						<label>
+							<input type="radio" value="1" id="shop-accept" name="display"> Approve
 						</label>
-
+						<label>
+							<input type="radio" value="-1" id="shop-reject" name="display"> Reject
+						</label>
 					</div>
 					<!-- Modal footer -->
 					<div class="modal-footer" style="height: 20%">

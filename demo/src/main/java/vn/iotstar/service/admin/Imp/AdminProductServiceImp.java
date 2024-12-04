@@ -43,6 +43,11 @@ public class AdminProductServiceImp implements AdminIProductService {
 	}
 
 	@Override
+	public Optional<Product> findById(Long id) {
+		return productRepository.findById(id);
+	}
+
+	@Override
 	public Optional<Product> findByDisplay(int display) {
 		return productRepository.findByDisplay(display);
 	}

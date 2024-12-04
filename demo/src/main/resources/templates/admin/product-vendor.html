@@ -51,6 +51,7 @@
 								<th>Product Name</th>
 								<th>Category Name</th>
 								<th>Shop Name</th>
+								<th>Display</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -81,12 +82,19 @@
 										<p th:text="phuhao"></p>
 									</div>
 								</td>
+								<td>
+									<div class ="name">
+										<p th:if="${product.display} == 1"  style="color:green">Accepted</p>
+										<button th:if="${product.display} == 0" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal" th:onclick="|getProductById('${product.id}')|">Waiting</button>
+										<p th:if="${product.display} == -1" style="color:red">Denied</p>
+									</div>
+								</td>
 								<td class="text-end">
 									<div class="between-stock-table action">																			
-												<!-- Scrollable modal -->
-												<button type="button" class="btn btn-success" >
-  													<a th:href=@{/admin/vendor/product/detail?id={id}(id=${product.id})}>View</a>
-												</button>												
+										<!-- Scrollable modal -->
+										<button type="button" class="btn btn-success" >
+											<a th:href="@{/admin/vendor/product/detail/{id}(id= ${product.id})}">View</a>
+										</button>
 									</div>
 								</td>
 							</tr>
