@@ -18512,6 +18512,8 @@ li.with-megamenu:hover .rts-megamenu {
   transition: 0.3s;
   font-size: 16px;
   margin-bottom: 10px;
+  overflow: hidden;
+    white-space: nowrap;  
 }
 
 .single-shopping-card-one .body-content a:hover .title {
@@ -29059,5 +29061,14 @@ html.no-scroll {
 	max-width: 1250px;
     margin: auto;
     padding: 0 15px;
+}
+
+.swiper-container .swiper-slide {
+  width: auto;  /* Hoặc xác định một chiều rộng cụ thể */
+}
+
+.image-and-action-area-wrapper img{
+	width: auto;
+	height: 230px;
 }
 /*# sourceMappingURL=../maps/style.css.map */

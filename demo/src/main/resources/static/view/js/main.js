@@ -1239,7 +1239,26 @@ function updateTotalForOrder(orderElement) {
 	totalItems = parseInt(orderElement.querySelector('.title-sp-1').textContent.replace(/\D/g, '')) || 0;
 	shippingCost = parseInt(orderElement.querySelector('.shippingCost').textContent.replace(/\D/g, '')) || 0;
 
-	// Tính tổng thanh toán
+					if (!this.classList.contains('active-btn')) {
+						document.querySelectorAll('.btn-tt').forEach(btn => btn.classList.remove('active-btn'));
+						this.classList.add('active-btn'); 
+					}
+				});
+			});
+			var swiper = new Swiper('.swiper-container', {
+			  slidesPerView: 5,  // Show 5 items at once
+			  spaceBetween: 10,   // Space between items
+			  loop: true,         // Loop the slides
+			  speed: 1000,        // Transition speed
+			  autoplay: {
+			      delay: 3000,             // Đặt độ trễ tự động chuyển slide là 5 giây (5000 ms)
+			      disableOnInteraction: false,  // Không dừng autoplay khi người dùng tương tác
+			    },
+			  pagination: {
+			    el: '.swiper-pagination',
+			    clickable: true,  // Enable pagination clicks
+			  }});
+			  // Tính tổng thanh toán
 	const total = totalItems + shippingCost;
 
 	// Cập nhật tổng tiền cho đơn hàng này
@@ -1347,5 +1366,3 @@ function dathang()
 	           console.error('Lỗi khi đặt hàng:', error);
 	       }
 	   });
-
-}
