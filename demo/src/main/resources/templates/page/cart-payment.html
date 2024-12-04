@@ -48,7 +48,7 @@
 	</div>
 	<!-- rts cart area start -->
 	<div class="rts-cart-area rts-section-gap bg_light-1">
-		<div class="container">
+		<div class="container-payment">
 			<div class="row g-5">
 				<div
 					class="col-xl-12 col-lg-12 col-md-12 col-12 order-2 order-xl-1 order-lg-2 order-md-2 order-sm-2">
@@ -136,7 +136,7 @@
 
 							</div>
 							<div class='row row-address' style="margin-top: 15px;">
-								<div class="col-6 address" th:each="address : ${addressUser}">
+								<div class="col-6 address" style="margin-right: 15px;" th:each="address : ${addressUser}">
 									<div class=" align-items-start"
 										style="padding: 10px; height: 100%">
 										<div style="padding: 10px; height: 80%">
@@ -188,12 +188,13 @@
 												<span style="flex: 2">Loại: Cute pho mai que</span> <span
 													class="title-sp-1" th:text="${product.productPrice}"></span>
 												<span class="title-sp-1"
-													th:text="${product.productQuantity}"></span> <span
+													th:text="${product.productQuantity}"></span> 
+													<span
 													id="total" class="title-sp-1"
 													th:text="${product.productPrice*product.productQuantity}"></span>
 											</div>
 										</div>
-									</div>
+									
 									<div class="voucher-shop">
 										<div></div>
 										<div class="voucher-shop-info">
@@ -220,6 +221,7 @@
 									<div class="tongtien">
 										<span>Tổng tiền: 100.000</span>
 									</div>
+								</div>
 								</div>
 							</form>
 
@@ -282,6 +284,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 		<script>
 		window.addEventListener('load', updateTotal);
 		let currentMethodElement, currentCostElement;
@@ -528,10 +531,12 @@
 
 			// Lấy tổng tiền hàng và phí vận chuyển từ tất cả các sản phẩm
 			document.querySelectorAll('.product-info').forEach(product => {
-				const itemCost = parseInt(product.querySelector('.title-sp-1').textContent.replace(/\D/g, '')); // Tiền hàng
+				const productPriceText = product.querySelector('.title-sp-1').textContent;
+				const productPrice = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
+			    const productQuantity = parseInt(product.querySelectorAll('.title-sp-1')[1].textContent.trim(), 10) || 0;
 				const shippingCost = parseInt(product.querySelector('.shippingCost').textContent.replace(/\D/g, '')); // Phí vận chuyển
 
-				totalItems += itemCost;
+				totalItems += productPrice * productQuantity;
 				totalShipping += shippingCost;
 			});
 
@@ -541,18 +546,31 @@
 			document.querySelector('.tien-tong-total').textContent = (totalItems + totalShipping).toLocaleString() + "₫";
 		}
 		function updateTotalForOrder(orderElement) {
-			let totalItems = 0;
-			let shippingCost = 0;
+		    let totalItems = 0;
+		    let shippingCost = 0;
 
-			// Tìm các phần tử liên quan trong đơn hàng cụ thể
-			totalItems = parseInt(orderElement.querySelector('.title-sp-1').textContent.replace(/\D/g, '')) || 0;
-			shippingCost = parseInt(orderElement.querySelector('.shippingCost').textContent.replace(/\D/g, '')) || 0;
+		    // Tìm các phần tử liên quan trong đơn hàng cụ thể
+		    const productPriceText = orderElement.querySelector('.title-sp-1').textContent;
 
-			// Tính tổng thanh toán
-			const total = totalItems + shippingCost;
+			// Parse the number, removing any non-numeric characters (e.g., commas or periods)
+			const productPrice = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
+		    const productQuantity = parseInt(orderElement.querySelectorAll('.title-sp-1')[1].textContent.trim(), 10) || 0;
 
-			// Cập nhật tổng tiền cho đơn hàng này
-			orderElement.querySelector('.tongtien span').textContent = "Tổng tiền: " + total.toLocaleString() + "₫";
+		    const totalItemElement = orderElement.querySelector('#total');
+		    // Tính tổng tiền cho sản phẩm
+		    totalItems = productPrice * productQuantity;
+		    totalItemElement.textContent = totalItems.toLocaleString() + "₫";
+		    // Tính chi phí vận chuyển
+		    shippingCost = parseInt(orderElement.querySelector('.shippingCost').textContent.replace(/\D/g, ''), 10) || 0;
+
+		    // Tính tổng thanh toán
+		    const total = totalItems + shippingCost;
+
+		    // Cập nhật tổng tiền cho đơn hàng này
+		    const totalElement = orderElement.querySelector('.tongtien span');
+		    if (totalElement) {
+		        totalElement.textContent = "Tổng tiền: " + total.toLocaleString() + "₫";
+		    }
 		}
 		window.addEventListener('load', () => {
 			document.querySelectorAll('.product-info').forEach(order => {
