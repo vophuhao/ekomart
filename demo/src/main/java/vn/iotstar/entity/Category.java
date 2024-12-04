@@ -1,7 +1,10 @@
-package vn.iotstar.entity;
+ package vn.iotstar.entity;
 
 import java.io.Serializable;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@JsonIgnoreProperties({"products"})
 public class Category implements Serializable {
 	
 	/**
@@ -29,14 +33,16 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-   
+	
     private String categoryId;
     private String categoryName;
+    private String image;
     private int status;
 
 	
-	 @OneToMany(mappedBy = "category", fetch = FetchType.LAZY) private
-	 List<Product> products;
+	 @OneToMany(mappedBy = "category", fetch = FetchType.LAZY) 
+	 
+	 private List<Product> products;
 	 
 
 }

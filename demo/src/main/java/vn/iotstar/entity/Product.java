@@ -19,6 +19,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vn.iotstar.model.CategoryModel;
 
 @Entity
 @Data
@@ -38,27 +39,24 @@ public class Product implements Serializable {
     private String productId;
     private String name;
     private String description;
-    private double price;
-    private int life; // in months
+    private double price;  
     private int count;
     private int sold;
     private int status;
     private int display;
     
-    private LocalDate date;
-
-	
 	@ManyToOne  
 	@JoinColumn(name = "categoryId") 
 	private Category category;
-
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ProductImage> images;
+    private String image;
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<ProductImage> images;
+    
 //
 //    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 //    private List<OrderDetail> orderDetails;

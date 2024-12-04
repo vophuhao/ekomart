@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.iotstar.entity.Product;
-import vn.iotstar.repository.admin.AdminProductRepository;
+import vn.iotstar.repository.ProductRepository;
 import vn.iotstar.service.admin.AdminIProductService;
 
 
@@ -15,7 +15,7 @@ import vn.iotstar.service.admin.AdminIProductService;
 public class AdminProductServiceImp implements AdminIProductService {
 
 	@Autowired
-	AdminProductRepository productRepository;
+	ProductRepository productRepository;
 
 	@Override
 	public <S extends Product> S save(S entity) {
@@ -43,12 +43,17 @@ public class AdminProductServiceImp implements AdminIProductService {
 	}
 
 	@Override
+	public Optional<Product> findById(Long id) {
+		return productRepository.findById(id);
+	}
+
+	@Override
 	public Optional<Product> findByDisplay(int display) {
 		return productRepository.findByDisplay(display);
 	}
 
 	@Override
-	public Optional<Product> findByStatus(int status) {
+	public List<Product> findByStatus(int status) {
 		return productRepository.findByStatus(status);
 	}
 
@@ -56,6 +61,8 @@ public class AdminProductServiceImp implements AdminIProductService {
 	public Optional<Product> findByName(String productName) {
 		return productRepository.findByName(productName);
 	}
+	
+	
 	
 	
 	

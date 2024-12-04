@@ -50,14 +50,6 @@
 //    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<OrderDetail> orderDetails;
 //
-//    @OneToOne
-//    @JoinColumn(name = "admin_discount_code")
-//    private DiscountAdmin discountAdmin;
-//
-//    @OneToOne
-//    @JoinColumn(name = "shop_discount_code")
-//    private DiscountShop discountShop;
-//
 //    @ManyToOne
 //    @JoinColumn(name = "address_id")
 //    private Address userAddress;

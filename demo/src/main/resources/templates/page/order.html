@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="description"
+	content="Ekomart-Grocery-Store(e-Commerce) HTML Template: A sleek, responsive, and user-friendly HTML template designed for online grocery stores.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="Grocery, Store, stores">
+<title>Dashboard Ekomart-Grocery-Store HTML Template</title>
+<link rel="shortcut icon" type="image/x-icon"
+	href="/admin/images/fav.png">
+<!-- plugins css -->
+<link rel="stylesheet preload" href="/view/css/plugins.css" as="style">
+<link rel="stylesheet preload"
+	href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"
+	as="style">
+<link rel="stylesheet preload" href="/view/css/style.css" as="style">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: lightgray;">
+	<div class="">
+		<div class="container-header">
+			<div class="thanhtoan-image">
+				<img src="/admin/images/logo/logo.svg" alt="logo" height="52"
+					width="131">
+				<h4 class="thanhtoan">Thanh Toán</h4>
+			</div>
+		</div>
+		<div class="main">
+			<div class="container-addr">
+				<div style="padding: 28px 30px 24px;">
+						<div
+								style="display: flex; align-items: center; justify-content: space-between;">
+								<div style="font-size: 35px; margin: 0; width: 87%;">Địa
+									chỉ giao hàng</div>
+								<div style="width: 13%;">
+									<button type="button" class="btn btn-primary"
+										data-bs-toggle="modal" data-bs-target="#deliveryModal"
+										style="display: flex; align-items: center; padding: 5px 10px; font-size: 16px; cursor: pointer;">
+										Thêm địa chỉ</button>
+							</div>
+					</div>
+					<div class='row' style="margin-top: 15px;">
+						<div class="col-6 address">
+							<div class=" align-items-start"
+								style="padding: 10px; height: 100%">
+								<div style="padding: 10px; height: 80%">
+									<p>
+										<strong>Võ Phú Hào</strong>
+									</p>
+									<p>0356420084</p>
+									<p>tay hoa thu duc</p>
+								</div>
+								<!-- Các nút Chỉnh sửa và Xóa -->
+								<div class="d-flex"
+									style="height: 20%; width: 100%; height: 20%; width: 100%; justify-content: flex-end; display: flex;">
+									<i class="fa-solid fa-pencil-alt" style="padding-right: 10px;">
+									</i> <i class="fa-solid fa-trash-alt" style="padding-right: 10px;"></i>
+									<a>Default</a>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container-pro mt-4 mb-5">
+				<div class="product-item">
+					<div class="product-item-title">
+						<h2 class="title-sp">Sản phẩm</h2>
+						<div style="flex: 2"></div>
+						<div class="title-sp-1">Đơn giá</div>
+						<div class="title-sp-1">Số lượng</div>
+						<div class="title-sp-1">Thành tiền</div>
+					</div>
+				</div>
+				<form th:action="@{/cart/payment}" th:method="post">
+					<!-- <div th:each="item, i : ${cart.items}"> -->
+					<div class="product-list">
+						<div th:each="product : ${selectedProducts}" class="product-info">
+							<div class="pro-shop" th:text="${product.productName}"></div>
+							<div class="product">
+								<div class="product-info-1">
+									<div style="flex: 4">
+										<img class="img-pro"
+											src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/11/Genshin-Impact-Nahida.jpg">
+
+									</div>
+									<span style="flex: 2">Loại: Cute pho mai que</span> <span
+										class="title-sp-1" th:text="${product.productPrice}"></span> <span
+										class="title-sp-1" th:text="${product.productQuantity}"></span>
+									<span id="total" class="title-sp-1"
+										th:text="${product.productPrice*product.productQuantity}"></span>
+								</div>
+							</div>
+						</div>
+						<div class="voucher-shop">
+							<div></div>
+							<div class="voucher-shop-info">
+								<div style="display: flex; justify-content: space-between">
+									<span>Voucher của Shop</span>
+									<button class="btn-voucher">Chọn voucher</button>
+								</div>
+							</div>
+						</div>
+						<div class="ptvanchuyen">
+							<div class="message">
+								<span style="display: flex; width: 80px;">Lời nhắn:</span> <input
+									class="luuy" placeholder="Lưu ý cho người bán"></input>
+							</div>
+							<div class="vanchuyen">
+								<span style="flex: 5">Phương thức vận chuyển:</span> <span
+									style="flex: 4" class="shippingMethod">Chuẩn</span>
+								<button class="changeButton"
+									style="flex: 4; color: #05a !important;">Thay đổi</button>
+								<span style="flex: 4; text-align: right;" class="shippingCost">20.000</span>
+							</div>
+						</div>
+						<div class="tongtien">
+							<span>Tổng tiền: 100.000</span>
+						</div>
+					</div>
+				</form>
+
+				<div style="margin-top: -13px;">
+					<div class="pro-voucher">
+						<span>Eko Voucher</span>
+						<button class="btn-voucher">Chọn voucher</button>
+					</div>
+				</div>
+				<div class="thanhtoantien">
+					<div class="ptthanhtoan">
+						<span style="display: flex; margin-right: 10px">Phương thức
+							thanh toán:</span>
+						<button class="btn-tt">Thanh toán bằng ngân hàng</button>
+						<button class="btn-tt">Thanh toán khi nhận hàng</button>
+					</div>
+					<div class="thanhtoan-info">
+						<div></div>
+						<div>
+							<div class="thanhtoan-row">
+								<span class="label-tong">Tổng tiền hàng</span> <span
+									class="tien-tong tien-tong-items">100.000</span>
+							</div>
+							<div class="thanhtoan-row">
+								<span class="label-tong">Tổng tiền phí vận chuyển</span> <span
+									class="tien-tong tien-tong-shipping">20.000</span>
+							</div>
+							<div class="thanhtoan-row">
+								<span class="label-tong">Tổng thanh toán</span> <span
+									class="tien-tong tien-tong-total"
+									style="font-size: 20px; color: green">120.000</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="dathang">
+					<button class="btn-dathang">Đặt hàng</button>
+				</div>
+			</div>
+		</div>
+		<div id="popup-vanchuyen" class="popup-vanchuyen">
+			<div class="popup-content">
+				<h3>Chọn phương thức vận chuyển</h3>
+				<label class="option"> <input type="radio" name="shipping"
+					value="Nhanh" checked> Nhanh: 20.000₫ (Đảm bảo nhận hàng
+					trong 3 ngày)
+				</label> <label class="option"> <input type="radio" name="shipping"
+					value="Hỏa Tốc"> Hỏa Tốc: 45.000₫ (Giao hàng trong ngày)
+				</label>
+				<div class="buttons">
+					<button class="btn btn-success confirm-button ml-2">Xác
+						Nhận</button>
+					<button class="btn btn-secondary close-button ml-2">Trở
+						Lại</button>
+				</div>
+			</div>
+
+		</div>
+		</div>
+		<div class="modal fade" id="deliveryModal"
+										data-bs-backdrop="static" data-bs-keyboard="false"
+										tabindex="-2" aria-labelledby="deliveryModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content" style="height: 520px">
+												<!-- Modal Header -->
+												<div class="modal-header">
+													<h5 class="modal-title" id="deliveryModalLabel">Nhập
+														Địa Chỉ Giao Hàng</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<!-- Modal Body -->
+												<div class="modal-body">
+													<form id="deliveryForm">
+														<div class="mb-3">
+															<label for="fullname" class="form-label">Họ và
+																Tên:</label> <input type="text" class="form-control"
+																id="fullname" name="fullname" required
+																style="border: solid 2px #ddd;">
+														</div>
+
+														<div class="mb-3">
+															<label for="phone" class="form-label">Số Điện
+																Thoại:</label> <input type="text" class="form-control"
+																id="phone" name="phone" required
+																style="border: solid 2px #ddd";>
+														</div>
+
+														<div class="mb-3">
+															<label for="address" class="form-label">Địa Chỉ:</label>
+															<input type="text" class="form-control" id="address"
+																name="address" required style="border: solid 2px #ddd";>
+														</div>
+
+														<div class="mb-3"
+															style="display: flex; align-items: center; padding: 12px 0px;">
+															<label for="province" class="form-label"
+																style="padding-right: 15px; font-size: 20px; width: 50%;">Tỉnh/Thành
+																Phố:</label> <select id="province" name="province" required
+																style="font-size: 20px;">
+																<option value="">Chọn Tỉnh/Thành Phố</option>
+															</select>
+														</div>
+
+														<div class="mb-3"
+															style="display: flex; align-items: center; padding: 12px 0px;">
+															<label for="district" class="form-label"
+																style="padding-right: 15px; font-size: 20px; width: 50%;">Quận/Huyện:</label>
+															<select id="district" name="district"
+																style="font-size: 20px;" required>
+																<option value="" selected>Chọn Quận/Huyện</option>
+															</select>
+														</div>
+
+														<div class="mb-3"
+															style="display: flex; align-items: center; padding: 12px 0px;">
+															<label for="ward" class="form-label"
+																style="padding-right: 15px; font-size: 20px; width: 50%;">Phường/Xã:</label>
+															<select id="ward" name="ward" required
+																style="font-size: 20px;">
+																<option value="" selected>Chọn Phường/Xã</option>
+															</select>
+														</div>
+
+														<button type="submit" class="btn btn-primary"
+															style="width: 30%; font-size: 15px; padding: 10px;">
+															Xác Nhận Địa Chỉ</button>
+													</form>
+												</div>
+											</div>
+										</div>							
+								</div>
+		
+		<script>
+		window.addEventListener('load', updateTotal);
+		let currentMethodElement, currentCostElement;
+
+		// Mở popup
+		function openPopup(event) {
+			const popup = document.getElementById("popup-vanchuyen");
+			popup.style.display = "block";
+			document.documentElement.classList.add("no-scroll");
+
+			// Tìm phần tử liên quan đến sản phẩm hiện tại
+			const productInfo = event.target.closest('.product-info');
+			currentMethodElement = productInfo.querySelector('.shippingMethod');
+			currentCostElement = productInfo.querySelector('.shippingCost');
+
+			// Lấy phương thức vận chuyển hiện tại
+			const currentMethod = currentMethodElement.textContent.trim();
+
+			// Đồng bộ radio button với phương thức vận chuyển hiện tại
+			let found = false;
+			document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+				if (radio.value === currentMethod) {
+					radio.checked = true;
+					found = true;
+				}
+			});
+
+			// Nếu không tìm thấy, chọn mặc định radio đầu tiên
+			if (!found) {
+				document.querySelector('input[name="shipping"]').checked = true;
+			}
+		}
+
+		// Đóng popup
+		function closePopup() {
+			const popup = document.getElementById("popup-vanchuyen");
+			popup.style.display = "none";
+			document.documentElement.classList.remove("no-scroll");
+		}
+
+		function oder()
+		{
+			
+		}
+		
+		
+		// Xác nhận và cập nhật thông tin
+		function confirmSelection() {
+			const selectedOption = document.querySelector('input[name="shipping"]:checked').value;
+
+			// Cập nhật giá tiền dựa vào lựa chọn
+			const priceMap = {
+				"Nhanh": "20.000",
+				"Hỏa Tốc": "45.000"
+			};
+
+			// Cập nhật phần tử phương thức vận chuyển và giá
+			currentMethodElement.textContent = selectedOption;
+			currentCostElement.textContent = priceMap[selectedOption] + "₫";
+			updateTotalForOrder(currentMethodElement.closest('.product-info'));
+			updateTotal();
+			closePopup();
+		}
+		document.querySelectorAll('.btn-dathang').forEach(button => {
+			button.addEventListener("click", oder);
+		});
+		// Gán sự kiện
+		document.querySelectorAll('.changeButton').forEach(button => {
+			button.addEventListener("click", openPopup);
+		});
+
+		document.querySelectorAll('.confirm-button').forEach(button => {
+			button.addEventListener("click", confirmSelection);
+		});
+
+		document.querySelectorAll('.close-button').forEach(button => {
+			button.addEventListener("click", closePopup);
+		});
+
+		function updateTotal() {
+			let totalItems = 0;
+			let totalShipping = 0;
+
+			// Lấy tổng tiền hàng và phí vận chuyển từ tất cả các sản phẩm
+			document.querySelectorAll('.product-info').forEach(product => {
+				const itemCost = parseInt(product.querySelector('.title-sp-1').textContent.replace(/\D/g, '')); // Tiền hàng
+				const shippingCost = parseInt(product.querySelector('.shippingCost').textContent.replace(/\D/g, '')); // Phí vận chuyển
+
+				totalItems += itemCost;
+				totalShipping += shippingCost;
+			});
+
+			// Cập nhật giá trị tổng tiền hàng, phí vận chuyển và tổng thanh toán
+			document.querySelector('.tien-tong-items').textContent = totalItems.toLocaleString() + "₫";
+			document.querySelector('.tien-tong-shipping').textContent = totalShipping.toLocaleString() + "₫";
+			document.querySelector('.tien-tong-total').textContent = (totalItems + totalShipping).toLocaleString() + "₫";
+		}
+		function updateTotalForOrder(orderElement) {
+			let totalItems = 0;
+			let shippingCost = 0;
+
+			// Tìm các phần tử liên quan trong đơn hàng cụ thể
+			totalItems = parseInt(orderElement.querySelector('.title-sp-1').textContent.replace(/\D/g, '')) || 0;
+			shippingCost = parseInt(orderElement.querySelector('.shippingCost').textContent.replace(/\D/g, '')) || 0;
+
+			// Tính tổng thanh toán
+			const total = totalItems + shippingCost;
+
+			// Cập nhật tổng tiền cho đơn hàng này
+			orderElement.querySelector('.tongtien span').textContent = "Tổng tiền: " + total.toLocaleString() + "₫";
+		}
+		window.addEventListener('load', () => {
+			document.querySelectorAll('.product-info').forEach(order => {
+				updateTotalForOrder(order);
+			});
+		});
+		document.querySelectorAll('.btn-tt').forEach(button => {
+			button.addEventListener('click', function (event) {
+				event.stopPropagation();
+
+				if (!this.classList.contains('active-btn')) {
+					document.querySelectorAll('.btn-tt').forEach(btn => btn.classList.remove('active-btn'));
+					this.classList.add('active-btn'); 
+				}
+			});
+		});
+	</script>
+</html>

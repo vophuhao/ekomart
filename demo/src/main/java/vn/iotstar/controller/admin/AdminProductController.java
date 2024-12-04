@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 import jakarta.validation.Valid;
 import vn.iotstar.entity.Product;
+import vn.iotstar.entity.Shop;
 import vn.iotstar.service.admin.AdminIProductService;
 
 @Controller
@@ -40,11 +41,7 @@ public class AdminProductController {
             model.addAttribute("listByName", listByName.orElse(null));
         }
 
-        if (status != null) {
-            Optional<Product> listByStatus = productService.findByStatus(status);
-            model.addAttribute("listByStatus", listByStatus.orElse(null));
-        }
-
+      
         if (display != null) {
             Optional<Product> listByDisplay = productService.findByDisplay(display);
             model.addAttribute("listByDisplay", listByDisplay.orElse(null));
@@ -60,12 +57,4 @@ public class AdminProductController {
         return "admin/display-product";
     }
 
-    @PostMapping("/update")
-    public String update(@Valid Product product, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "admin/home";
-        }
-        productService.save(product);
-        return "redirect:/admin/products";
-    }
 }

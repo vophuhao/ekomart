@@ -2,17 +2,8 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{admin/home.html}">
 <div class="main-content" layout:fragment="content">
-<link rel="stylesheet" type="text/css" th:href="@{/css/animate.min.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/css/animation.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/bootstrap-select.min.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/swiper-bundle.min.css}">
 	<!-- main-content-wrap -->
-	<div class="main-content-inner">
-	
+	<div class="main-content-inner">	
 		<!-- main-content-wrap -->
 		<div class="main-content-wrap">
 			<div class="flex items-center flex-wrap justify-between gap20 mb-27">
@@ -31,12 +22,10 @@
 						<div class="text-tiny">Edit category</div>
 					</li>
 				</ul>
-			</div>
-			
+			</div>			
 			<!-- form-edit-category -->
 			<form class="form-add-product" th:action="@{/admin/categories/update}" method="POST" th:object="${category}">
-				<div class="wg-box">
-				
+				<div class="wg-box">				
 					<!-- Category id goc -->
 					<fieldset class="category-id" style= "display: none">
 					    <label for="categoryId" class="form-label">ID: </label>
@@ -94,20 +83,5 @@
 
 	<!-- /bottom-page -->
 			<!-- Javascript -->
-	<script src="/js/jquery.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/bootstrap-select.min.js"></script>
-	<script src="/js/zoom.js"></script>
-	<script src="/js/apexcharts/apexcharts.js"></script>
-	<script src="/js/apexcharts/line-chart-1.js"></script>
-	<script src="/js/apexcharts/line-chart-2.js"></script>
-	<script src="/js/apexcharts/line-chart-3.js"></script>
-	<script src="/js/apexcharts/line-chart-4.js"></script>
-	<script src="/js/apexcharts/line-chart-5.js"></script>
-	<script src="/js/apexcharts/line-chart-6.js"></script>
-	<script src="/js/switcher.js"></script>
-	<script src="/js/theme-settings.js"></script>
-	<script src="/js/main.js"></script>
-	<script src="/js/swiper-bundle.min.js"></script>
-    <script src="/js/carousel.js"></script>
+	
 </div>

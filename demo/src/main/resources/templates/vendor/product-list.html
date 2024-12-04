@@ -1,0 +1,983 @@
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{vendor/home.html}">
+<div class="transection" layout:fragment="content">
+                <div class="title-right-actioin-btn-wrapper-product-list">
+                    <h3 class="title">Product</h3>
+                    <div class="button-wrapper">
+                        <div class="single-select">
+                            <div class="nice-select" tabindex="0"><span class="current">Export</span>
+                                <ul class="list">
+                                    <li data-value="Default Sorting" data-display="Export" class="option selected">Export</li>
+                                    <li data-value="1" class="option">CSV</li>
+                                    <li data-value="2" class="option">PDF</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="rts-btn btn-primary menu-btn">+ Add</button>
+                    </div>
+                </div>
+                <div class="product-top-filter-area-l">
+                    <div class="left-area-button-fiulter">
+                        <!-- single product button -->
+                         <div class="signle-product-single-button">
+                            <span>All 250 </span>
+                         </div>
+                        <!-- single product button end -->
+                        <!-- single product button -->
+                         <div class="signle-product-single-button">
+                            <span>New Item 150</span>
+                         </div>
+                        <!-- single product button end -->
+                        <!-- single product button -->
+                         <div class="signle-product-single-button">
+                            <span>Disabled 154</span>
+                         </div>
+                        <!-- single product button end -->
+                    </div>
+                </div>
+                <div class="vendor-list-main-wrapper product-wrapper">
+                    <div class="card-body table-product-select">
+                        <div class="table-responsive">
+                            <table class="table table-hover display" id="example"   width="100%">
+                                <thead class="mb--20">
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Product  No</th>
+                                        <th>Category</th>
+                                        <th>Price</th>                                          
+                                          <th>Date</th>
+                                        <th class="text-start">Stock</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/14.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/15.png" alt="grocery">
+                                                    </a>
+                                                    <p>Blue Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/17.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/18.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/19.png" alt="grocery">
+                                                    </a>
+                                                    <p>Red Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/15.png" alt="grocery">
+                                                    </a>
+                                                    <p>Green Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$120</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/17.png" alt="grocery">
+                                                    </a>
+                                                    <p>Hree Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$125</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/18.png" alt="grocery">
+                                                    </a>
+                                                    <p>Kabir Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$133</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/19.png" alt="grocery">
+                                                    </a>
+                                                    <p>leer Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$132</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/17.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/19.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/15.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/17.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/18.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/19.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/17.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/19.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/15.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/17.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/18.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/19.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <div class="item-check-area-table-left">
+                                                <div class="item-name-and-check-table">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                    </div>
+                                                </div>
+                                                <div class="item-image-and-name">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/admin/images/grocery/17.png" alt="grocery">
+                                                    </a>
+                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                </div>
+                                            </div>
+                         
+                                        </td>
+                                        <td><p>
+                                            #87845
+                                        </p></td>
+                                        <td>
+                                            <div class="payment d-flex align-items-center">
+                                                <p>
+                                                    Electronics
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p>$200</p>
+                                        </td>
+                                        <td><p>03/02/2022</p></td>
+                                        <td class="text-end">
+                                            <div class="between-stock-table action">
+                                                <p>250</p>
+                                                <img src="/admin/images/grocery/%6015.png" alt="">
+                                                <div class="action-edit-deleate">
+                                                    <span>Edit</span>
+                                                    <span>Delete</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- table-responsive.// -->
+                        </div>
+                    </div>
+                 </div>
+            </div>

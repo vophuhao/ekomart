@@ -3,6 +3,7 @@ package vn.iotstar.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +11,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,16 +39,21 @@ public class Shop implements Serializable{
     private String description;
     private String sdt;
     private String email;
+    private int status;
+    private int display;
 
-//    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
-//    private List<AddressShop> addresses;
-//
-//	/*
-//	 * @OneToOne
-//	 * 
-//	 * @JoinColumn(name = "owner_id")
-//	 */
-//	/* private User owner; */
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "address_id")
+    @JsonIgnore
+    private AddressShop address;
+    
+    @OneToOne( cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @JoinColumn(name = "identifi_id")
+    @JsonIgnore
+    private IdentificationInfo info;
+    
+    @OneToOne
+	private UserInfo user;
 
     @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products;

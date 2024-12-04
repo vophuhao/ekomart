@@ -1,72 +1,127 @@
-//package vn.iotstar.controller.vendor;
-//
-//import java.util.List;
-//import java.util.Optional;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Qualifier;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.ModelMap;
-//import org.springframework.validation.BindingResult;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestParam;
-//
-//import org.springframework.ui.Model;
-//import jakarta.validation.Valid;
-//import vn.iotstar.entity.Product;
-//import vn.iotstar.service.admin.AdminIProductService;
-//import vn.iotstar.service.vendor.VendorIProductService;
-//
-//@Controller
-//@RequestMapping("/vendor/{id}/products") // id goc cua shop 
-//public class VendorProductController {
-//
-//    @Autowired
-//    VendorIProductService productService;
-//
-//    @GetMapping("")
-//    public String listProduct(@PathVariable("id") Long id, ModelMap model, 
-//                              @RequestParam(value = "name", required = false) String productName,
-//                              @RequestParam(value = "status", required = false) Integer status,
-//                              @RequestParam(value = "display", required = false) Integer display) 
-//    {
-//        List<Product> list = productService.findProductsByShopId(id);
-//        model.addAttribute("products", list);
-//
-//        if (productName != null) {
-//            Optional<Product> listByName = productService.findByName(productName);
-//            model.addAttribute("listByName", listByName.orElse(null));
-//        }
-//
-//        if (status != null) {
-//            Optional<Product> listByStatus = productService.findByStatus(status);
-//            model.addAttribute("listByStatus", listByStatus.orElse(null));
-//        }
-//
-//        if (display != null) {
-//            Optional<Product> listByDisplay = productService.findByDisplay(display);
-//            model.addAttribute("listByDisplay", listByDisplay.orElse(null));
-//        }
-//
-//        return "vendor/product-list";
-//    }
-//
-//    @GetMapping("/display/product{id}")
-//    public String edit(@PathVariable("productid") long id, Model model) {
-//        Product product = productService.getById(id);
-//        model.addAttribute("product", product);
-//        return "vendor/display-product";
-//    }
-//
-//    @PostMapping("/update")
-//    public String update(@Valid Product product, BindingResult result, Model model) {
-//        if (result.hasErrors()) {
-//            return "vendor/home";
-//        }
-//        productService.save(product);
-//        return "redirect:/vendor/products";
-//    }
-//}
+package vn.iotstar.controller.vendor;
+
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.ui.Model;
+import jakarta.validation.Valid;
+import vn.iotstar.entity.Category;
+import vn.iotstar.entity.Product;
+import vn.iotstar.model.CategoryModel;
+import vn.iotstar.model.productModel;
+import vn.iotstar.service.IStorageService;
+import vn.iotstar.service.admin.AdminICategoryService;
+import vn.iotstar.service.vendor.VendorIProductService;
+
+@Controller
+@RequestMapping("/vendor/products") // id goc cua shop 
+public class VendorProductController {
+
+    @Autowired
+    VendorIProductService productService;
+    
+    @Autowired
+    AdminICategoryService categoryService;
+    
+    
+    
+    @Autowired 
+    IStorageService storageService;
+    
+    
+    @GetMapping("")
+    public String listProduct(@PathVariable("id") Long id, ModelMap model, 
+                              @RequestParam(value = "name", required = false) String productName,
+                              @RequestParam(value = "status", required = false) Integer status,
+                              @RequestParam(value = "display", required = false) Integer display) 
+    {
+        List<Product> list = productService.getProductsByShopId(id);
+        model.addAttribute("products", list);
+
+        if (productName != null) {
+            List<Product> listByName = productService.findByName(productName,id);
+            model.addAttribute("listByName", listByName);
+        }
+
+        if (status != null) {
+            List<Product> listByStatus = productService.findByStatus(status,id);
+            model.addAttribute("listByStatus", listByStatus);
+        }
+
+        if (display != null) {
+            List<Product> listByDisplay = productService.findByDisplay(display,id);
+            model.addAttribute("listByDisplay", listByDisplay);
+        }
+
+        return "vendor/product-list";
+    }
+    @GetMapping("/add")
+    public String addProduct(Model model) {
+    	
+    	List<Category> categoryList=categoryService.findAll();
+    	model.addAttribute("cateList",categoryList);
+    	
+    	return "vendor/product-add";
+    }
+    @GetMapping("/list")
+    public String listProduct() {
+    	return "vendor/product-list";
+    }
+    
+    @PostMapping("/add")
+    public ModelAndView addNewProduct(@Valid @ModelAttribute("products") productModel productModel ,
+	        BindingResult result,
+	        RedirectAttributes redirectAttributes)
+    {
+    	if(result.hasErrors()) {
+	        return new ModelAndView("vendor/product-list", "products", productModel);
+	    }
+    	Category cate=new Category();
+    	cate=categoryService.getById(productModel.getCategoryId());
+    	
+	    Product entity = new Product();
+	    BeanUtils.copyProperties(productModel, entity);
+	    entity.setCategory(cate);
+	    entity.setStatus(0);
+	    entity.setDisplay(0);
+	   entity.setShop(null);
+	    if(!productModel.getRts_images1().isEmpty()) {
+	    	//lưu file vào trường poster
+	    	UUID uuid = UUID.randomUUID();
+	    	String uuString = uuid.toString();
+	    	entity.setImage (storageService.getSorageFilename(productModel.getRts_images1(), uuString));
+	    	storageService.store(productModel.getRts_images1(), entity.getImage());
+	    	}
+	    
+	   
+	   productService.save(entity);
+	    redirectAttributes.addFlashAttribute("message", "Product saved successfully!");
+	    return new ModelAndView("redirect:/vendor/products/list");
+    }
+    
+    
+    @GetMapping("/display/{id}")
+    public String edit(@PathVariable("id") long id, Model model) {
+        Product product = productService.getById(id);
+        model.addAttribute("product", product);
+        return "vendor/display-product";
+    }
+
+    @PostMapping("/update")
+    public String update(@Valid Product product, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "vendor/home";
+        }
+        productService.save(product);
+        return "redirect:/vendor/products";
+    }
+}
