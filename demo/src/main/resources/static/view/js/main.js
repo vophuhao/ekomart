@@ -1331,7 +1331,7 @@ function dathang()
 	       productIds: productIds,
 	       quantities: quantities
 	   };
-		console.log(orderData)
+		
 	   // Gửi yêu cầu POST tới controller
 	   $.ajax({
 	       url: '/user/cart/payment',  // Địa chỉ API
@@ -1340,7 +1340,8 @@ function dathang()
 	       data: JSON.stringify(orderData),  // Dữ liệu gửi đi dưới dạng JSON
 	       success: function(response) {
 	           // Xử lý phản hồi từ server
-	           console.log('Đặt hàng thành công:');
+	           alert("Tao don hang thanh cong");
+			   window.location.href = '/user/cart';
 	       },
 	       error: function(error) {
 	           // In lỗi nếu có
