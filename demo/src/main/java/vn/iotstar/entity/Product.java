@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -61,8 +63,8 @@ public class Product implements Serializable {
 //    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 //    private List<OrderDetail> orderDetails;
 //
-//    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-//    private List<Review> reviews;
+    @OneToMany(mappedBy = "product")
+    private List<Review> reviews;
 
 //    @ManyToMany(fetch = FetchType.LAZY)
     /*private List<User> likedByUsers;*/

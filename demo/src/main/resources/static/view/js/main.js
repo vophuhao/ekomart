@@ -963,10 +963,35 @@ $(document).ready(function() {
 	});
 });
 
+function filterByRating(rating) {
+    const productId = document.getElementById('productId').value; // Ẩn input chứa ID sản phẩm
+    fetch(`/home/product-detail/${productId}/reviews?rating=${rating}`)
+        .then(response => response.json())
+        .then(data => {
+            const reviewContainer = document.getElementById('reviewContainer');
+            reviewContainer.innerHTML = ''; // Xóa nội dung cũ
 
+            // Duyệt qua tất cả đánh giá và hiển thị
+            data.forEach(review => {
+                const reviewDiv = document.createElement('div');
+                reviewDiv.classList.add('review-box', 'card', 'mb-3');  // Bootstrap classes
 
-
-
-
-
-
+                reviewDiv.innerHTML = `
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <!-- Star Rating -->
+                                <div class="rating-stars">
+                                    ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                                </div>
+                            </div>
+                            <span class="text-muted small">${new Date(review.date).toLocaleString()}</span>
+                        </div>
+                        <p class="mt-2">${review.comment}</p>
+                    </div>
+                `;
+                reviewContainer.appendChild(reviewDiv);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
