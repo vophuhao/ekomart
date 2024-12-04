@@ -963,7 +963,17 @@ $(document).ready(function() {
 	});
 });
 
+function toggleHiddenInput(checkbox) {
+        // Lấy đối tượng checkbox và hidden input tương ứng
+        var hiddenInput = checkbox.previousElementSibling;
 
+        // Cập nhật giá trị của hidden input tùy thuộc vào trạng thái checkbox
+        if (checkbox.checked) {
+            hiddenInput.value = "1";  // Khi checkbox được chọn
+        } else {
+            hiddenInput.value = "0";  // Khi checkbox không được chọn
+        }
+    }
 
 
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import vn.iotstar.util.JwtUtil;
 
 @Controller
@@ -19,7 +20,7 @@ public class homeController {
     private JwtUtil jwtUtil;
 	
 	@GetMapping("/home")
-	public String homeView(HttpServletRequest request, Model model) {
+	public String homeView(HttpServletRequest request, Model model,HttpSession session) {
 		String token = null;
 		// Lấy cookie từ request
         Cookie[] cookies = request.getCookies();
@@ -33,7 +34,8 @@ public class homeController {
         }
         
         String username = jwtUtil.extractUsername(token);
-		
+        session.setAttribute("username", username);
+        
         model.addAttribute("Name", username);
 		return "page/home-content";
 	}
