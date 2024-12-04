@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.iotstar.entity.AddressShop;
 import vn.iotstar.entity.Category;
+import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Shop;
 import vn.iotstar.model.CategoryModel;
 import vn.iotstar.model.VendorModel;
 import vn.iotstar.service.IDistrictService;
 import vn.iotstar.service.IProvinceService;
 import vn.iotstar.service.IWardService;
+import vn.iotstar.service.admin.AdminIProductService;
 import vn.iotstar.service.admin.AdminShopService;
 
 import java.util.Optional;
@@ -31,12 +33,20 @@ public class VendorRestController {
     private IDistrictService districtService;
     @Autowired
     private IWardService wardService;
+    @Autowired
+    private AdminIProductService adminProService;
 
     @GetMapping("/approve/{id}")
-    public Shop approve(@PathVariable("id") Long id) {
+    public Shop approveShop(@PathVariable("id") Long id) {
         Optional<Shop> optShop = adminShopService.findById(id);
         return optShop.isPresent() ? optShop.get() : null;
     }
+    @GetMapping("/approveProduct/{id}")
+    public Product approveProduct(@PathVariable("id") Long id) {
+        Optional<Product> optPro = adminProService.findById(id);
+        return optPro.isPresent() ? optPro.get() : null;
+    }
+
     @GetMapping("/details/{id}")
     public VendorModel showDetails(@PathVariable("id") Long id) {
         Optional<Shop> shop = adminShopService.findById(id);
