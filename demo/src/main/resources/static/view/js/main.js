@@ -974,7 +974,292 @@ function toggleHiddenInput(checkbox) {
             hiddenInput.value = "0";  // Khi checkbox không được chọn
         }
     }
+	window.addEventListener('load', updateTotal);
+			let currentMethodElement, currentCostElement;
 
+			// Mở popup
+			function openPopup(event) {
+				const popup = document.getElementById("popup-vanchuyen");
+				popup.style.display = "block";
+				document.documentElement.classList.add("no-scroll");
+
+				// Tìm phần tử liên quan đến sản phẩm hiện tại
+				const productInfo = event.target.closest('.product-info');
+				currentMethodElement = productInfo.querySelector('.shippingMethod');
+				currentCostElement = productInfo.querySelector('.shippingCost');
+
+				// Lấy phương thức vận chuyển hiện tại
+				const currentMethod = currentMethodElement.textContent.trim();
+
+				// Đồng bộ radio button với phương thức vận chuyển hiện tại
+				let found = false;
+				document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+					if (radio.value === currentMethod) {
+						radio.checked = true;
+						found = true;
+					}
+				});
+
+				// Nếu không tìm thấy, chọn mặc định radio đầu tiên
+				if (!found) {
+					document.querySelector('input[name="shipping"]').checked = true;
+				}
+			}
+
+			// Đóng popup
+			function closePopup() {
+				const popup = document.getElementById("popup-vanchuyen");
+				popup.style.display = "none";
+				document.documentElement.classList.remove("no-scroll");
+			}
+			function closeAddressModel() {
+				const modal = bootstrap.Modal.getInstance(document.getElementById('deliveryModal'));
+			    modal.hide();
+
+			}
+			function removeAddress() {
+			    // Tìm thẻ cha gần nhất có class 'address'
+			    const parentDiv = event.target.closest(".address");
+
+			    // Lấy ID của địa chỉ từ thẻ input hidden
+			    const addressId = document.getElementById("addressid").value;
+
+			    console.log(addressId)
+			    console.log(parentDiv)
+			    // Gửi yêu cầu xóa đến server, chỉ gửi ID (không cần bọc trong đối tượng JSON)
+			    fetch("/user/api/address/delete", {
+			        method: "POST",
+			        headers: {
+			            "Content-Type": "application/json", // Đảm bảo là JSON
+			        },
+			        body: addressId, // Gửi trực tiếp ID
+			    })
+			    .then(response => {
+			        if (response.ok) {
+			            parentDiv.remove(); // Xóa thẻ cha khỏi giao diện
+			        } else {
+			            console.error("Có lỗi khi xóa địa chỉ.");
+			        }
+			    })
+			    .catch(error => {
+			        console.error("Có lỗi xảy ra khi xóa địa chỉ: " + error.message);
+			    });
+			}
+
+			// Xác nhận và cập nhật thông tin
+			function confirmSelection() {
+				const selectedOption = document.querySelector('input[name="shipping"]:checked').value;
+
+				// Cập nhật giá tiền dựa vào lựa chọn
+				const priceMap = {
+					"Nhanh": "20.000",
+					"Hỏa Tốc": "45.000"
+				};
+
+				// Cập nhật phần tử phương thức vận chuyển và giá
+				currentMethodElement.textContent = selectedOption;
+				currentCostElement.textContent = priceMap[selectedOption] + "₫";
+				updateTotalForOrder(currentMethodElement.closest('.product-info'));
+				updateTotal();
+				closePopup();
+			}
+			function getProvincesName(provinceCode) {
+			    return new Promise((resolve, reject) => {
+			        $.ajax({
+			            url: "https://provinces.open-api.vn/api/p",  // API lấy toàn bộ tỉnh/thành phố
+			            type: "GET",
+			            success: function(data) {
+			                const province = data.find(province => province.code == provinceCode);
+			                if (province) {
+			                    resolve(province.name); // Trả về tên tỉnh/thành phố
+			                } else {
+			                    reject(`Không tìm thấy tỉnh/thành phố với mã: ${provinceCode}`);
+			                }
+			            },
+			            error: function() {
+			                reject("Lỗi khi tải dữ liệu tỉnh/thành phố.");
+			            }
+			        });
+			    });
+			}
+
+
+
+			function getDistrictName(districtCode) {
+			    return new Promise((resolve, reject) => {
+			        $.ajax({
+			            url: "https://provinces.open-api.vn/api/d", // API lấy danh sách các quận/huyện
+			            type: "GET",
+			            success: function(data) {
+			                // Tìm quận/huyện dựa trên districtCode
+			                const district = data.find(district => district.code == districtCode);
+			                if (district) {
+			                    resolve(district.name); // Trả về tên quận/huyện
+			                } else {
+			                    reject(`Không tìm thấy quận/huyện với mã: ${districtCode}`);
+			                }
+			            },
+			            error: function() {
+			                reject("Lỗi khi tải dữ liệu quận/huyện.");
+			            }
+			        });
+			    });
+			}
+
+
+			function getWardName(wardCode) {
+			    return new Promise((resolve, reject) => {
+			        $.ajax({
+			            url: "https://provinces.open-api.vn/api/w",  // API lấy danh sách xã/phường
+			            type: "GET",
+			            success: function(data) {
+			                // Tìm xã/phường dựa trên wardCode
+			                const ward = data.find(ward => ward.code == wardCode);
+			                if (ward) {
+			                    resolve(ward.name); // Trả về tên xã/phường
+			                } else {
+			                    reject(`Không tìm thấy xã/phường với mã: ${wardCode}`);
+			                }
+			            },
+			            error: function() {
+			                reject("Lỗi khi tải dữ liệu xã/phường.");
+			            }
+			        });
+			    });
+			}
+			async function saveAddress() {
+			    // Lấy giá trị từ các trường input
+			    const uname = document.getElementById("uname").value;
+			    const phone = document.getElementById("phone").value;
+			    const provinceCode = document.getElementById("province").value;
+			    const districtCode = document.getElementById("district").value;
+			    const wardCode = document.getElementById("ward").value;
+			    const detail = document.getElementById("detail").value;
+
+			    try {
+			        // Lấy tên tỉnh, huyện, xã từ các API bất đồng bộ
+			        const province = await getProvincesName(provinceCode);
+			        const district = await getDistrictName(districtCode);
+			        const ward = await getWardName(wardCode);
+
+			        // Tạo object addressData
+			        const addressData = {
+			            uname: uname,
+			            phone: phone,
+			            province: province,
+			            district: district,
+			            ward: ward,
+			            detail: detail
+			        };
+			        // Gửi dữ liệu qua AJAX
+			        $.ajax({
+			            url: '/user/api/address/save', // Địa chỉ API
+			            type: 'POST',
+			            contentType: 'application/json',
+			            data: JSON.stringify(addressData), // Dữ liệu gửi đi dưới dạng JSON
+			            success: function(response) {
+			                // Tạo một HTML mới cho địa chỉ vừa thêm
+			                const newAddressHTML = `
+			                    <div class="col-6 address">
+			                        <div class="align-items-start" style="padding: 10px; height: 100%">
+			                            <div style="padding: 10px; height: 80%">
+			                                <p><strong>${addressData.uname}</strong></p>
+			                                <p>${addressData.phone}</p>
+			                                <p>${addressData.detail} ${addressData.ward} ${addressData.district} ${addressData.province}</p>
+			                            </div>
+			                            <div class="d-flex" style="height: 20%; width: 100%; justify-content: flex-end; display: flex;">
+			                                <i class="fa-solid fa-pencil-alt" style="padding-right: 10px;"></i>
+			                                <i class="fa-solid fa-trash-alt" style="padding-right: 10px;"></i>
+			                                <a>Mac dinh</a>
+			                            </div>
+			                        </div>
+			                    </div>
+			                `;
+
+			                // Chèn vào container chứa các địa chỉ
+			                $('.row-address').append(newAddressHTML);
+
+			                // Hiển thị thông báo
+			                alert("Địa chỉ đã được lưu thành công!");
+			            },
+			            error: function(error) {
+			                alert("Có lỗi xảy ra: " + error.responseText);
+			            }
+			        });
+			    } catch (error) {
+			        // Xử lý lỗi nếu API không lấy được tên tỉnh, huyện, xã
+			        console.error("Lỗi khi lấy dữ liệu:", error);
+			        alert("Không thể lưu địa chỉ. Vui lòng kiểm tra lại thông tin.");
+			    }
+			}
+			// Gán sự kiện
+			document.querySelectorAll('.changeButton').forEach(button => {
+				button.addEventListener("click", openPopup);
+			});
+
+			document.querySelectorAll('.confirm-button').forEach(button => {
+				button.addEventListener("click", confirmSelection);
+				button.addEventListener("click", closePopup);
+			});
+			
+			document.querySelectorAll('.saveAddressBtn').forEach(button => {
+				button.addEventListener("click", saveAddress); 
+				button.addEventListener("click", closeAddressModel);
+			});
+			
+			document.querySelectorAll('.close-button').forEach(button => {
+				button.addEventListener("click", closePopup);
+			});
+			document.querySelectorAll('.remove-address').forEach(button => {
+				button.addEventListener("click", removeAddress);
+			});
+			function updateTotal() {
+				let totalItems = 0;
+				let totalShipping = 0;
+
+				// Lấy tổng tiền hàng và phí vận chuyển từ tất cả các sản phẩm
+				document.querySelectorAll('.product-info').forEach(product => {
+					const itemCost = parseInt(product.querySelector('.title-sp-1').textContent.replace(/\D/g, '')); // Tiền hàng
+					const shippingCost = parseInt(product.querySelector('.shippingCost').textContent.replace(/\D/g, '')); // Phí vận chuyển
+
+					totalItems += itemCost;
+					totalShipping += shippingCost;
+				});
+
+				// Cập nhật giá trị tổng tiền hàng, phí vận chuyển và tổng thanh toán
+				document.querySelector('.tien-tong-items').textContent = totalItems.toLocaleString() + "₫";
+				document.querySelector('.tien-tong-shipping').textContent = totalShipping.toLocaleString() + "₫";
+				document.querySelector('.tien-tong-total').textContent = (totalItems + totalShipping).toLocaleString() + "₫";
+			}
+			function updateTotalForOrder(orderElement) {
+				let totalItems = 0;
+				let shippingCost = 0;
+
+				// Tìm các phần tử liên quan trong đơn hàng cụ thể
+				totalItems = parseInt(orderElement.querySelector('.title-sp-1').textContent.replace(/\D/g, '')) || 0;
+				shippingCost = parseInt(orderElement.querySelector('.shippingCost').textContent.replace(/\D/g, '')) || 0;
+
+				// Tính tổng thanh toán
+				const total = totalItems + shippingCost;
+
+				// Cập nhật tổng tiền cho đơn hàng này
+				orderElement.querySelector('.tongtien span').textContent = "Tổng tiền: " + total.toLocaleString() + "₫";
+			}
+			window.addEventListener('load', () => {
+				document.querySelectorAll('.product-info').forEach(order => {
+					updateTotalForOrder(order);
+				});
+			});
+			document.querySelectorAll('.btn-tt').forEach(button => {
+				button.addEventListener('click', function (event) {
+					event.stopPropagation();
+
+					if (!this.classList.contains('active-btn')) {
+						document.querySelectorAll('.btn-tt').forEach(btn => btn.classList.remove('active-btn'));
+						this.classList.add('active-btn'); 
+					}
+				});
+			});
 
 
 
