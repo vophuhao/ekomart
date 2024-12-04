@@ -28657,10 +28657,10 @@ select {
   text-transform: capitalize;
 }
 
-.address{
+/* .address{
   align-items: center;
   display: flex;
-}
+} */
 
 .address-info{
   align-items: center;

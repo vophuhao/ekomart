@@ -28,7 +28,7 @@ public class Address implements Serializable{
     private Long id;
 	
 	private String uname;
-	private int phone;
+	private String phone;
 	private String province;
     private String district;
     private String ward;
@@ -38,6 +38,13 @@ public class Address implements Serializable{
 	 @ManyToOne 
 	 @JoinColumn(name = "user_id") 
 	 private UserInfo user;
-	 
 
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", uname=" + uname + ", phone=" + phone + ", province=" + province + ", district="
+				+ district + ", ward=" + ward + ", detail=" + detail + ", defaults=" + defaults + ", user=" + user
+				+ "]";
+	}
+	 
+	 
 }
