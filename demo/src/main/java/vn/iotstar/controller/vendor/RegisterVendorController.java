@@ -55,4 +55,9 @@ public class RegisterVendorController {
 		return "vendor/register-done";
 	}	
 	
+	@GetMapping("/order")
+	public String show() {
+		return "user/order";
+
+	}
 }
