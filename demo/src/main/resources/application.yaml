@@ -9,7 +9,6 @@ spring:
     url: "jdbc:mysql://100.126.177.112:3306/ekomart"
     username: username
     password: password
-
   servlet:
    multipart:
      enabled: true
@@ -37,7 +36,8 @@ spring:
           ssl:
             protocols: TLSv1.2
 storage:
-  location: D:\\upload
+    location: D:\\upload
+#   location: /Users/trantiendat/Documents/Upload
 
 #  mail:
 #    host: smtp.gmail.com
