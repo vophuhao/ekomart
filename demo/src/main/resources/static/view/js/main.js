@@ -1260,8 +1260,3 @@ function toggleHiddenInput(checkbox) {
 					}
 				});
 			});
-
-
-
-
-
