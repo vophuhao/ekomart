@@ -1,5 +1,6 @@
 package vn.iotstar.service.user.Imp;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,21 @@ public class AddressServiceImp implements IAddressService{
 	        return addressrepo.save(address);  // Lưu địa chỉ vào CSDL
 	    }
 	@Override
-	public Optional<Address> findByUser_Id(Long userId) {
-		 return addressrepo.findByUser_Id(userId);
+	public List<Address> findByUser_Id(Long userId) {
+		// TODO Auto-generated method stub
+		return addressrepo.findByUser_Id(userId);
 	}
+	@Override
+	public Optional<Address> findById(Long id) {
+		// TODO Auto-generated method stub
+		return addressrepo.findById(id);
+	}
+	
+	@Override
+	public  void delete(Long id)
+	{
+		addressrepo.deleteById(id);
+	}
+	
 	
 }

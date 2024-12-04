@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.persistence.Convert;
 import vn.iotstar.entity.Address;
 import vn.iotstar.entity.UserInfo;
 import vn.iotstar.model.AddresModel;
@@ -35,6 +36,26 @@ public class AddressController {
 	@Autowired
 	private ILocationService location;
 	
+	@PostMapping("/user/api/address/delete")
+	public ResponseEntity<Void> deleteAddress(@RequestBody String id) {
+	    try {
+	        // Chuyển đổi id từ String sang Long
+	        Long addressId = Long.parseLong(id);
+
+	        // Giả sử phương thức xóa địa chỉ của bạn là addre.delete(addressId)
+	        addre.delete(addressId);
+
+	       
+	            return ResponseEntity.ok().build();
+	        
+	        
+	    } catch (Exception e) {
+	        // Trả về mã lỗi 500 khi có lỗi xảy ra
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    }
+	}
+
+
 	@PostMapping("/user/api/address/save")
 	public ResponseEntity<Void> saveAddress(@RequestBody AddresModel address, Model model) {
 	    try {
@@ -64,7 +85,9 @@ public class AddressController {
 	        if (user2.isPresent()) {
 	            BeanUtils.copyProperties(user2, entity);
 	        }
-
+	        
+	        
+	        
 	        newAddress.setUser(entity);
 	        addre.save(newAddress); // Lưu vào cơ sở dữ liệu
 

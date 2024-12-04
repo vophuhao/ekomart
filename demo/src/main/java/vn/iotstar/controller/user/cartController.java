@@ -2,31 +2,30 @@ package vn.iotstar.controller.user;
 
 
 import java.util.List;
-import java.util.Optional;
+
 import java.util.stream.Collectors;
-import org.springframework.beans.BeanUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.validation.Valid;
+
 import vn.iotstar.entity.Address;
 import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.CartItem;
-import vn.iotstar.entity.UserInfo;
-import vn.iotstar.model.AddresModel;
+
 import vn.iotstar.model.productPayment;
 import vn.iotstar.model.productPayment.SelectedProduct;
-import vn.iotstar.service.Imp.LocationServiceImpl;
+
 import vn.iotstar.service.user.ILocationService;
 import vn.iotstar.service.user.Imp.AddressServiceImp;
 import vn.iotstar.service.user.Imp.CartServiceImpl;
@@ -66,13 +65,15 @@ public class cartController {
 	@GetMapping("/cart/payment")
 	public String paymentCart(@ModelAttribute("productPayment") productPayment ProductPayment, Model model, RedirectAttributes redirectAttributes)
 	{
-//		Optional<Address> addressUser=addre.findByUser_Id(1L);
+		List<Address> addressUser=addre.findByUser_Id(1L);
 //		
 //		List<AddresModel> address= new ArrayList<AddresModel>();
 		
 //		BeanUtils.copyProperties(addressUser, address);
 //		model.addAttribute("addressUser",addressUser);
 		
+//		List<AddressDTO> address=addre.findAddressesByUserId(1L);
+		model.addAttribute("addressUser",addressUser);
 		 model.addAttribute("productPayment", new productPayment());
 
 		 if (ProductPayment == null) {
