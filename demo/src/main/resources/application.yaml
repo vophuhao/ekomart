@@ -6,13 +6,13 @@ server:
 
 spring:
   datasource:
-    url: "jdbc:mysql://localhost:3306/ekomart"
-    username: root
-    password: baynhet
-
-#    url: "jdbc:mysql://100.126.177.112:3306/ekomart"
+#    url: "jdbc:mysql://localhost:3306/ekomart"
 #    username: root
-#    password: 1234
+#    password: baynhet
+
+    url: "jdbc:mysql://100.126.177.112:3306/ekomart"
+    username: username
+    password: password
 
   servlet:
    multipart:
