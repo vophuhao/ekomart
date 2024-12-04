@@ -89,6 +89,25 @@
 						</div>
 						<form th:action="@{/user/cart/payment}" th:method="get" th:object="${productPayment}">
 							<!-- Sản phẩm 1 -->
+							<div th:each="product : ${selectedProducts}"
+										class="product-info">
+										<div class="pro-shop" th:text="${product.productName}"></div>
+										<div class="product">
+											<div class="product-info-1">
+												<div style="flex: 4">
+													<img class="img-pro"
+														src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/11/Genshin-Impact-Nahida.jpg">
+
+												</div>
+												<span style="flex: 2">Loại: Cute pho mai que</span> <span
+													class="title-sp-1" th:text="${product.productPrice}"></span>
+												<span class="title-sp-1"
+													th:text="${product.productQuantity}"></span> <span
+													id="total" class="title-sp-1"
+													th:text="${product.productPrice*product.productQuantity}"></span>
+											</div>
+										</div>
+									</div>
 							<div class="single-cart-area-list main  item-parent">
                             <div class="product-main-cart">
                                 <div class="close section-activation">
