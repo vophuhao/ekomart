@@ -1234,5 +1234,40 @@ const getVendorDetailById = (id) => {
 		})
 }
 
+// Hiển thị Form Edit
+function showEditForm(userId) {
+    // Gọi API lấy thông tin người dùng qua ID
+    fetch(`/admin/user-list/${userId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Điền dữ liệu vào form
+            document.getElementById('edit-user-id').value = data.id;
+            document.getElementById('edit-user-name').value = data.name;
+            document.getElementById('edit-user-email').value = data.email;
+            document.getElementById('edit-user-password').value = data.password; // Mã hóa nếu cần
+            document.getElementById('edit-user-roles').value = data.roles;
 
+            // Điền giá trị cho radio button enabled
+            if (data.enabled) {
+                document.getElementById('enabled-true').checked = true;
+            } else {
+                document.getElementById('enabled-false').checked = true;
+            }
 
+            // Hiển thị form
+            document.getElementById('edit-form-overlay').style.display = 'flex';
+        })
+        .catch(error => {
+            console.error('Error fetching user:', error);
+        });
+}
+
+// Đóng Form Edit
+function closeEditForm() {
+    document.getElementById('edit-form-overlay').style.display = 'none';
+}
