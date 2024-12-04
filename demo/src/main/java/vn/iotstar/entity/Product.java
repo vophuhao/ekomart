@@ -54,7 +54,6 @@ public class Product implements Serializable {
     private Shop shop;
 
     private String image;
- 
 //    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<ProductImage> images;
     
