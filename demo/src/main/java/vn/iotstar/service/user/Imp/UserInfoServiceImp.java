@@ -21,8 +21,16 @@ public class UserInfoServiceImp implements IUserService{
 	public Optional<UserInfo> findById(Integer id) {
 		return userRepository.findById(id);
 	}
-	
-	
 
-	
+	@Override
+	public Optional<UserInfo> findByName(String username) {
+		return userRepository.findByName(username);
+	}
+
+	@Override
+	public <S extends UserInfo> S save(S entity) {
+		return userRepository.save(entity);
+	}
+
+
 }

@@ -36,4 +36,9 @@ public class AdminShopServiceImp implements AdminShopService {
         return shopRepository.save(entity);
     }
 
+    @Override
+    public Optional<Shop> findByUserId(int userId) {
+        return shopRepository.findByUserId(userId);
+    }
+
 }

@@ -29,7 +29,7 @@
                                         <!-- Avatar Section -->
                                         <div class="col-md-2 d-flex justify-content-center align-items-center">
                                             <div class="avatar-shop" style="width: 80px;height: 80px;object-fit: cover;border-radius: 50%">
-                                                <img id="rts_image" th:src="${'/admin/vendor/product/detail/images/' + shop.avatar}" alt="Profile-NFT" class="img-fluid rounded-circle">
+                                                <img th:src="${'/admin/vendor/images/' + shop.avatar}" alt="Profile-NFT" class="img-fluid rounded-circle">
                                             </div>
                                         </div>
 
@@ -43,7 +43,7 @@
                                                     <label id="email" th:text="*{shopId}" class="text-muted"></label>
                                                 </div>
                                                 <div class="shop-product">
-                                                    <label id="product" th:text="*{shopId}" class="text-secondary"></label>
+                                                    <label id="product" th:text="*{description}" class="text-secondary"></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -80,21 +80,8 @@
                                                 <textarea name="description" id="description" th:field="*{description}"></textarea>
                                             </div>
                                             <div class="single-input">
-                                                <div class="file-upload-add-product">
-                                                    <div class="profile-left">
-                                                        <div class="profile-image mb--30">
-                                                            <img id="rts_image" th:src="${'/admin/vendor/product/detail/images/' + product.image}" alt="Profile-NFT">
-                                                            <span>Drag and drop Image</span>
-                                                        </div>
-                                                        <div class="button-area">
-                                                            <div class="brows-file-wrapper">
-                                                                <!-- actual upload which is hidden -->
-                                                                <input name="rts_images1" id="rts_images1" type="file">
-                                                                <!-- our custom upload button -->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <label for="description">Product Image</label><br>
+                                                <img th:src="${'/admin/vendor/product/images/' + product.image}" alt="Product Image" style="width: 200px;height: 150px">
                                             </div>
 
                                         </div>

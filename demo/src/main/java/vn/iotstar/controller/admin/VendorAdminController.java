@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import vn.iotstar.entity.Product;
+import vn.iotstar.entity.UserInfo;
 import vn.iotstar.service.IStorageService;
 import vn.iotstar.service.admin.AdminIProductService;
 import jakarta.validation.Valid;
@@ -23,6 +24,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import vn.iotstar.entity.Shop;
 import vn.iotstar.service.admin.AdminShopService;
+import vn.iotstar.service.user.IUserService;
+
 import java.util.ArrayList;
 
 
@@ -36,6 +39,8 @@ public class VendorAdminController {
 	private AdminShopService adminShopService;
 	@Autowired
 	IStorageService storageService;
+	@Autowired
+	IUserService userService;
 
 
 	@GetMapping("/product/images/{filename:.+}")
@@ -46,6 +51,16 @@ public class VendorAdminController {
 		
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
 	}
+	@GetMapping("/images/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serverFile1(@PathVariable String filename){
+
+		Resource file =storageService.loadAsResource(filename);
+
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
+	}
+
+
 	@GetMapping("/list")
 	public String listVendor(ModelMap model)
 	{
@@ -121,9 +136,19 @@ public class VendorAdminController {
 		}
 		Optional<Shop> optVendor = adminShopService.findById(vendor.getId());
 		if (optVendor.isPresent()) {
+			UserInfo user = optVendor.get().getUser();
+
+			// Nếu admin duyệt shop thì update ROLE USER => ROLE VENDOR
+			if(vendor.getDisplay() == 1)
+			{
+				user.setRoles("ROLE_VENDOR");
+				userService.save(user);
+			}
+
+			//Cập nhật display cho vendor
 			Shop existingVendor = optVendor.get();
 			existingVendor.setDisplay(vendor.getDisplay());
-			adminShopService.save(existingVendor); // Lưu đối tượng đã cập nhật
+			adminShopService.save(existingVendor);
 		}
 		return "redirect:/admin/vendor/list";
 	}

@@ -5,7 +5,7 @@
 	<div class="vendor-list-main-wrapper product-wrapper add-product-page">
 		<div class="card-body table-product-select">
 			<div class=" header-two show right-collups-add-product">
-				<form th:action="@{/vendor/register/save}" id = "form1" method="post" th:object="${shop}">
+				<form th:action="@{/vendor/register/save}" id = "form1" method="post" th:object="${shop}" enctype="multipart/form-data">
 					<div class="right-collups-area-top">
 						<h6 class="title" style="font-size: 32px;">Register Shop</h6>
 						<p>Add the following information</p>
@@ -90,16 +90,40 @@
 							<input type="text" id="infocationName" class="form-control form-control-lg" th:field="*{info.name}" />
 						</div>
 
-						<div>
-							<label for="beforeImage">Front : </label><br>
-							<img id = "beforeImages" height = "150" width = "200" src = ""/>
-							<input type="file" onchange="chooseFile(this,'beforeImages')" id="beforeImage" name="beforeImage" th:field="*{info.beforeImage}"><br><br>
+						<div class="single-input">
+							<div class="file-upload-add-product">
+								<div class="profile-left">
+									<div class="profile-image mb--30">
+										<img id="before_image" src="/vendor/images/grocery/16.png" alt="Profile-NFT">
+										<span>Drag and drop Image</span>
+									</div>
+									<div class="button-area">
+										<div class="brows-file-wrapper">
+											<!-- actual upload which is hidden -->
+											<input name="rts_images0" id="rts_images0" type="file">
+											<!-- our custom upload button -->
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 
-						<div>
-							<label for="afterImage">End : </label><br>
-							<img id = "afterImages" height = "150" width = "200" src = ""/>
-							<input type="file" onchange="chooseFile(this,'afterImages')" id="afterImage" name="afterImage" th:field="*{info.afterImage}"><br><br>
+						<div class="single-input">
+							<div class="file-upload-add-product">
+								<div class="profile-left">
+									<div class="profile-image mb--30">
+										<img id="after_image" src="/vendor/images/grocery/16.png" alt="Profile-NFT">
+										<span>Drag and drop Image</span>
+									</div>
+									<div class="button-area">
+										<div class="brows-file-wrapper">
+											<!-- actual upload which is hidden -->
+											<input name="rts_images2" id="rts_images2" type="file">
+											<!-- our custom upload button -->
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 
 						<div class="single-input">
