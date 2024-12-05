@@ -15207,7 +15207,7 @@ table.dataTable thead .sorting_desc::after {
 }
 .vendor-list-main-wrapper.product-wrapper .card-body tbody tr td {
   padding: 20px;
-  line-height: 0;
+  
 }
 
 .item-check-area-table-left {
@@ -16837,4 +16837,18 @@ edit .quantity-edit button {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.view-detail-link {
+    color: #ffffff !important; /* Màu chữ trắng */
+    background-color: #4CAF50; /* Màu nền xanh lá */
+    padding: 10px 20px; /* Padding xung quanh */
+    border-radius: 5px; /* Bo góc */
+    text-decoration: none !important; /* Bỏ gạch chân */
+    font-weight: 500; /* Đậm chữ */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu khi hover */
+    
+}
+
+.view-detail-link:hover {
+    background-color: #45a049; /* Màu khi hover */
 }

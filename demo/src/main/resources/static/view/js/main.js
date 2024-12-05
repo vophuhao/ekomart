@@ -1243,8 +1243,8 @@ function updateTotalForOrder(orderElement) {
 						document.querySelectorAll('.btn-tt').forEach(btn => btn.classList.remove('active-btn'));
 						this.classList.add('active-btn'); 
 					}
-				});
-			});
+				
+			
 			var swiper = new Swiper('.swiper-container', {
 			  slidesPerView: 5,  // Show 5 items at once
 			  spaceBetween: 10,   // Space between items
@@ -1263,7 +1263,8 @@ function updateTotalForOrder(orderElement) {
 
 	// Cập nhật tổng tiền cho đơn hàng này
 	orderElement.querySelector('.tongtien span').textContent = "Tổng tiền: " + total.toLocaleString() + "₫";
-}
+	}
+
 window.addEventListener('load', () => {
 	document.querySelectorAll('.product-info').forEach(order => {
 		updateTotalForOrder(order);
@@ -1367,3 +1368,4 @@ function dathang()
 	           console.error('Lỗi khi đặt hàng:', error);
 	       }
 	   });
+	   }
