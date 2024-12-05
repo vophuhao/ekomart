@@ -1,4 +1,4 @@
-package vn.iotstar.service.user;
+package vn.iotstar.service;
 
 import vn.iotstar.entity.OrderDetail;
 

@@ -1,4 +1,4 @@
-package vn.iotstar.service.user.Imp;
+package vn.iotstar.service.Imp;
 
 import java.util.Optional;
 
@@ -9,7 +9,7 @@ import vn.iotstar.entity.OrderDetail;
 import vn.iotstar.entity.Orders;
 import vn.iotstar.repository.OderRepository;
 import vn.iotstar.repository.OrderDetailRepository;
-import vn.iotstar.service.user.IOderDetailService;
+import vn.iotstar.service.IOderDetailService;
 
 @Service
 public class OderDetailServiceImpl implements IOderDetailService {
