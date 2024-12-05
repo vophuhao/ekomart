@@ -51,8 +51,10 @@ public class Shop implements Serializable{
     @JoinColumn(name = "identifi_id")
     @JsonIgnore
     private IdentificationInfo info;
-    
-    @OneToOne
+
+    @OneToOne( cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
 	private UserInfo user;
 
     @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

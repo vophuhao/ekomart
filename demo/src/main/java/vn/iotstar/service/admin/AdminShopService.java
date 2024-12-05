@@ -12,5 +12,5 @@ public interface AdminShopService {
     Optional<Shop> findById(Long shopId);
     List<Shop> findAll();
     <S extends Shop> S save(S entity);
-
+    Optional<Shop> findByUserId(int userId);
 }

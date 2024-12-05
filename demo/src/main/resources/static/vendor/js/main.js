@@ -46,6 +46,8 @@
 			rtsJs.metismenu();
 			rtsJs.sideCollups();
 			rtsJs.unloadImage();
+			rtsJs.unloadImage1();
+			rtsJs.unloadImage2();
 			rtsJs.niceSelect();
 			rtsJs.backToTopInit();
 			rtsJs.darklightSwitcher();
@@ -746,6 +748,37 @@
 			});
 		},
 
+		unloadImage1: function name() {
+			$("#before_image").click(function(e) {
+				$("#rts_images0").click();
+			});
+
+			function rtsPreview() {
+				const [file] = rts_images0.files
+				if (file) {
+					before_image.src = URL.createObjectURL(file)
+				}
+			}
+			$("#rts_images0").change(function() {
+				rtsPreview(this);
+			});
+		},
+
+		unloadImage2: function name() {
+			$("#after_image").click(function(e) {
+				$("#rts_images2").click();
+			});
+
+			function rtsPreview() {
+				const [file] = rts_images2.files
+				if (file) {
+					after_image.src = URL.createObjectURL(file)
+				}
+			}
+			$("#rts_images2").change(function() {
+				rtsPreview(this);
+			});
+		},
 
 		niceSelect: function() {
 			(function($) {
@@ -1241,8 +1274,9 @@ const getVendorDetailById = (id) => {
 			type.value=vendor?.info.type
 			numberi.value = vendor?.info.numberi
 			name.value=vendor?.info.name
-			beforeImage.value = vendor?.info.beforeImage
-			afterImage.value=vendor?.info.afterImage
+			// Set image sources
+			beforeImage.src = `/admin/vendor/images/${vendor?.info.beforeImage}`;
+			afterImage.src = `/admin/vendor/images/${vendor?.info.afterImage}`;
 		})
 }
 
