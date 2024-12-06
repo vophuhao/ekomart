@@ -1368,4 +1368,58 @@ function dathang()
 	           console.error('Lỗi khi đặt hàng:', error);
 	       }
 	   });
-	   }
+}
+
+function filterByRating(rating) {
+    const productId = document.getElementById('productId').value; // Ẩn input chứa ID sản phẩm
+    const thymeleafReviews = document.querySelectorAll('.thymeleaf-review'); // Lấy các đánh giá mặc định
+
+    // Ẩn các đánh giá mặc định
+    thymeleafReviews.forEach(review => {
+        review.style.display = 'none';
+    });
+
+    // Gửi yêu cầu để lấy các đánh giá theo số sao
+	fetch(`/user/home/product-detail/${productId}/reviews?rating=${rating}`)
+			.then(response => {
+			       if (!response.ok) {
+			           throw new Error('Network response was not ok');
+			       }
+			       return response.json();
+			   })
+	        .then(data => {
+	            const reviewContainer = document.getElementById('reviewContainer');
+	            reviewContainer.innerHTML = ''; // Xóa nội dung cũ
+	            
+	            // Tạo một phần tử mới để thay thế phần tử cũ
+	            const newReviewContainer = document.createElement('div');
+	            newReviewContainer.id = 'reviewContainer';
+				console.log(data);
+	            // Duyệt qua tất cả đánh giá và hiển thị
+	            data.forEach(review => {
+	                const reviewDiv = document.createElement('div');
+	                reviewDiv.classList.add('review-box', 'card', 'mb-3');  // Bootstrap classes
+					console.log(review);
+	                reviewDiv.innerHTML = `
+	                    <div class="card-body">
+	                        <div class="d-flex justify-content-between align-items-center">
+	                            <div class="d-flex align-items-center">
+	                                <!-- Star Rating -->
+	                                <div class="rating-stars">
+	                                    ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+	                                </div>
+	                            </div>
+	                            <span class="text-muted small">${new Date(review.date).toLocaleString()}</span>
+	                        </div>
+							
+	                        <p class="mt-2">${review.comment}</p>
+	                    </div>
+	                `;
+	                newReviewContainer.appendChild(reviewDiv);
+	            });
+
+	            // Thay thế phần tử cũ bằng phần tử mới
+	            reviewContainer.parentNode.replaceChild(newReviewContainer, reviewContainer);
+	        })
+	        .catch(error => console.error('Error:', error));
+}

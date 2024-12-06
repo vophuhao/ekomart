@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="vn/iotstar/controller/|vn/iotstar/model/|vn/iotstar/entity/|vn/iotstar/controller/user/" kind="src" path="demo/src/main/java"/>
+	<classpathentry excluding="user/" kind="src" path="demo/src/main/java/vn/iotstar/controller"/>
+	<classpathentry kind="src" path="demo/src/main/java/vn/iotstar/controller/user"/>
+	<classpathentry kind="src" path="demo/src/main/java/vn/iotstar/entity"/>
+	<classpathentry kind="src" path="demo/src/main/java/vn/iotstar/model"/>
+	<classpathentry kind="src" path="demo/src/test/java"/>
+	<classpathentry kind="src" path="untitled/src"/>
+	<classpathentry kind="output" path="demo/target/classes"/>
+</classpath>
