@@ -36,4 +36,5 @@ public class ShopModel {
     private MultipartFile rts_images0;
 
     private MultipartFile rts_images2;
+    private MultipartFile rts_images1;
 }

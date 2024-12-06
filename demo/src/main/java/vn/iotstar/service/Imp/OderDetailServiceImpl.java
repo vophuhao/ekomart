@@ -1,5 +1,6 @@
 package vn.iotstar.service.Imp;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class OderDetailServiceImpl implements IOderDetailService {
     public OrderDetail save(OrderDetail oders) {
         return oderrepo.save(oders);
     }
+
+	@Override
+	public List<OrderDetail> findByOrders(Orders orders) {
+		return oderrepo.findByOrders(orders);
+	}
 
     
 }

@@ -8078,7 +8078,7 @@ input[type=radio] ~ label {
   padding-left: 25px;
   cursor: pointer;
 }
-input[type=checkbox] ~ label::before,
+/* input[type=checkbox] ~ label::before,
 input[type=radio] ~ label::before {
   content: " ";
   position: absolute;
@@ -8090,8 +8090,8 @@ input[type=radio] ~ label::before {
   border-radius: 2px;
   transition: all 0.3s;
   border-radius: 2px;
-}
-input[type=checkbox] ~ label::after,
+} */
+/* input[type=checkbox] ~ label::after,
 input[type=radio] ~ label::after {
   content: " ";
   position: absolute;
@@ -8106,7 +8106,7 @@ input[type=radio] ~ label::after {
   transform: rotate(-45deg);
   opacity: 0;
   transition: all 0.3s;
-}
+} */
 input[type=checkbox]:checked ~ label::after,
 input[type=radio]:checked ~ label::after {
   opacity: 1;
@@ -16851,4 +16851,476 @@ edit .quantity-edit button {
 
 .view-detail-link:hover {
     background-color: #45a049; /* Màu khi hover */
+}
+.address{
+	border: 1px solid #ddd;
+	width:250px;
+	height:200px;
+}
+.nice-select {
+  display: none !important;
+}
+select {
+  display: inline-block !important;
+}
+.total-pay
+{
+	display:block !important;
+	
+	margin: 40px;
+}
+.total-pay p {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.thanhtoan-image{
+  display: flex;
+  align-items: center;
+  margin-left: 70px;
+}
+
+.thanhtoan{
+  display: inline-block;
+  margin-left: 20px;
+  border-left: .1px solid green;
+  padding-left: 20px;
+  color: green;
+  font-size: 20px;
+}
+
+.container-header{
+  align-items: center;
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, .09);
+  display: flex;
+  height: 80px;
+  margin-bottom: 12px;
+}
+
+.main{
+  margin: auto;
+  margin-bottom: 50px;
+  width: 100%;
+  max-width: 1500px;
+  padding: 5px;
+}
+
+.container-addr{
+  background: #fff;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .05);
+  border-radius: 3px;
+}
+
+.address-text{
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  color: green;
+  display: flex;
+  flex: 1 1 auto;
+  font-size: 15px;
+  margin-bottom: 20px;
+  margin-right: 9px;
+  text-transform: capitalize;
+}
+
+/* .address{
+  align-items: center;
+  display: flex;
+} */
+
+.address-info{
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.address-name{
+  color: #222;
+  font-weight: 700;
+  max-width: 500px;
+}
+
+.address-street{
+  margin-left: 20px;
+  word-break: break-word;
+}
+
+.btn-change{
+  color: #4080ee;
+  width: auto;
+  cursor: pointer;
+  margin-left: 10px;
+  text-transform: capitalize;
+}
+
+.product-item {
+  background: #fff;
+  align-items: center;
+  display: flex;
+  padding: 28px 30px 24px;
+  border-radius: 3px;
+}
+
+.product-item-title {
+	display: flex;
+	color: rgba(0, 0, 0, .54);
+	align-items: center;
+	font-size: 12px;
+	height: 24px;
+	width: 100%;
+}
+
+.title-sp{
+	margin: 0;
+	flex: 4;
+	color: #222;
+	font-size: 15px;	
+}
+
+.title-sp-1{
+	flex: 2;
+	text-align: right;
+}
+
+.container-pro{
+  	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .05);
+  	border-radius: 3px;
+}
+
+.product-list{
+	margin-bottom: 15px;
+	display: block;
+	background: #fff;
+    border-radius: 3px;
+    margin-top: -5px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .09);
+    font-size: 14px;
+}
+
+.product-info{
+    display: block;
+    background: #fff;
+    border-radius: 3px;
+    position: relative;
+}
+
+.pro-shop{
+    display: block;
+    border: 0;
+    height: 30px;
+    padding: 10px 30px;
+}
+
+.product-info-1{
+	display: flex;
+	margin-top: 15px;
+    color: #222;
+    font-size: 14px;
+    margin: 0 30px;
+    min-height: 55px;
+    align-items: center;
+}
+
+.product{
+	border-bottom: .5px solid rgba(0, 0, 0, .09);
+    padding-bottom: 20px;
+}
+
+.voucher-shop{
+    border-bottom: 1px dashed rgba(0, 0, 0, .09);
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+.img-pro{
+	height: 40px;
+	margin-right: 10px;
+}
+
+.voucher-shop-info{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+    white-space: nowrap;
+}
+
+.btn-voucher{
+	display:flex;
+	width: 100px;
+    background: transparent;
+    border: 0 !important;
+    box-shadow: 0 0 0 0 !important;
+    color: #05a !important;
+    float: right;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    padding: 0;
+    text-transform: none !important;
+}
+
+.ptvanchuyen{
+    background-color: #fafdff;
+    border-bottom: 1px dashed rgba(0, 0, 0, .09);
+    display: grid;
+    grid-template-columns: 40% 60%;
+    min-height: 0;
+    min-width: 0;
+}
+
+.message{
+  padding: 20px;
+  border-top: 0;
+  display: flex;
+  min-height: 0;
+  min-width: 0;
+  align-items: center;
+  font-size: 14px;
+  position: relative;
+}
+
+.luuy{
+	display: block;
+	position: relative;
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 0;
+    margin-left: 0px;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, .14);
+    border-radius: 2px;
+    box-shadow: inset 0 2px 0 0 rgba(0, 0, 0, .02);
+    box-sizing: border-box;
+}
+
+.vanchuyen{
+	padding: 20px;
+	font-size: 13px;
+  	align-items: center;
+  	min-height: 0;
+  	min-width: 0;
+  	display: flex;
+}
+
+.tongtien{
+    background-color: #fafdff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 20px;
+    font-size: 15px;
+    padding: 15px 0;
+}
+
+.pro-voucher{
+  align-items: center;
+  background: #fff;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  min-height: 0;
+  min-width: 0;
+  white-space: nowrap;
+  padding: 28px 30px;
+}
+
+.thanhtoantien{
+  border-radius: 3px;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, .05);
+  margin-top: 18px;
+}
+
+.ptthanhtoan{
+  background: #fff;
+  align-items: center;
+  display: flex;
+  min-height: 90px;
+  padding: 20px 30px;
+  min-height: 0;
+  min-width: 0;
+}
+
+.btn-tt{
+  font-size: 13px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, .09);
+  border-radius: 2px;
+  color: rgba(0, 0, 0, .8);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  margin: 0 8px 8px 0;
+  height: 50px;
+  min-height: 2.125rem;
+  min-width: 5rem;
+  overflow: visible;
+  padding: .25rem .75rem;
+  position: relative;
+  width: auto;
+  transition: border-color 0.1s;
+}
+
+.thanhtoan-info{
+	background: #fffefb;
+    border-top: 1px solid #f1f0ed;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .05);
+    display: grid;
+    grid-template-columns: 70% 30%;
+    padding: 15px 20px;
+    grid-column-gap: 10px;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.thanhtoan-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.label-tong {
+  display: flex;
+  flex: 1;
+  text-align: left;
+  align-items: center;
+}
+
+.tien-tong {
+  text-align: right;
+  font-weight: bold;
+}
+
+.dathang{
+	background: #fffefb;
+  align-items: center;
+  border-top: 1px dashed rgba(0, 0, 0, .09);
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 0 0;
+  min-height: 95px;
+  padding: 0 30px;
+}
+
+.btn-dathang{
+  align-items: center;
+    height: 50px;
+    width: 200px;
+    background: green;
+    border: 1px solid rgba(0, 0, 0, .09);
+    border-radius: 2px !important;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .03);
+    color: #fffefb;
+    display: flex;
+    justify-content: center;
+    outline: none;
+}
+
+.popup-vanchuyen {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  width: 30%;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.popup-content h3 {
+  margin-top: 0px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: green;
+  text-align: center;
+}
+
+.option {
+  display: block;
+  margin: 15px 0;
+}
+
+.buttons {
+  display: flex;
+  text-align: center;
+  justify-content: flex-end;
+}
+
+.buttons .btn {
+  margin-right:10px;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 3px;
+  width: 80px;
+  height:40px;
+}
+
+html.no-scroll {
+    overflow: hidden;
+    padding-right: 15px;
+}
+
+.active-btn {
+  border: 2px solid green;
+  outline: none;
+}
+
+.total-pay .text-primary {
+    color: #0d6efd; /* Màu xanh dương Bootstrap */
+}
+
+.total-pay .text-success {
+    color: #198754; /* Màu xanh lá Bootstrap */
+}
+
+.payment-method label {
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.payment-method .form-check-input {
+    margin-right: 10px;
+}
+
+.bottom-cupon-code-cart-area .btn {
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+.single-cart-area-list-button{
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  height: 100px;
+}
+
+.container-payment{
+	max-width: 1250px;
+    margin: auto;
+    padding: 0 15px;
+}
+
+.swiper-container .swiper-slide {
+  width: auto;  /* Hoặc xác định một chiều rộng cụ thể */
+}
+
+.image-and-action-area-wrapper img{
+	width: auto;
+	height: 230px;
 }
