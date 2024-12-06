@@ -41,4 +41,9 @@ public class UserProductServiceImpl implements IUserProductService{
 	public Page<Product> findAllByDisplay(int display, Pageable pageable) {
 		return productRepository.findAllByDisplay(display,pageable);
 	}
+	
+	@Override
+	public Page<Product> findByDisplayContaining(int display, Pageable pageable) {
+		return productRepository.findByDisplayContaining(display,pageable);
+	}
 }

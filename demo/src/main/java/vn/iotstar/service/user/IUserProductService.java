@@ -14,5 +14,7 @@ public interface IUserProductService {
 	
 	public Page<Product> findAllByDisplay(int display, Pageable pageable);
 	
+	public Page<Product> findByDisplayContaining(int display, Pageable pageable);
+	
 	//public List<Object[]> getTop20ReviewedProducts();
 }

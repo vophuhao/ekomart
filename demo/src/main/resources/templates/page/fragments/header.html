@@ -53,7 +53,8 @@
 								class="fa-light fa-user"></i> <span th:text = "*{session.username}"></span>
 							</a> 
 							</div>		
-							<a class="btn-border-only wishlist" th:if="${session.username !=null}"> <i
+							<a th:href="@{/user/wishlist}" class="btn-border-only wishlist" th:if="${session.username !=null}"> 
+							<i
 								class="fa-regular fa-heart"></i> Wishlist <span class="number">2</span>
 							</a>
 							<div th:if="${session.username !=null}" class="btn-border-only cart category-hover-header">
