@@ -1197,47 +1197,24 @@ document.querySelectorAll('.changeButton').forEach(button => {
 	button.addEventListener("click", openPopup);
 });
 
-document.querySelectorAll('.confirm-button').forEach(button => {
-	button.addEventListener("click", confirmSelection);
-	button.addEventListener("click", closePopup);
-});
+				let totalShipping = 0;
 
-document.querySelectorAll('.saveAddressBtn').forEach(button => {
-	button.addEventListener("click", saveAddress);
-	button.addEventListener("click", closeAddressModel);
-});
+				// Lấy tổng tiền hàng và phí vận chuyển từ tất cả các sản phẩm
+				document.querySelectorAll('.product-info').forEach(product => {
+					const productPriceText = product.querySelector('#total').textContent;
+					const itemCost = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
+					const shippingCost = parseInt(product.querySelector('.shippingCost').textContent.replace(/\D/g, '')); // Phí vận chuyển
 
-document.querySelectorAll('.close-button').forEach(button => {
-	button.addEventListener("click", closePopup);
-});
-document.querySelectorAll('.remove-address').forEach(button => {
-	button.addEventListener("click", removeAddress);
-});
-function updateTotal() {
-	let totalItems = 0;
-	let totalShipping = 0;
+				});
+				let shippingCost = 0;
+				
+				const productPriceText = orderElement.querySelector('#total').textContent;
+				totalItems = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
+				shippingCost = parseInt(orderElement.querySelector('.shippingCost').textContent.replace(/\D/g, '')) || 0;
 
-	// Lấy tổng tiền hàng và phí vận chuyển từ tất cả các sản phẩm
-	document.querySelectorAll('.product-info').forEach(product => {
-		const itemCost = parseInt(product.querySelector('.title-sp-1').textContent.replace(/\D/g, '')); // Tiền hàng
-		const shippingCost = parseInt(product.querySelector('.shippingCost').textContent.replace(/\D/g, '')); // Phí vận chuyển
+				const total = totalItems + shippingCost;
 
-		totalItems += itemCost;
-		totalShipping += shippingCost;
-	});
-
-	// Cập nhật giá trị tổng tiền hàng, phí vận chuyển và tổng thanh toán
-	document.querySelector('.tien-tong-items').textContent = totalItems.toLocaleString() + "₫";
-	document.querySelector('.tien-tong-shipping').textContent = totalShipping.toLocaleString() + "₫";
-	document.querySelector('.tien-tong-total').textContent = (totalItems + totalShipping).toLocaleString() + "₫";
-}
-function updateTotalForOrder(orderElement) {
-	let totalItems = 0;
-	let shippingCost = 0;
-
-	// Tìm các phần tử liên quan trong đơn hàng cụ thể
-	totalItems = parseInt(orderElement.querySelector('.title-sp-1').textContent.replace(/\D/g, '')) || 0;
-	shippingCost = parseInt(orderElement.querySelector('.shippingCost').textContent.replace(/\D/g, '')) || 0;
+					event.stopPropagation();
 
 					if (!this.classList.contains('active-btn')) {
 						document.querySelectorAll('.btn-tt').forEach(btn => btn.classList.remove('active-btn'));
@@ -1246,25 +1223,45 @@ function updateTotalForOrder(orderElement) {
 				
 			
 			var swiper = new Swiper('.swiper-container', {
-			  slidesPerView: 5,  // Show 5 items at once
-			  spaceBetween: 10,   // Space between items
-			  loop: true,         // Loop the slides
-			  speed: 1000,        // Transition speed
+			  slidesPerView: 5,          // Hiển thị 5 slide mỗi lần
+			  spaceBetween: 10,          // Khoảng cách giữa các slide
+			  loop: true,                // Vòng lặp slider
+			  speed: 1000,               // Tốc độ chuyển tiếp
 			  autoplay: {
-			      delay: 3000,             // Đặt độ trễ tự động chuyển slide là 5 giây (5000 ms)
-			      disableOnInteraction: false,  // Không dừng autoplay khi người dùng tương tác
 			    },
 			  pagination: {
-			    el: '.swiper-pagination',
-			    clickable: true,  // Enable pagination clicks
-			  }});
-			  // Tính tổng thanh toán
-	const total = totalItems + shippingCost;
-
-	// Cập nhật tổng tiền cho đơn hàng này
-	orderElement.querySelector('.tongtien span').textContent = "Tổng tiền: " + total.toLocaleString() + "₫";
-	}
-
+			    el: '.swiper-pagination',  // Phân trang
+			    clickable: true,           // Cho phép người dùng click vào phân trang
+			  },
+			  slidesPerGroup: 5,         // Mỗi lần phân trang di chuyển 5 slide
+			});
+			document.querySelectorAll('.quantity-edit').forEach(edit => {
+			    const valueInput = edit.querySelector('input');
+			    const minusButton = edit.querySelector('.button.minus');
+			    const plusButton = edit.querySelector('.button.plus');
+			    minusButton.addEventListener('click', () => {
+			        let quantity = parseInt(valueInput.value);
+			        if (quantity > 1) {
+			            quantity--;
+			            updateInputAndPrice(quantity, edit);
+			        }
+		    	});
+		    // Sự kiện khi nhấn nút tăng
+			    plusButton.addEventListener('click', () => {
+			        let quantity = parseInt(valueInput.value);
+			        quantity++;
+			        updateInputAndPrice(quantity, edit);
+			    });
+		    // Hàm cập nhật giá trị input và tổng tiền
+		    function updateInputAndPrice(quantity, edit) {
+		        const priceElement = edit.closest('.item-parent').querySelector('.price p');
+		        const subtotalElement = edit.closest('.item-parent').querySelector('.subtotal p');
+		        const basePrice = parseFloat(priceElement.textContent.replace(/[^\d.]/g, '')) || 0;
+		        const subtotal = quantity * basePrice;
+		        subtotalElement.textContent = subtotal.toLocaleString('vi-VN') + " ₫";
+		    }
+			});
+			
 window.addEventListener('load', () => {
 	document.querySelectorAll('.product-info').forEach(order => {
 		updateTotalForOrder(order);
@@ -1368,4 +1365,58 @@ function dathang()
 	           console.error('Lỗi khi đặt hàng:', error);
 	       }
 	   });
-	   }
+}
+
+function filterByRating(rating) {
+    const productId = document.getElementById('productId').value; // Ẩn input chứa ID sản phẩm
+    const thymeleafReviews = document.querySelectorAll('.thymeleaf-review'); // Lấy các đánh giá mặc định
+
+    // Ẩn các đánh giá mặc định
+    thymeleafReviews.forEach(review => {
+        review.style.display = 'none';
+    });
+
+    // Gửi yêu cầu để lấy các đánh giá theo số sao
+	fetch(`/user/home/product-detail/${productId}/reviews?rating=${rating}`)
+			.then(response => {
+			       if (!response.ok) {
+			           throw new Error('Network response was not ok');
+			       }
+			       return response.json();
+			   })
+	        .then(data => {
+	            const reviewContainer = document.getElementById('reviewContainer');
+	            reviewContainer.innerHTML = ''; // Xóa nội dung cũ
+	            
+	            // Tạo một phần tử mới để thay thế phần tử cũ
+	            const newReviewContainer = document.createElement('div');
+	            newReviewContainer.id = 'reviewContainer';
+				console.log(data);
+	            // Duyệt qua tất cả đánh giá và hiển thị
+	            data.forEach(review => {
+	                const reviewDiv = document.createElement('div');
+	                reviewDiv.classList.add('review-box', 'card', 'mb-3');  // Bootstrap classes
+					console.log(review);
+	                reviewDiv.innerHTML = `
+	                    <div class="card-body">
+	                        <div class="d-flex justify-content-between align-items-center">
+	                            <div class="d-flex align-items-center">
+	                                <!-- Star Rating -->
+	                                <div class="rating-stars">
+	                                    ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+	                                </div>
+	                            </div>
+	                            <span class="text-muted small">${new Date(review.date).toLocaleString()}</span>
+	                        </div>
+							
+	                        <p class="mt-2">${review.comment}</p>
+	                    </div>
+	                `;
+	                newReviewContainer.appendChild(reviewDiv);
+	            });
+
+	            // Thay thế phần tử cũ bằng phần tử mới
+	            reviewContainer.parentNode.replaceChild(newReviewContainer, reviewContainer);
+	        })
+	        .catch(error => console.error('Error:', error));
+}

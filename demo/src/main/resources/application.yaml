@@ -23,6 +23,10 @@ spring:
     show-sql: true
   thymeleaf:
     cache: false
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    date-format: yyyy-MM-dd'T'HH:mm
 
   mail:
     host: smtp.gmail.com
@@ -40,18 +44,3 @@ spring:
             protocols: TLSv1.2
 storage:
   location: D:\\upload
-
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: trantiendat1679@gmail.com
-    password: ckclltbdkatufiho
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-          ssl:
-            protocols: TLSv1.2

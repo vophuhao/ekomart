@@ -26,4 +26,18 @@ public class UserProductServiceImpl implements IUserProductService{
         // Lấy tất cả sản phẩm với giá trị display
         return productRepository.findByStatus(status);
     }
+	@Override
+	public List<Product> getTop20BestSellers() {
+		Pageable pageable = PageRequest.of(0, 20, Sort.by(Sort.Order.desc("sold")));
+        return productRepository.findTop20ByOrderBySoldDesc(pageable);
+	}
+//	@Override
+//	public List<Object[]> getTop20ReviewedProducts() {
+//		Pageable pageable = PageRequest.of(0, 20, Sort.by(Sort.Order.desc("reviewCount")));
+//        return productRepository.findTop20ProductsByReviewCount(pageable);
+//	}
+	@Override
+	public List<Product> findAllByDisplay(int display) {
+		return productRepository.findAllByDisplay(display);
+	}
 }

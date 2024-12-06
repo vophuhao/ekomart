@@ -441,20 +441,20 @@
 		</div>
 	</div>
 	<!-- weekly best seller area end -->
-
+	<!-- top 20 sp new -->
 	<!-- deal of the day area start -->
 	<div class="rts-deal-ofthe-day rts-section-gap">
 		<div class="container-2">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="titlw-area-between-best-seller-anim">
-						<h2 class="title">Deals Of The Day</h2>
+						<h2 class="title">Recently Added</h2>
 					</div>
 				</div>
 			</div>
 
 			<div class="row g-4 mt--10">
-				<!-- 1sp -->
+				
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
 						<div class="col-lg-20 col-md-4 col-sm-6 col-12 swiper-slide"
@@ -495,7 +495,7 @@
 									<a href="shop-details.html">
 										<h4 class="title" th:text="${product.name}">Nestle
 											Cerelac Mixed Fruits &amp; Wheat with Milk</h4>
-									</a> <span class="availability">500g Pack</span>
+									</a> <span class="availability" th:text="'Sold: ' + ${product.sold}">Sold: </span>
 									<div class="price-area">
 										<span class="current" th:text="${product.price}">$36.00</span>
 										<div class="previous">$36.00</div>
@@ -522,10 +522,95 @@
 					</div>
 					<div class="swiper-pagination"></div>
 				</div>
+			</div>
+		</div>
+	</div>
 
+				<!-- top 20 sp end -->
+				<!-- top ban chay -->
+	<div class="rts-deal-ofthe-day rts-section-gap">
+		<div class="container-2">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="titlw-area-between-best-seller-anim">
+						<h2 class="title">Best Seller</h2>
+					</div>
+				</div>
+			</div>
 
-				<!-- 1sp end -->
+			<div class="row g-4 mt--10">
+				<!-- 1sp -->
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="col-lg-20 col-md-4 col-sm-6 col-12 swiper-slide"
+							th:each="product : ${top20Sell}">
+							<div class="single-shopping-card-one deals-of-day">
+								<div class="onsale-offer">
+									<span>Hot</span>
+								</div>
+								<div class="image-and-action-area-wrapper">
+									<a href="shop-details.html" class="thumbnail-preview"> <img
+										th:src="@{'/user/home/images/' + ${product.image}}"
+										alt="grocery">
+									</a>
+									<div class="action-share-option">
+										<div class="single-action openuptip message-show-action"
+											data-flow="up" title="Add To Wishlist">
+											<i class="fa-light fa-heart"></i>
+										</div>
+										<div class="single-action openuptip" data-flow="up"
+											title="Compare" data-bs-toggle="modal"
+											data-bs-target="#exampleModal">
+											<i class="fa-solid fa-arrows-retweet"></i>
+										</div>
+										<div
+											class="single-action openuptip cta-quickview product-details-popup-btn"
+											data-flow="up" title="Quick View">
+											<i class="fa-regular fa-eye"></i>
+										</div>
+									</div>
+								</div>
 
+								<div class="body-content">
+									<div class="start-area-rating">
+										<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+										<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+										<i class="fa-solid fa-star"></i>
+									</div>
+									<a href="shop-details.html">
+										<h4 class="title" th:text="${product.name}">Nestle
+											Cerelac Mixed Fruits &amp; Wheat with Milk</h4>
+									</a> <span class="availability" th:text="'Sold: ' + ${product.sold}">Sold: </span>
+									<div class="price-area">
+										<span class="current" th:text="${product.price}">$36.00</span>
+										<div class="previous">$36.00</div>
+									</div>
+									<form action="/user/add-item" method="POST">
+										<input type="hidden" name="product.id"
+											th:value="${product.id}">
+										<!-- Product ID -->
+										<input type="hidden" name="price" th:value="${product.price}">
+										<input type="hidden" name="quantity" value="1">
+										<!-- Số lượng sản phẩm -->
+
+										<button type="submit"
+											class="rts-btn btn-primary radious-sm with-icon">
+											<div class="btn-text">Add To Cart</div>
+											<div class="arrow-icon">
+												<i class="fa-regular fa-cart-shopping"></i>
+											</div>
+										</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- top ban chay end -->
 				<!-- deal of the day area end -->
 
 				<!-- rts offer area start -->
