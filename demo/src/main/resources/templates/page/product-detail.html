@@ -982,11 +982,9 @@
                                                     <span>10 Reviews</span>
                                                 </div>
                                             </div>
-                                            <h2 class="product-title">Kitchen Fade Defy PLUG Air Freshener</h2>
-                                            <p class="mt--20 mb--20">
-                                                Priyoshop has brought to you the Hijab 3 Pieces Combo Pack PS23. It is a
-                                                completely modern design and you feel comfortable to put on this hijab.
-                                                Buy it at the best price.
+                                            <h2 class="product-title" th:text="${product.name}"></h2>
+                                            <p class="mt--20 mb--20" th:text="${product.description}">
+                                               
                                             </p>
                                             <span class="product-price mb--15 d-block" style="color: #DC2626; font-weight: 600;"> $36.25<span class="old-price ml--15">$69.35</span></span>
                                             <div class="product-bottom-action">
@@ -1143,16 +1141,27 @@
 													</div>
 													
 													<!-- Hiển thị các đánh giá -->
-													<div id="reviewContainer" th:each="review : ${reviews}">
-													    <!-- <p>Rating: <span th:text="${review.rating}"></span>/5</p>
-													    <p th:text="${review.comment}"></p>
-													    <p>Date: <span th:text="${#dates.format(review.date, 'dd-MM-yyyy HH:mm')}"></span></p> -->
+													<div id="reviewContainer" th:each="review : ${reviews}" class="card-body thymeleaf-review">
+														<div class="card-body">
+														    <div class="d-flex justify-content-between align-items-center">
+														        <div class="d-flex align-items-center">
+														            <!-- Star Rating -->
+														            <div class="rating-stars">
+														                <span th:each="star : ${#numbers.sequence(1, 5)}"
+														                      th:classappend="${star <= review.rating} ? 'text-warning' : 'text-muted'">&#9733;</span>
+														            </div>
+														        </div>
+														       <span class="text-muted small" th:text="${review.formattedDateString}"></span>
+														    </div>
+														    <p class="mt-2"><strong th:text="${review.user.name}">Tên người dùng</strong></p>
+														    <p class="mt-2" th:text="${review.comment}"></p>
+														</div>
 													</div>
 								                       
 													<input type="hidden" id="productId" th:value="${product.id}"> <!-- Ẩn ID sản phẩm -->
 
 												    <div class="submit-review-area">
-													    <form th:action="@{/home/product-detail/{id}/addReview(id=${product.id})}" method="post" th:object="${newReview}" class="submit-review-area">
+													    <form th:action="@{/user/home/product-detail/{id}/addReview(id=${product.id})}" method="post" th:object="${newReview}" class="submit-review-area">
 													        <h5 class="title">Submit Your Review</h5>
 													        <label for="rating">Rating:</label>
 													        

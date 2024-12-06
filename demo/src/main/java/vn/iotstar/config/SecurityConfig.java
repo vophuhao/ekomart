@@ -64,7 +64,7 @@ public class SecurityConfig {
 					.requestMatchers("/vendor/**").hasRole("VENDOR")
 					.requestMatchers("/vendor/register/**").hasRole("USER")
 					.requestMatchers("/api/v1/admin/**").permitAll()
-					.requestMatchers("/user/**").hasRole("USER")
+					.requestMatchers("/user/**").hasAnyRole("USER", "VENDOR")
 					.requestMatchers("/register", "/forgotPassword/**", "/authenticate", "/register/**",
 							"/authenticatelogin", "/css/**", "/fonts/**", "/images/**", "/js/**",
 							"/admin/**", "/vendor/**", "/view/**", "/home/**","/vendor/register/**").permitAll()
