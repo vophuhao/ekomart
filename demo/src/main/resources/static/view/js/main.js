@@ -1411,7 +1411,7 @@ function filterByRating(rating) {
 	                            </div>
 	                            <span class="text-muted small">${new Date(review.date).toLocaleString()}</span>
 	                        </div>
-							
+							<p class="mt-2"><strong>${review.user.name}</strong></p>
 	                        <p class="mt-2">${review.comment}</p>
 	                    </div>
 	                `;
