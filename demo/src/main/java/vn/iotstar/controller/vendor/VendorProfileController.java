@@ -101,7 +101,6 @@ public class VendorProfileController {
                 shop.setAvatar(storageService.getSorageFilename(shopModel.getRts_images1(), uuString_logo));
                 storageService.store(shopModel.getRts_images1(), shop.getAvatar());
             }
-            System.out.println(shop);
             vendorIRegisterService.save(shop);
         }
         return "redirect:/vendor/home";
