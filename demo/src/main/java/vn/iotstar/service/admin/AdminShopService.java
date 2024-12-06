@@ -13,4 +13,7 @@ public interface AdminShopService {
     List<Shop> findAll();
     <S extends Shop> S save(S entity);
     Optional<Shop> findByUserId(int userId);
+    
+    List<Shop> findByStatus(int status);
+    Optional<Shop>  findByShopId(String shopId);
 }

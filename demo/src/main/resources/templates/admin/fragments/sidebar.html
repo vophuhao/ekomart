@@ -24,6 +24,10 @@
                         <img src="/admin/images/icons/05.svg" alt="icon" class="icon">
                         <p>User Manage</p>
                     </a>
+                    <ul class="submenu mm-collapse parent-nav">
+                        <li><a class="mobile-menu-link" th:href="@{/admin/user-list}">User List</a></li>
+                        <li><a class="mobile-menu-link" th:href="@{/admin/add-user}">ADD User</a></li>
+                    </ul>
                 </li>
                 <li class="single-menu-item">
                     <a href="#" class="with-plus">
@@ -79,8 +83,8 @@
                         <p>Vendor</p>
                     </a>
                     <ul class="submenu mm-collapse parent-nav">
-                        <li><a class="mobile-menu-link" th:href="@{/admin/vendor/list/approve}">Vendor List Approve</a></li>
-                        <li><a class="mobile-menu-link" th:href="@{/admin/vendor/list}">Vendor List</a></li>
+                        <li><a class="mobile-menu-link" th:href="@{/admin/vendor/list}">Vendor List </a></li>
+                        <li><a class="mobile-menu-link" th:href="@{/admin/vendor/list/waiting}">Vendor List Waiting</a></li>
                         
                     </ul>
                 </li>
