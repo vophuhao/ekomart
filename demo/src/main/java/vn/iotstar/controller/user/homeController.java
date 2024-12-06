@@ -79,7 +79,7 @@ public class homeController {
 	@GetMapping("/product")
 	public String getProduct( HttpServletRequest request, Model model,HttpSession session) {
 		
-        List<Product> product = productService.findAllByDisplay(0);
+        List<Product> product = productService.findAllByDisplay(1);
         model.addAttribute("product", product);
         
 		return "page/shop-grid-sidebar";

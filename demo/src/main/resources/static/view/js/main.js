@@ -1197,70 +1197,79 @@ document.querySelectorAll('.changeButton').forEach(button => {
 	button.addEventListener("click", openPopup);
 });
 
-				let totalShipping = 0;
+function updateTotal() {
+	let totalItems = 0;
+	let totalShipping = 0;
+	
+	// Lấy tổng tiền hàng và phí vận chuyển từ tất cả các sản phẩm
+	document.querySelectorAll('.product-info').forEach(product => {
+		const productPriceText = product.querySelector('#total').textContent;
+		const itemCost = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
+		const shippingCost = parseInt(product.querySelector('.shippingCost').textContent.replace(/\D/g, '')); // Phí vận chuyển
 
-				// Lấy tổng tiền hàng và phí vận chuyển từ tất cả các sản phẩm
-				document.querySelectorAll('.product-info').forEach(product => {
-					const productPriceText = product.querySelector('#total').textContent;
-					const itemCost = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
-					const shippingCost = parseInt(product.querySelector('.shippingCost').textContent.replace(/\D/g, '')); // Phí vận chuyển
+		totalItems += itemCost;
+		totalShipping += shippingCost;
+	});
 
-				});
-				let shippingCost = 0;
-				
-				const productPriceText = orderElement.querySelector('#total').textContent;
-				totalItems = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
-				shippingCost = parseInt(orderElement.querySelector('.shippingCost').textContent.replace(/\D/g, '')) || 0;
+	// Cập nhật giá trị tổng tiền hàng, phí vận chuyển và tổng thanh toán
+	document.querySelector('.tien-tong-items').textContent = totalItems.toLocaleString() + "₫";
+	document.querySelector('.tien-tong-shipping').textContent = totalShipping.toLocaleString() + "₫";
+	document.querySelector('.tien-tong-total').textContent = (totalItems + totalShipping).toLocaleString() + "₫";
+}
 
-				const total = totalItems + shippingCost;
+function updateTotalForOrder(orderElement) {
+	let totalItems = 0;
+	let shippingCost = 0;
+	const productPriceText = orderElement.querySelector('#total').textContent;
+	totalItems = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
+	shippingCost = parseInt(orderElement.querySelector('.shippingCost').textContent.replace(/\D/g, '')) || 0;
 
-					event.stopPropagation();
+	// Tính tổng thanh toán
+	const total = totalItems + shippingCost;
 
-					if (!this.classList.contains('active-btn')) {
-						document.querySelectorAll('.btn-tt').forEach(btn => btn.classList.remove('active-btn'));
-						this.classList.add('active-btn'); 
-					}
-				
-			
-			var swiper = new Swiper('.swiper-container', {
-			  slidesPerView: 5,          // Hiển thị 5 slide mỗi lần
-			  spaceBetween: 10,          // Khoảng cách giữa các slide
-			  loop: true,                // Vòng lặp slider
-			  speed: 1000,               // Tốc độ chuyển tiếp
-			  autoplay: {
-			    },
-			  pagination: {
-			    el: '.swiper-pagination',  // Phân trang
-			    clickable: true,           // Cho phép người dùng click vào phân trang
-			  },
-			  slidesPerGroup: 5,         // Mỗi lần phân trang di chuyển 5 slide
-			});
-			document.querySelectorAll('.quantity-edit').forEach(edit => {
-			    const valueInput = edit.querySelector('input');
-			    const minusButton = edit.querySelector('.button.minus');
-			    const plusButton = edit.querySelector('.button.plus');
-			    minusButton.addEventListener('click', () => {
-			        let quantity = parseInt(valueInput.value);
-			        if (quantity > 1) {
-			            quantity--;
-			            updateInputAndPrice(quantity, edit);
-			        }
-		    	});
-		    // Sự kiện khi nhấn nút tăng
-			    plusButton.addEventListener('click', () => {
-			        let quantity = parseInt(valueInput.value);
-			        quantity++;
-			        updateInputAndPrice(quantity, edit);
-			    });
-		    // Hàm cập nhật giá trị input và tổng tiền
-		    function updateInputAndPrice(quantity, edit) {
-		        const priceElement = edit.closest('.item-parent').querySelector('.price p');
-		        const subtotalElement = edit.closest('.item-parent').querySelector('.subtotal p');
-		        const basePrice = parseFloat(priceElement.textContent.replace(/[^\d.]/g, '')) || 0;
-		        const subtotal = quantity * basePrice;
-		        subtotalElement.textContent = subtotal.toLocaleString('vi-VN') + " ₫";
-		    }
-			});
+	// Cập nhật tổng tiền cho đơn hàng này
+	orderElement.querySelector('.tongtien span').textContent = "Tổng tiền: " + total.toLocaleString() + "₫";
+}
+
+var swiper = new Swiper('.swiper-container', {
+  slidesPerView: 5,          // Hiển thị 5 slide mỗi lần
+  spaceBetween: 10,          // Khoảng cách giữa các slide
+  loop: true,                // Vòng lặp slider
+  speed: 1000,               // Tốc độ chuyển tiếp
+  autoplay: {
+    },
+  pagination: {
+    el: '.swiper-pagination',  // Phân trang
+    clickable: true,           // Cho phép người dùng click vào phân trang
+  },
+  slidesPerGroup: 5,         // Mỗi lần phân trang di chuyển 5 slide
+});
+document.querySelectorAll('.quantity-edit').forEach(edit => {
+    const valueInput = edit.querySelector('input');
+    const minusButton = edit.querySelector('.button.minus');
+    const plusButton = edit.querySelector('.button.plus');
+    minusButton.addEventListener('click', () => {
+        let quantity = parseInt(valueInput.value);
+        if (quantity > 1) {
+            quantity--;
+            updateInputAndPrice(quantity, edit);
+        }
+	});
+// Sự kiện khi nhấn nút tăng
+    plusButton.addEventListener('click', () => {
+        let quantity = parseInt(valueInput.value);
+        quantity++;
+        updateInputAndPrice(quantity, edit);
+    });
+// Hàm cập nhật giá trị input và tổng tiền
+function updateInputAndPrice(quantity, edit) {
+    const priceElement = edit.closest('.item-parent').querySelector('.price p');
+    const subtotalElement = edit.closest('.item-parent').querySelector('.subtotal p');
+    const basePrice = parseFloat(priceElement.textContent.replace(/[^\d.]/g, '')) || 0;
+    const subtotal = quantity * basePrice;
+    subtotalElement.textContent = subtotal.toLocaleString('vi-VN') + " ₫";
+}
+});
 			
 window.addEventListener('load', () => {
 	document.querySelectorAll('.product-info').forEach(order => {
