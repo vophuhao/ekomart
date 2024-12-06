@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.iotstar.entity.Address;
+import vn.iotstar.entity.UserInfo;
 import vn.iotstar.repository.AddressRepository;
 import vn.iotstar.service.user.IAddressService;
 
@@ -19,9 +20,9 @@ public class AddressServiceImp implements IAddressService{
 	        return addressrepo.save(address);  // Lưu địa chỉ vào CSDL
 	    }
 	@Override
-	public List<Address> findByUser_Id(Long userId) {
+	public List<Address> findByUser(UserInfo user) {
 		// TODO Auto-generated method stub
-		return addressrepo.findByUser_Id(userId);
+		return addressrepo.findByUser(user);
 	}
 	@Override
 	public Optional<Address> findById(Long id) {

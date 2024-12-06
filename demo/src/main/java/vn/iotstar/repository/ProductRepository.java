@@ -4,6 +4,7 @@ package vn.iotstar.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +19,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 
 	 Optional<Product> findByDisplay(int display);
 	 
-	 List<Product> findAllByDisplay(int display);
+	 Page<Product> findAllByDisplay(int display, Pageable pageable);
 	 
 	 List<Product> findByStatus(int status);
 	 

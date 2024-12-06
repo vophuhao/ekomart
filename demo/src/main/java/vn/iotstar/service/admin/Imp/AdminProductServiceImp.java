@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.iotstar.entity.Product;
+import vn.iotstar.entity.Shop;
 import vn.iotstar.repository.ProductRepository;
 import vn.iotstar.service.admin.AdminIProductService;
 
@@ -60,6 +61,12 @@ public class AdminProductServiceImp implements AdminIProductService {
 	@Override
 	public Optional<Product> findByName(String productName) {
 		return productRepository.findByName(productName);
+	}
+
+	@Override
+	public List<Product> findByShop(Shop shop) {
+	
+		return productRepository.findByShop(shop);
 	}
 	
 	

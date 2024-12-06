@@ -60,27 +60,57 @@ public class VendorAdminController {
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
 	}
 
+	@GetMapping("/detail/images/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serverFile11(@PathVariable String filename){
 
-	@GetMapping("/list")
+		Resource file =storageService.loadAsResource(filename);
+
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
+	}
+	@GetMapping("/list/images/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serverFile21(@PathVariable String filename){
+
+		Resource file =storageService.loadAsResource(filename);
+
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
+	}
+	@GetMapping("/list/waiting")
 	public String listVendor(ModelMap model)
 	{
-		List<Shop> list = adminShopService.findAll();
+		List<Shop> list = adminShopService.findByStatus(0);
 		model.addAttribute("list", list);
-		return "admin/vendor-list";
+		return "admin/vendor-list-waiting";
 	}
 
-	
-	@GetMapping("/list/approve")
-	public String listVendorApprove()
-	{
-		return "admin/vendor-list-approve";
-	}
-	
 	@GetMapping("/detail")
-	public String detailVendor()
+	public String vendorDetail(@RequestParam("shopId") String shopId,Model model)
 	{
+		Optional<Shop> shop=adminShopService.findByShopId(shopId);
+		Shop shopp=new Shop();
+		if(shop.isPresent())
+		{
+			shopp=shop.get();
+			
+		}
+		List<Product> list=productService.findByShop(shopp);
+		int count=list.size();
+		model.addAttribute("productList",list);
+		model.addAttribute("shop",shopp);
+		model.addAttribute("size",count);
 		return "admin/vendor-detail";
 	}
+	@GetMapping("/list")
+	public String listVendor(Model model)
+	{
+		List<Shop> listShop=adminShopService.findByStatus(1);
+		
+		model.addAttribute("listShop",listShop);
+		return "admin/vendor-list";
+	}
+	
+	
 	
 	
 	@GetMapping("/product")
@@ -147,10 +177,10 @@ public class VendorAdminController {
 
 			//Cập nhật display cho vendor
 			Shop existingVendor = optVendor.get();
-			existingVendor.setDisplay(vendor.getDisplay());
+			existingVendor.setStatus(vendor.getDisplay());
 			adminShopService.save(existingVendor);
 		}
-		return "redirect:/admin/vendor/list";
+		return "redirect:/admin/vendor/list/waiting";
 	}
 
 	@PostMapping("/updateProduct")

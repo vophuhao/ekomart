@@ -118,7 +118,7 @@ public class RegisterVendorController {
 			storageService.store(shopModel.getRts_images1(), shop.getAvatar());
 		}
 		shop.setShopId(shopId);
-		
+		shop.setDisplay(1);
 		vendorIRegisterService.save(shop);
 		return "redirect:/vendor/register/done";
 	}	

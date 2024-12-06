@@ -41,4 +41,16 @@ public class AdminShopServiceImp implements AdminShopService {
         return shopRepository.findByUserId(userId);
     }
 
+	@Override
+	public List<Shop> findByStatus(int status) {
+		
+		return shopRepository.findByStatus(status);
+	}
+
+	@Override
+	public Optional<Shop> findByShopId(String shopId) {
+		
+		return shopRepository.findByShopId(shopId);
+	}
+
 }

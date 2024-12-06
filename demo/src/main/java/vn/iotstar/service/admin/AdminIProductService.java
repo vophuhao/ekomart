@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import vn.iotstar.entity.Product;
+import vn.iotstar.entity.Shop;
 
 public interface AdminIProductService {
 
@@ -24,5 +25,6 @@ public interface AdminIProductService {
 	Optional<Product> findByProductId(String productId);
 
 	Optional<Product> findById(Long id);
+	 List<Product> findByShop(Shop shop);
 
 }

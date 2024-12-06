@@ -43,7 +43,7 @@
 								<p>Chon</p>
 							</div>
 						</div>
-						<form th:action="@{/user/cart/payment}" th:method="post" th:object="${productPayment}">
+						<form th:action="@{/user/cart/payment}" th:method="get" th:object="${productPayment}">
 							<div th:each="item, i : ${cart.items}">
 								<div class="single-cart-area-list main item-parent">
 									<div class="product-main-cart">

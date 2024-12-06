@@ -8,10 +8,10 @@
 				<div class="row g-5">
 					<div class="col-xl-3 col-lg-12 col-md-12">
 						<div class="vendor-banner-left">
-							<img src="/admin/images/vendor/01.svg" alt="vendor">
+							 <img th:src="${'/admin/vendor/detail/images/' + shop.avatar}" alt="" style="width:123px;height:auto">
 							<div class="header-area">
-								<h4 class="title">
-									Food Forulard <span>Open</span>
+								<h4 class="title" th:text="${shop.name}">
+									 
 								</h4>
 							</div>
 							<div class="stars-area">
@@ -21,15 +21,15 @@
 							</div>
 							<div class="location">
 								<i class="fa-regular fa-location-dot"></i>
-								<p>530 Post Ct El Dorado Hills California ,United States</p>
+								<p th:text="${shop.address.detail}"></p>
 							</div>
 							<div class="location">
 								<i class="fa-regular fa-phone-volume"></i>
-								<p>+1 (511) 934-8170</p>
+								<p th:text="${shop.sdt}"></p>
 							</div>
 							<div class="location">
 								<i class="fa-regular fa-cart-shopping"></i>
-								<p>3214 Product Available</p>
+								<p th:text="${size}"></p>
 							</div>
 						</div>
 					</div>
@@ -37,8 +37,8 @@
 						<div class="banner-vendor-details bg_image">
 							<div class="content-area">
 								<a href="#" class="rts-btn btn-primary">Weekend Discount</a>
-								<h3 class="title animated fadeIn">
-									Drink Fresh Corn Juice <br> <span>Good Taste</span>
+								<h3 class="title animated fadeIn" th:text="${shop.name}">
+									
 								</h3>
 								<a href="#" class="shop-now-goshop-btn"> <span class="text">Shop
 										Now</span>
@@ -61,7 +61,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row mt--50 ml-v-dec-m">
+	<div class="row mt--50 ml-v-dec-m" >
 		<div class="col-lg-12">
 			<div class="product-filter-area-vendors-details">
 				<div class="search-area">
@@ -93,120 +93,25 @@
 		</div>
 	</div>
 	<div class="row g-4 ml-v-dec-m mt--40">
-		<div class="col-lg-4 col-md-6">
+		<div class="col-lg-4 col-md-6" th:each="product : ${productList}">
 			<div class="single-shopping-card-one tranding-product">
-				<a href="#" class="thumbnail-preview"> <img
-					src="/admin/images/grocery/08.jpg" alt="grocery">
+				<a href="#" class="thumbnail-preview"> 
+				 <img th:src="${'/admin/vendor/detail/images/' + product.image}" alt="" style="width:123px;height:auto">
 				</a>
 				<div class="body-content">
 					<div class="time-tag">
 						<i class="fa-light fa-clock"></i> 9 MINS
-					</div>
-					<a href="#">
-						<h4 class="title">Kellin Filid Angelo 100% Di Grano Tenero</h4>
-					</a> <span class="availability">500g Pack</span>
+					</div>					
+					<h4 class="title" th:text="product.name"></h4>
+					<span class="availability" th:text="product.productId"></span>
 					<div class="price-area">
-						<span class="current">$36.00</span>
-						<div class="previous">$36.00</div>
+						<span class="current" th:text="product.price"></span>
+						
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-4 col-md-6">
-			<div class="single-shopping-card-one tranding-product">
-				<a href="#" class="thumbnail-preview"> <img
-					src="/admin/images/grocery/09.jpg" alt="grocery">
-				</a>
-				<div class="body-content">
-					<div class="time-tag">
-						<i class="fa-light fa-clock"></i> 9 MINS
-					</div>
-					<a href="#">
-						<h4 class="title">Angelo 100% Di Grano Tenero</h4>
-					</a> <span class="availability">500g Pack</span>
-					<div class="price-area">
-						<span class="current">$36.00</span>
-						<div class="previous">$36.00</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-6">
-			<div class="single-shopping-card-one tranding-product">
-				<a href="#" class="thumbnail-preview"> <img
-					src="/admin/images/grocery/10.jpg" alt="grocery">
-				</a>
-				<div class="body-content">
-					<div class="time-tag">
-						<i class="fa-light fa-clock"></i> 9 MINS
-					</div>
-					<a href="#">
-						<h4 class="title">Eellin Filid Angelo 100% Di Grano Tenero</h4>
-					</a> <span class="availability">500g Pack</span>
-					<div class="price-area">
-						<span class="current">$36.00</span>
-						<div class="previous">$36.00</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-6">
-			<div class="single-shopping-card-one tranding-product">
-				<a href="#" class="thumbnail-preview"> <img
-					src="/admin/images/grocery/11.jpg" alt="grocery">
-				</a>
-				<div class="body-content">
-					<div class="time-tag">
-						<i class="fa-light fa-clock"></i> 9 MINS
-					</div>
-					<a href="#">
-						<h4 class="title">Hellin Filid Angelo 100% Di Grano Tenero</h4>
-					</a> <span class="availability">500g Pack</span>
-					<div class="price-area">
-						<span class="current">$36.00</span>
-						<div class="previous">$36.00</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-6">
-			<div class="single-shopping-card-one tranding-product">
-				<a href="#" class="thumbnail-preview"> <img
-					src="/admin/images/grocery/12.jpg" alt="grocery">
-				</a>
-				<div class="body-content">
-					<div class="time-tag">
-						<i class="fa-light fa-clock"></i> 9 MINS
-					</div>
-					<a href="#">
-						<h4 class="title">More Filid Angelo 100% Di Grano Tenero</h4>
-					</a> <span class="availability">500g Pack</span>
-					<div class="price-area">
-						<span class="current">$36.00</span>
-						<div class="previous">$36.00</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-6">
-			<div class="single-shopping-card-one tranding-product">
-				<a href="#" class="thumbnail-preview"> <img
-					src="/admin/images/grocery/13.jpg" alt="grocery">
-				</a>
-				<div class="body-content">
-					<div class="time-tag">
-						<i class="fa-light fa-clock"></i> 9 MINS
-					</div>
-					<a href="#">
-						<h4 class="title">Best Filid Angelo 100% Di Grano Kuller</h4>
-					</a> <span class="availability">500g Pack</span>
-					<div class="price-area">
-						<span class="current">$36.00</span>
-						<div class="previous">$36.00</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 	<!-- bottom footer areas start -->
 </div>
