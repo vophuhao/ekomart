@@ -77,7 +77,7 @@ layout:decorate="~{vendor/home.html}">
                                              
                                                 <img src="/vendor/images/grocery/%6015.png" alt="">
                                                 <div class="action-edit-deleate">
-                                                    <span>Edit</span>
+                                                    <span th:data-productId="${product.productId}" >Edit</span>
                                                     <span th:data-display="${product.display}" th:text="${product.display == 1 ? 'No' : 'Yes'}"
    															th:classappend="${product.display == 1 ? 'text-danger' : 'text-success'}">
                                                    </span>
