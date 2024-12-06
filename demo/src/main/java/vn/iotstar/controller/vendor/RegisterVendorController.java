@@ -1,5 +1,6 @@
 package vn.iotstar.controller.vendor;
 
+import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -87,6 +88,7 @@ public class RegisterVendorController {
 				}
 			}
 		}
+		String shopId=generateRandomString();
 		String username = jwtUtil.extractUsername(token);
 		Optional<UserInfo> user = userService.findByName(username);
         user.ifPresent(shopModel::setUser);
@@ -109,14 +111,41 @@ public class RegisterVendorController {
 			String uuString1 = uuid1.toString();
 			shop.getInfo().setAfterImage(storageService.getSorageFilename(shopModel.getRts_images2(), uuString1));
 			storageService.store(shopModel.getRts_images2(), shop.getInfo().getAfterImage());
+			
+			UUID uuid_logo = UUID.randomUUID();
+			String uuString_logo = uuid_logo.toString();
+			shop.setAvatar(storageService.getSorageFilename(shopModel.getRts_images1(), uuString_logo));
+			storageService.store(shopModel.getRts_images1(), shop.getAvatar());
 		}
+		shop.setShopId(shopId);
+		
 		vendorIRegisterService.save(shop);
-		return "vendor/register-done";
+		return "redirect:/vendor/register/done";
 	}	
-	
+	 public String generateRandomString() {
+	        // Tiền tố "EK"
+	        String prefix = "EK";
+
+	        // Tạo chuỗi ngẫu nhiên với 4 ký tự (chữ hoa và số)
+	        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	        SecureRandom random = new SecureRandom();
+	        StringBuilder sb = new StringBuilder(prefix);
+
+	        for (int i = 0; i < 4; i++) {
+	            int index = random.nextInt(characters.length());
+	            sb.append(characters.charAt(index));
+	        }
+
+	        return sb.toString();
+	    }
 	@GetMapping("/order")
 	public String show() {
 		return "user/order";
+
+	}
+	@GetMapping("/register/done")
+	public String doneRegister() {
+		return "vendor/register-done";
 
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import vn.iotstar.entity.Product;
+import vn.iotstar.entity.Shop;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -23,7 +24,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 
 	 Optional<Product> findByName(String productName);
 	 
-	
+	 List<Product> findByShop(Shop shop);
+
 	 
 	 @Query("SELECT p FROM Product p ORDER BY p.date DESC")
 	 List<Product> findTop20ByOrderByDateDesc(Pageable pageable);

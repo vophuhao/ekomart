@@ -2,6 +2,7 @@ package vn.iotstar.controller.vendor;
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
@@ -13,11 +14,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
+import vn.iotstar.entity.Shop;
 import vn.iotstar.model.CategoryModel;
 import vn.iotstar.model.productModel;
+import vn.iotstar.repository.ShopRepository;
 import vn.iotstar.service.IStorageService;
 import vn.iotstar.service.admin.AdminICategoryService;
 import vn.iotstar.service.vendor.VendorIProductService;
@@ -32,7 +38,8 @@ public class VendorProductController {
     @Autowired
     AdminICategoryService categoryService;
     
-    
+    @Autowired
+	 private ShopRepository shoprepo;
     
     @Autowired 
     IStorageService storageService;
@@ -72,12 +79,27 @@ public class VendorProductController {
     	
     	return "vendor/product-add";
     }
+    
+    public String ShopId(HttpServletRequest request,HttpSession session)
+    {
+    	String shopId=(String) session.getAttribute("shopId");
+    	return shopId;
+    }
     @GetMapping("/list")
-    public String listProduct() {
+    public String listProduct(HttpServletRequest request,HttpSession session,Model model) {
+    	
+    	
+        Shop shopp=(Shop) session.getAttribute("shop");
+          
+    	
+    	List<Product> product=productService.findByShop(shopp);
+    	
+    	model.addAttribute("listProduct", product);
     	return "vendor/product-list";
     }
     
-    @PostMapping("/add")
+    
+	@PostMapping("/add")
     public ModelAndView addNewProduct(@Valid @ModelAttribute("products") productModel productModel ,
 	        BindingResult result,
 	        RedirectAttributes redirectAttributes)

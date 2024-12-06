@@ -1,146 +1,213 @@
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{vendor/home.html}">
-<div class="transection" layout:fragment="content">
-	<div class="vendor-list-main-wrapper product-wrapper add-product-page">
-		<div class="card-body table-product-select">
-			<div class=" header-two show right-collups-add-product">
-				<form th:action="@{/vendor/register/save}" id = "form1" method="post" th:object="${shop}" enctype="multipart/form-data">
-					<div class="right-collups-area-top">
-						<h6 class="title" style="font-size: 32px;">Register Shop</h6>
-						<p>Add the following information</p>
-					</div>
-					<div class="input-main-wrapper">
-						<div class="single-input">
-							<label class="form-label" for="shopName">Shop name</label>
-							<input type="text" id="shopName" th:field="*{name}" class="form-control form-control-lg" />
-						</div>
-
-						<div class="single-input">
-							<label class="form-label" for="shopId">Shop Id</label>
-							<input type="text" id="shopId" th:field="*{shopId}" class="form-control form-control-lg" />
-						</div>
-
-						<!-- Address Shop -->
-						<p style="font-size: 20px;">Address Shop</p>
-						<div>
-							<div class="single-input">
-								<label for="fullName" class="form-label">Full name</label>
-								<input type="text" class="form-control form-control-lg" id="fullName" th:field="*{address.addressName}" name="name"/>
+<!DOCTYPE html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
+<head>
+<meta charset="UTF-8">
+<meta name="description"
+	content="Ekomart-Grocery-Store(e-Commerce) HTML Template: A sleek, responsive, and user-friendly HTML template designed for online grocery stores.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="Grocery, Store, stores">
+<title>Dashboard Ekomart-Grocery-Store HTML Template</title>
+<link rel="shortcut icon" type="image/x-icon"
+	href="/admin/images/fav.png">
+<!-- plugins css -->
+<link rel="stylesheet preload" href="/vendor/css/plugins.css" as="style">
+<link rel="stylesheet preload"
+	href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"
+	as="style">
+<link rel="stylesheet preload" href="/vendor/css/style.css" as="style">
+</head>
+<body>
+	<div class="container">
+		<div class="transection">
+			<div
+				class="vendor-list-main-wrapper product-wrapper add-product-page">
+				<div class="card-body table-product-select">
+					<div class=" header-two show right-collups-add-product">
+						<form th:action="@{/vendor/register/save}" id="form1"
+							method="post" th:object="${shop}" enctype="multipart/form-data">
+							<div class="right-collups-area-top">
+								<h6 class="title" style="font-size: 32px;">Register Shop</h6>
+								<p>Add the following information</p>
 							</div>
-
-							<div  class="single-input">
-								<label for="sdt" class="sdt">Phone number</label>
-								<input type="text" class="form-control form-control-lg" id="sdt" th:field="*{address.addressSdt}" name ="sdt"/>
-							</div>
-
-							<div class="single-input">
-								<label>Address:</label>
-								<div  style="display:flex">
-									<select class="css_select" id="tinh" name="tinh" th:field="*{address.provinceId}" style="border: 1px solid #E8E9EB;padding:5px;margin-right:10px;border-radius: 4px"
-										title="Select Province" >
-										<option value="0">Select Province</option>
-									</select> <select class="css_select" id="huyen" name="huyen"  th:field="*{address.districtId}" style="border: 1px solid #E8E9EB;padding:5px;margin-right:10px;border-radius: 4px"
-										title="Select District">
-										<option value="0">Select District</option>
-									</select> <select class="css_select" id="phuong" name="phuong"  th:field="*{address.streetId}" style="border: 1px solid #E8E9EB;padding:5px;border-radius: 4px"
-										title="Select Ward">
-										<option value="0">Select Ward</option>
-									</select>
-								</div>
-							</div>
-
-							<div class="single-input">
-								<label for="detail" class="detail">Detail</label>
-								<input type="text" class="form-control form-control-lg" id="detail"  th:field="*{address.detail}" />
-							</div>
-
-							<div class="single-input">
-								<label class="form-label" for="email">Email</label>
-								<input type="text" id="email" class="form-control form-control-lg" th:field="*{email}" />
-							</div>
-
-							<div class="single-input">
-								<label class="form-label" for="phone">Phone Number</label>
-								<input type="text" id="phone" class="form-control form-control-lg" th:field="*{sdt}" />
-							</div>
-						</div>
-
-						<!-- Identification -->
-						<p  style="font-size: 20px;">Identification</p>
-						<div class="single-input">
-							<div>Form of identification: </div>
-
-							<input class="form-check-input stored" type="radio" name="type" id="cccd" th:field="*{info.type}"
-								   value="Identity Card" checked />
-							<label class="form-check-label" for="cccd">Identity Card</label>
-
-							<input class="form-check-input stored" type="radio" name="type" id="hochieu" th:field="*{info.type}"
-								   value="Passport" />
-							<label class="form-check-label" for="hochieu">Passport</label><br>
-
-							<div class="single-input">
-								<label class="form-label" for="typeNumber">Identity number</label>
-								<input type="text" id="typeNumber" class="form-control form-control-lg" th:field="*{info.numberi}"/>
-							</div>
-						</div>
-
-						<div class="single-input">
-							<label class="form-label" for="infocationName">Name</label>
-							<input type="text" id="infocationName" class="form-control form-control-lg" th:field="*{info.name}" />
-						</div>
-
-						<div class="single-input">
-							<div class="file-upload-add-product">
-								<div class="profile-left">
-									<div class="profile-image mb--30">
-										<img id="before_image" src="/vendor/images/grocery/16.png" alt="Profile-NFT">
-										<span>Drag and drop Image</span>
-									</div>
-									<div class="button-area">
-										<div class="brows-file-wrapper">
-											<!-- actual upload which is hidden -->
-											<input name="rts_images0" id="rts_images0" type="file">
-											<!-- our custom upload button -->
+							<div class="input-main-wrapper">
+								<div class="single-input">
+									<label class="form-label" for="shopName">Shop name</label> <input
+										type="text" id="shopName" th:field="*{name}"
+										class="form-control form-control-lg" />
+								</div>						
+								<div class="single-input">
+									<label class="form-label" for="shopName">LOGO</label>
+									<div class="file-upload-add-product">
+										<div class="profile-left">
+											<div class="profile-image mb--30">
+												<img id="rts_image" src="/vendor/images/grocery/16.png"
+													alt="Profile-NFT"> <span>Drag and drop Image</span>
+											</div>
+											<div class="button-area">
+												<div class="brows-file-wrapper">
+													<!-- actual upload which is hidden -->
+													<input name="rts_images1" id="rts_images1" type="file">
+													<!-- our custom upload button -->
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-
-						<div class="single-input">
-							<div class="file-upload-add-product">
-								<div class="profile-left">
-									<div class="profile-image mb--30">
-										<img id="after_image" src="/vendor/images/grocery/16.png" alt="Profile-NFT">
-										<span>Drag and drop Image</span>
+								<!-- Address Shop -->
+								<p style="font-size: 20px;">Address Shop</p>
+								<div>
+									<div class="single-input">
+										<label for="fullName" class="form-label">Full name</label> <input
+											type="text" class="form-control form-control-lg"
+											id="fullName" th:field="*{address.addressName}" name="name" />
 									</div>
-									<div class="button-area">
-										<div class="brows-file-wrapper">
-											<!-- actual upload which is hidden -->
-											<input name="rts_images2" id="rts_images2" type="file">
-											<!-- our custom upload button -->
+
+									<div class="single-input">
+										<label for="sdt" class="sdt">Phone number</label> <input
+											type="text" class="form-control form-control-lg" id="sdt"
+											th:field="*{address.addressSdt}" name="sdt" />
+									</div>
+
+									<div class="single-input">
+										<label>Address:</label>
+										<div style="display: flex">
+											<select class="css_select" id="tinh" name="tinh"
+												th:field="*{address.provinceId}"
+												style="border: 1px solid #E8E9EB; padding: 5px; margin-right: 10px; border-radius: 4px"
+												title="Select Province">
+												<option value="0">Select Province</option>
+											</select> <select class="css_select" id="huyen" name="huyen"
+												th:field="*{address.districtId}"
+												style="border: 1px solid #E8E9EB; padding: 5px; margin-right: 10px; border-radius: 4px"
+												title="Select District">
+												<option value="0">Select District</option>
+											</select> <select class="css_select" id="phuong" name="phuong"
+												th:field="*{address.streetId}"
+												style="border: 1px solid #E8E9EB; padding: 5px; border-radius: 4px"
+												title="Select Ward">
+												<option value="0">Select Ward</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="single-input">
+										<label for="detail" class="detail">Detail</label> <input
+											type="text" class="form-control form-control-lg" id="detail"
+											th:field="*{address.detail}" />
+									</div>
+
+									<div class="single-input">
+										<label class="form-label" for="email">Email</label> <input
+											type="text" id="email" class="form-control form-control-lg"
+											th:field="*{email}" />
+									</div>
+
+									<div class="single-input">
+										<label class="form-label" for="phone">Phone Number</label> <input
+											type="text" id="phone" class="form-control form-control-lg"
+											th:field="*{sdt}" />
+									</div>
+								</div>
+
+								<!-- Identification -->
+								<p style="font-size: 20px;padding-top:20px">Identification</p>
+								<div class="single-input">
+									<div style="font-size: 20px;">Form of identification:</div>
+									<div style="display: flex;margin-top:15px;">
+										<div style="margin-right: 20px;">
+										<input class="form-check-input stored" type="radio" name="type"
+											id="cccd" th:field="*{info.type}" value="Identity Card"
+											checked /> <label class="form-check-label" for="cccd">Identity
+											Card</label> 
+									</div>
+									<div>
+										<input class="form-check-input stored" type="radio"
+										name="type" id="hochieu" th:field="*{info.type}"
+										value="Passport" /> <label class="form-check-label"
+										for="hochieu">Passport</label><br>
+									</div>
+									</div>						
+									<div class="single-input">
+										<label class="form-label" for="typeNumber">Identity
+											number</label> <input type="text" id="typeNumber"
+											class="form-control form-control-lg"
+											th:field="*{info.numberi}" />
+									</div>
+								</div>
+
+								<div class="single-input">
+									<label class="form-label" for="infocationName">Name</label> <input
+										type="text" id="infocationName"
+										class="form-control form-control-lg" th:field="*{info.name}" />
+								</div>
+
+								<div class="single-input">
+									<div class="file-upload-add-product">
+										<div class="profile-left">
+											<div class="profile-image mb--30">
+												<img id="after_image" src="/vendor/images/grocery/16.png"
+													alt="Profile-NFT"> <span>Drag and drop Image</span>
+											</div>
+											<div class="button-area">
+												<div class="brows-file-wrapper">
+													<!-- actual upload which is hidden -->
+													<input name="rts_images0" id="rts_images0" type="file">
+													<!-- our custom upload button -->
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
+
+								<div class="single-input">
+									<div class="file-upload-add-product">
+										<div class="profile-left">
+											<div class="profile-image mb--30">
+												<img id="before_image" src="/vendor/images/grocery/16.png"
+													alt="Profile-NFT"> <span>Drag and drop Image</span>
+											</div>
+											<div class="button-area">
+												<div class="brows-file-wrapper">
+													<!-- actual upload which is hidden -->
+													<input name="rts_images2" id="rts_images2" type="file">
+													<!-- our custom upload button -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="single-input">
+									<input type="checkbox" name="confirm" id="confirm" /> <label
+										class="form-check-label text-black" for="confirm"> I
+										do accept the <a href="#!" class="text-black">Terms and
+											Conditions</a> of your site.
+									</label>
+								</div>
+
+								<div class="button-area-botton-wrapper-p-list">
+									<button data-mdb-ripple-init class="btn btn-primary btn-lg"
+										id="submit" name="submit" disabled type="submit">Done</button>
+								</div>
 							</div>
-						</div>
-
-						<div class="single-input">
-							<input type="checkbox" name="confirm" id="confirm"/>
-							<label class="form-check-label text-black" for="confirm">
-								I do accept the <a href="#!" class="text-black">Terms and Conditions</a> of your
-								site.
-							</label>
-						</div>
-
-						<div class="button-area-botton-wrapper-p-list">
-							<button data-mdb-ripple-init class="btn btn-primary btn-lg" id="submit" name="submit" disabled
-									type="submit">Done</button>
-						</div>
+						</form>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+	<!-- all plugins js here -->
+	<script src="/vendor/js/plugins.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/apexcharts@3.27.0/dist/apexcharts.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+	<!-- main js Custom -->
+	<script src="/vendor/js/main.js"></script>
+	<!-- rts header area end -->
+	<script src="/vendor/js/register-shop.js"></script>
+	<script src="/vendor/js/province.js"></script>
+
+</body>
+</html>

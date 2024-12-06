@@ -30,72 +30,7 @@
 							<div class="category-btn category-hover-header">
 								<img class="parent" src="/view/images/icons/bar-1.svg"
 									alt="icons"> <span>Categories</span>
-								<ul class="category-sub-menu" id="category-active-four">
-									<li><a th:href="@{#}" class="menu-item"> <img
-											src="/view/images/icons/01.svg" alt="icons"> <span>Breakfast
-												&amp; Dairy</span> <i class="fa-regular fa-plus"></i>
-									</a>
-										<ul class="submenu mm-collapse">
-											<li><a class="mobile-menu-link" th:href="@{#}">Breakfast</a></li>
-											<li><a class="mobile-menu-link" th:href="@{#}">Dinner</a></li>
-											<li><a class="mobile-menu-link" th:href="@{#}">
-													Pumking</a></li>
-										</ul></li>
-									<li><a th:href="@{#}" class="menu-item"> <img
-											src="/view/images/icons/02.svg" alt="icons"> <span>Meats
-												&amp; Seafood</span> <i class="fa-regular fa-plus"></i>
-									</a>
-										<ul class="submenu mm-collapse">
-											<li><a class="mobile-menu-link" th:href="@{#}">Breakfast</a></li>
-											<li><a class="mobile-menu-link" th:href="@{#}">Dinner</a></li>
-											<li><a class="mobile-menu-link" th:href="@{#}">
-													Pumking</a></li>
-										</ul></li>
-									<li><a th:href="@{#}" class="menu-item"> <img
-											src="/view/images/icons/03.svg" alt="icons"> <span>Breads
-												&amp; Bakery</span>
-									</a></li>
-									<li><a th:href="@{#}" class="menu-item"> <img
-											src="/view/images/icons/04.svg" alt="icons"> <span>Chips
-												&amp; Snacks</span> <i class="fa-regular fa-plus"></i>
-									</a>
-										<ul class="submenu mm-collapse">
-											<li><a class="mobile-menu-link" th:href="@{#}">Breakfast</a></li>
-											<li><a class="mobile-menu-link" th:href="@{#}">Dinner</a></li>
-											<li><a class="mobile-menu-link" th:href="@{#}">
-													Pumking</a></li>
-										</ul></li>
-									<li><a th:href="@{#}" class="menu-item"> <img
-											src="/view/images/icons/05.svg" alt="icons"> <span>Medical
-												Healthcare</span>
-									</a></li>
-									<li><a th:href="@{#}" class="menu-item"> <img
-											src="/view/images/icons/06.svg" alt="icons"> <span>Breads
-												&amp; Bakery</span>
-									</a></li>
-									<li><a th:href="@{#}" class="menu-item"> <img
-											src="/view/images/icons/07.svg" alt="icons"> <span>Biscuits
-												&amp; Snacks</span> <i class="fa-regular fa-plus"></i>
-									</a>
-										<ul class="submenu mm-collapse">
-											<li><a class="mobile-menu-link" th:href="@{#}">Breakfast</a></li>
-											<li><a class="mobile-menu-link" th:href="@{#}">Dinner</a></li>
-											<li><a class="mobile-menu-link" th:href="@{#}">
-													Pumking</a></li>
-										</ul></li>
-									<li><a th:href="@{#}" class="menu-item"> <img
-											src="/view/images/icons/08.svg" alt="icons"> <span>Frozen
-												Foods</span>
-									</a></li>
-									<li><a th:href="@{#}" class="menu-item"> <img
-											src="/view/images/icons/09.svg" alt="icons"> <span>Grocery
-												&amp; Staples</span>
-									</a></li>
-									<li><a th:href="@{#}" class="menu-item"> <img
-											src="/view/images/icons/10.svg" alt="icons"> <span>Other
-												Items</span>
-									</a></li>
-								</ul>
+								
 							</div>
 							<form action="#" class="search-header">
 								<input type="text" placeholder="Search for products, categories"
@@ -153,10 +88,7 @@
 								<ul class="parent-nav">
 									<li class="parent has-dropdown"><a class="nav-link"
 										th:href="@{#}">Home</a>
-										<ul class="submenu">
-											<li><a class="sub-b">Home</a></li>
-
-										</ul></li>
+									</li>
 									<li class="parent has-dropdown"><a class="nav-link"
 										th:href="@{#}">Vendors</a>
 										<ul class="submenu">
@@ -174,8 +106,10 @@
 											<li><a class="sub-b">Blog Details</a></li>
 										</ul></li>
 									<li class="parent" >
-										<div th:if="${Name != null}">
-											<a th:href="@{/user/my-shop}">My Shop</a>
+										<div th:if="${session.role == 'ROLE_USER'}">
+											<a th:href="@{/vendor/register}">Register Vendor</a>
+										</div><div th:if="${session.role == 'ROLE_VENDOR'}">
+											<a th:href="@{/vendor/home}">My Shop</a>
 										</div>
 									</li>
 								</ul>
