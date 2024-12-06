@@ -54,8 +54,14 @@ public class homeController {
         }
         
         String username = jwtUtil.extractUsername(token);
+        Optional<UserInfo> users=userService.findByName(username);
+        UserInfo userss =new UserInfo();
+        if (users.isPresent()) {
+            userss = users.get();
+            // Xử lý logic với user
+        } 
         session.setAttribute("username", username);
-        
+        session.setAttribute("role", userss.getRoles());
         List<Product> top20New = productService.getLatestProducts();
         model.addAttribute("top20pro", top20New);
         

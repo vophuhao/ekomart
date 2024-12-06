@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import vn.iotstar.entity.Product;
+import vn.iotstar.entity.Shop;
 
 public interface VendorIProductService {
 
@@ -23,6 +24,5 @@ public interface VendorIProductService {
 
 	List<Product> getProductsByShopId(Long shopId);
 
-	List<Product> findProductsByShopId(Long id);
-
+	List<Product> findByShop(Shop shop);
 }

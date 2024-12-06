@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.iotstar.entity.Product;
+import vn.iotstar.entity.Shop;
 import vn.iotstar.repository.ProductRepository;
 import vn.iotstar.service.vendor.VendorIProductService;
 
@@ -72,9 +73,8 @@ public class VendorProductServiceImp implements VendorIProductService {
 	}
 
 	@Override
-	public List<Product> findProductsByShopId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Product> findByShop(Shop shop) {
+		return productRepository.findByShop(shop);
 	}
 
 
