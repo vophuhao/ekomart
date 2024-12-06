@@ -180,12 +180,6 @@
                 </div>
                 <div class="col-xl-10 col-lg-12 pl--20">
                     <div class="filter-select-area">
-                        <div class="top-filter">
-                            <span>Showing 1–20 of 57 results</span>
-                            <div class="right-end">
-                                
-                            </div>
-                        </div>
                         <div class="nice-select-area-wrapper-and-button">
                             <div class="nice-select-wrapper-1">
                                 <div class="single-select">
@@ -240,12 +234,7 @@
                                         <!-- iamge and sction area start -->
                                         <div class="image-and-action-area-wrapper">
                                             <a th:href="@{/user/home/product-detail/{id}(id=${product.id})}" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>2 <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
+
                                                 <img th:src="@{'/user/home/images/' + ${product.image}}" alt="grocery">
                                             </a>
                                             <div class="action-share-option">
@@ -271,7 +260,7 @@
                                             <span class="availability" th:text="'Sold:' + ${product.sold}">500g Pack</span>
                                             <div class="price-area">
                                                 <span class="current" th:text="${product.price}">$36.00</span>
-                                                <div class="previous">$36.00</div>
+                                                <div class="previous"></div>
                                             </div>
                                             <form action="/user/add-item" method="POST">
                                             	<div class="cart-counter-action">
@@ -301,6 +290,11 @@
                                 </div>
                                 <!-- end 1sp -->
                                 
+								<div id="pagination-container" class="pagination">
+								    <button th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+								            th:text="${i + 1}"
+								            th:onclick="'loadPage(' + ${i} + ')'">Page</button>
+								</div>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +18,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.iotstar.config.UserInfoService;
+import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Shop;
 import vn.iotstar.entity.UserInfo;
 import vn.iotstar.service.admin.AdminShopService;
 import vn.iotstar.service.user.IUserService;
+import vn.iotstar.service.user.Imp.CartServiceImpl;
 import vn.iotstar.service.user.Imp.UserProductServiceImpl;
 import vn.iotstar.util.JwtUtil;
 
@@ -31,6 +39,9 @@ import javax.swing.text.html.Option;
 @RequestMapping("/user")
 public class homeController {
 
+	@Autowired
+	private CartServiceImpl cartService;
+	
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
@@ -72,17 +83,28 @@ public class homeController {
 //        List<Object[]> top20Rate = productService.getTop20ReviewedProducts();
 //        model.addAttribute("top20Rate", top20Rate);
         
+        Optional<UserInfo> user = userService.findByName((String)session.getAttribute("username"));
+		UserInfo userInfo = user.get();
+		Cart cart = cartService.findByUser(userInfo);
+		session.setAttribute("cartCount", cart.getItems().size());
+        
         model.addAttribute("Name", username);
 		return "page/home-content";
 	}
 	
 	@GetMapping("/product")
-	public String getProduct( HttpServletRequest request, Model model,HttpSession session) {
-		
-        List<Product> product = productService.findAllByDisplay(1);
-        model.addAttribute("product", product);
-        
-		return "page/shop-grid-sidebar";
+	public ModelAndView getProduct(
+	        @RequestParam(defaultValue = "0") int page,
+	        @RequestParam(defaultValue = "16") int size) {
+	    Pageable pageable = PageRequest.of(page, size);
+	    Page<Product> productPage = productService.findAllByDisplay(1, pageable);
+
+	    ModelAndView modelAndView = new ModelAndView("page/shop-grid-sidebar");  // Trả về trang shop-grid.html
+	    modelAndView.addObject("products", productPage.getContent());
+	    modelAndView.addObject("currentPage", productPage.getNumber());
+	    modelAndView.addObject("totalPages", productPage.getTotalPages());
+
+	    return modelAndView;
 	}
 	@GetMapping("/my-shop")
     public String checkShop(HttpServletRequest request, RedirectAttributes redirectAttributes) {

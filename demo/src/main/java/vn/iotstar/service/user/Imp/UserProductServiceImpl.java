@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -37,7 +38,7 @@ public class UserProductServiceImpl implements IUserProductService{
 //        return productRepository.findTop20ProductsByReviewCount(pageable);
 //	}
 	@Override
-	public List<Product> findAllByDisplay(int display) {
-		return productRepository.findAllByDisplay(display);
+	public Page<Product> findAllByDisplay(int display, Pageable pageable) {
+		return productRepository.findAllByDisplay(display,pageable);
 	}
 }

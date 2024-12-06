@@ -1192,6 +1192,13 @@ async function saveAddress() {
 		alert("Không thể lưu địa chỉ. Vui lòng kiểm tra lại thông tin.");
 	}
 }
+document.querySelectorAll('.close-button').forEach(button => {
+	button.addEventListener("click", closePopup);
+});
+document.querySelectorAll('.confirm-button').forEach(button => {
+	button.addEventListener("click", confirmSelection);
+	button.addEventListener("click", closePopup);
+});
 // Gán sự kiện
 document.querySelectorAll('.changeButton').forEach(button => {
 	button.addEventListener("click", openPopup);
@@ -1237,7 +1244,9 @@ var swiper = new Swiper('.swiper-container', {
   loop: true,                // Vòng lặp slider
   speed: 1000,               // Tốc độ chuyển tiếp
   autoplay: {
-    },
+	delay: 3000,         
+    disableOnInteraction: false,  
+	},
   pagination: {
     el: '.swiper-pagination',  // Phân trang
     clickable: true,           // Cho phép người dùng click vào phân trang
@@ -1429,3 +1438,45 @@ function filterByRating(rating) {
 	        })
 	        .catch(error => console.error('Error:', error));
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const productContainer = document.querySelector("#product-container");
+    const paginationContainer = document.querySelector("#pagination-container");
+
+    // Hàm tải dữ liệu sản phẩm
+    async function loadProducts(page = 0, size = 16) {
+        try {
+            const response = await fetch(`/product?page=${page}&size=${size}`);
+            if (!response.ok) throw new Error("Failed to fetch products");
+
+            const data = await response.json();
+
+            // Render danh sách sản phẩm
+            productContainer.innerHTML = data.products.map(product => `
+                <div class="product">
+                    <h4>${product.name}</h4>
+                    <p>Price: ${product.price}</p>
+                </div>
+            `).join("");
+
+            // Render phân trang
+            paginationContainer.innerHTML = Array.from({ length: data.totalPages }, (_, i) => `
+                <button class="page-btn" data-page="${i}" ${i === data.currentPage ? 'disabled' : ''}>
+                    ${i + 1}
+                </button>
+            `).join("");
+
+            // Gắn sự kiện cho nút phân trang
+            document.querySelectorAll(".page-btn").forEach(button => {
+                button.addEventListener("click", (e) => {
+                    loadProducts(parseInt(e.target.dataset.page));
+                });
+            });
+        } catch (error) {
+            console.error("Error loading products:", error);
+        }
+    }
+
+    // Gọi hàm khi trang được tải
+    loadProducts();
+});
