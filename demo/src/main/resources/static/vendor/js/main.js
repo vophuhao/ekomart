@@ -46,6 +46,8 @@
 			rtsJs.metismenu();
 			rtsJs.sideCollups();
 			rtsJs.unloadImage();
+			rtsJs.unloadImage1();
+			rtsJs.unloadImage2();
 			rtsJs.niceSelect();
 			rtsJs.backToTopInit();
 			rtsJs.darklightSwitcher();
@@ -746,6 +748,37 @@
 			});
 		},
 
+		unloadImage1: function name() {
+			$("#before_image").click(function(e) {
+				$("#rts_images0").click();
+			});
+
+			function rtsPreview() {
+				const [file] = rts_images0.files
+				if (file) {
+					before_image.src = URL.createObjectURL(file)
+				}
+			}
+			$("#rts_images0").change(function() {
+				rtsPreview(this);
+			});
+		},
+
+		unloadImage2: function name() {
+			$("#after_image").click(function(e) {
+				$("#rts_images2").click();
+			});
+
+			function rtsPreview() {
+				const [file] = rts_images2.files
+				if (file) {
+					after_image.src = URL.createObjectURL(file)
+				}
+			}
+			$("#rts_images2").change(function() {
+				rtsPreview(this);
+			});
+		},
 
 		niceSelect: function() {
 			(function($) {
@@ -1241,8 +1274,9 @@ const getVendorDetailById = (id) => {
 			type.value=vendor?.info.type
 			numberi.value = vendor?.info.numberi
 			name.value=vendor?.info.name
-			beforeImage.value = vendor?.info.beforeImage
-			afterImage.value=vendor?.info.afterImage
+			// Set image sources
+			beforeImage.src = `/admin/vendor/images/${vendor?.info.beforeImage}`;
+			afterImage.src = `/admin/vendor/images/${vendor?.info.afterImage}`;
 		})
 }
 
@@ -1282,4 +1316,158 @@ function showEditForm(userId) {
 // Đóng Form Edit
 function closeEditForm() {
     document.getElementById('edit-form-overlay').style.display = 'none';
+}
+document.querySelectorAll('.confirm-order').forEach(button => {
+	button.addEventListener("click", confirmOder);
+});
+document.querySelectorAll('.cancel-order').forEach(button => {
+	button.addEventListener("click", cancelOder);
+});
+document.querySelectorAll('.shipping-order').forEach(button => {
+	button.addEventListener("click", shippingOder);
+});
+document.querySelectorAll('.complete-order').forEach(button => {
+	button.addEventListener("click", completeOder);
+});
+document.querySelectorAll('.refund-order').forEach(button => {
+	button.addEventListener("click", refundOder);
+});
+
+
+function confirmOder(){
+	const orderId = this.getAttribute('data-order-id');
+	const status=1;
+	
+	try {
+	    // Lấy orderId (giả sử orderId đã có sẵn từ phía frontend)
+	    // Gửi dữ liệu qua AJAX (chỉ gửi orderId)
+	    $.ajax({
+	        url: '/vendor/order/status',  // Cập nhật đường dẫn API của bạn
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify({ orderId: orderId, status: status }), // Gửi orderId dưới dạng JSON
+			
+	        success: function() {
+	            // Nếu bạn muốn làm gì đó khi yêu cầu thành công, ví dụ như thay đổi trạng thái trên UI
+	            alert("Order Confirm  successfully!");
+				window.location.href = '/vendor/order/waiting';
+	        },
+	        error: function(error) {
+	            alert("Có lỗi xảy ra: " + error.responseText);
+	        }
+	    });
+	} catch (error) {
+	    // Xử lý lỗi nếu có vấn đề xảy ra trong quá trình gửi yêu cầu
+	    console.error("Lỗi khi gửi orderId:", error);
+	    alert("Không thể xử lý yêu cầu. Vui lòng thử lại.");
+	}
+
+}
+function cancelOder(){
+	const orderId = this.getAttribute('data-order-id');
+	const status=4;
+	try {
+	    // Lấy orderId (giả sử orderId đã có sẵn từ phía frontend)
+	    // Gửi dữ liệu qua AJAX (chỉ gửi orderId)
+	    $.ajax({
+	        url: '/vendor/order/status',  // Cập nhật đường dẫn API của bạn
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify({ orderId: orderId, status: status }), // Gửi orderId dưới dạng JSON
+	        success: function(response) {
+	            // Nếu bạn muốn làm gì đó khi yêu cầu thành công, ví dụ như thay đổi trạng thái trên UI
+	            alert("Order Cancel successfully!");
+				window.location.href = '/vendor/order/waiting';
+	        },
+	        error: function(error) {
+	            alert("Có lỗi xảy ra: " + error.responseText);
+	        }
+	    });
+	} catch (error) {
+	    // Xử lý lỗi nếu có vấn đề xảy ra trong quá trình gửi yêu cầu
+	    console.error("Lỗi khi gửi orderId:", error);
+	    alert("Không thể xử lý yêu cầu. Vui lòng thử lại.");
+	}
+
+}
+function shippingOder(){
+	const orderId = this.getAttribute('data-order-id');
+	const status=2;
+	try {
+	    // Lấy orderId (giả sử orderId đã có sẵn từ phía frontend)
+	    // Gửi dữ liệu qua AJAX (chỉ gửi orderId)
+	    $.ajax({
+	        url: '/vendor/order/status',  // Cập nhật đường dẫn API của bạn
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify({ orderId: orderId, status: status }), // Gửi orderId dưới dạng JSON
+	        success: function(response) {
+	            // Nếu bạn muốn làm gì đó khi yêu cầu thành công, ví dụ như thay đổi trạng thái trên UI
+	            alert("Order Shipping successfully!");
+				window.location.href = '/vendor/order/waiting';
+	        },
+	        error: function(error) {
+	            alert("Có lỗi xảy ra: " + error.responseText);
+	        }
+	    });
+	} catch (error) {
+	    // Xử lý lỗi nếu có vấn đề xảy ra trong quá trình gửi yêu cầu
+	    console.error("Lỗi khi gửi orderId:", error);
+	    alert("Không thể xử lý yêu cầu. Vui lòng thử lại.");
+	}
+
+}
+function completeOder(){
+	const orderId = this.getAttribute('data-order-id');
+	const status=3;
+	try {
+	    // Lấy orderId (giả sử orderId đã có sẵn từ phía frontend)
+	    // Gửi dữ liệu qua AJAX (chỉ gửi orderId)
+	    $.ajax({
+	        url: '/vendor/order/status',  // Cập nhật đường dẫn API của bạn
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify({ orderId: orderId, status: status }), // Gửi orderId dưới dạng JSON
+	        success: function(response) {
+	            // Nếu bạn muốn làm gì đó khi yêu cầu thành công, ví dụ như thay đổi trạng thái trên UI
+	            alert("Order Complete successfully!");
+				window.location.href = '/vendor/order/waiting';
+	        },
+	        error: function(error) {
+	            alert("Có lỗi xảy ra: " + error.responseText);
+	        }
+	    });
+	} catch (error) {
+	    // Xử lý lỗi nếu có vấn đề xảy ra trong quá trình gửi yêu cầu
+	    console.error("Lỗi khi gửi orderId:", error);
+	    alert("Không thể xử lý yêu cầu. Vui lòng thử lại.");
+	}
+
+}
+function refundOder(){
+	const orderId = this.getAttribute('data-order-id');
+	const status=5;
+	try {
+	    // Lấy orderId (giả sử orderId đã có sẵn từ phía frontend)
+	    // Gửi dữ liệu qua AJAX (chỉ gửi orderId)
+	    $.ajax({
+	        url: '/vendor/order/status',  // Cập nhật đường dẫn API của bạn
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify({ orderId: orderId, status: status }), // Gửi orderId dưới dạng JSON
+	        success: function(response) {
+	            // Nếu bạn muốn làm gì đó khi yêu cầu thành công, ví dụ như thay đổi trạng thái trên UI
+	            alert("Order Refund successfully!");
+				window.location.href = '/vendor/order/waiting';
+	        },
+	        error: function(error) {
+	            alert("Có lỗi xảy ra: " + error.responseText);
+	        }
+	    });
+	} catch (error) {
+	    // Xử lý lỗi nếu có vấn đề xảy ra trong quá trình gửi yêu cầu
+	    console.error("Lỗi khi gửi orderId:", error);
+	    alert("Không thể xử lý yêu cầu. Vui lòng thử lại.");
+	}
+
 }

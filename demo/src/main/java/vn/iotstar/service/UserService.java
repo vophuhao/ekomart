@@ -55,9 +55,9 @@ public record UserService(UserInfoRepository repository, PasswordEncoder passwor
 	        return repository.findById(id).orElse(null);
 	}
 	
-	public UserInfo findByName(String username) {
+	public UserInfo findByUsername(String username) {
         return repository.findByName(username).orElse(null);
-	}
+}
 
     public void updateUser(UserInfo user) {
         repository.save(user);

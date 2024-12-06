@@ -3,6 +3,7 @@ package vn.iotstar.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.iotstar.config.UserInfoService;
@@ -42,7 +44,7 @@ public class AuthController {
     
     @Autowired
     private UserInfoRepository userInfoRepository;
-    
+
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("userInfo", new UserInfo());

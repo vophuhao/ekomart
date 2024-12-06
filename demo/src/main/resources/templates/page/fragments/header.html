@@ -173,11 +173,10 @@
 											<li><a class="sub-b">Blog List Left Sidebar</a></li>
 											<li><a class="sub-b">Blog Details</a></li>
 										</ul></li>
-									<li class="parent" >		
-										<div th:if="${Name !=null}">
-											<a href="http://localhost:8888/vendor/register/form1">My Shop</a>		
-										</div>						
-											
+									<li class="parent" >
+										<div th:if="${Name != null}">
+											<a th:href="@{/user/my-shop}">My Shop</a>
+										</div>
 									</li>
 								</ul>
 							</nav>

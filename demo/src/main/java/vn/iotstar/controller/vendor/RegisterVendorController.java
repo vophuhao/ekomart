@@ -1,7 +1,11 @@
 package vn.iotstar.controller.vendor;
 
 import java.util.Optional;
+import java.util.UUID;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,8 +17,13 @@ import vn.iotstar.entity.AddressShop;
 import vn.iotstar.entity.IdentificationInfo;
 import vn.iotstar.entity.Shop;
 import vn.iotstar.entity.UserInfo;
+import vn.iotstar.model.ShopModel;
+import vn.iotstar.service.IStorageService;
+import vn.iotstar.service.admin.AdminShopService;
 import vn.iotstar.service.user.IUserService;
+import vn.iotstar.service.user.Imp.UserProductServiceImpl;
 import vn.iotstar.service.vendor.VendorIRegisterService;
+import vn.iotstar.util.JwtUtil;
 
 @Controller
 @RequestMapping("/vendor")
@@ -25,10 +34,30 @@ public class RegisterVendorController {
 	
 	@Autowired
 	private IUserService userServicer;
-	
+
+	@Autowired
+	IStorageService storageService;
+    @Autowired
+    private JwtUtil jwtUtil;
+	@Autowired
+	private IUserService userService;
+
+
 	@GetMapping("/register")
-	public String showForm1(ModelMap model) {
-		Optional<UserInfo> user = userServicer.findById(2);
+	public String showForm1(HttpServletRequest request,ModelMap model) {
+		String token = null;
+		// Lấy cookie từ request
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if ("JWT".equals(cookie.getName())) {
+					token = cookie.getValue();
+					break;
+				}
+			}
+		}
+		String username = jwtUtil.extractUsername(token);
+		Optional<UserInfo> user = userService.findByName(username);
 		Shop shop = new Shop();
 		AddressShop address = new AddressShop();
 		IdentificationInfo info = new IdentificationInfo();
@@ -38,19 +67,49 @@ public class RegisterVendorController {
 			   shop.setAddress(address);
 			   shop.setInfo(info);
 		   }
-			model.addAttribute("shop",shop);
+		   ShopModel shopModel = new ShopModel();
+		   BeanUtils.copyProperties(shop, shopModel);
+			model.addAttribute("shop",shopModel);
 		return "vendor/register-open-shop";
 
 	}
 
 	@PostMapping("/register/save")
-	public String registerSuccess(@Valid Shop shop, BindingResult result) {
+	public String registerSuccess( @Valid @ModelAttribute("shop") ShopModel shopModel,HttpServletRequest request , BindingResult result) {
+		String token = null;
+		// Lấy cookie từ request
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if ("JWT".equals(cookie.getName())) {
+					token = cookie.getValue();
+					break;
+				}
+			}
+		}
+		String username = jwtUtil.extractUsername(token);
+		Optional<UserInfo> user = userService.findByName(username);
+        user.ifPresent(shopModel::setUser);
 		if (result.hasErrors()) {
+			System.out.println(result.getAllErrors());
 			return "vendor/register-open-shop";
 		}
 		// set mặc định là shop active
-		shop.setStatus(1);
+		Shop shop = new Shop();
+		BeanUtils.copyProperties(shopModel, shop);
+		shop.setStatus(0);
+		if(!shopModel.getRts_images0().isEmpty()) {
+			//lưu file vào trường poster
+			UUID uuid = UUID.randomUUID();
+			String uuString = uuid.toString();
+			shop.getInfo().setBeforeImage(storageService.getSorageFilename(shopModel.getRts_images0(), uuString));
+			storageService.store(shopModel.getRts_images0(), shop.getInfo().getBeforeImage());
 
+			UUID uuid1 = UUID.randomUUID();
+			String uuString1 = uuid1.toString();
+			shop.getInfo().setAfterImage(storageService.getSorageFilename(shopModel.getRts_images2(), uuString1));
+			storageService.store(shopModel.getRts_images2(), shop.getInfo().getAfterImage());
+		}
 		vendorIRegisterService.save(shop);
 		return "vendor/register-done";
 	}	

@@ -59,15 +59,16 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { 
 		http.csrf(csrf -> csrf.disable()) 
-			.authorizeHttpRequests(auth -> auth 
+			.authorizeHttpRequests(auth -> auth
 					.requestMatchers("/admin/**").hasRole("ADMIN")
+					.requestMatchers("/vendor/register/**").hasAnyRole("USER","VENDOR")
+					.requestMatchers("/vendor/js/**","/vendor/css/**","/vendor/fonts/**","/vendor/images/**").hasAnyRole("USER","VENDOR")
 					.requestMatchers("/vendor/**").hasRole("VENDOR")
-					.requestMatchers("/vendor/register/**").hasRole("USER")
 					.requestMatchers("/api/v1/admin/**").permitAll()
 					.requestMatchers("/user/**").hasAnyRole("USER","VENDOR")
 					.requestMatchers("/register", "/forgotPassword/**", "/authenticate", "/register/**",
 							"/authenticatelogin", "/css/**", "/fonts/**", "/images/**", "/js/**",
-							"/admin/**", "/view/**","/vendor/**", "/home/**","/vendor/register/**").permitAll()
+							"/admin/**", "/view/**","/vendor/**", "/home/**","/vendor/register/**","/api/v1/vendor/**").permitAll()
 					//.anyRequest().authenticated() 
 			)
 			.formLogin(form -> form
