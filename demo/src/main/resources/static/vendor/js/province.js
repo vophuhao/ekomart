@@ -1,76 +1,105 @@
 $(document).ready(function () {
-    //Lấy tỉnh thành
+    // Load provinces when the page is ready
+    loadProvinces();
 
-
-    fetch(`http://localhost:8888/api/v1/vendor/provinces`)
-        .then(resp => {
-            return resp.json()
-        })
-        .then(province => {
-            province.forEach((item) => {
-                $('#tinh').append(
-                    `<option value="${item.id}"> 
-                ${item.slug}
-              </option>`
-                )
-
-            })
-
-        })
-
-    // Load districts when a province is selected
+    // Khi tỉnh được chọn
     $('#tinh').change(function () {
         var provinceId = $(this).val();
-        $('#huyen').empty().append('<option selected disabled>Select District</option>'); // Clear previous districts
-        $('#phuong').empty().append('<option selected disabled>Select Ward</option>'); // Clear wards as well
+        $('#huyen').empty().append('<option selected disabled>Select District</option>'); // Xóa quận cũ
+        $('#phuong').empty().append('<option selected disabled>Select Ward</option>'); // Xóa phường cũ
         if (provinceId) {
-            getDistrict(provinceId);
+            loadDistricts(provinceId); // Gọi API để lấy quận huyện
         }
     });
 
-    // Load wards when a district is selected
+    // Khi quận được chọn
     $('#huyen').change(function () {
         var districtId = $(this).val();
-        $('#phuong').empty().append('<option selected disabled>Select Ward</option>'); // Clear previous wards
+        $('#phuong').empty().append('<option selected disabled>Select Ward</option>'); // Xóa phường cũ
         if (districtId) {
-            getWard(districtId);
+            loadWards(districtId); // Gọi API để lấy phường xã
         }
     });
+
+    // Kiểm tra và tự động load quận khi tỉnh đã được chọn sẵn
+    const selectedProvinceId = $('#tinh').val();
+    if (selectedProvinceId) {
+        loadDistricts(selectedProvinceId); // Gọi hàm loadDistricts nếu đã có tỉnh được chọn
+    }
 });
-const getDistrict = (provinceId) => {
+
+// Hàm load tỉnh thành
+const loadProvinces = () => {
+    fetch(`http://localhost:8888/api/v1/vendor/provinces`)
+        .then(resp => resp.json())
+        .then(provinces => {
+            const selectedProvinceId = /* Thay giá trị này bằng giá trị provinceId đã được chọn từ database */ 8;
+            provinces.forEach(item => {
+                const isSelected = item.id == selectedProvinceId ? 'selected' : '';
+                $('#tinh').append(
+                    `<option value="${item.id}" ${isSelected}>${item.slug}</option>`
+                );
+            });
+
+            // Gọi loadDistricts sau khi tỉnh đã được load để kiểm tra và load quận nếu đã có tỉnh được chọn
+            const selectedProvinceIdAfterLoad = $('#tinh').val();
+            if (selectedProvinceIdAfterLoad) {
+                loadDistricts(selectedProvinceIdAfterLoad);
+            }
+        });
+};
+
+// Hàm load quận huyện
+const loadDistricts = (provinceId) => {
     fetch(`http://localhost:8888/api/v1/vendor/districts/${provinceId}`)
-        .then(resp => {
-            return resp.json()
+        .then(resp => resp.json())
+        .then(districts => {
+            const selectedDistrictId = /* Thay giá trị này bằng giá trị districtId đã được chọn từ database */ 71;
+            $('#huyen').empty();  // Clear the previous district options first
+            if (districts.length > 0) {
+                $('#huyen').append('<option selected disabled>Select District</option>');
+                districts.forEach(item => {
+                    const isSelected = item.id == selectedDistrictId ? 'selected' : '';
+                    $('#huyen').append(
+                        `<option value="${item.id}" ${isSelected}>${item.name}</option>`
+                    );
+                });
+            } else {
+                $('#huyen').append('<option disabled>No districts found</option>');
+            }
+            // Kiểm tra và tự động load xã/phường nếu có quận đã được chọn
+            const selectedDistrictIdAfterLoad = $('#huyen').val();
+            if (selectedDistrictIdAfterLoad) {
+                loadWards(selectedDistrictIdAfterLoad);
+            }
         })
-        .then(district => {
-            district.forEach((item) => {
+        .catch(error => {
+            console.error('Error fetching districts:', error);
+            $('#huyen').append('<option disabled>Error loading districts</option>');
+        });
+};
 
-                $('#huyen').append(
-                    `<option value="${item.id}"> 
-                ${item.name}
-              </option>`
-                )
-
-            })
-        })
-
-}
-
-const getWard = (districtId) => {
+// Hàm load phường xã
+const loadWards = (districtId) => {
     fetch(`http://localhost:8888/api/v1/vendor/wards/${districtId}`)
-        .then(resp => {
-            return resp.json()
+        .then(resp => resp.json())
+        .then(wards => {
+            const selectedWardId = /* Thay giá trị này bằng giá trị streetId đã được chọn từ database */ 2266;
+            $('#phuong').empty(); // Clear previous wards
+            if (wards.length > 0) {
+                $('#phuong').append('<option selected disabled>Select Ward</option>');
+                wards.forEach(item => {
+                    const isSelected = item.id == selectedWardId ? 'selected' : '';
+                    $('#phuong').append(
+                        `<option value="${item.id}" ${isSelected}>${item.name}</option>`
+                    );
+                });
+            } else {
+                $('#phuong').append('<option disabled>No wards found</option>');
+            }
         })
-        .then(ward => {
-            console.log(ward)
-            ward.forEach((item) => {
-                $('#phuong').append(
-                    `<option value="${item.id}"> 
-                ${item.name}
-              </option>`
-                )
-            })
-        })
-}
-
-// $("#phuong option:selected").text()
+        .catch(error => {
+            console.error('Error fetching wards:', error);
+            $('#phuong').append('<option disabled>Error loading wards</option>');
+        });
+};

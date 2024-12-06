@@ -1,10 +1,8 @@
 package vn.iotstar.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +17,7 @@ public class UserInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "name", unique = true)
 	private String name;
 	private String password;
 	private String email;
@@ -34,4 +33,15 @@ public class UserInfo {
 	
 	@OneToOne(mappedBy = "user")
 	private Cart cart;
+
+	@Override
+	public String toString() {
+		return "UserInfo{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", email='" + email + '\'' +
+				", roles='" + roles + '\'' +
+				", enabled=" + enabled +
+				'}';
+	}
 }
