@@ -22,7 +22,10 @@ public class UserInfoServiceImp implements IUserService{
 		return userRepository.findById(id);
 	}
 	
-	
+	@Override
+	public UserInfo findByName(String username) {
+        return userRepository.findByName(username).orElse(null);
+	}
 
 	
 }

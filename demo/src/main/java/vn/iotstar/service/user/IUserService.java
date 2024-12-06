@@ -7,5 +7,7 @@ import vn.iotstar.entity.UserInfo;
 public interface IUserService {
 
 	Optional<UserInfo> findById(Integer id);
+	
+	public UserInfo findByName(String username);
 
 }

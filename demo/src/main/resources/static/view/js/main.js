@@ -1219,7 +1219,8 @@ function toggleHiddenInput(checkbox) {
 
 				// Lấy tổng tiền hàng và phí vận chuyển từ tất cả các sản phẩm
 				document.querySelectorAll('.product-info').forEach(product => {
-					const itemCost = parseInt(product.querySelector('.title-sp-1').textContent.replace(/\D/g, '')); // Tiền hàng
+					const productPriceText = product.querySelector('#total').textContent;
+					const itemCost = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
 					const shippingCost = parseInt(product.querySelector('.shippingCost').textContent.replace(/\D/g, '')); // Phí vận chuyển
 
 					totalItems += itemCost;
@@ -1234,9 +1235,9 @@ function toggleHiddenInput(checkbox) {
 			function updateTotalForOrder(orderElement) {
 				let totalItems = 0;
 				let shippingCost = 0;
-
-				// Tìm các phần tử liên quan trong đơn hàng cụ thể
-				totalItems = parseInt(orderElement.querySelector('.title-sp-1').textContent.replace(/\D/g, '')) || 0;
+				
+				const productPriceText = orderElement.querySelector('#total').textContent;
+				totalItems = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
 				shippingCost = parseInt(orderElement.querySelector('.shippingCost').textContent.replace(/\D/g, '')) || 0;
 
 				// Tính tổng thanh toán
@@ -1261,16 +1262,44 @@ function toggleHiddenInput(checkbox) {
 				});
 			});
 			var swiper = new Swiper('.swiper-container', {
-			  slidesPerView: 5,  // Show 5 items at once
-			  spaceBetween: 10,   // Space between items
-			  loop: true,         // Loop the slides
-			  speed: 1000,        // Transition speed
+			  slidesPerView: 5,          // Hiển thị 5 slide mỗi lần
+			  spaceBetween: 10,          // Khoảng cách giữa các slide
+			  loop: true,                // Vòng lặp slider
+			  speed: 1000,               // Tốc độ chuyển tiếp
 			  autoplay: {
-			      delay: 3000,             // Đặt độ trễ tự động chuyển slide là 5 giây (5000 ms)
-			      disableOnInteraction: false,  // Không dừng autoplay khi người dùng tương tác
-			    },
+			    delay: 3000,             // Đặt độ trễ tự động chuyển slide là 3 giây (3000 ms)
+			    disableOnInteraction: false,  // Không dừng autoplay khi người dùng tương tác
+			  },
 			  pagination: {
-			    el: '.swiper-pagination',
-			    clickable: true,  // Enable pagination clicks
-			  }});
-			  
+			    el: '.swiper-pagination',  // Phân trang
+			    clickable: true,           // Cho phép người dùng click vào phân trang
+			  },
+			  slidesPerGroup: 5,         // Mỗi lần phân trang di chuyển 5 slide
+			});
+			document.querySelectorAll('.quantity-edit').forEach(edit => {
+			    const valueInput = edit.querySelector('input');
+			    const minusButton = edit.querySelector('.button.minus');
+			    const plusButton = edit.querySelector('.button.plus');
+			    minusButton.addEventListener('click', () => {
+			        let quantity = parseInt(valueInput.value);
+			        if (quantity > 1) {
+			            quantity--;
+			            updateInputAndPrice(quantity, edit);
+			        }
+		    	});
+		    // Sự kiện khi nhấn nút tăng
+			    plusButton.addEventListener('click', () => {
+			        let quantity = parseInt(valueInput.value);
+			        quantity++;
+			        updateInputAndPrice(quantity, edit);
+			    });
+		    // Hàm cập nhật giá trị input và tổng tiền
+		    function updateInputAndPrice(quantity, edit) {
+		        const priceElement = edit.closest('.item-parent').querySelector('.price p');
+		        const subtotalElement = edit.closest('.item-parent').querySelector('.subtotal p');
+		        const basePrice = parseFloat(priceElement.textContent.replace(/[^\d.]/g, '')) || 0;
+		        const subtotal = quantity * basePrice;
+		        subtotalElement.textContent = subtotal.toLocaleString('vi-VN') + " ₫";
+		    }
+			});
+			

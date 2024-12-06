@@ -17,6 +17,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 
 	 Optional<Product> findByDisplay(int display);
 	 
+	 List<Product> findAllByDisplay(int display);
+	 
 	 List<Product> findByStatus(int status);
 	 
 	 Optional<Product> findByName(String productName);
@@ -24,6 +26,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 
 	 @Query("SELECT p FROM Product p ORDER BY p.date DESC")
 	 List<Product> findTop20ByOrderByDateDesc(Pageable pageable);
+	 
+	 @Query("SELECT p FROM Product p ORDER BY p.sold DESC")
+	 List<Product> findTop20ByOrderBySoldDesc(Pageable pageable);
+	 
+//	 List<Object[]> findTop20ProductsByReviewCount(Pageable pageable);
 	 
 }
 

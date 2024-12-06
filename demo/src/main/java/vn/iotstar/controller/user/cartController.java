@@ -6,26 +6,32 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import vn.iotstar.entity.Address;
 import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.CartItem;
-
+import vn.iotstar.entity.UserInfo;
 import vn.iotstar.model.productPayment;
 import vn.iotstar.model.productPayment.SelectedProduct;
-
+import vn.iotstar.service.IStorageService;
+import vn.iotstar.service.UserService;
 import vn.iotstar.service.user.ILocationService;
 import vn.iotstar.service.user.Imp.AddressServiceImp;
 import vn.iotstar.service.user.Imp.CartServiceImpl;
@@ -34,6 +40,9 @@ import vn.iotstar.service.user.Imp.UserInfoServiceImp;
 @Controller
 @RequestMapping("/user")
 public class cartController {
+	@Autowired
+	IStorageService storageService;
+	
 	@Autowired
     private CartServiceImpl cartService;
     
@@ -46,23 +55,33 @@ public class cartController {
 	@Autowired
 	private ILocationService location;
 	
-	@GetMapping("/cart")
-    public String showCart(Model model) {
-        Cart cart = cartService.findByUserId(1L);
-        model.addAttribute("cart", cart);
-        return "page/cart";
-    }
+//	@GetMapping("/cart")
+//    public String showCart(Model model, HttpSession session) {
+//		UserInfo user = userservice.findByName((String)session.getAttribute("username"));
+//        Cart cart = cartService.findByUser(user);
+//        System.out.println(cart+"nnnnn");
+//        model.addAttribute("cart", cart);
+//        return "page/cart";
+//    }
 	
-	
-	@PostMapping("/add-item")
-	public String addItemToCart(@Valid CartItem cartItem, BindingResult result) {
-	    if (result.hasErrors()) 
-	    	return "redirect:/user/cart";
-	    cartService.addItemToCart(1L, cartItem);
-	    return "redirect:/user/cart";
+	@GetMapping("/cart/payment/images/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serverFile(@PathVariable String filename){ 
+		
+		Resource file =storageService.loadAsResource(filename); 
+		
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
 	}
 	
-	@GetMapping("/cart/payment")
+//	@PostMapping("/add-item")
+//	public String addItemToCart(@Valid CartItem cartItem, BindingResult result) {
+//	    if (result.hasErrors()) 
+//	    	return "redirect:/user/cart";
+//	    cartService.addItemToCart(1L, cartItem);
+//	    return "redirect:/user/cart";
+//	}
+	
+	@PostMapping("/cart/payment")
 	public String paymentCart(@ModelAttribute("productPayment") productPayment ProductPayment, Model model, RedirectAttributes redirectAttributes)
 	{
 		List<Address> addressUser=addre.findByUser_Id(1L);
@@ -99,7 +118,7 @@ public class cartController {
 		             System.out.println("No selected products found!");
 		             return "errorPage"; // Hoặc trả về trang thông báo khác
 		         }
-
+		         System.out.println(selectedProducts);
 		         // Thêm danh sách đã lọc vào model để hiển thị trên view
 		         model.addAttribute("selectedProducts", selectedProducts);
 
