@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import vn.iotstar.entity.Address;
@@ -30,6 +32,7 @@ import vn.iotstar.entity.OrderDetail;
 import vn.iotstar.entity.Orders;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Shop;
+import vn.iotstar.entity.UserInfo;
 import vn.iotstar.model.OderRequest;
 import vn.iotstar.model.productPayment;
 import vn.iotstar.model.productPayment.SelectedProduct;
@@ -69,25 +72,31 @@ public class cartController {
 	@Autowired
 	private ProductServiceImpl productservice;
 
-//	@GetMapping("/cart")
-//	public String showCart(Model model) {
-//		Cart cart = cartService.findByUserId(1L);
-//		model.addAttribute("cart", cart);
-//		return "page/cart";
-//	}
-//
-//	@PostMapping("/add-item")
-//	public String addItemToCart(@Valid CartItem cartItem, BindingResult result) {
-//		if (result.hasErrors())
-//			return "redirect:/user/cart";
-//		cartService.addItemToCart(1L, cartItem);
-//		return "redirect:/user/cart";
-//	}
+	@GetMapping("/cart")
+	public String showCart(Model model, HttpSession session) {
+		Optional<UserInfo> user = userservice.findByName((String)session.getAttribute("username"));
+		UserInfo userInfo = user.get();
+		Cart cart = cartService.findByUser(userInfo);
+		model.addAttribute("cart", cart);
+		return "page/cart";
+	}
+
+	@PostMapping("/add-item")
+	public String addItemToCart(@Valid CartItem cartItem, BindingResult result, HttpSession session) {
+		Optional<UserInfo> user = userservice.findByName((String)session.getAttribute("username"));
+		UserInfo userInfo = user.get();
+		if (result.hasErrors())
+			return "redirect:/user/cart";
+		cartService.addItemToCart(userInfo, cartItem);
+		return "redirect:/user/cart";
+	}
 
 	@GetMapping("/cart/payment")
 	public String paymentCart(@ModelAttribute("productPayment") productPayment ProductPayment, Model model,
-			RedirectAttributes redirectAttributes) {
-		List<Address> addressUser = addre.findByUser_Id(1L);
+			RedirectAttributes redirectAttributes, HttpSession session) {
+		Optional<UserInfo> user = userservice.findByName((String)session.getAttribute("username"));
+		UserInfo userInfo = user.get();
+		List<Address> addressUser = addre.findByUser(userInfo);
 //		
 //		List<AddresModel> address= new ArrayList<AddresModel>();
 

@@ -58,6 +58,7 @@ public class productController {
         }
         model.addAttribute("product", product);
         model.addAttribute("reviews", reviews);
+        model.addAttribute("reviewsCount", reviews.size());
         model.addAttribute("newReview", new Review()); // Để gửi form đánh giá
         return "page/product-detail";
     }
