@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import vn.iotstar.entity.Address;
 import vn.iotstar.entity.OrderDetail;
 import vn.iotstar.entity.Orders;
 import vn.iotstar.entity.Product;
+import vn.iotstar.service.Imp.OderDetailServiceImpl;
 import vn.iotstar.service.Imp.OderServiceImpl;
 import vn.iotstar.service.vendor.VendorIProductService;
 
@@ -29,6 +32,33 @@ public class VendorOderController {
 	
 	@Autowired
     VendorIProductService productService;
+	
+	@Autowired
+	private OderDetailServiceImpl oderdetailservice;
+	
+	
+	
+	@GetMapping("/detail")
+	public String oderDetail(@RequestParam("id") String id,Model model)
+	{
+		
+		Optional<Orders> orders=oderservice.findByOderId(id);
+		 Orders orderss=new Orders();
+		 
+		
+		if (orders.isPresent()) {
+		    orderss = orders.get();
+		    // Xử lý logic với order
+		}
+		
+		List<OrderDetail> listOrder=oderdetailservice.findByOrders(orderss);
+		Address address=orderss.getUserAddress();
+		
+		
+		model.addAttribute("addressUser", address);
+		model.addAttribute("orderlist", listOrder);
+		return "vendor/oder-detail";
+	}
 	
 	@GetMapping("/waiting")
 	public String listOderWaiting(Model model)

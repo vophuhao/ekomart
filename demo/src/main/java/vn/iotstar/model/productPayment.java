@@ -16,6 +16,7 @@ public class productPayment {
 
 	
 	 public static class SelectedProduct {
+	 private String productImage;
 	 private String productId;
      private String productName;
      private Double productPrice;
@@ -31,6 +32,12 @@ public class productPayment {
                 ", productSelected=" + productSelected +
                 '}';
      }
+	public String getProductImage() {
+		return productImage;
+	}
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
+	}
 	public String getProductId() {
 		return productId;
 	}

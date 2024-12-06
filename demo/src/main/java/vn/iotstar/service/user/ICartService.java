@@ -2,16 +2,15 @@ package vn.iotstar.service.user;
 
 import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.CartItem;
+import vn.iotstar.entity.UserInfo;
 
 public interface ICartService {
 
     Cart save(Cart cart);
 
-    Cart findById(Long id);
+    Cart findByUser(UserInfo user);
 
-    Cart findByUserId(Long userId);
-
-    CartItem addItemToCart(Long cartId, CartItem item);
+    CartItem addItemToCart(UserInfo user, CartItem item);
 
     CartItem updateItemQuantity(Long cartItemId, int quantity);
 

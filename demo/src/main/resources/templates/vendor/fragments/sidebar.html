@@ -11,15 +11,23 @@
                 <!-- single menu item -->
                 <li class="single-menu-item">
                     <a href="#" class="with-plus">
-                        <img src="/vendor/images/icons/01.svg" alt="icon" class="icon">
+                    	<img src="/vendor/images/icons/01.svg" alt="icon" class="icon">
                         <p>Dashboard</p>
                     </a>
+                </li>
+                <li class="single-menu-item">
+                    <a href="#" class="with-plus">
+                        <img src="/vendor/images/icons/01.svg" alt="icon" class="icon">
+                        <p>My Info</p>
+                    </a>
                     <ul class="submenu mm-collapse parent-nav">
-                        <li><a class="mobile-menu-link" href="index.html">Mian Demo</a></li>
-                        <li><a class="mobile-menu-link" href="#">Coming Soon</a></li>
+                        <li>
+                        	<a class="mobile-menu-link" th:href="@{/vendor/my-info}">My Info</a>
+                        
+                        </li>
+                        
                     </ul>
                 </li>
-                  
                 <!-- single menu item -->
                 <li class="single-menu-item">
                     <a href="#" class="with-plus">

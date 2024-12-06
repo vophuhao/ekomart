@@ -29135,3 +29135,7 @@ html.no-scroll {
 .star-rating input[type="radio"]:checked ~ label ~ label {
     color: #f39c12; /* Màu vàng khi chọn sao */
 }
+.image-and-action-area-wrapper img{
+	width: auto;
+	height: 230px;
+}
