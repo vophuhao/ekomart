@@ -33,7 +33,7 @@ const loadProvinces = () => {
     fetch(`http://localhost:8888/api/v1/vendor/provinces`)
         .then(resp => resp.json())
         .then(provinces => {
-            const selectedProvinceId = /* Thay giá trị này bằng giá trị provinceId đã được chọn từ database */ 8;
+            let selectedProvinceId = $("#myProvinceId").val();
             provinces.forEach(item => {
                 const isSelected = item.id == selectedProvinceId ? 'selected' : '';
                 $('#tinh').append(
@@ -54,7 +54,7 @@ const loadDistricts = (provinceId) => {
     fetch(`http://localhost:8888/api/v1/vendor/districts/${provinceId}`)
         .then(resp => resp.json())
         .then(districts => {
-            const selectedDistrictId = /* Thay giá trị này bằng giá trị districtId đã được chọn từ database */ 71;
+            const selectedDistrictId = $("#myDistrictId").val();
             $('#huyen').empty();  // Clear the previous district options first
             if (districts.length > 0) {
                 $('#huyen').append('<option selected disabled>Select District</option>');
@@ -84,7 +84,7 @@ const loadWards = (districtId) => {
     fetch(`http://localhost:8888/api/v1/vendor/wards/${districtId}`)
         .then(resp => resp.json())
         .then(wards => {
-            const selectedWardId = /* Thay giá trị này bằng giá trị streetId đã được chọn từ database */ 2266;
+            const selectedWardId = $("#myWardId").val();
             $('#phuong').empty(); // Clear previous wards
             if (wards.length > 0) {
                 $('#phuong').append('<option selected disabled>Select Ward</option>');

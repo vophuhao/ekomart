@@ -69,20 +69,20 @@ public class cartController {
 	@Autowired
 	private ProductServiceImpl productservice;
 
-	@GetMapping("/cart")
-	public String showCart(Model model) {
-		Cart cart = cartService.findByUserId(1L);
-		model.addAttribute("cart", cart);
-		return "page/cart";
-	}
-
-	@PostMapping("/add-item")
-	public String addItemToCart(@Valid CartItem cartItem, BindingResult result) {
-		if (result.hasErrors())
-			return "redirect:/user/cart";
-		cartService.addItemToCart(1L, cartItem);
-		return "redirect:/user/cart";
-	}
+//	@GetMapping("/cart")
+//	public String showCart(Model model) {
+//		Cart cart = cartService.findByUserId(1L);
+//		model.addAttribute("cart", cart);
+//		return "page/cart";
+//	}
+//
+//	@PostMapping("/add-item")
+//	public String addItemToCart(@Valid CartItem cartItem, BindingResult result) {
+//		if (result.hasErrors())
+//			return "redirect:/user/cart";
+//		cartService.addItemToCart(1L, cartItem);
+//		return "redirect:/user/cart";
+//	}
 
 	@GetMapping("/cart/payment")
 	public String paymentCart(@ModelAttribute("productPayment") productPayment ProductPayment, Model model,

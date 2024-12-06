@@ -2,6 +2,7 @@ package vn.iotstar.controller.vendor;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,19 +11,20 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import vn.iotstar.entity.Shop;
 import vn.iotstar.entity.UserInfo;
+import vn.iotstar.model.ShopModel;
 import vn.iotstar.model.VendorModel;
 import vn.iotstar.service.IStorageService;
 import vn.iotstar.service.admin.AdminShopService;
 import vn.iotstar.service.user.IUserService;
+import vn.iotstar.service.vendor.VendorIRegisterService;
 import vn.iotstar.util.JwtUtil;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/vendor/profile")
@@ -35,6 +37,8 @@ public class VendorProfileController {
     private IUserService userService;
     @Autowired
     IStorageService storageService;
+    @Autowired
+    private VendorIRegisterService vendorIRegisterService;
 
     @GetMapping("")
     public String profile(Model model , HttpServletRequest request) {
@@ -67,6 +71,40 @@ public class VendorProfileController {
         Resource file =storageService.loadAsResource(filename);
 
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
+    }
+
+    @PostMapping("/edit")
+    public String registerSuccess(@Valid @ModelAttribute("shop") ShopModel shopModel, HttpServletRequest request , BindingResult result) {
+
+        if (result.hasErrors()) {
+            System.out.println(result.getAllErrors());
+            return "vendor/profile-setting";
+        }
+        // set mặc định là shop active
+        Optional<Shop> existShop = adminShopService.findById(shopModel.getId());
+        if(existShop.isPresent()) {
+            Shop shop = existShop.get();
+            shop.setName(shopModel.getName());
+            shop.setEmail(shopModel.getEmail());
+            shop.setSdt(shopModel.getSdt());
+            shop.setDescription(shopModel.getDescription());
+            shop.getAddress().setAddressSdt(shopModel.getAddress().getAddressSdt());
+            shop.getAddress().setDetail(shopModel.getAddress().getDetail());
+            shop.getAddress().setProvinceId(shopModel.getAddress().getProvinceId());
+            shop.getAddress().setStreetId(shopModel.getAddress().getStreetId());
+            shop.getAddress().setDistrictId(shopModel.getAddress().getDistrictId());
+            shop.getAddress().setProvinceId(shopModel.getAddress().getProvinceId());
+            if(!shopModel.getRts_images1().isEmpty()) {
+                //lưu file vào trường poster
+                UUID uuid_logo = UUID.randomUUID();
+                String uuString_logo = uuid_logo.toString();
+                shop.setAvatar(storageService.getSorageFilename(shopModel.getRts_images1(), uuString_logo));
+                storageService.store(shopModel.getRts_images1(), shop.getAvatar());
+            }
+            System.out.println(shop);
+            vendorIRegisterService.save(shop);
+        }
+        return "redirect:/vendor/home";
     }
 
 }

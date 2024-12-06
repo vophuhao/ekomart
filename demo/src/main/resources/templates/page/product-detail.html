@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
 <!-- Mirrored from html.themewant.com/ekomart/shop-details-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 01 Nov 2024 06:32:40 GMT -->
 <head>
     <meta charset="UTF-8">
@@ -981,11 +982,9 @@
                                                     <span>10 Reviews</span>
                                                 </div>
                                             </div>
-                                            <h2 class="product-title">Kitchen Fade Defy PLUG Air Freshener</h2>
-                                            <p class="mt--20 mb--20">
-                                                Priyoshop has brought to you the Hijab 3 Pieces Combo Pack PS23. It is a
-                                                completely modern design and you feel comfortable to put on this hijab.
-                                                Buy it at the best price.
+                                            <h2 class="product-title" th:text="${product.name}"></h2>
+                                            <p class="mt--20 mb--20" th:text="${product.description}">
+                                               
                                             </p>
                                             <span class="product-price mb--15 d-block" style="color: #DC2626; font-weight: 600;"> $36.25<span class="old-price ml--15">$69.35</span></span>
                                             <div class="product-bottom-action">
@@ -1127,6 +1126,69 @@
                                         <div class="product-details-review-product-style">
                                             <div class="average-stars-area-left">
                                                 <div class="top-stars-wrapper">
+                                                	<h1 th:text="${product.name}">Product Name</h1>
+												    <p th:text="${product.description}">Product Description</p>
+												
+												   	<h3>Customer Reviews</h3>
+
+													<!-- Menu lọc ngang -->
+													<div class="rating-menu">
+														<button class="rating-button" th:onclick="|filterByRating(5)|">5 Stars</button>
+													    <button class="rating-button" th:onclick="|filterByRating(4)|">4 Stars</button>
+													    <button class="rating-button" th:onclick="|filterByRating(3)|">3 Stars</button>
+													    <button class="rating-button" th:onclick="|filterByRating(2)|">2 Stars</button>
+													    <button class="rating-button" th:onclick="|filterByRating(1)|">1 Star</button>
+													</div>
+													
+													<!-- Hiển thị các đánh giá -->
+													<div id="reviewContainer" th:each="review : ${reviews}" class="card-body thymeleaf-review">
+														<div class="card-body">
+														    <div class="d-flex justify-content-between align-items-center">
+														        <div class="d-flex align-items-center">
+														            <!-- Star Rating -->
+														            <div class="rating-stars">
+														                <span th:each="star : ${#numbers.sequence(1, 5)}"
+														                      th:classappend="${star <= review.rating} ? 'text-warning' : 'text-muted'">&#9733;</span>
+														            </div>
+														        </div>
+														       <span class="text-muted small" th:text="${review.formattedDateString}"></span>
+														    </div>
+														    <p class="mt-2"><strong th:text="${review.user.name}">Tên người dùng</strong></p>
+														    <p class="mt-2" th:text="${review.comment}"></p>
+														</div>
+													</div>
+								                       
+													<input type="hidden" id="productId" th:value="${product.id}"> <!-- Ẩn ID sản phẩm -->
+
+												    <div class="submit-review-area">
+													    <form th:action="@{/user/home/product-detail/{id}/addReview(id=${product.id})}" method="post" th:object="${newReview}" class="submit-review-area">
+													        <h5 class="title">Submit Your Review</h5>
+													        <label for="rating">Rating:</label>
+													        
+													        <!-- Chọn sao bằng Bootstrap -->
+													        <div class="star-rating">
+													            <input type="radio" id="star5" name="rating" value="5" />
+													            <label for="star5" class="star">&#9733;</label>
+													
+													            <input type="radio" id="star4" name="rating" value="4" />
+													            <label for="star4" class="star">&#9733;</label>
+													
+													            <input type="radio" id="star3" name="rating" value="3" />
+													            <label for="star3" class="star">&#9733;</label>
+													
+													            <input type="radio" id="star2" name="rating" value="2" />
+													            <label for="star2" class="star">&#9733;</label>
+													
+													            <input type="radio" id="star1" name="rating" value="1" />
+													            <label for="star1" class="star">&#9733;</label>
+													        </div>
+													
+													        <br>
+													        <textarea name="comment" id="comment" placeholder="Write Your Review" required></textarea>
+													        <button class="rts-btn btn-primary">SUBMIT REVIEW</button>
+													    </form>
+													</div>
+
                                                     <h4 class="review">
                                                         5.0
                                                     </h4>

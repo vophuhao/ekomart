@@ -10,5 +10,4 @@ public interface IUserService {
 	Optional<UserInfo> findById(Integer id);
 	Optional<UserInfo> findByName(String username);
 	<S extends UserInfo> S save(S entity);
-
 }

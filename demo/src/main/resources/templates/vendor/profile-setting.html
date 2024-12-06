@@ -17,14 +17,6 @@
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-                                        data-bs-target="#profile-tab-pane" type="button" role="tab"
-                                        aria-controls="profile-tab-pane" aria-selected="false">
-                                    <img src="/vendor/images/icons/12.svg" alt="icon" class="icon">
-                                    Account Settings
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
                                         data-bs-target="#contact-tab-pane" type="button" role="tab"
                                         aria-controls="contact-tab-pane" aria-selected="false">
@@ -48,7 +40,7 @@
                                     <!-- Avatar Section -->
                                     <div class="d-flex justify-content-center align-items-center mb-3">
                                         <div class="avatar-shop" style="width: 100px;height: 100px;overflow: hidden;border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-                                            <img th:src="${'/vendor/profile/images/' + shop.avatar}" id="avt_shop" alt="Profile-NFT" class="img-fluid rounded-circle">
+                                            <img th:src="${'/vendor/profile/images/' + shop.avatar}" id="rts_image" alt="Profile-NFT" class="img-fluid rounded-circle">
                                         </div>
                                     </div>
 
@@ -56,10 +48,10 @@
                                     <div class="d-flex justify-content-center align-items-center mb-4">
                                         <div class="brows-file-wrapper">
                                             <!-- Hidden file input -->
-                                            <input name="rts_images_avtshop" id="rts_images_avtshop" type="file">
+                                            <input name="rts_images1" id="rts_images1" type="file">
                                             <!-- Custom upload button -->
-                                            <label for="rts_images_avtshop" title="No File Chosen">
-                                                <span class="text-center color-white">Upload Profile</span>
+                                            <label for="rts_images1" title="No File Chosen">
+                                                <span class="text-center color-white">Change Avatar</span>
                                             </label>
                                         </div>
                                     </div>
@@ -68,18 +60,23 @@
                                     <div class="half-input-wrapper">
                                         <div class="single">
                                             <label for="name">Name</label>
+                                            <input id="id" name="id" th:field="*{id}" type="text" placeholder="Esther Howard" hidden required>
                                             <input id="name" name="name" th:field="*{name}" type="text" placeholder="Esther Howard" required>
                                         </div>
                                         <div class="single">
-                                            <label for="phone">Phone Number</label>
-                                            <input id="phone" name="sdt" th:field="*{sdt}" type="text" placeholder="(589) 8745 8745">
-                                        </div>
-                                    </div>
-
-                                    <div class="half-input-wrapper">
-                                        <div class="single">
                                             <label for="email">Email Address</label>
                                             <input id="email" name="email" th:field="*{email}" type="text" placeholder="Email Address">
+                                        </div>
+                                    </div>
+                                    <p style="font-size: 16px;margin-bottom: 20px"><strong>Address Shop Info</strong></p>
+                                    <div class="half-input-wrapper">
+                                        <div class="single">
+                                            <label for="email1">Owner Name</label>
+                                            <input id="email1" th:field="*{address.addressName}" type="text" placeholder="Email Address">
+                                        </div>
+                                        <div class="single">
+                                            <label for="phone">Phone Number</label>
+                                            <input id="phone" name="sdt" th:field="*{address.addressSdt}" type="text" placeholder="Enter phone number">
                                         </div>
                                     </div>
 
@@ -94,14 +91,17 @@
                                         <div class="input">
                                             <label>Address:</label>
                                             <div  style="display:flex">
+                                                <input type="hidden" id="myProvinceId" th:value="${shop.address.provinceId}"/>
                                                 <select class="css_select" id="tinh" name="tinh" th:field="*{address.provinceId}" style="border: 1px solid #E8E9EB;width:220px;height:50px;padding:5px;margin-right:25px;border-radius: 4px"
                                                         title="Select Province">
                                                     <option value="0">Select Province</option>
                                                 </select>
+                                                <input type="hidden" id="myDistrictId" th:value="${shop.address.districtId}"/>
                                                 <select class="css_select" id="huyen" name="huyen" th:field="*{address.districtId}" style="border: 1px solid #E8E9EB;width:220px;height:50px;padding:5px;margin-right:25px;border-radius: 4px"
                                                         title="Select District">
                                                     <option value="0">Select District</option>
                                                 </select>
+                                                <input type="hidden" id="myWardId" th:value="${shop.address.streetId}"/>
                                                 <select class="css_select" id="phuong" name="phuong" th:field="*{address.streetId}" style="border: 1px solid #E8E9EB;width:220px;height:50px;padding:5px;border-radius: 4px"
                                                         title="Select Ward">
                                                     <option value="0">Select Ward</option>
@@ -112,7 +112,7 @@
 
                                     <div class="about-me-area-setting-area">
                                         <label for="about">Description</label>
-                                        <textarea name="about-me" id="about" th:text="*{description}"></textarea>
+                                        <textarea name="about-me" id="about" th:field="*{description}"></textarea>
                                         <div class="button-area">
                                             <button type="submit" class="rts-btn btn-primary">Update Profile</button>
                                             <a href="#" class="rts-btn btn-primary">Cancel</a>
@@ -166,5 +166,6 @@
             <!-- bottom footer areas end -->
         </div>
     </div>
+
 
 </html>
