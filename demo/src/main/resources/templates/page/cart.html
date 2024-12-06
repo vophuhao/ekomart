@@ -47,13 +47,15 @@
 							<div th:each="item, i : ${cart.items}">
 								<div class="single-cart-area-list main item-parent">
 									<div class="product-main-cart">
-										<div class="close section-activation">
+										<div th:data-productId="${item.id}" class="close section-activation remove-cart">
 											<i class="fa-regular fa-x"></i>
+											<input type="hidden" th:value="${cart.id}" th:name="cartId" />
 										</div>
+										
 										<input type="hidden"
 												th:name="'selectedProduct[' + ${i.index} + '].productImage'" th:value="${item.product.image}" />
 										<div class="thumbnail">
-											<img th:src="@{'/user/home/images/' + ${item.product.image}}" alt="shop">
+											<img th:src="@{'/user/home/product-detail/images/' + ${item.product.image}}" alt="shop">
 										</div>
 										<div class="information">
 											<!-- Hidden inputs -->

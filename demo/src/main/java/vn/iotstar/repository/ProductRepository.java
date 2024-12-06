@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Shop;
+import vn.iotstar.entity.Wishlist;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -21,12 +22,15 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 
 	 Page<Product> findAllByDisplay(int display, Pageable pageable);
 	 
+	 Page<Product> findAll(Pageable pageable);
+	 
+	 Page<Product> findByDisplayContaining(int display, Pageable pageable);
+	 
 	 List<Product> findByStatus(int status);
 	 
 	 Optional<Product> findByName(String productName);
 	 
 	 List<Product> findByShop(Shop shop);
-
 	 
 	 @Query("SELECT p FROM Product p ORDER BY p.date DESC")
 	 List<Product> findTop20ByOrderByDateDesc(Pageable pageable);
