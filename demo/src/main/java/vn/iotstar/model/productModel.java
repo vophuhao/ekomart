@@ -14,7 +14,7 @@ import vn.iotstar.entity.Category;
 @AllArgsConstructor
 public class productModel {
 	
-	   
+	   private Long id;
 	    private String name;
 	    private String description;
 	    private double price;
@@ -23,4 +23,5 @@ public class productModel {
 	    private String image;
 	    private MultipartFile rts_images1;
 	    private Long categoryId;
+		private Category category;
 }

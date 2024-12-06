@@ -17,79 +17,74 @@ layout:decorate="~{vendor/home.html}">
                         <button class="rts-btn btn-primary menu-btn">+ Add</button>
                     </div>
                 </div>
-                <div class="product-top-filter-area-l">
-                    <div class="left-area-button-fiulter">
-                        <!-- single product button -->
-                         <div class="signle-product-single-button">
-                            <span>All 250 </span>
-                         </div>
-                        <!-- single product button end -->
-                        <!-- single product button -->
-                         <div class="signle-product-single-button">
-                            <span>New Item 150</span>
-                         </div>
-                        <!-- single product button end -->
-                        <!-- single product button -->
-                         <div class="signle-product-single-button">
-                            <span>Disabled 154</span>
-                         </div>
-                        <!-- single product button end -->
-                    </div>
-                </div>
                 <div class="vendor-list-main-wrapper product-wrapper">
                     <div class="card-body table-product-select">
                         <div class="table-responsive">
                             <table class="table table-hover display" id="example"   width="100%">
                                 <thead class="mb--20">
                                     <tr>
-                                        <th>Product Name</th>
-                                        <th>Product  No</th>
-                                        <th>Category</th>
-                                        <th>Price</th>                                          
-                                          <th>Date</th>
-                                        <th class="text-start">Stock</th>
+                                        <th style="width:30%;">Product Name</th>
+                                        <th style="width:10%;">Product  ID</th>
+                                        <th style="width:10%;">Category</th>
+                                        <th style="width:10%;">Display</th>
+                                        <th style="width:10%;">Status</th>
+                                        <th style="width:10%;">Price</th>                                          
+                                        <th style="width:10%;">Date</th>
+                                        <th class="text-start" style="width:10%;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr th:each="product : ${listProduct}">
                                         <td width="30%">
-                                            <div class="item-check-area-table-left">
-                                                <div class="item-name-and-check-table">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                    </div>
-                                                </div>
+                                            <div class="item-check-area-table-left">                                               
                                                 <div class="item-image-and-name">
                                                     <a href="#" class="thumbnail">
-                                                        <img src="/vendor/images/grocery/14.png" alt="grocery">
+                                                        <img th:src="${'/vendor/products/list/images/' + product.image}" alt="" style="width:45px;height:45px">
                                                     </a>
-                                                    <p>Purple Blue Gradient iPhone Case</p>
+                                                    <p th:text="${product.name}"></p>
                                                 </div>
                                             </div>
                          
                                         </td>
-                                        <td><p>
-                                            #87845
-                                        </p></td>
-                                        <td>
+                                        <td style="width:10%;">
+	                                        <p th:text="${product.productId}">
+	                                           
+	                                        </p>
+                                        </td>
+                                        <td style="width:10%;">
                                             <div class="payment d-flex align-items-center">
-                                                <p>
+                                                <p th:text="${product.category.categoryName}">
                                                     Electronics
                                                 </p>
                                             </div>
                                         </td>
-                                        <td>
-                                            <p>$200</p>
+                                        <td style="width:10%;">
+                                            <div>
+                                                <!-- When checkbox is clicked, it opens the modal and sets the correct values -->
+                                                <button
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#productModal" style="border-radius: 5px;padding: 5px"
+                                                    th:text="${product.display == 1 ? 'Selling' : 'Locking'}"
+                                                    type="button"
+                                                    class="btn"
+                                                    th:class="${product.display == 1 ? 'btn-success' : 'btn-danger'}"
+                                                    th:onclick="|getDisplayVendor('${product.id}')|">
+                                                </button>
+                                            </div>
+                                        </td >
+                                         <td style="width:10%;">
+                                            <p th:text="${product.status == 1 ? 'Access' : (product.status == 0 ? 'Waiting' : 'Refuse')}"
+   												th:classappend="${product.status == 1 ? 'text-success' : (product.status == 0 ? 'text-warning' : 'text-danger')}"></p>
+                                        </td >
+                                        <td style="width:10%;">
+                                            <p th:text="${product.price}"></p>
+                                        </td >
+                                        <td style="width:10%;">
+                                      	<p th:text="${#temporals.format(product.date, 'dd/MM/yyyy')}"></p> 
                                         </td>
-                                        <td><p>03/02/2022</p></td>
                                         <td class="text-end">
                                             <div class="between-stock-table action">
-                                                <p>250</p>
-                                                <img src="/vendor/images/grocery/%6015.png" alt="">
-                                                <div class="action-edit-deleate">
-                                                    <span>Edit</span>
-                                                    <span>Delete</span>
-                                                </div>
+                                                    <a th:href="@{/vendor/products/edit/{id}(id= ${product.id})}"><img src="/vendor/images/icons/11.svg" alt="icon" class="icon"> <label style="margin-left: 5px">Edit</label></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -100,4 +95,5 @@ layout:decorate="~{vendor/home.html}">
                         </div>
                     </div>
                  </div>
-            </div>
+
+</div>

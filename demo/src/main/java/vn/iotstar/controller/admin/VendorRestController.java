@@ -41,6 +41,11 @@ public class VendorRestController {
         Optional<Shop> optShop = adminShopService.findById(id);
         return optShop.isPresent() ? optShop.get() : null;
     }
+    @GetMapping("/display/{id}")
+    public Product displayProduct(@PathVariable("id") Long id) {
+        Optional<Product> optPro = adminProService.findById(id);
+        return optPro.isPresent() ? optPro.get() : null;
+    }
     @GetMapping("/approveProduct/{id}")
     public Product approveProduct(@PathVariable("id") Long id) {
         Optional<Product> optPro = adminProService.findById(id);

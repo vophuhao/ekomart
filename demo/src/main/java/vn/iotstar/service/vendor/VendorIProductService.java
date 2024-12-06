@@ -8,6 +8,8 @@ import vn.iotstar.entity.Shop;
 
 public interface VendorIProductService {
 
+	Optional<Product> findById(Long id);
+
 	Product getById(Long id);
 
 	long count();

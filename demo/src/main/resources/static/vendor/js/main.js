@@ -1472,3 +1472,23 @@ function refundOder(){
 	}
 
 }
+const getDisplayVendor = (id) => {
+	fetch(`http://localhost:8888/api/v1/admin/vendor/display/${id}`)
+		.then(resp => { return resp.json() })
+		.then(product => {
+			console.log(product)
+			const id = document.getElementById("id")
+			const displayField  = document.getElementById("display")
+			const title = document.getElementById("title")
+			id.value = product?.id
+			displayField .value=product?.display
+			const displayValue = parseInt(displayField.value, 10);
+			if(displayValue === 1) {
+				title.textContent = 'Are you sure to STOP SELLING this product?'
+			}
+			else{
+				title.textContent = 'Are you sure to RESELL this product?'
+			}
+
+		})
+}

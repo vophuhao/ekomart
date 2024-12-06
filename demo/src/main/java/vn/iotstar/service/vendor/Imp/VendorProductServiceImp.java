@@ -17,8 +17,11 @@ public class VendorProductServiceImp implements VendorIProductService {
 
 	@Autowired
 	ProductRepository productRepository;
-	
 
+	@Override
+	public Optional<Product> findById(Long id) {
+		return productRepository.findById(id);
+	}
 	@Override
 	public <S extends Product> S save(S entity) {
 		return productRepository.save(entity);
