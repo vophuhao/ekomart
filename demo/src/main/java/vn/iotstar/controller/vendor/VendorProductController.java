@@ -32,27 +32,54 @@ import vn.iotstar.service.admin.AdminICategoryService;
 import vn.iotstar.service.vendor.VendorIProductService;
 
 @Controller
-@RequestMapping("/vendor/products") // id goc cua shop 
+@RequestMapping("/vendor/products") // id goc cua shop
 public class VendorProductController {
 
     @Autowired
     VendorIProductService productService;
-    
+
     @Autowired
     AdminICategoryService categoryService;
-    
+
     @Autowired
 	 private ShopRepository shoprepo;
-    
-    @Autowired 
+
+    @Autowired
     IStorageService storageService;
 
+
+    @GetMapping("")
+    public String listProduct(@PathVariable("id") Long id, ModelMap model,
+                              @RequestParam(value = "name", required = false) String productName,
+                              @RequestParam(value = "status", required = false) Integer status,
+                              @RequestParam(value = "display", required = false) Integer display)
+    {
+        List<Product> list = productService.getProductsByShopId(id);
+        model.addAttribute("products", list);
+
+        if (productName != null) {
+            List<Product> listByName = productService.findByName(productName,id);
+            model.addAttribute("listByName", listByName);
+        }
+
+        if (status != null) {
+            List<Product> listByStatus = productService.findByStatus(status,id);
+            model.addAttribute("listByStatus", listByStatus);
+        }
+
+        if (display != null) {
+            List<Product> listByDisplay = productService.findByDisplay(display,id);
+            model.addAttribute("listByDisplay", listByDisplay);
+        }
+
+        return "vendor/product-list";
+    }
     @GetMapping("/add")
     public String addProduct(Model model) {
-    	
+
     	List<Category> categoryList=categoryService.findAll();
     	model.addAttribute("cateList",categoryList);
-    	
+
     	return "vendor/product-add";
     }
     @GetMapping("/images/{filename:.+}")
@@ -63,7 +90,7 @@ public class VendorProductController {
 
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
     }
-    
+
     public String ShopId(HttpServletRequest request,HttpSession session)
     {
     	String shopId=(String) session.getAttribute("shopId");
@@ -72,13 +99,17 @@ public class VendorProductController {
     @GetMapping("/list")
     public String listProduct(HttpServletRequest request,HttpSession session,Model model) {
 
+
         Shop shopp=(Shop) session.getAttribute("shop");
+
+
     	List<Product> product=productService.findByShop(shopp);
+
     	model.addAttribute("listProduct", product);
     	return "vendor/product-list";
     }
-    
-    
+
+
 	@PostMapping("/add")
     public ModelAndView addNewProduct(@Valid @ModelAttribute("products") productModel productModel ,
 	        BindingResult result,
@@ -89,7 +120,7 @@ public class VendorProductController {
 	    }
     	Category cate=new Category();
     	cate=categoryService.getById(productModel.getCategoryId());
-    	
+
 	    Product entity = new Product();
 	    BeanUtils.copyProperties(productModel, entity);
 	    entity.setCategory(cate);
@@ -103,14 +134,14 @@ public class VendorProductController {
 	    	entity.setImage (storageService.getSorageFilename(productModel.getRts_images1(), uuString));
 	    	storageService.store(productModel.getRts_images1(), entity.getImage());
 	    	}
-	    
-	   
+
+
 	   productService.save(entity);
 	    redirectAttributes.addFlashAttribute("message", "Product saved successfully!");
 	    return new ModelAndView("redirect:/vendor/products/list");
     }
-    
-    
+
+
     @GetMapping("/display/{id}")
     public String edit(@PathVariable("id") long id, Model model) {
         Product product = productService.getById(id);
