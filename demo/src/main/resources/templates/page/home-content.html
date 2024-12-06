@@ -464,7 +464,7 @@
 									<span>New</span>
 								</div>
 								<div class="image-and-action-area-wrapper">
-									<a href="shop-details.html" class="thumbnail-preview"> <img
+									<a th:href="@{/user/home/product-detail/{id}(id=${product.id})}" class="thumbnail-preview"> <img
 										th:src="@{'/user/home/images/' + ${product.image}}"
 										alt="grocery">
 									</a>
@@ -492,7 +492,7 @@
 										<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
 										<i class="fa-solid fa-star"></i>
 									</div>
-									<a href="shop-details.html">
+									<a th:href="@{/user/home/product-detail/{id}(id=${product.id})}">
 										<h4 class="title" th:text="${product.name}">Nestle
 											Cerelac Mixed Fruits &amp; Wheat with Milk</h4>
 									</a> <span class="availability" th:text="'Sold: ' + ${product.sold}">Sold: </span>
@@ -549,7 +549,7 @@
 									<span>Hot</span>
 								</div>
 								<div class="image-and-action-area-wrapper">
-									<a href="shop-details.html" class="thumbnail-preview"> <img
+									<a href="@{/user/home/product-detail/{id}(id=${product.id})}" class="thumbnail-preview"> <img
 										th:src="@{'/user/home/images/' + ${product.image}}"
 										alt="grocery">
 									</a>
@@ -577,7 +577,7 @@
 										<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
 										<i class="fa-solid fa-star"></i>
 									</div>
-									<a href="shop-details.html">
+									<a th:href="@{/user/home/product-detail/{id}(id=${product.id})}">
 										<h4 class="title" th:text="${product.name}">Nestle
 											Cerelac Mixed Fruits &amp; Wheat with Milk</h4>
 									</a> <span class="availability" th:text="'Sold: ' + ${product.sold}">Sold: </span>

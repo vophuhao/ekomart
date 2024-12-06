@@ -1,0 +1,171 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{vendor/home.html}">
+<div class="transection" layout:fragment="content">
+        <div class="profile-setting-area-main-wrapper">
+            <h1 class="title">Profile Setting</h1>
+            <div class="inner-profile-setting">
+                <div class="left-setting-area" >
+                    <div class="tab-button-area-setting" style="margin-top:0">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" style="margin-top:0"
+                                        data-bs-target="#home-tab-pane" type="button" role="tab"
+                                        aria-controls="home-tab-pane" aria-selected="true">
+                                    <img src="/vendor/images/icons/11.svg" alt="icon" class="icon">
+                                    Edit Profile
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
+                                        data-bs-target="#contact-tab-pane" type="button" role="tab"
+                                        aria-controls="contact-tab-pane" aria-selected="false">
+                                    <img src="/vendor/images/icons/13.svg" alt="icon" class="icon">
+                                    Change Password
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content-area-user-setting">
+                    <div class="tab-content" id="myTabContent">
+
+                        <!-- profile setting start -->
+
+                        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                            <div class="inner-content-setting-form">
+                                <h3 class="title">Edit Profile</h3>
+                                <p>Set Up Your Personal Information</p>
+                                <form th:action="@{/vendor/profile/edit}" method="POST" th:object="${shop}" enctype="multipart/form-data">
+                                    <!-- Avatar Section -->
+                                    <div class="d-flex justify-content-center align-items-center mb-3">
+                                        <div class="avatar-shop" style="width: 100px;height: 100px;overflow: hidden;border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+                                            <img th:src="${'/vendor/profile/images/' + shop.avatar}" id="rts_image" alt="Profile-NFT" class="img-fluid rounded-circle">
+                                        </div>
+                                    </div>
+
+                                    <!-- File Upload Section -->
+                                    <div class="d-flex justify-content-center align-items-center mb-4">
+                                        <div class="brows-file-wrapper">
+                                            <!-- Hidden file input -->
+                                            <input name="rts_images1" id="rts_images1" type="file">
+                                            <!-- Custom upload button -->
+                                            <label for="rts_images1" title="No File Chosen">
+                                                <span class="text-center color-white">Change Avatar</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Form Inputs Section -->
+                                    <div class="half-input-wrapper">
+                                        <div class="single">
+                                            <label for="name">Name</label>
+                                            <input id="id" name="id" th:field="*{id}" type="text" placeholder="Esther Howard" hidden required>
+                                            <input id="name" name="name" th:field="*{name}" type="text" placeholder="Esther Howard" required>
+                                        </div>
+                                        <div class="single">
+                                            <label for="email">Email Address</label>
+                                            <input id="email" name="email" th:field="*{email}" type="text" placeholder="Email Address">
+                                        </div>
+                                    </div>
+                                    <p style="font-size: 16px;margin-bottom: 20px"><strong>Address Shop Info</strong></p>
+                                    <div class="half-input-wrapper">
+                                        <div class="single">
+                                            <label for="email1">Owner Name</label>
+                                            <input id="email1" th:field="*{address.addressName}" type="text" placeholder="Email Address">
+                                        </div>
+                                        <div class="single">
+                                            <label for="phone">Phone Number</label>
+                                            <input id="phone" name="sdt" th:field="*{address.addressSdt}" type="text" placeholder="Enter phone number">
+                                        </div>
+                                    </div>
+
+                                    <div class="half-input-wrapper">
+                                        <div class="single">
+                                            <label for="adress">Location</label>
+                                            <input id="adress" th:field="*{address.detail}" type="text" placeholder="Address">
+                                        </div>
+                                    </div>
+
+                                    <div class="half-input-wrapper">
+                                        <div class="input">
+                                            <label>Address:</label>
+                                            <div  style="display:flex">
+                                                <input type="hidden" id="myProvinceId" th:value="${shop.address.provinceId}"/>
+                                                <select class="css_select" id="tinh" name="tinh" th:field="*{address.provinceId}" style="border: 1px solid #E8E9EB;width:220px;height:50px;padding:5px;margin-right:25px;border-radius: 4px"
+                                                        title="Select Province">
+                                                    <option value="0">Select Province</option>
+                                                </select>
+                                                <input type="hidden" id="myDistrictId" th:value="${shop.address.districtId}"/>
+                                                <select class="css_select" id="huyen" name="huyen" th:field="*{address.districtId}" style="border: 1px solid #E8E9EB;width:220px;height:50px;padding:5px;margin-right:25px;border-radius: 4px"
+                                                        title="Select District">
+                                                    <option value="0">Select District</option>
+                                                </select>
+                                                <input type="hidden" id="myWardId" th:value="${shop.address.streetId}"/>
+                                                <select class="css_select" id="phuong" name="phuong" th:field="*{address.streetId}" style="border: 1px solid #E8E9EB;width:220px;height:50px;padding:5px;border-radius: 4px"
+                                                        title="Select Ward">
+                                                    <option value="0">Select Ward</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="about-me-area-setting-area">
+                                        <label for="about">Description</label>
+                                        <textarea name="about-me" id="about" th:field="*{description}"></textarea>
+                                        <div class="button-area">
+                                            <button type="submit" class="rts-btn btn-primary">Update Profile</button>
+                                            <a href="#" class="rts-btn btn-primary">Cancel</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- profile setting end -->
+
+                        <!-- change password area start -->
+                            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
+                                 tabindex="0">
+                                <!-- change password area start -->
+                                <div class="rts-change-password-area">
+                                    <form th:action="@{/vendor/profile/changePassword}" method="POST" th:object="${user}" enctype="multipart/form-data" class="change-pass-form">
+                                        <div class="single">
+                                            <label for="oldpass">Old Password</label>
+                                            <input id="oldpass" type="password" placeholder="Old Password" required>
+                                        </div>
+                                        <div class="single">
+                                            <label for="newpass">Create New Password</label>
+                                            <input id="newpass" type="password" placeholder="Old Password">
+                                        </div>
+                                        <div class="single">
+                                            <label for="renew">Re-New Password</label>
+                                            <input id="renew" type="password" placeholder="Old Password">
+                                        </div>
+                                        <button class="rts-btn btn-primary">Save Changes</button>
+                                    </form>
+                                </div>
+                                <!-- change password area end -->
+                            </div>
+                        <!-- change password area end -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- bottom footer areas start -->
+            <div class="footer-copyright">
+                <div class="left">
+                    <p>Copyright © 2024 All Right Reserved.</p>
+                </div>
+                <ul>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+            <!-- bottom footer areas end -->
+        </div>
+    </div>
+
+
+</html>

@@ -46,4 +46,14 @@ public class UserInfo {
 	@OneToMany(mappedBy = "user")
     @JsonIgnore // Bỏ qua danh sách reviews khi chuyển đổi sang JSON
     private List<Review> reviews;
-}
+
+	@Override
+		public String toString() {
+			return "UserInfo{" +
+					"id=" + id +
+					", name='" + name + '\'' +
+					", email='" + email + '\'' +
+					", roles='" + roles + '\'' +
+					", enabled=" + enabled +
+					'}';
+		}}

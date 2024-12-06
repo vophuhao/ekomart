@@ -2,6 +2,9 @@ package vn.iotstar.service.user;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import vn.iotstar.entity.Product;
 
 public interface IUserProductService {
@@ -9,7 +12,7 @@ public interface IUserProductService {
 	
 	public List<Product> getTop20BestSellers();
 	
-	public List<Product> findAllByDisplay(int display);
+	public Page<Product> findAllByDisplay(int display, Pageable pageable);
 	
 	//public List<Object[]> getTop20ReviewedProducts();
 }

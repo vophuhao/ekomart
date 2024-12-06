@@ -48,6 +48,7 @@
 			rtsJs.unloadImage();
 			rtsJs.unloadImage1();
 			rtsJs.unloadImage2();
+			rtsJs.unloadImage3();
 			rtsJs.niceSelect();
 			rtsJs.backToTopInit();
 			rtsJs.darklightSwitcher();
@@ -776,6 +777,22 @@
 				}
 			}
 			$("#rts_images2").change(function() {
+				rtsPreview(this);
+			});
+		},
+
+		unloadImage3: function name() {
+			$("#avt_shop").click(function(e) {
+				$("#rts_images_avtshop").click();
+			});
+
+			function rtsPreview() {
+				const [file] = rts_images_avtshop.files
+				if (file) {
+					avt_shop.src = URL.createObjectURL(file)
+				}
+			}
+			$("#rts_images_avtshop").change(function() {
 				rtsPreview(this);
 			});
 		},

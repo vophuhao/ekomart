@@ -40,7 +40,7 @@ public class CartServiceImpl implements ICartService {
                 .filter(cartItem -> cartItem.getProduct().getId().equals(item.getProduct().getId()))
                 .findFirst();
 
-        if (!existingItem.isPresent()) {
+        if (existingItem.isEmpty()) {
         	item.setCart(cart);
             cart.getItems().add(item);
             cartRepository.save(cart);

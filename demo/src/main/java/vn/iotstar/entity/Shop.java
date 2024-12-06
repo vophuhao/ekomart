@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -56,6 +57,22 @@ public class Shop implements Serializable{
     @JoinColumn(name = "user_id")
     @JsonIgnore
 	private UserInfo user;
+
+
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "id=" + id +
+                ", shopId='" + shopId + '\'' +
+                ", name='" + name + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", description='" + description + '\'' +
+                ", sdt='" + sdt + '\'' +
+                ", email='" + email + '\'' +
+                ", status=" + status +
+                ", display=" + display +
+                '}';
+    }
 
     @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products;
