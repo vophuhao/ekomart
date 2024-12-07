@@ -14,13 +14,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.persistence.Convert;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import vn.iotstar.entity.Address;
 import vn.iotstar.entity.UserInfo;
 import vn.iotstar.model.AddresModel;
 import vn.iotstar.service.user.ILocationService;
+import vn.iotstar.service.user.IUserService;
 import vn.iotstar.service.user.Imp.AddressServiceImp;
 import vn.iotstar.service.user.Imp.CartServiceImpl;
 import vn.iotstar.service.user.Imp.UserInfoServiceImp;
+import vn.iotstar.util.JwtUtil;
 
 @RestController
 public class AddressController {
@@ -34,9 +38,13 @@ public class AddressController {
 	@Autowired
 	private AddressServiceImp addre;
 	
+	 @Autowired
+	 private IUserService userService;
 	@Autowired
 	private ILocationService location;
 	
+	@Autowired
+    private JwtUtil jwtUtil;
 	@PostMapping("/user/api/address/delete")
 	public ResponseEntity<Void> deleteAddress(@RequestBody String id) {
 	    try {
@@ -82,19 +90,28 @@ public class AddressController {
 	    }
 	}
 	@PostMapping("/user/api/address/save")
-	public ResponseEntity<Void> saveAddress(@RequestBody AddresModel address, Model model) {
+	public ResponseEntity<Void> saveAddress(@RequestBody AddresModel address, Model model,HttpServletRequest request) {
 	    try {
-	        // Lấy tên tỉnh, quận, xã từ mã code
-//	        String provinceName = location.getProvinceNameByCode(Integer.parseInt(address.getProvince()));
-//	        String districtName = location.getDistrictNameByCode(Integer.parseInt(address.getDistrict()));
-//	        String wardName = location.getWardNameByCode(Integer.parseInt(address.getWard()));
-
-	        // Kiểm tra nếu không tìm được tên
-//	        if (provinceName == null || districtName == null || wardName == null) {
-//	            return ResponseEntity.badRequest().build(); // Trả về lỗi 400 nếu mã không hợp lệ
-//	        }
-
-	        // Tạo địa chỉ mới
+	    	
+	    	String token = null;
+			// Lấy cookie từ request
+	        Cookie[] cookies = request.getCookies();
+	        if (cookies != null) {
+	            for (Cookie cookie : cookies) {
+	                if ("JWT".equals(cookie.getName())) {
+	                    token = cookie.getValue();
+	                    break;
+	                }
+	            }
+	        }
+	        
+	        String username = jwtUtil.extractUsername(token);
+	        Optional<UserInfo> users=userService.findByName(username);
+	        UserInfo userss =new UserInfo();
+	        if (users.isPresent()) {
+	            userss = users.get();
+	            // Xử lý logic với user
+	        } 
 	        Address newAddress = new Address();
 	        newAddress.setUname(address.getUname());
 	        newAddress.setPhone(address.getPhone());
@@ -102,18 +119,8 @@ public class AddressController {
 	        newAddress.setDistrict(address.getDistrict()); // Lưu tên quận
 	        newAddress.setWard(address.getWard());         // Lưu tên xã
 	        newAddress.setDetail(address.getDetail());
-	        newAddress.setDefaults(0);
-
-	        // Lấy thông tin user (giả sử ID user là 1)
-	        Optional<UserInfo> user2 = userservice.findById(1);
-	        UserInfo entity = user2.get();
-	        if (user2.isPresent()) {
-	            BeanUtils.copyProperties(user2, entity);
-	        }
-	        
-	        
-	        
-	        newAddress.setUser(entity);
+	        newAddress.setDefaults(0);	     	       	 	        
+	        newAddress.setUser(userss);
 	        addre.save(newAddress); // Lưu vào cơ sở dữ liệu
 
 	        // Trả về mã 200 OK với thông báo thành công
