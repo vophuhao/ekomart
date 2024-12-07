@@ -43,6 +43,10 @@ public class UserInfo {
 	@JsonIgnore
 	private Cart cart;
 	
+	@OneToOne(mappedBy = "user")
+	@JsonIgnore
+	private Wishlist wishlist;
+	
 	@OneToMany(mappedBy = "user")
     @JsonIgnore // Bỏ qua danh sách reviews khi chuyển đổi sang JSON
     private List<Review> reviews;

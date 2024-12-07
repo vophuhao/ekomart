@@ -50,7 +50,24 @@ public class Product implements Serializable {
     private int status;
     private int display;
     private LocalDateTime date;
-    
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", productId='" + productId + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", count=" + count +
+                ", sold=" + sold +
+                ", status=" + status +
+                ", display=" + display +
+                ", date=" + date +
+                ", image='" + image + '\'' +
+                '}';
+    }
+
     @PrePersist
     public void onCreate() {
         if (date == null) {

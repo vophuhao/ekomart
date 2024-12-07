@@ -223,11 +223,64 @@ public class VendorProductController {
 	}
 
 	@PostMapping("/update")
-	public String update(@Valid Product product, BindingResult result, Model model) {
+	public String update(@Valid productModel product, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "vendor/home";
 		}
-		productService.save(product);
-		return "redirect:/vendor/products";
+		Optional<Product> existProduct = productService.findById(product.getId());
+		if(existProduct.isPresent()) {
+			Product product1 = existProduct.get();
+			product1.setName(product.getName());
+			product1.setDescription(product.getDescription());
+			product1.setPrice(product.getPrice());
+			product1.setCount(product.getCount());
+			Optional<Category> cate = categoryService.findById(product.getCategoryId());
+			if(cate.isPresent()) {
+				product1.setCategory(cate.get());
+			}
+			if (!product.getRts_images1().isEmpty()) {
+				// lưu file vào trường poster
+				UUID uuid = UUID.randomUUID();
+				String uuString = uuid.toString();
+				product1.setImage(storageService.getSorageFilename(product.getRts_images1(), uuString));
+				storageService.store(product.getRts_images1(), product1.getImage());
+			}
+			productService.save(product1);
+		}
+
+		return "redirect:/vendor/products/list";
 	}
+    @GetMapping("/edit/{id}")
+    public String editProduct(@PathVariable("id") long id, Model model) {
+        Product product = productService.getById(id);
+		List<Category> categoryList = categoryService.findAll();
+		model.addAttribute("cateList", categoryList);
+		productModel productModel = new productModel();
+		BeanUtils.copyProperties(product, productModel);
+        model.addAttribute("product", productModel);
+        return "vendor/product-edit";
+    }
+	@PostMapping("/displayProduct")
+	public String updateProduct(@Valid Product product, BindingResult result, Model model){
+		if (result.hasErrors()) {
+			return "vendor/home";
+		}
+		Optional<Product> existProduct = productService.findById(product.getId());
+		if(existProduct.isPresent()) {
+			Product product1 = existProduct.get();
+			System.out.println(product1);
+			if(product1.getDisplay() == 1)
+			{
+				product1.setDisplay(0);
+			}
+			else {
+				product1.setDisplay(1);
+			}
+			productService.save(product1);
+		}
+		return "redirect:/vendor/products/list";
+	}
+
+
+
 }

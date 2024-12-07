@@ -26,7 +26,7 @@ layout:decorate="~{vendor/home.html}">
                                         <th style="width:30%;">Product Name</th>
                                         <th style="width:10%;">Product  ID</th>
                                         <th style="width:10%;">Category</th>
-                                        <th style="width:10%;">Deloy</th>
+                                        <th style="width:10%;">Display</th>
                                         <th style="width:10%;">Status</th>
                                         <th style="width:10%;">Price</th>                                          
                                         <th style="width:10%;">Date</th>
@@ -59,8 +59,18 @@ layout:decorate="~{vendor/home.html}">
                                             </div>
                                         </td>
                                         <td style="width:10%;">
-                                           <p th:text="${product.display == 1 ? 'Yes' : 'No'}"
-   												th:classappend="${product.display == 1 ? 'text-success' : 'text-danger'}"></p>
+                                            <div>
+                                                <!-- When checkbox is clicked, it opens the modal and sets the correct values -->
+                                                <button
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#productModal" style="border-radius: 5px;padding: 5px"
+                                                    th:text="${product.display == 1 ? 'Selling' : 'Locking'}"
+                                                    type="button"
+                                                    class="btn"
+                                                    th:class="${product.display == 1 ? 'btn-success' : 'btn-danger'}"
+                                                    th:onclick="|getDisplayVendor('${product.id}')|">
+                                                </button>
+                                            </div>
                                         </td >
                                          <td style="width:10%;">
                                             <p th:text="${product.status == 1 ? 'Access' : (product.status == 0 ? 'Waiting' : 'Refuse')}"
@@ -74,14 +84,7 @@ layout:decorate="~{vendor/home.html}">
                                         </td>
                                         <td class="text-end">
                                             <div class="between-stock-table action">
-                                             
-                                                <img src="/vendor/images/grocery/%6015.png" alt="">
-                                                <div class="action-edit-deleate">
-                                                    <span th:data-productId="${product.productId}" >Edit</span>
-                                                    <span th:data-display="${product.display}" th:text="${product.display == 1 ? 'No' : 'Yes'}"
-   															th:classappend="${product.display == 1 ? 'text-danger' : 'text-success'}">
-                                                   </span>
-                                                </div>
+                                                    <a th:href="@{/vendor/products/edit/{id}(id= ${product.id})}"><img src="/vendor/images/icons/11.svg" alt="icon" class="icon"> <label style="margin-left: 5px">Edit</label></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -92,5 +95,5 @@ layout:decorate="~{vendor/home.html}">
                         </div>
                     </div>
                  </div>
-            </div>
 
+</div>

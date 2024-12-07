@@ -26,6 +26,9 @@ import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Shop;
 import vn.iotstar.entity.UserInfo;
+import vn.iotstar.entity.Wishlist;
+import vn.iotstar.repository.ProductRepository;
+import vn.iotstar.repository.WishlistRepository;
 import vn.iotstar.service.admin.AdminShopService;
 import vn.iotstar.service.user.IUserService;
 import vn.iotstar.service.user.Imp.CartServiceImpl;
@@ -50,6 +53,10 @@ public class homeController {
     private AdminShopService adminShopService;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private ProductRepository prorepo;
+    @Autowired
+    private WishlistRepository wishrepo;
 
 	@GetMapping("/home")
 	public String homeView(HttpServletRequest request, Model model,HttpSession session) {
@@ -92,20 +99,53 @@ public class homeController {
 		return "page/home-content";
 	}
 	
+	@GetMapping("/wishlist")
+	public String getWishlist(HttpServletRequest request, Model model, HttpSession session) 
+	{
+		String token = null;
+		// Lấy cookie từ request
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        
+        String username = jwtUtil.extractUsername(token);
+		Optional<UserInfo> user = userService.findByName(username);
+		UserInfo userInfo = user.get();
+		Optional<Wishlist> wishlist = wishrepo.findByUser(userInfo);
+		Wishlist wish = wishlist.get();
+		model.addAttribute("wish", wish);
+		return "page/wishlist";
+	}
+	
 	@GetMapping("/product")
 	public ModelAndView getProduct(
-	        @RequestParam(defaultValue = "0") int page,
+	        @RequestParam(value = "page", defaultValue = "0") int page,
 	        @RequestParam(defaultValue = "16") int size) {
 	    Pageable pageable = PageRequest.of(page, size);
-	    Page<Product> productPage = productService.findAllByDisplay(1, pageable);
-
+	    Page<Product> productPage = productService.findAllByDisplay(1,pageable);
+	    
 	    ModelAndView modelAndView = new ModelAndView("page/shop-grid-sidebar");  // Trả về trang shop-grid.html
-	    modelAndView.addObject("products", productPage.getContent());
+	    modelAndView.addObject("product", productPage);
 	    modelAndView.addObject("currentPage", productPage.getNumber());
 	    modelAndView.addObject("totalPages", productPage.getTotalPages());
-
+	    
 	    return modelAndView;
 	}
+	
+//	@GetMapping("/product")
+//	public String getProduct( HttpServletRequest request, Model model,HttpSession session) {
+//		
+//        List<Product> product = productService.findAllByDisplay(1);
+//        model.addAttribute("product", product);
+//        
+//		return "page/shop-grid-sidebar";
+//	}
 	@GetMapping("/my-shop")
     public String checkShop(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         String token = null;

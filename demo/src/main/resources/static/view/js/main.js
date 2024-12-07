@@ -1439,47 +1439,81 @@ function filterByRating(rating) {
 	        .catch(error => console.error('Error:', error));
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const productContainer = document.querySelector("#product-container");
-    const paginationContainer = document.querySelector("#pagination-container");
-
-    // Hàm tải dữ liệu sản phẩm
-    async function loadProducts(page = 0, size = 16) {
-        try {
-            const response = await fetch(`/product?page=${page}&size=${size}`);
-            if (!response.ok) throw new Error("Failed to fetch products");
-
-            const data = await response.json();
-
-            // Render danh sách sản phẩm
-            productContainer.innerHTML = data.products.map(product => `
-                <div class="product">
-                    <h4>${product.name}</h4>
-                    <p>Price: ${product.price}</p>
-                </div>
-            `).join("");
-
-            // Render phân trang
-            paginationContainer.innerHTML = Array.from({ length: data.totalPages }, (_, i) => `
-                <button class="page-btn" data-page="${i}" ${i === data.currentPage ? 'disabled' : ''}>
-                    ${i + 1}
-                </button>
-            `).join("");
-
-            // Gắn sự kiện cho nút phân trang
-            document.querySelectorAll(".page-btn").forEach(button => {
-                button.addEventListener("click", (e) => {
-                    loadProducts(parseInt(e.target.dataset.page));
-                });
-            });
-        } catch (error) {
-            console.error("Error loading products:", error);
-        }
+function loadPage(page) {
+	fetch(`/product?page=${page}&size=16`);
+	then(response => response.json())
+	        .then(data => {
+			            const productContainer = document.getElementById('product-container');
+			            productContainer.innerHTML = data.products.map(product => `
+			                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+			                    <div class="single-shopping-card-one">
+			                        <div class="image-and-action-area-wrapper">
+			                            <a href="/user/home/product-detail/${product.id}" class="thumbnail-preview">
+			                                <img src="/user/home/images/${product.image}" alt="grocery">
+			                            </a>
+			                            <div class="action-share-option">
+			                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
+			                                    <i class="fa-light fa-heart"></i>
+			                                </div>
+			                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
+			                                    <i class="fa-solid fa-arrows-retweet"></i>
+			                                </div>
+			                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
+			                                    <i class="fa-regular fa-eye"></i>
+			                                </div>
+			                            </div>
+			                        </div>
+			                        <div class="body-content">
+			                            <a href="/user/home/product-detail/${product.id}">
+			                                <h4 class="title">${product.name}</h4>
+			                            </a>
+			                            <span class="availability">Sold: ${product.sold}</span>
+			                            <div class="price-area">
+			                                <span class="current">${product.price}</span>
+			                            </div>
+			                            <form action="/user/add-item" method="POST">
+			                                <div class="cart-counter-action">
+			                                    <input type="hidden" name="product.id" value="${product.id}">
+			                                    <input type="hidden" name="price" value="${product.price}">
+			                                    <input type="hidden" name="quantity" value="1">
+			                                    <button type="submit" class="rts-btn btn-primary radious-sm with-icon">
+			                                        <div class="btn-text">Add To Cart</div>
+			                                        <div class="arrow-icon">
+			                                            <i class="fa-regular fa-cart-shopping"></i>
+			                                        </div>
+			                                    </button>
+			                                </div>
+			                            </form>
+			                        </div>
+			                    </div>
+			                </div>
+			            `).join('');
+					})
+			        .catch (error => console.error("Error loading products:", error));
     }
-
-    // Gọi hàm khi trang được tải
-    loadProducts();
+document.querySelectorAll('.remove-cart').forEach(element => {
+	element.addEventListener("click", removeItem);
 });
+function removeItem()
+{
+	const item = this.getAttribute('data-productId');
+	  
+		
+	   // Gửi yêu cầu POST tới controller
+	   $.ajax({
+	       url: `/user/cart?item=${item}`,  // Địa chỉ API
+	       type: 'POST',
+	       contentType: 'application/json',  // Định dạng gửi đi là JSON
+	       data: { item: item }, // Gửi orderId dưới dạng JSON
+	       success: function(response) {
+		 window.location.href = `/user/cart`;
+	       },
+	       error: function(error) {
+	           // In lỗi nếu có
+	           console.error('Lỗi khi đặt hàng:', error);
+	       }
+	   });
+}
 document.querySelectorAll('.address-none').forEach(button => {
 	button.addEventListener("click", setAddressDefault);
 });

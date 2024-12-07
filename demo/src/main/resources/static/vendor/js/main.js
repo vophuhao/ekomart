@@ -48,7 +48,6 @@
 			rtsJs.unloadImage();
 			rtsJs.unloadImage1();
 			rtsJs.unloadImage2();
-			rtsJs.unloadImage3();
 			rtsJs.niceSelect();
 			rtsJs.backToTopInit();
 			rtsJs.darklightSwitcher();
@@ -781,21 +780,6 @@
 			});
 		},
 
-		unloadImage3: function name() {
-			$("#avt_shop").click(function(e) {
-				$("#rts_images_avtshop").click();
-			});
-
-			function rtsPreview() {
-				const [file] = rts_images_avtshop.files
-				if (file) {
-					avt_shop.src = URL.createObjectURL(file)
-				}
-			}
-			$("#rts_images_avtshop").change(function() {
-				rtsPreview(this);
-			});
-		},
 
 		niceSelect: function() {
 			(function($) {
@@ -1487,4 +1471,24 @@ function refundOder(){
 	    alert("Không thể xử lý yêu cầu. Vui lòng thử lại.");
 	}
 
+}
+const getDisplayVendor = (id) => {
+	fetch(`http://localhost:8888/api/v1/admin/vendor/display/${id}`)
+		.then(resp => { return resp.json() })
+		.then(product => {
+			console.log(product)
+			const id = document.getElementById("id")
+			const displayField  = document.getElementById("display")
+			const title = document.getElementById("title")
+			id.value = product?.id
+			displayField .value=product?.display
+			const displayValue = parseInt(displayField.value, 10);
+			if(displayValue === 1) {
+				title.textContent = 'Are you sure to STOP SELLING this product?'
+			}
+			else{
+				title.textContent = 'Are you sure to RESELL this product?'
+			}
+
+		})
 }
