@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,16 +20,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.iotstar.config.UserInfoService;
 import vn.iotstar.entity.Cart;
+import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Shop;
 import vn.iotstar.entity.UserInfo;
 import vn.iotstar.entity.Wishlist;
+import vn.iotstar.entity.WishlistItem;
 import vn.iotstar.repository.CategoryRepository;
 import vn.iotstar.repository.ProductRepository;
 import vn.iotstar.repository.WishlistItemRepository;
@@ -131,6 +135,29 @@ public class homeController {
 		Wishlist wish = wishlist.get();
 		model.addAttribute("wish", wish);
 		return "page/wishlist";
+	}
+	
+	@PostMapping("/wishlist/add-item")
+	public String addItemToWishlist(@Valid WishlistItem wishItem,HttpServletRequest request, BindingResult result, HttpSession session) {
+		String token = null;
+		// Lấy cookie từ request
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        
+        String username = jwtUtil.extractUsername(token);
+		Optional<UserInfo> user = userService.findByName(username);
+		UserInfo userInfo = user.get();
+		if (result.hasErrors())
+			return "redirect:/user/wishlist";
+		wishItemrepo.save(wishItem);
+		return "redirect:/user/wishlist";
 	}
 	
 	@PostMapping("/wishlist")

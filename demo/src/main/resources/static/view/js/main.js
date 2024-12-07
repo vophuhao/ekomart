@@ -1662,3 +1662,27 @@ function removeWishItem()
 document.querySelectorAll('.remove-wishlist').forEach(button => {
 	button.addEventListener("click", removeWishItem);
 });
+
+function addWishItem()
+{
+	const item = this.getAttribute('data-productId');
+	  
+		
+	   // Gửi yêu cầu POST tới controller
+	   $.ajax({
+	       url: `/user/wishlist/add-item?item=${item}`,  // Địa chỉ API
+	       type: 'POST',
+	       contentType: 'application/json',  // Định dạng gửi đi là JSON
+	       data: { item: item }, // Gửi orderId dưới dạng JSON
+	       success: function(response) {
+		 window.location.href = `/user/wishlist`;
+	       },
+	       error: function(error) {
+	           // In lỗi nếu có
+	           console.error('Lỗi khi xóa:', error);
+	       }
+	   });
+}
+document.querySelectorAll('.add-wishlist').forEach(button => {
+	button.addEventListener("click", addWishItem);
+});
