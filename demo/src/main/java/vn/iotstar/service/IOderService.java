@@ -15,4 +15,6 @@ public interface IOderService {
 
 	Orders save(Orders oders);
 
+	List<Orders> findAll();
+
 }

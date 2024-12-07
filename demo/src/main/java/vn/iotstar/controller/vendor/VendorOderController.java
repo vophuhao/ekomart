@@ -19,8 +19,8 @@ import vn.iotstar.entity.Address;
 import vn.iotstar.entity.OrderDetail;
 import vn.iotstar.entity.Orders;
 import vn.iotstar.entity.Product;
+import vn.iotstar.service.IOderService;
 import vn.iotstar.service.Imp.OderDetailServiceImpl;
-import vn.iotstar.service.Imp.OderServiceImpl;
 import vn.iotstar.service.vendor.VendorIProductService;
 
 @Controller
@@ -28,7 +28,7 @@ import vn.iotstar.service.vendor.VendorIProductService;
 public class VendorOderController {
 
 	@Autowired
-	OderServiceImpl oderservice;
+	IOderService oderservice;
 	
 	@Autowired
     VendorIProductService productService;
