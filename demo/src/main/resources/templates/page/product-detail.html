@@ -1,4 +1,4 @@
-<!-- <!doctype html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="~{page/home.html}">
@@ -106,7 +106,7 @@
                                                 <span class="sku product-unipue mb--10"><span style="font-weight: 400; margin-right: 10px;" th:text="'ProID: '+${product.productId}">SKU: </span></span>
                                                 <span class="catagorys product-unipue mb--10"><span style="font-weight: 400; margin-right: 10px;" th:text="'Category: '+${product.category.categoryName}"></span></span>
                                                 <span class="tags product-unipue mb--10"><span style="font-weight: 400; margin-right: 10px;" th:text="'Sold: '+${product.sold}"></span></span>
-                                                <span class="tags product-unipue mb--10"><span style="font-weight: 400; margin-right: 10px;">Type: </span> original</span>
+                                                <!-- <span class="tags product-unipue mb--10"><span style="font-weight: 400; margin-right: 10px;">Type: </span> original</span> -->
                                             </div>
                                             <div class="share-option-shop-details">
                                                 <div class="single-share-option">
@@ -221,7 +221,7 @@
 												
 												   	<h3>Customer Reviews</h3>
 
-													Menu lọc ngang
+													<!-- Menu lọc ngang -->
 													<div class="rating-menu">
 														<button class="rating-button" th:onclick="|filterByRating(5)|">5 ★</button>
 													    <button class="rating-button" th:onclick="|filterByRating(4)|">4 ★</button>
@@ -230,12 +230,12 @@
 													    <button class="rating-button" th:onclick="|filterByRating(1)|">1 ★</button>
 													</div>
 													
-													Hiển thị các đánh giá
+													<!-- Hiển thị các đánh giá -->
 													<div id="reviewContainer" th:each="review : ${reviews}" class="card-body thymeleaf-review">
 														<div class="card-body">
 														    <div class="d-flex justify-content-between align-items-center">
 														        <div class="d-flex align-items-center">
-														            Star Rating
+														            <!-- Star Rating -->
 														            <div class="rating-stars">
 														                <span th:each="star : ${#numbers.sequence(1, 5)}"
 														                      th:classappend="${star <= review.rating} ? 'text-warning' : 'text-muted'">&#9733;</span>
@@ -248,14 +248,14 @@
 														</div>
 													</div>
 								                       
-													<input type="hidden" id="productId" th:value="${product.id}"> Ẩn ID sản phẩm
+													<input type="hidden" id="productId" th:value="${product.id}"> <!-- Ẩn ID sản phẩm -->
 
 												    <div class="submit-review-area">
 													    <form th:action="@{/user/home/product-detail/{id}/addReview(id=${product.id})}" method="post" th:object="${newReview}" class="submit-review-area">
 													        <h5 class="title">Submit Your Review</h5>
 													        <label for="rating">Rating:</label>
 													        
-													        Chọn sao bằng Bootstrap
+													        <!-- Chọn sao bằng Bootstrap -->
 													        <div class="star-rating">
 													            <input type="radio" id="star5" name="rating" value="5" />
 													            <label for="star5" class="star">&#9733;</label>
@@ -327,7 +327,7 @@
         </div>
     </div>
 
-    rts grocery feature area start
+    <!-- rts grocery feature area start -->
     <div class="rts-grocery-feature-area rts-section-gap bg_light-1">
         <div class="container">
             <div class="row">
@@ -379,10 +379,10 @@
                             }
                         }'>
                             <div class="swiper-wrapper">
-                                single swiper start
+                                <!-- single swiper start -->
                                 <div class="swiper-slide">
                                     <div class="single-shopping-card-one">
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="image-and-action-area-wrapper">
                                             <a href="#" class="thumbnail-preview">
                                                 <div class="badge">
@@ -405,7 +405,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
 
                                         <div class="body-content">
                                             <div class="time-tag">
@@ -444,11 +444,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                single swiper start
-                                single swiper start
+                                <!-- single swiper start -->
+                                <!-- single swiper start -->
                                 <div class="swiper-slide">
                                     <div class="single-shopping-card-one">
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="image-and-action-area-wrapper">
                                             <a href="#" class="thumbnail-preview">
                                                 <div class="badge">
@@ -471,7 +471,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="body-content">
                                             <div class="time-tag">
                                                 <i class="fa-light fa-clock"></i>
@@ -508,11 +508,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                single swiper start
-                                single swiper start
+                                <!-- single swiper start -->
+                                <!-- single swiper start -->
                                 <div class="swiper-slide">
                                     <div class="single-shopping-card-one">
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="image-and-action-area-wrapper">
                                             <a href="#" class="thumbnail-preview">
                                                 <div class="badge">
@@ -535,7 +535,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="body-content">
                                             <div class="time-tag">
                                                 <i class="fa-light fa-clock"></i>
@@ -572,11 +572,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                single swiper start
-                                single swiper start
+                                <!-- single swiper start -->
+                                <!-- single swiper start -->
                                 <div class="swiper-slide">
                                     <div class="single-shopping-card-one">
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="image-and-action-area-wrapper">
                                             <a href="#" class="thumbnail-preview">
                                                 <div class="badge">
@@ -599,7 +599,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="body-content">
                                             <div class="time-tag">
                                                 <i class="fa-light fa-clock"></i>
@@ -636,11 +636,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                single swiper start
-                                single swiper start
+                                <!-- single swiper start -->
+                                <!-- single swiper start -->
                                 <div class="swiper-slide">
                                     <div class="single-shopping-card-one">
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="image-and-action-area-wrapper">
                                             <a href="#" class="thumbnail-preview">
                                                 <div class="badge">
@@ -663,7 +663,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="body-content">
                                             <div class="time-tag">
                                                 <i class="fa-light fa-clock"></i>
@@ -700,11 +700,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                single swiper start
-                                single swiper start
+                                <!-- single swiper start -->
+                                <!-- single swiper start -->
                                 <div class="swiper-slide">
                                     <div class="single-shopping-card-one">
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="image-and-action-area-wrapper">
                                             <a href="#" class="thumbnail-preview">
                                                 <div class="badge">
@@ -727,7 +727,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="body-content">
                                             <div class="time-tag">
                                                 <i class="fa-light fa-clock"></i>
@@ -764,11 +764,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                single swiper start
-                                single swiper start
+                                <!-- single swiper start -->
+                                <!-- single swiper start -->
                                 <div class="swiper-slide">
                                     <div class="single-shopping-card-one">
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="image-and-action-area-wrapper">
                                             <a href="#" class="thumbnail-preview">
                                                 <div class="badge">
@@ -791,7 +791,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="body-content">
                                             <div class="time-tag">
                                                 <i class="fa-light fa-clock"></i>
@@ -829,7 +829,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                single swiper start
+                                <!-- single swiper start -->
                             </div>
                         </div>
                     </div>
@@ -837,14 +837,14 @@
             </div>
         </div>
     </div>
-    rts grocery feature area end
+    <!-- rts grocery feature area end -->
 
 
     <div class="rts-shorts-service-area rts-section-gap bg_primary">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-                    single service area start
+                    <!-- single service area start -->
                     <div class="single-short-service-area-start">
                         <div class="icon-area">
                             <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -861,10 +861,10 @@
                             </p>
                         </div>
                     </div>
-                    single service area end
+                    <!-- single service area end -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-                    single service area start
+                    <!-- single service area start -->
                     <div class="single-short-service-area-start">
                         <div class="icon-area">
                             <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -881,10 +881,10 @@
                             </p>
                         </div>
                     </div>
-                    single service area end
+                    <!-- single service area end -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-                    single service area start
+                    <!-- single service area start -->
                     <div class="single-short-service-area-start">
                         <div class="icon-area">
                             <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -905,10 +905,10 @@
                             </p>
                         </div>
                     </div>
-                    single service area end
+                    <!-- single service area end -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-                    single service area start
+                    <!-- single service area start -->
                     <div class="single-short-service-area-start">
                         <div class="icon-area">
                             <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -926,19 +926,19 @@
                             </p>
                         </div>
                     </div>
-                    single service area end
+                    <!-- single service area end -->
                 </div>
             </div>
         </div>
     </div>
 
-    rts footer one area start
+    <!-- rts footer one area start -->
     <div class="rts-footer-area pt--80 bg_light-1">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer-main-content-wrapper pb--70">
-                        single footer area wrapper
+                        <!-- single footer area wrapper -->
                         <div class="single-footer-wized">
                             <h3 class="footer-title">About Company</h3>
                             <div class="call-area">
@@ -962,8 +962,8 @@
                                 </div>
                             </div>
                         </div>
-                        single footer area wrapper
-                        single footer area wrapper
+                        <!-- single footer area wrapper -->
+                        <!-- single footer area wrapper -->
                         <div class="single-footer-wized">
                             <h3 class="footer-title">Our Stores</h3>
                             <div class="footer-nav">
@@ -976,8 +976,8 @@
                                 </ul>
                             </div>
                         </div>
-                        single footer area wrapper
-                        single footer area wrapper
+                        <!-- single footer area wrapper -->
+                        <!-- single footer area wrapper -->
                         <div class="single-footer-wized">
                             <h3 class="footer-title">Shop Categories</h3>
                             <div class="footer-nav">
@@ -990,8 +990,8 @@
                                 </ul>
                             </div>
                         </div>
-                        single footer area wrapper
-                        single footer area wrapper
+                        <!-- single footer area wrapper -->
+                        <!-- single footer area wrapper -->
                         <div class="single-footer-wized">
                             <h3 class="footer-title">Useful Links</h3>
                             <div class="footer-nav">
@@ -1004,8 +1004,8 @@
                                 </ul>
                             </div>
                         </div>
-                        single footer area wrapper
-                        single footer area wrapper
+                        <!-- single footer area wrapper -->
+                        <!-- single footer area wrapper -->
                         <div class="single-footer-wized">
                             <h3 class="footer-title">Our Newsletter</h3>
                             <p class="disc-news-letter">
@@ -1020,7 +1020,7 @@
                                 I would like to receive news and special offer
                             </p>
                         </div>
-                        single footer area wrapper
+                        <!-- single footer area wrapper -->
                     </div>
                     <div class="social-and-payment-area-wrapper">
                         <div class="social-one-wrapper">
@@ -1042,9 +1042,9 @@
             </div>
         </div>
     </div>
-    rts footer one area end
+    <!-- rts footer one area end -->
 
-    rts copyright-area start
+    <!-- rts copyright-area start -->
     <div class="rts-copyright-area">
         <div class="container">
             <div class="row">
@@ -1063,7 +1063,7 @@
             </div>
         </div>
     </div>
-    rts copyright-area end
+    <!-- rts copyright-area end -->
 
 
     <div class="product-details-popup-wrapper">
@@ -1153,18 +1153,18 @@
         </div>
     </div>
 
-    successfully add in wishlist
+    <!-- successfully add in wishlist -->
     <div class="successfully-addedin-wishlist">
         <div class="d-flex" style="align-items: center; gap: 15px;">
             <i class="fa-regular fa-check"></i>
             <p>Your item has already added in wishlist successfully</p>
         </div>
     </div>
-    successfully add in wishlist end
+    <!-- successfully add in wishlist end -->
 
 
 
-    Modal
+    <!-- Modal -->
     <div class="modal modal-compare-area-start fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1347,8 +1347,8 @@
 
 
 
-    ================= Preloader Section Start Here =================
-    <div id="weiboo-load">
+    <!--================= Preloader Section Start Here =================-->
+    <!-- <div id="weiboo-load">
     <div class="preloader-new">
         <svg class="cart_preloader" role="img" aria-label="Shopping cart_preloader line animation"
             viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
@@ -1373,8 +1373,8 @@
             </g>
         </svg>
     </div>
-</div>
-    ================= Preloader End Here =================
+</div> -->
+    <!--================= Preloader End Here =================-->
 
 
 
@@ -1392,25 +1392,25 @@
         <div id="close" class="search-close-icon"><i class="far fa-times"></i></div>
     </div>
     <div id="anywhere-home" class="anywere"></div>
-    progress area start
+    <!-- progress area start -->
     <div class="progress-wrap">
         <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
         </svg>
     </div>
-    progress area end
+    <!-- progress area end -->
 
 
-    plugins js
+    <!-- plugins js -->
     <script defer src="/view/js/plugins.js"></script>
 
-    custom js
+    <!-- custom js -->
     <script defer src="/view/js/main.js"></script>
-    header style two End
+    <!-- header style two End -->
 
 	</div>
 </body>
 
 
-Mirrored from html.themewant.com/ekomart/shop-details-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 01 Nov 2024 06:32:40 GMT
-</html> -->
+<!-- Mirrored from html.themewant.com/ekomart/shop-details-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 01 Nov 2024 06:32:40 GMT -->
+</html>
