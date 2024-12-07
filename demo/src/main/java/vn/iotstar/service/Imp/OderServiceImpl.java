@@ -33,4 +33,9 @@ public class OderServiceImpl implements IOderService {
     {
     	return oderrepo.findByShopIdAndStatus(shopId, status);
     }
+    
+    @Override
+	public List<Orders> findAll() {
+    	return oderrepo.findAll();
+    }
 }

@@ -16602,6 +16602,9 @@ edit .quantity-edit button {
 .single-over-fiew-card .bottom .right-primary .increase span {
   color: var(--color-primary);
 }
+.single-over-fiew-card .bottom .right-primary .increase span.negative {
+  color: red; /* Màu đỏ nếu âm */
+}
 @media only screen and (max-width: 1199px) {
   .single-over-fiew-card .bottom .right-primary img {
     max-width: 40px;
