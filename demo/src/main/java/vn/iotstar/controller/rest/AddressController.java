@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.persistence.Convert;
@@ -55,7 +56,31 @@ public class AddressController {
 	    }
 	}
 
-
+	@PostMapping("/user/api/address/default")
+	public ResponseEntity<Void> setAddressDefault(@RequestParam("addressId")  Long addressId) {
+	    try {
+	        // Chuyển đổi id từ String sang Long
+	       
+	    	 Optional<Address>addressde=addre.findByDefaults(1);
+	    	 Address addressd=addressde.get();
+	    	 addressd.setDefaults(0);
+	    	 addre.save(addressd);
+	    	
+	       Optional<Address>address=addre.findById(addressId);
+	       Address addresss=address.get();
+	       addresss.setDefaults(1);
+	       addre.save(addresss);
+	    
+	       
+	       
+	            return ResponseEntity.ok().build();
+	        
+	        
+	    } catch (Exception e) {
+	        // Trả về mã lỗi 500 khi có lỗi xảy ra
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    }
+	}
 	@PostMapping("/user/api/address/save")
 	public ResponseEntity<Void> saveAddress(@RequestBody AddresModel address, Model model) {
 	    try {
@@ -77,7 +102,7 @@ public class AddressController {
 	        newAddress.setDistrict(address.getDistrict()); // Lưu tên quận
 	        newAddress.setWard(address.getWard());         // Lưu tên xã
 	        newAddress.setDetail(address.getDetail());
-	        newAddress.setDefaults(1);
+	        newAddress.setDefaults(0);
 
 	        // Lấy thông tin user (giả sử ID user là 1)
 	        Optional<UserInfo> user2 = userservice.findById(1);

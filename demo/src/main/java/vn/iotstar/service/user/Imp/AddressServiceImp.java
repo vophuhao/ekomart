@@ -35,6 +35,10 @@ public class AddressServiceImp implements IAddressService{
 	{
 		addressrepo.deleteById(id);
 	}
+	@Override
+	public Optional<Address> findByDefaults(int defaults) {
+		return addressrepo.findByDefaults(defaults);
+	}
 	
 	
 }

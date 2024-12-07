@@ -112,10 +112,14 @@
 										<div class="d-flex"
 											style="height: 20%; width: 100%; height: 20%; width: 100%; justify-content: flex-end; display: flex;">
 											<i class="fa-solid fa-pencil-alt"
-												style="padding-right: 10px;"> </i> <i
+												style="padding-right: 10px;"> </i> 
+											<i
 												class="fa-solid fa-trash-alt remove-address"
-												style="padding-right: 10px;"></i> <a
-												th:text="${address.defaults == 1 ? 'Mặc định' : 'Dat lam  mặc định'}"></a>
+												style="padding-right: 10px;"></i> 
+												
+												<div th:data-addressId="${address.id}" th:class="${address.default == 1} ? 'address-default' : 'address-none'" th:text="${address.defaults == 1 ? 'Mặc định' : 'Đặt làm  mặc định'}">
+													
+												</div>
 
 										</div>
 									</div>

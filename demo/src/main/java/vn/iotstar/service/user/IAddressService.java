@@ -10,7 +10,7 @@ import vn.iotstar.entity.UserInfo;
 public interface IAddressService {
 	Address save(Address address);
 	public List<Address> findByUser(UserInfo user);
-	
+	Optional<Address> findByDefaults(int defaults);
 	Optional<Address> findById(Long id);
 	void delete(Long id);
 }
