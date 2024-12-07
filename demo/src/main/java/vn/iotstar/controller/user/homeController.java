@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -30,6 +31,7 @@ import vn.iotstar.entity.UserInfo;
 import vn.iotstar.entity.Wishlist;
 import vn.iotstar.repository.CategoryRepository;
 import vn.iotstar.repository.ProductRepository;
+import vn.iotstar.repository.WishlistItemRepository;
 import vn.iotstar.repository.WishlistRepository;
 import vn.iotstar.service.admin.AdminShopService;
 import vn.iotstar.service.user.IUserService;
@@ -60,6 +62,8 @@ public class homeController {
     private ProductRepository prorepo;
     @Autowired
     private WishlistRepository wishrepo;
+    @Autowired
+    private WishlistItemRepository wishItemrepo;
 
 	@GetMapping("/home")
 	public String homeView(HttpServletRequest request, Model model,HttpSession session) {
@@ -127,6 +131,13 @@ public class homeController {
 		Wishlist wish = wishlist.get();
 		model.addAttribute("wish", wish);
 		return "page/wishlist";
+	}
+	
+	@PostMapping("/wishlist")
+	public String removeProductFromWishlist(@RequestParam("item") String wishId) {
+	    // Giả sử bạn có một phương thức trong service để xóa sản phẩm khỏi giỏ
+		wishItemrepo.deleteById(Long.parseLong(wishId));
+	    return "redirect:/user/wishlist";
 	}
 	
 	@GetMapping("/product")

@@ -17439,7 +17439,6 @@ li.with-megamenu:hover .rts-megamenu {
 }
 
 .bg-primary-header.header-style-two .category-hover-header:hover {
-  background: var(--color-heading-1) !important;
   color: #fff !important;
 }
 

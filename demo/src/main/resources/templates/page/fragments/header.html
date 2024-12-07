@@ -65,7 +65,6 @@
 								class="fa-regular fa-heart"></i> Wishlist <span class="number">2</span>
 							</a>
 							<div th:if="${session.username !=null}" class="btn-border-only cart category-hover-header">
-								
 								<i class="fa-sharp fa-regular fa-cart-shopping"></i> <span
 									class="text">My Cart</span> <span class="number" th:text="${session.cartCount}"></span>
 								<a th:href="@{/user/cart}" class="over_link"></a>
