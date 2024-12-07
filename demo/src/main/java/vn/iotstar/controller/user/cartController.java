@@ -100,6 +100,7 @@ public class cartController {
 		 session.setAttribute("username", username);
 		UserInfo userInfo = user.get();
 		Cart cart = cartService.findByUser(userInfo);
+		session.setAttribute("cartCount", cart.getItems().size());
 		model.addAttribute("cart", cart);
 		return "page/cart";
 	}

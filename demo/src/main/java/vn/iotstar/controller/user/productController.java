@@ -20,9 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Review;
+import vn.iotstar.entity.Shop;
 import vn.iotstar.entity.UserInfo;
+import vn.iotstar.repository.ProductRepository;
+import vn.iotstar.repository.ShopRepository;
 import vn.iotstar.service.UserService;
 import vn.iotstar.service.user.ProductService;
 import vn.iotstar.service.user.ReviewService;
@@ -37,7 +41,13 @@ public class productController {
     private ProductService productService;
 	
 	@Autowired
+    private ProductRepository productRepo;
+	
+	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private ShopRepository shopRepo;
 	
 	@Autowired
     private JwtUtil jwtUtil;
@@ -56,6 +66,11 @@ public class productController {
         for (Review review : reviews) {
             review.setFormattedDateString(review.getDate().format(formatter));
         }
+        Shop shop = product.getShop();
+        Category cate = product.getCategory();
+        List<Product> relatePro = productRepo.findByCategory(cate);
+        model.addAttribute("relatePro", relatePro);
+        model.addAttribute("shop", shop);
         model.addAttribute("product", product);
         model.addAttribute("reviews", reviews);
         model.addAttribute("reviewsCount", reviews.size());

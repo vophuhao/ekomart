@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Shop;
 import vn.iotstar.entity.Wishlist;
@@ -40,6 +41,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 
 	 @Query("SELECT p FROM Product p ORDER BY p.sold DESC")
 	 List<Product> findTop20ByOrderBySoldDesc(Pageable pageable);
+	 
+	 List<Product> findByCategory(Category category);
 	 
 //	 List<Object[]> findTop20ProductsByReviewCount(Pageable pageable);
 	 
