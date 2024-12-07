@@ -29195,3 +29195,40 @@ html.no-scroll {
 	width: auto;
 	height: 230px;
 }
+.category-sub-menu img{
+	width: 30px;
+	height: 30px;
+}
+.paginate_button_product a{
+	background: #fff;
+    color: var(--color-primary);
+    border: 1px solid #f1f1f1 !important;
+    border-radius: 2px;
+    padding: 0.5em 1em;
+    text-align: center;
+    margin-left: 5px;
+    width: 90px;
+	height: 40px;
+}
+
+.paginate_button_product a:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.paginate_button_product_current a{
+	background: #fff;
+    color: var(--color-primary);
+    border: 1px solid #f1f1f1 !important;
+    border-radius: 2px;
+    padding: 0.5em 1em;
+    text-align: center;
+    margin-left: 5px;
+    width: 40px;
+	height: 40px;
+}
+
+.paginate_button_product_current a:hover {
+    background-color: var(--color-primary);
+    color: white;
+}

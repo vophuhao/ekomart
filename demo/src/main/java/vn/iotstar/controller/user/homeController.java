@@ -23,10 +23,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.iotstar.config.UserInfoService;
 import vn.iotstar.entity.Cart;
+import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Shop;
 import vn.iotstar.entity.UserInfo;
 import vn.iotstar.entity.Wishlist;
+import vn.iotstar.repository.CategoryRepository;
 import vn.iotstar.repository.ProductRepository;
 import vn.iotstar.repository.WishlistRepository;
 import vn.iotstar.service.admin.AdminShopService;
@@ -44,7 +46,8 @@ public class homeController {
 
 	@Autowired
 	private CartServiceImpl cartService;
-	
+	@Autowired
+	private CategoryRepository cateRepo;
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
@@ -89,6 +92,9 @@ public class homeController {
         
 //        List<Object[]> top20Rate = productService.getTop20ReviewedProducts();
 //        model.addAttribute("top20Rate", top20Rate);
+        List<Category> listcate = cateRepo.findAll();
+        model.addAttribute("cate", listcate);
+        session.setAttribute("cate", listcate);
         
         Optional<UserInfo> user = userService.findByName((String)session.getAttribute("username"));
 		UserInfo userInfo = user.get();
@@ -126,15 +132,23 @@ public class homeController {
 	@GetMapping("/product")
 	public ModelAndView getProduct(
 	        @RequestParam(value = "page", defaultValue = "0") int page,
-	        @RequestParam(defaultValue = "16") int size) {
-	    Pageable pageable = PageRequest.of(page, size);
-	    Page<Product> productPage = productService.findAllByDisplay(1,pageable);
-	    
-	    ModelAndView modelAndView = new ModelAndView("page/shop-grid-sidebar");  // Trả về trang shop-grid.html
+	        @RequestParam(defaultValue = "16") int size,
+	        @RequestParam("value") String value) {
+		ModelAndView modelAndView = new ModelAndView("page/shop-grid-sidebar");
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Product> productPage;
+		if (value == null)
+		{
+			productPage = productService.findAllByDisplay(1,pageable);
+		}
+		else
+		{
+			productPage = prorepo.findByNameOrCategoryNameContaining(value,pageable);
+		}
+		modelAndView.addObject("value", value);
 	    modelAndView.addObject("product", productPage);
 	    modelAndView.addObject("currentPage", productPage.getNumber());
 	    modelAndView.addObject("totalPages", productPage.getTotalPages());
-	    
 	    return modelAndView;
 	}
 	

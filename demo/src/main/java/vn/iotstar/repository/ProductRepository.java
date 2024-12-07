@@ -50,5 +50,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 		       "ORDER BY SUM(od.quantity) DESC")
 		List<Product> findTopSellingProductsByShopId(@Param("shopId") long shopId, Pageable pageable);
 	 
+	 @Query("SELECT p FROM Product p JOIN p.category c WHERE (p.name LIKE %:keyword% OR c.categoryName LIKE %:keyword%) AND p.display = 1")
+	 Page<Product> findByNameOrCategoryNameContaining(@Param("keyword") String keyword, Pageable pageable);
 }
 

@@ -86,101 +86,12 @@
                         }'>
 							<div class="swiper-wrapper">
 								<!-- single swiper start -->
-								<div class="swiper-slide">
+								<div class="swiper-slide" th:each="cate : ${cate}">
 									<div class="single-category-one">
 										<a href="shop-grid-sidebar.html"> <img
-											src="/view/images/category/01.png" alt="category">
-											<p>Organic Vegetable</p> <span>299 Items</span>
-										</a>
-									</div>
-								</div>
-								<!-- single swiper start -->
-								<!-- single swiper start -->
-								<div class="swiper-slide">
-									<div class="single-category-one">
-										<a href="shop-grid-sidebar.html"> <img
-											src="/view/images/category/02.png" alt="category">
-											<p>Organic Vegetable</p> <span>299 Items</span>
-										</a>
-									</div>
-								</div>
-								<!-- single swiper start -->
-								<!-- single swiper start -->
-								<div class="swiper-slide">
-									<div class="single-category-one">
-										<a href="shop-grid-sidebar.html"> <img
-											src="/view/images/category/03.png" alt="category">
-											<p>Organic Vegetable</p> <span>299 Items</span>
-										</a>
-									</div>
-								</div>
-								<!-- single swiper start -->
-								<!-- single swiper start -->
-								<div class="swiper-slide">
-									<div class="single-category-one">
-										<a href="shop-grid-sidebar.html"> <img
-											src="/view/images/category/04.png" alt="category">
-											<p>Organic Vegetable</p> <span>299 Items</span>
-										</a>
-									</div>
-								</div>
-								<!-- single swiper start -->
-								<!-- single swiper start -->
-								<div class="swiper-slide">
-									<div class="single-category-one">
-										<a href="shop-grid-sidebar.html"> <img
-											src="/view/images/category/05.png" alt="category">
-											<p>Organic Vegetable</p> <span>299 Items</span>
-										</a>
-									</div>
-								</div>
-								<!-- single swiper start -->
-								<!-- single swiper start -->
-								<div class="swiper-slide">
-									<div class="single-category-one">
-										<a href="shop-grid-sidebar.html"> <img
-											src="/view/images/category/06.png" alt="category">
-											<p>Organic Vegetable</p> <span>299 Items</span>
-										</a>
-									</div>
-								</div>
-								<!-- single swiper start -->
-								<!-- single swiper start -->
-								<div class="swiper-slide">
-									<div class="single-category-one">
-										<a href="shop-grid-sidebar.html"> <img
-											src="/view/images/category/07.png" alt="category">
-											<p>Organic Vegetable</p> <span>299 Items</span>
-										</a>
-									</div>
-								</div>
-								<!-- single swiper start -->
-								<!-- single swiper start -->
-								<div class="swiper-slide">
-									<div class="single-category-one">
-										<a href="shop-grid-sidebar.html"> <img
-											src="/view/images/category/08.png" alt="category">
-											<p>Organic Vegetable</p> <span>299 Items</span>
-										</a>
-									</div>
-								</div>
-								<!-- single swiper start -->
-								<!-- single swiper start -->
-								<div class="swiper-slide">
-									<div class="single-category-one">
-										<a href="shop-grid-sidebar.html"> <img
-											src="/view/images/category/09.png" alt="category">
-											<p>Organic Vegetable</p> <span>299 Items</span>
-										</a>
-									</div>
-								</div>
-								<!-- single swiper start -->
-								<!-- single swiper start -->
-								<div class="swiper-slide">
-									<div class="single-category-one">
-										<a href="shop-grid-sidebar.html"> <img
-											src="/view/images/category/10.png" alt="category">
-											<p>Organic Vegetable</p> <span>299 Items</span>
+											th:src="@{'/user/home/product-detail/images/' + ${cate.image}}" alt="category">
+											<p th:text="${cate.categoryName}"></p> 
+											<span></span>
 										</a>
 									</div>
 								</div>

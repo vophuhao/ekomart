@@ -1494,8 +1494,8 @@ function filterByRating(rating) {
 	        .catch(error => console.error('Error:', error));
 }
 
-function loadPage(page) {
-	fetch(`/product?page=${page}&size=16`);
+/*function loadPage(page) {
+	fetch(`/product?vapage=${page}&size=16`);
 	then(response => response.json())
 	        .then(data => {
 			            const productContainer = document.getElementById('product-container');
@@ -1545,7 +1545,7 @@ function loadPage(page) {
 			            `).join('');
 					})
 			        .catch (error => console.error("Error loading products:", error));
-    }
+    }*/
 document.querySelectorAll('.remove-cart').forEach(element => {
 	element.addEventListener("click", removeItem);
 });
