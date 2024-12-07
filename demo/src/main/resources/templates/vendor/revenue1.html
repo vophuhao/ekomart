@@ -29,7 +29,7 @@
                     </div>
                     <!-- over view area start -->
                      <div class="row g-5">
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                             <div class="single-over-fiew-card">
                                 <span class="top-main">Revenue</span>
                                 <div class="bottom">
@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                             <div class="single-over-fiew-card">
                                 <span class="top-main">Sold Products</span>
                                 <div class="bottom">
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                             <div class="single-over-fiew-card">
                                 <span class="top-main">Total Orders</span>
                                 <div class="bottom">
@@ -82,7 +82,7 @@
                     
                    	<!-- top-product area start -->
                       <div class="row mt--10 g-5">
-					    <div class="col-xl-8 col-lg-12">
+					    <div class="col-xl-12 col-lg-12">
 					        <div class="top-product-wrapper-scroll">
 					            <div class="top-product-area-start">
 					                <div class="between-area-top">
@@ -109,7 +109,7 @@
 									        <tr th:each="product, iter : ${topProducts}">
 									            <td th:text="${product.productId}"></td>
 									            <td>
-									                <img th:src="@{${product.image}}" alt="product" style="width: 50px; height: 50px;">
+									                <img th:src="@{'/user/home/product-detail/images/' + ${product.image}}" alt="product" style="width: 50px; height: 50px;">
 									            </td>
 									            <td th:text="${product.name}"></td>
 									            <td th:text="${product.sold + ' Items'}"></td>

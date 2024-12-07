@@ -59,7 +59,13 @@
 								            <tr th:each="order : ${orders}">
 								                <td th:text="'#' + ${order.id}"></td> <!-- Hiển thị ID đơn hàng -->
 								                <td th:text="${#temporals.format(order.date, 'dd/MM/yyyy')}"></td>
-								                <td th:text="${order.status}"></td> <!-- Hiển thị trạng thái -->
+								                <td th:text="${
+												    order.status == 0 ? 'Waiting' :
+												    (order.status == 1 ? 'Confirm' :
+												    (order.status == 2 ? 'Shipping' :
+												    (order.status == 3 ? 'Complete' :
+												    (order.status == 4 ? 'Cancel' :
+												    (order.status == 5 ? 'Refund' : 'unknown')))))}"></td> <!-- Hiển thị trạng thái -->
 								                <td th:text="${order.totalPay} + ' Đồng'"></td> <!-- Hiển thị tổng cộng -->
 								                <td>
 												    <a href="javascript:void(0);" class="btn btn-primary btn-sm" 

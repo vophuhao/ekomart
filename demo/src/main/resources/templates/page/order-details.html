@@ -10,7 +10,7 @@
         <div>
             <h2>Order Info</h2>
             <p><strong>Order ID:</strong> <span th:text="${order.id}"></span></p>
-            <p><strong>Address:</strong> <span th:text="${order.userAddress.detail} + ', ' + ${order.userAddress.ward} + ', ' + ${order.userAddress.district} + ', ' + ${order.userAddress.province}"></span></p>
+            <p><strong>Address:</strong> <span th:text="${order.address}"></span></p>
             <p><strong>Order Date:</strong> <span th:text="${#temporals.format(order.date, 'dd/MM/yyyy')}"></span></p>
             <p>
 			    <strong>Status:</strong> 

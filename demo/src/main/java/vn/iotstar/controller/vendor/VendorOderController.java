@@ -15,18 +15,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import vn.iotstar.entity.Address;
 import vn.iotstar.entity.OrderDetail;
 import vn.iotstar.entity.Orders;
 import vn.iotstar.entity.Product;
+import vn.iotstar.entity.Shop;
+import vn.iotstar.entity.UserInfo;
+import vn.iotstar.repository.ShopRepository;
 import vn.iotstar.service.IOderService;
+import vn.iotstar.service.UserService;
 import vn.iotstar.service.Imp.OderDetailServiceImpl;
+import vn.iotstar.service.vendor.RevenueService;
 import vn.iotstar.service.vendor.VendorIProductService;
+import vn.iotstar.util.JwtUtil;
 
 @Controller
 @RequestMapping("/vendor/order")
 public class VendorOderController {
 
+	@Autowired
+	private ShopRepository shopRepository;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	JwtUtil jwtUtil;
+	
 	@Autowired
 	IOderService oderservice;
 	
@@ -52,54 +69,122 @@ public class VendorOderController {
 		}
 		
 		List<OrderDetail> listOrder=oderdetailservice.findByOrders(orderss);
-		Address address=orderss.getUserAddress();
 		
-		
-		model.addAttribute("addressUser", address);
 		model.addAttribute("orderlist", listOrder);
+		model.addAttribute("orders", orderss);
 		return "vendor/oder-detail";
 	}
 	
 	@GetMapping("/waiting")
-	public String listOderWaiting(Model model)
+	public String listOderWaiting(Model model, HttpServletRequest request)
 	{
-		List<Orders> list=oderservice.findByShopIdAndStatus(11L, 0);
+		String token = null;
+		// Lấy cookie từ request
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        String username = jwtUtil.extractUsername(token);
+        UserInfo user = userService.findByUsername(username);
+		Shop shop = shopRepository.findByUserId(user.getId()).orElse(null);
+		List<Orders> list=oderservice.findByShopIdAndStatus(shop.getId(), 0);
 		
 		model.addAttribute("listOder", list);
 		System.out.print(list.size());
 		return "vendor/oder-list";
 	}
 	@GetMapping("/confirm")
-	public String listOderConfirm(Model model)
+	public String listOderConfirm(Model model, HttpServletRequest request)
 	{
-		List<Orders> list=oderservice.findByShopIdAndStatus(11L, 1);
+		String token = null;
+		// Lấy cookie từ request
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        String username = jwtUtil.extractUsername(token);
+        UserInfo user = userService.findByUsername(username);
+		Shop shop = shopRepository.findByUserId(user.getId()).orElse(null);
+		List<Orders> list=oderservice.findByShopIdAndStatus(shop.getId(), 1);
 		
 		model.addAttribute("listOder", list);
 		System.out.print(list.size());
 		return "vendor/oder-list";
 	}
 	@GetMapping("/shipping")
-	public String listOderShipping(Model model)
+	public String listOderShipping(Model model,HttpServletRequest request)
 	{
-		List<Orders> list=oderservice.findByShopIdAndStatus(11L, 2);
+		String token = null;
+		// Lấy cookie từ request
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        String username = jwtUtil.extractUsername(token);
+        UserInfo user = userService.findByUsername(username);
+		Shop shop = shopRepository.findByUserId(user.getId()).orElse(null);
+		List<Orders> list=oderservice.findByShopIdAndStatus(shop.getId(), 2);
 		
 		model.addAttribute("listOder", list);
 		System.out.print(list.size());
 		return "vendor/oder-list";
 	}
 	@GetMapping("/complete")
-	public String listOderComplete(Model model)
+	public String listOderComplete(Model model, HttpServletRequest request)
 	{
-		List<Orders> list=oderservice.findByShopIdAndStatus(11L, 3);
+		String token = null;
+		// Lấy cookie từ request
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        String username = jwtUtil.extractUsername(token);
+        UserInfo user = userService.findByUsername(username);
+		Shop shop = shopRepository.findByUserId(user.getId()).orElse(null);
+		List<Orders> list=oderservice.findByShopIdAndStatus(shop.getId(), 3);
 		
 		model.addAttribute("listOder", list);
 		System.out.print(list.size());
 		return "vendor/oder-list";
 	}
 	@GetMapping("/cancel")
-	public String listOderCancel(Model model)
+	public String listOderCancel(Model model,HttpServletRequest request)
 	{
-		List<Orders> list=oderservice.findByShopIdAndStatus(11L, 4);
+		String token = null;
+		// Lấy cookie từ request
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        String username = jwtUtil.extractUsername(token);
+        UserInfo user = userService.findByUsername(username);
+		Shop shop = shopRepository.findByUserId(user.getId()).orElse(null);
+		List<Orders> list=oderservice.findByShopIdAndStatus(shop.getId(), 4);
 		
 		model.addAttribute("listOder", list);
 		System.out.print(list.size());
@@ -107,9 +192,23 @@ public class VendorOderController {
 	}
 	
 	@GetMapping("/refund")
-	public String listOderRefund(Model model)
+	public String listOderRefund(Model model,HttpServletRequest request)
 	{
-		List<Orders> list=oderservice.findByShopIdAndStatus(11L, 5);
+		String token = null;
+		// Lấy cookie từ request
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        String username = jwtUtil.extractUsername(token);
+        UserInfo user = userService.findByUsername(username);
+		Shop shop = shopRepository.findByUserId(user.getId()).orElse(null);
+		List<Orders> list=oderservice.findByShopIdAndStatus(shop.getId(), 5);
 		
 		model.addAttribute("listOder", list);
 		System.out.print(list.size());

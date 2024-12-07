@@ -21,18 +21,16 @@
 
 							</div>
 							<div class='row row-address' style="margin-top: 15px;margin-left: 3px;">
-								<div class="col-6 address" style="margin-right: 15px;background-color: #fff"
-									th:each="address : ${addressUser}">
+								<div class="col-6 address" style="margin-right: 15px;background-color: #fff">
 									<div class=" align-items-start"
 										style="padding: 10px; height: 100%">
 										<div style="padding: 10px; height: 80%">
-											<input type="hidden" th:value=${address.id} id="addressid">
 											<p>
-												<strong th:text="'Khách Hàng: ' + ${address.uname}"></strong>
+												<strong th:text="'Khách Hàng: ' + ${orders.name}"></strong>
 											</p>
-											<p th:text="'Sdt: ' + ${address.phone}" style="margin-top: -15px;"></p>
+											<p th:text="'Sdt: ' + ${orders.phone}" style="margin-top: -15px;"></p>
 											<p
-												th:text="${ 'Dia chi: ' + address.detail + ' ' + address.ward + ' ' + address.district + ' ' + address.province}"></p>
+												th:text="${orders.address}"></p>
 										</div>
 										<!-- Các nút Chỉnh sửa và Xóa -->										
 									</div>

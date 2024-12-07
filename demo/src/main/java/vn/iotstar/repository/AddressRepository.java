@@ -19,5 +19,5 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
 	
 	 Optional<Address> findByDefaults(int defaults);
 
-	
+	 Optional<Address> findByUserAndDefaults(UserInfo user, int defaults);
 }

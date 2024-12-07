@@ -43,7 +43,7 @@
 								<p>Chon</p>
 							</div>
 						</div>
-						<form th:action="@{/user/cart/payment}" th:method="get" th:object="${productPayment}">
+						<form th:action="@{/user/cart/payment}" th:method="post" th:object="${productPayment}">
 							<div th:each="item, i : ${cart.items}">
 								<div class="single-cart-area-list main item-parent">
 									<div class="product-main-cart">
@@ -70,8 +70,8 @@
 										</div>
 									</div>
 									<div class="price">
-										<input type="hidden" th:name="'selectedProduct[' + ${i.index} + '].productPrice'" th:value="${item.price}" />
-										<p class="product-price" th:text="${item.price}"></p>
+										<input type="hidden" th:name="'selectedProduct[' + ${i.index} + '].productPrice'" th:value="${item.product.price}" />
+										<p class="product-price" th:text="${item.product.price}"></p>
 									</div>
 									<div class="quantity">
 										<div class="quantity-edit">
@@ -83,7 +83,7 @@
 			                             </div>
 									</div>
 									<div class="subtotal">
-										<p class="subtotal-price" th:text="${item.price}"></p>
+										<p class="subtotal-price" th:text="${item.product.price}"></p>
 									</div>
 									<div class="subtotal-1">
 										<!-- Checkbox with product id as value -->

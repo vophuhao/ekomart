@@ -1346,6 +1346,7 @@ document.querySelectorAll('.refund-order').forEach(button => {
 function confirmOder(){
 	const orderId = this.getAttribute('data-order-id');
 	const status=1;
+	console.log(orderId);
 	
 	try {
 	    // Lấy orderId (giả sử orderId đã có sẵn từ phía frontend)

@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -47,6 +49,7 @@ import vn.iotstar.service.user.Imp.AddressServiceImp;
 import vn.iotstar.service.user.Imp.CartServiceImpl;
 import vn.iotstar.service.user.Imp.ProductServiceImpl;
 import vn.iotstar.service.user.Imp.UserInfoServiceImp;
+import vn.iotstar.util.JwtUtil;
 
 @Controller
 @RequestMapping("/user")
@@ -54,6 +57,9 @@ public class cartController {
 	@Autowired
 	private CartServiceImpl cartService;
 
+	@Autowired
+    private JwtUtil jwtUtil;
+	
 	@Autowired
 	private UserInfoServiceImp userservice;
 
@@ -76,8 +82,21 @@ public class cartController {
 	private ProductServiceImpl productservice;
 
 	@GetMapping("/cart")
-	public String showCart(Model model, HttpSession session) {
-		Optional<UserInfo> user = userservice.findByName((String)session.getAttribute("username"));
+	public String showCart(HttpServletRequest request, Model model, HttpSession session) {
+		String token = null;
+		// Lấy cookie từ request
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        
+        String username = jwtUtil.extractUsername(token);
+		Optional<UserInfo> user = userservice.findByName(username);
 		UserInfo userInfo = user.get();
 		Cart cart = cartService.findByUser(userInfo);
 		model.addAttribute("cart", cart);
@@ -85,8 +104,21 @@ public class cartController {
 	}
 
 	@PostMapping("/add-item")
-	public String addItemToCart(@Valid CartItem cartItem, BindingResult result, HttpSession session) {
-		Optional<UserInfo> user = userservice.findByName((String)session.getAttribute("username"));
+	public String addItemToCart(@Valid CartItem cartItem,HttpServletRequest request, BindingResult result, HttpSession session) {
+		String token = null;
+		// Lấy cookie từ request
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        
+        String username = jwtUtil.extractUsername(token);
+		Optional<UserInfo> user = userservice.findByName(username);
 		UserInfo userInfo = user.get();
 		if (result.hasErrors())
 			return "redirect:/user/cart";
@@ -101,7 +133,7 @@ public class cartController {
 	    return "redirect:/user/cart";
 	}
 	
-	@GetMapping("/cart/payment")
+	@PostMapping("/cart/payment")
 	public String paymentCart(@ModelAttribute("productPayment") productPayment ProductPayment, Model model,
 			RedirectAttributes redirectAttributes, HttpSession session) {
 		Optional<UserInfo> user = userservice.findByName((String)session.getAttribute("username"));
@@ -152,14 +184,26 @@ public class cartController {
 		}
 	}
 
-	@PostMapping("/cart/payment")
-	public String processPayment(@RequestBody OderRequest orderRequest) {
-
-		System.out.print(orderRequest);
-		String addressId = orderRequest.getAddressId();
+	@PostMapping("/cart/payment/save")
+	public String processPayment(@RequestBody OderRequest orderRequest, HttpServletRequest request, HttpSession session) {
+		String token = null;
+		// Lấy cookie từ request
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        
+        String username = jwtUtil.extractUsername(token);
+		Optional<UserInfo> user = userservice.findByName(username);
+		UserInfo userInfo = user.get();
 		List<String> productIds = orderRequest.getProductIds();
 		List<String> quantities = orderRequest.getQuantities();
-		Optional<Address> address = addre.findById(Long.parseLong(addressId));
+		Optional<Address> address = addre.findByUserAndDefaults(userInfo, 1);
 		Address addr = address.get();
 
 		List<Product> productList = new ArrayList<>();
@@ -197,8 +241,11 @@ public class cartController {
 			Orders oders = new Orders();
 			String odersId = generateRandomString(6);
 			oders.setOderId(odersId);
-			oders.setUserAddress(addr);
+			
 			oders.setShop(shop);
+			oders.setName(addr.getUname());
+			oders.setAddress(addr.getDetail()+" "+addr.getWard()+" "+addr.getDistrict()+" "+addr.getProvince());
+			oders.setPhone(addr.getPhone());
 			oders.setStatus(0);
 			oderservice.save(oders);
 			for (Product product : productList) {
