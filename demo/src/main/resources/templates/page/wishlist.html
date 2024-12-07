@@ -1,0 +1,85 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="~{page/home.html}">
+
+<div layout:fragment="content">
+	<div class="rts-cart-area rts-section-gap bg_light-1">
+		<div class="container-payment">
+			<div class="row g-5">
+				<div
+					class="col-xl-12 col-lg-12 col-md-12 col-12 order-2 order-xl-1 order-lg-2 order-md-2 order-sm-2">
+					<div class="cart-area-main-wrapper">
+						<div class="cart-top-area-note">
+							<p>
+								Wishlist
+							</p>
+							<div class="bottom-content-deals mt--10">
+								<div class="single-progress-area-incard">
+									<div class="progress">
+										<div class="progress-bar wow fadeInLeft" role="progressbar"
+											style="width: 80%" aria-valuenow="25" aria-valuemin="0"
+											aria-valuemax="100"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="rts-cart-list-area">
+						<div class="single-cart-area-list head">
+							<div class="product-main">
+								<P>Products</P>
+							</div>
+							<div class="quantity">
+								<p>Price</p>
+							</div>
+							<div class="subtotal">
+								<p></p>
+							</div>
+							<div class="subtotal">
+								<p>Chon</p>
+							</div>
+						</div>
+						<form th:action="@{/user/cart/payment}" th:method="get"
+							th:object="${productPayment}">
+							<div th:each="pro : ${wish.items}">
+								<div class="single-cart-area-list main item-parent">
+									<div class="product-main-cart1">
+										<div class="close section-activation">
+											<i class="fa-regular fa-x"></i>
+										</div>
+										<input type="hidden" th:value="${pro.product.image}" />
+										<div class="thumbnail">
+											<img
+												th:src="@{'/user/home/product-detail/images/' + ${pro.product.image}}"
+												alt="shop">
+										</div>
+										<div class="information1">
+											<!-- Hidden inputs -->
+											<input type="hidden" th:value="${pro.product.id}" /> 
+											<input
+												type="hidden" th:value="${pro.product.name}" />
+											<h6 class="title" th:text="${pro.product.name}"></h6>
+											<!-- <span th:text="${product.id}"></span> -->
+										</div>
+										<div class="price-wish">
+											<input type="hidden" th:value="${pro.product.price}" />
+											<p class="product-price" th:text="${pro.product.price}"></p>
+										</div>
+										<div class="action-add-cart">
+											<button class="rts-btn btn-primary" type="submit">Add to Cart</button>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							</form>
+					</div>
+					
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
