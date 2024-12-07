@@ -1440,6 +1440,35 @@ function cancelOrder(orderId) {
     }
 }
 
+document.querySelectorAll('.btn-shop').forEach(element => {
+	element.addEventListener("click", shopdetail);
+});
+function shopdetail()
+{
+	const shopId = this.getAttribute('data-shopId');
+	 console.log(shopId)
+	   // Giả sử rằng mỗi sản phẩm có cấu trúc như sau:
+	   // <input type="hidden" class="product-id" value="productId">
+	   // <input type="number" class="product-quantity" value="quantity">	  
+	   // Tạo đối tượng dữ liệu để gửi
+	  
+		
+	   // Gửi yêu cầu POST tới controller
+	   $.ajax({
+	       url: '/user/vendor/detail',  // Địa chỉ API
+	       type: 'GET',
+	       contentType: 'application/json',  // Định dạng gửi đi là JSON
+	       data: { shopId: shopId }, // Gửi orderId dưới dạng JSON
+	       success: function(response) {
+		 window.location.href = `/user/vendor/detail?shopId=${shopId}`;
+	       },
+	       error: function(error) {
+	           // In lỗi nếu có
+	           console.error('Lỗi khi đặt hàng:', error);
+	       }
+	   });
+}
+
 function filterByRating(rating) {
     const productId = document.getElementById('productId').value; // Ẩn input chứa ID sản phẩm
     const thymeleafReviews = document.querySelectorAll('.thymeleaf-review'); // Lấy các đánh giá mặc định

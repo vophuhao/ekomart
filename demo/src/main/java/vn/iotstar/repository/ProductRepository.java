@@ -31,6 +31,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 
 	 Optional<Product> findByName(String productName);
 	 
+	 Page<Product> findByShop(Shop shop, Pageable pageable);
+	 
 	 List<Product> findByShop(Shop shop);
 	 
 	 @Query("SELECT p FROM Product p ORDER BY p.date DESC")
