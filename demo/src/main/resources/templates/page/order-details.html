@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+</head>
+<body>
+    <div th:fragment="content">
+    
+        <div>
+            <h2>Order Info</h2>
+            <p><strong>Order ID:</strong> <span th:text="${order.id}"></span></p>
+            <p><strong>Address:</strong> <span th:text="${order.userAddress.detail} + ', ' + ${order.userAddress.ward} + ', ' + ${order.userAddress.district} + ', ' + ${order.userAddress.province}"></span></p>
+            <p><strong>Order Date:</strong> <span th:text="${#temporals.format(order.date, 'dd/MM/yyyy')}"></span></p>
+            <p>
+			    <strong>Status:</strong> 
+			    <span th:switch="${order.status}">
+			        <span th:case="0">Waiting</span>
+			        <span th:case="1">Confirm</span>
+			        <span th:case="2">Shipping</span>
+			        <span th:case="3">Complete</span>
+			        <span th:case="4">Cancel</span>
+			        <span th:case="5">Refund</span>
+			        <span th:case="*">Unknown</span> <!-- Dự phòng cho các giá trị không hợp lệ -->
+			    </span>
+			</p>
+            <p><strong>Total:</strong> <span th:text="${order.totalPay} + ' Đồng'"></span></p>
+        </div>
+		<br>
+        <div>
+            <h2>Order Items</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${listProduct}">
+                        <td th:text="${item.product.name}"></td>
+                        <td th:text="${item.quantity}"></td>
+                        <td th:text="${item.price}"></td>
+                        <td th:text="${item.quantity * item.price}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+		<!-- Nút Cancel -->
+		<div th:if="${order.status == 0}" style="text-align: right; margin-top: 20px;">
+		    <button class="btn btn-danger" th:onclick="|cancelOrder(${order.id})|">Cancel Order</button>
+		</div>
+    </div>
+</body>
+</html>

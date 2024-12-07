@@ -1367,6 +1367,61 @@ function dathang()
 	   });
 }
 
+function viewOrderDetails(button) {
+    const orderId = button.getAttribute('data-order-id'); // Lấy ID đơn hàng từ thuộc tính data
+    const modalContent = document.getElementById('orderDetailsContent');
+
+    // Hiển thị modal
+    const modal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
+    modal.show();
+
+    // Hiển thị trạng thái "loading"
+    modalContent.innerHTML = `<div class="text-center py-3">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                              </div>`;
+
+    // Gửi yêu cầu AJAX để lấy thông tin chi tiết đơn hàng
+    fetch(`/user/account/orders/${orderId}`)
+        .then(response => {
+			console.log(response);
+            if (!response.ok) {
+                throw new Error('Failed to fetch order details');
+            }
+            return response.text(); // Nhận dữ liệu dưới dạng HTML
+        })
+        .then(html => {
+            // Load nội dung từ server vào modal
+            modalContent.innerHTML = html;
+        })
+        .catch(error => {
+            modalContent.innerHTML = `<div class="text-danger text-center py-3">Failed to load order details: ${error.message}</div>`;
+        });
+}
+
+function cancelOrder(orderId) {
+    if (confirm("Are you sure you want to cancel this order?")) {
+        fetch(`/user/account/orders/${orderId}/cancel`, {
+            method: 'POST', // Hoặc 'PUT' nếu cần
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Order has been cancelled successfully.");
+                location.reload(); // Reload lại trang để cập nhật trạng thái
+            } else {
+                throw new Error("Failed to cancel the order.");
+            }
+        })
+        .catch(error => {
+            alert("Error: " + error.message);
+        });
+    }
+}
+
 function filterByRating(rating) {
     const productId = document.getElementById('productId').value; // Ẩn input chứa ID sản phẩm
     const thymeleafReviews = document.querySelectorAll('.thymeleaf-review'); // Lấy các đánh giá mặc định

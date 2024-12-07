@@ -1280,6 +1280,14 @@ const getVendorDetailById = (id) => {
 		})
 }
 
+// Lấy tháng hiện tại bằng JavaScript
+const monthNames = [
+    "January", "February", "March", "April", "May", "June", 
+    "July", "August", "September", "October", "November", "December"
+];
+const currentMonth = monthNames[new Date().getMonth()];
+document.getElementById("currentMonth").textContent = currentMonth;
+
 // Hiển thị Form Edit
 function showEditForm(userId) {
     // Gọi API lấy thông tin người dùng qua ID
