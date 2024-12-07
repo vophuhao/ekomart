@@ -1287,7 +1287,7 @@ const monthNames = [
     "July", "August", "September", "October", "November", "December"
 ];
 const currentMonth = monthNames[new Date().getMonth()];
-document.getElementById("currentMonth").textContent = currentMonth;
+/*document.getElementById("currentMonth").textContent = currentMonth;*/
 
 // Hiển thị Form Edit
 function showEditForm(userId) {
@@ -1327,6 +1327,7 @@ function closeEditForm() {
     document.getElementById('edit-form-overlay').style.display = 'none';
 }
 document.querySelectorAll('.confirm-order').forEach(button => {
+	/*console.log("Binding event to:", button);*/
 	button.addEventListener("click", confirmOder);
 });
 document.querySelectorAll('.cancel-order').forEach(button => {

@@ -1018,33 +1018,33 @@ function closeAddressModel() {
 
 }
 function removeAddress() {
-	// Tìm thẻ cha gần nhất có class 'address'
-	const parentDiv = event.target.closest(".address");
-
-	// Lấy ID của địa chỉ từ thẻ input hidden
-	const addressId = document.getElementById("addressid").value;
-
-	console.log(addressId)
-	console.log(parentDiv)
-	// Gửi yêu cầu xóa đến server, chỉ gửi ID (không cần bọc trong đối tượng JSON)
-	fetch("/user/api/address/delete", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json", // Đảm bảo là JSON
-		},
-		body: addressId, // Gửi trực tiếp ID
-	})
-		.then(response => {
-			if (response.ok) {
-				parentDiv.remove(); // Xóa thẻ cha khỏi giao diện
-			} else {
-				console.error("Có lỗi khi xóa địa chỉ.");
-			}
-		})
-		.catch(error => {
-			console.error("Có lỗi xảy ra khi xóa địa chỉ: " + error.message);
-		});
+    const parentDiv = event.target.closest(".address");
+    const addressId = document.getElementById("addressid").value;
+	const addre = this.getAttribute('data-addr-value');
+    fetch("/user/api/address/delete", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: addre,
+    })
+        .then(response => {
+            if (response.ok) {
+                // Chỉ xóa phần tử cha nếu server trả về thành công
+                parentDiv.remove();
+                alert("Địa chỉ đã được xóa thành công!");
+            } else {
+                return response.text().then(errorMessage => {
+                    throw new Error( "Không thể xóa địa chỉ mặc định");
+                });
+            }
+        })
+        .catch(error => {
+            // Hiển thị lỗi nếu không thể xóa
+            alert("Lỗi: " + error.message);
+        });
 }
+
 
 // Xác nhận và cập nhật thông tin
 function confirmSelection() {
@@ -1164,13 +1164,13 @@ async function saveAddress() {
 			                        <div class="align-items-start" style="padding: 10px; height: 100%">
 			                            <div style="padding: 10px; height: 80%">
 			                                <p><strong>${addressData.uname}</strong></p>
-			                                <p>${addressData.phone}</p>
-			                                <p>${addressData.detail} ${addressData.ward} ${addressData.district} ${addressData.province}</p>
+			                                <p >${addressData.phone}</p>
+			                                <p >${addressData.detail} ${addressData.ward} ${addressData.district} ${addressData.province}</p>
 			                            </div>
-			                            <div class="d-flex" style="height: 20%; width: 100%; justify-content: flex-end; display: flex;">
+			                            <div class="d-flex" style="height: 20%; width: 100%; justify-content: flex-end; display: flex">
 			                                <i class="fa-solid fa-pencil-alt" style="padding-right: 10px;"></i>
 			                                <i class="fa-solid fa-trash-alt" style="padding-right: 10px;"></i>
-			                                <a>Mac dinh</a>
+			                                <a>Đăt làm mặc định</a>
 			                            </div>
 			                        </div>
 			                    </div>
@@ -1340,50 +1340,59 @@ function toggleHiddenInput(checkbox) {
 document.querySelectorAll('.btn-dathang').forEach(button => {
 	button.addEventListener("click", dathang);
 });
-function dathang()
-{
-	const addressId = document.querySelector('#addressid').value;
-	   console.log(addressId)
-	   // Lấy danh sách các productId và quantity từ các sản phẩm trong giỏ hàng
-	   const productIds = [];
-	   const quantities = [];
+function dathang() {
+    const addressId = document.querySelector('#addressid').value;
+    
+    // Kiểm tra nếu addressId là null hoặc rỗng
+    if (!addressId) {
+        alert("Vui lòng chọn địa chỉ trước khi đặt hàng!");
+        return; // Dừng việc tiếp tục hàm
+    }
 
-	   // Giả sử rằng mỗi sản phẩm có cấu trúc như sau:
-	   // <input type="hidden" class="product-id" value="productId">
-	   // <input type="number" class="product-quantity" value="quantity">
-	   
-	   document.querySelectorAll('.product-info').forEach(product => {
-	       const productId = product.querySelector('.product-id').value;
-	       const quantity = product.querySelector('.product-quantity').textContent;
-	       
-	       productIds.push(productId);
-	       quantities.push(quantity);
-	   });
-		
-	   // Tạo đối tượng dữ liệu để gửi
-	   const orderData = {
-	       addressId: addressId,
-	       productIds: productIds,
-	       quantities: quantities
-	   };
-		
-	   // Gửi yêu cầu POST tới controller
-	   $.ajax({
-	       url: '/user/cart/payment/save',  // Địa chỉ API
-	       type: 'POST',
-	       contentType: 'application/json',  // Định dạng gửi đi là JSON
-	       data: JSON.stringify(orderData),  // Dữ liệu gửi đi dưới dạng JSON
-	       success: function(response) {
-	           // Xử lý phản hồi từ server
-	           alert("Tao don hang thanh cong");
-			   window.location.href = '/user/cart';
-	       },
-	       error: function(error) {
-	           // In lỗi nếu có
-	           console.error('Lỗi khi đặt hàng:', error);
-	       }
-	   });
+    console.log(addressId);
+
+    // Lấy danh sách các productId và quantity từ các sản phẩm trong giỏ hàng
+    const productIds = [];
+    const quantities = [];
+
+    // Giả sử rằng mỗi sản phẩm có cấu trúc như sau:
+    // <input type="hidden" class="product-id" value="productId">
+    // <input type="number" class="product-quantity" value="quantity">
+   
+    document.querySelectorAll('.product-info').forEach(product => {
+        const productId = product.querySelector('.product-id').value;
+        const quantity = product.querySelector('.product-quantity').value;  // Dùng value thay vì textContent
+
+        productIds.push(productId);
+        quantities.push(quantity);
+    });
+
+    // Tạo đối tượng dữ liệu để gửi
+    const orderData = {
+        addressId: addressId,
+        productIds: productIds,
+        quantities: quantities
+    };
+
+    // Gửi yêu cầu POST tới controller
+    $.ajax({
+        url: '/user/cart/payment/save',  // Địa chỉ API
+        type: 'POST',
+        contentType: 'application/json',  // Định dạng gửi đi là JSON
+        data: JSON.stringify(orderData),  // Dữ liệu gửi đi dưới dạng JSON
+        success: function(response) {
+            // Xử lý phản hồi từ server
+            alert("Tạo đơn hàng thành công");
+            window.location.href = '/user/cart';
+        },
+        error: function(error) {
+            // In lỗi nếu có
+            console.error('Lỗi khi đặt hàng:', error);
+            alert('Đã xảy ra lỗi khi tạo đơn hàng');
+        }
+    });
 }
+
 
 function viewOrderDetails(button) {
     const orderId = button.getAttribute('data-order-id'); // Lấy ID đơn hàng từ thuộc tính data
@@ -1569,47 +1578,58 @@ function removeItem()
 	       }
 	   });
 }
-document.querySelectorAll('.address-none').forEach(button => {
+document.querySelectorAll('.address-status').forEach(button => {
 	button.addEventListener("click", setAddressDefault);
 });
 
 function setAddressDefault(){
-	const addressDefault = document.querySelector('.address-default');
+	    const currentDiv = this; // Thẻ được nhấn
+	    const isDefault = currentDiv.classList.contains('address-default'); // Kiểm tra trạng thái hiện tại
+	    const addressId = currentDiv.getAttribute('data-address-id'); // Lấy ID địa chỉ
 
-   if (addressDefault) {
-       // Tạo một thẻ mới thay thế thẻ "address-default"
-       const newAddress = document.createElement('div');
-       newAddress.className = 'address';
-       newAddress.setAttribute('data-addressId', addressDefault.getAttribute('data-addressId'));
-       newAddress.textContent = addressDefault.textContent;
+	    // Nếu là địa chỉ mặc định rồi thì không làm gì cả
+	    if (isDefault) {
+	        alert("Đây đã là địa chỉ mặc định!");
+	        return;
+	    }
 
-       // Thay thế thẻ "address-default" bằng thẻ mới
-       addressDefault.replaceWith(newAddress);
-   }
+	    console.log(addressId); // Kiểm tra xem addressId được lấy đúng không
 
-   // Tạo một thẻ mới thay thế thẻ "address"
-   const newAddressDefault = document.createElement('div');
-   newAddressDefault.className = 'address-default';
-   newAddressDefault.setAttribute('data-addressId', address.getAttribute('data-addressId'));
-   newAddressDefault.textContent = address.textContent;
+	    // Gửi yêu cầu cập nhật mặc định
+	    fetch('/user/api/address/default', {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json',
+	        },
+	        body:addressId, // Gửi dưới dạng JSON
+	    })
+	    .then(response => {
+	        if (response.ok) {
+	            // Cập nhật trạng thái giao diện
+	            document.querySelectorAll('.address-default').forEach(div => {
+	                // Nếu địa chỉ không phải là mặc định, đặt lại trạng thái của nó
+	                div.textContent = "Đặt làm mặc định";
+	                div.classList.remove('address-default');
+	                div.classList.add('address-none');
+	            });
 
-   // Thay thế thẻ "address" được nhấn bằng thẻ mới
-   address.replaceWith(newAddressDefault);
-   const addressId = this.getAttribute('data-addressId');
-   $.ajax({
-          url: `/user/api/address/default?addressId=${addressId}`,  // Địa chỉ API
-          type: 'POST',
-          contentType: 'application/json',  // Định dạng gửi đi là JSON
-          data: { addressId: addressId }, // Gửi orderId dưới dạng JSON
-          success: function(response) {
-   	 window.location.href = `/admin/vendor/detail?shopId=${shopId}`;
-          },
-          error: function(error) {
-              // In lỗi nếu có
-              console.error('Lỗi khi đặt hàng:', error);
-          }
-      });
-}
+	            // Thay đổi địa chỉ đã được nhấn thành mặc định
+	            currentDiv.textContent = "Mặc định";
+	            currentDiv.classList.remove('address-none');
+	            currentDiv.classList.add('address-default');
+
+	            alert("Đã đặt địa chỉ làm mặc định!");
+	        } else {
+	            alert("Không thể đặt làm mặc định. Vui lòng thử lại.");
+	        }
+	    })
+	    .catch(error => {
+	        console.error("Lỗi khi gửi yêu cầu:", error);
+	        alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+	    });
+	}
+
+
 document.querySelectorAll('.saveAddressBtn').forEach(button => {
     button.addEventListener("click", saveAddress);
     button.addEventListener("click", closeAddressModel);

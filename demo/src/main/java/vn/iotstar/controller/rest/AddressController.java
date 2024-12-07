@@ -43,41 +43,80 @@ public class AddressController {
 	@Autowired
 	private ILocationService location;
 	
+	
 	@Autowired
     private JwtUtil jwtUtil;
 	@PostMapping("/user/api/address/delete")
-	public ResponseEntity<Void> deleteAddress(@RequestBody String id) {
-	    try {
-	        // Chuyển đổi id từ String sang Long
-	        Long addressId = Long.parseLong(id);
-
-	        // Giả sử phương thức xóa địa chỉ của bạn là addre.delete(addressId)
-	        addre.delete(addressId);
-
-	       
-	            return ResponseEntity.ok().build();
-	        
-	        
-	    } catch (Exception e) {
-	        // Trả về mã lỗi 500 khi có lỗi xảy ra
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	public ResponseEntity<String> deleteAddress(@RequestBody String id) {
+		 try {
+			 System.out.print(id);
+		        Long addressId = Long.parseLong(id);
+		       		       
+		        // Nếu điều kiện không cho phép xóa
+		        if (!canDeleteAddress(addressId)) { // Thay 'canDeleteAddress' bằng điều kiện của bạn
+		            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Không thể xóa địa chỉ này.");
+		        }
+		        
+		        // Thực hiện xóa nếu hợp lệ
+		        addre.delete(addressId);
+		        return ResponseEntity.ok("Xóa địa chỉ thành công!");
+		    } catch (NumberFormatException e) {
+		        return ResponseEntity.badRequest().body("ID không hợp lệ.");
+		    } catch (Exception e) {
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi xảy ra khi xóa địa chỉ.");
+		    }
+	}
+	private boolean canDeleteAddress(Long addressId) {
+	   
+		Optional<Address> add=addre.findById(addressId);
+		Address address=add.get();
+		System.out.print(address.getDefaults());
+		if(address.getDefaults()==1)
+		{
+			  return false; 
+		}
+	  
+	    else
+	    {
+	    	return true; 
 	    }
 	}
-
 	@PostMapping("/user/api/address/default")
-	public ResponseEntity<Void> setAddressDefault(@RequestParam("addressId")  Long addressId) {
+	public ResponseEntity<Void> setAddressDefault(HttpServletRequest request,@RequestBody  Long addressId) {
 	    try {
-	        // Chuyển đổi id từ String sang Long
-	       
-	    	 Optional<Address>addressde=addre.findByDefaults(1);
-	    	 Address addressd=addressde.get();
-	    	 addressd.setDefaults(0);
-	    	 addre.save(addressd);
+	    	String token = null;
+			// Lấy cookie từ request
+	        Cookie[] cookies = request.getCookies();
+	        if (cookies != null) {
+	            for (Cookie cookie : cookies) {
+	                if ("JWT".equals(cookie.getName())) {
+	                    token = cookie.getValue();
+	                    break;
+	                }
+	            }
+	        }
+	        
+	        String username = jwtUtil.extractUsername(token);
+	        Optional<UserInfo> users=userService.findByName(username);
+	        UserInfo userss =new UserInfo();
+	        if (users.isPresent()) {
+	            userss = users.get();
+	            // Xử lý logic với user
+	        } 
 	    	
-	       Optional<Address>address=addre.findById(addressId);
-	       Address addresss=address.get();
-	       addresss.setDefaults(1);
-	       addre.save(addresss);
+			
+			 Optional<Address>addressde=addre.findByUserAndDefaults(userss, 1);
+			 Address add=addressde.get();
+			 add=addressde.get();
+			 add.setDefaults(0);	 
+			 addre.save(add);
+			     	
+		       Optional<Address>address=addre.findById(addressId);
+		       
+		       Address addresss=address.get();
+		       System.out.print(addresss.getDetail());
+		       addresss.setDefaults(1);
+		       addre.save(addresss);
 	    
 	       
 	       

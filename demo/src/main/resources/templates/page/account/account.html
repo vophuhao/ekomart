@@ -115,29 +115,44 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">
-                            <div class="shipping-address-billing-address-account">
-                                <div class="half">
-                                    <h2 class="title">Billing Address</h2>
-                                    <p class="address">
-                                        3522 Interstate <br>
-                                        75 Business Spur, <br>
-                                        Sault Ste. <br>
-                                        Marie, MI 49783 <br>
-                                        New York
-                                    </p>
-                                    <a href="#">Edit</a>
-                                </div>
-                                <div class="half">
-                                    <h2 class="title">Shipping Address</h2>
-                                    <p class="address">
-                                        3522 Interstate <br>
-                                        75 Business Spur, <br>
-                                        Sault Ste. <br>
-                                        Marie, MI 49783 <br>
-                                        New York
-                                    </p>
-                                    <a href="#">Edit</a>
-                                </div>
+                            <div class="shipping-address-billing-address-account" style="display: block !important;">
+                            	<div style="width: 12%;">
+                            			<button type="button" class="btn btn-primary"
+										data-bs-toggle="modal" data-bs-target="#deliveryModal"
+										style="display: flex; align-items: center; padding: 5px 10px; font-size: 16px; cursor: pointer;background-color: #629D23;">
+										Thêm địa chỉ</button>
+                            	</div>
+                                <div class='row row-address' style="margin-top: 15px;">
+								<div class="col-6 address" style="margin-right: 15px;"
+									th:each="address : ${addressUser}">
+									<div class=" align-items-start"
+										style="padding: 10px; height: 100%">
+										<div style="padding: 10px; height: 80%">
+											<input type="hidden" th:value=${address.id} id="addressid">
+											<p>
+												<strong th:text="${address.uname}"></strong>
+											</p>
+											<p style="margin-top: -20px;" th:text="${address.phone}"></p>
+											<p style="margin-top: -20px;"
+												th:text="${address.detail + ' ' + address.ward + ' ' + address.district + ' ' + address.province}"></p>
+										</div>
+										<!-- Các nút Chỉnh sửa và Xóa -->
+										<div class="d-flex"
+											style="height: 20%; width: 100%; height: 20%; width: 100%; justify-content: flex-end; display: flex;padding-top: 20px;">
+											 <i
+												class="fa-solid fa-trash-alt remove-address" th:data-addr-value="${address.id}"
+												style="padding-right: 10px;cursor:pointer;"></i>
+
+											<div 
+							                    th:data-address-id="${address.id}" 
+							                    th:class="${address.defaults == 1} ? 'address-default address-status' : 'address-none address-status'" 
+							                    th:text="${address.defaults == 1 ? 'Mặc định' : 'Đặt làm mặc định'}"
+							                     style="cursor:pointer;">
+							                </div>
+										</div>
+									</div>
+								</div>
+							</div>
                             </div>
                         </div>
                         <div class="tab-pane fade show active" id="v-pills-settingsa" role="tabpanel" aria-labelledby="v-pills-settingsa-tab" tabindex="0">
@@ -284,5 +299,73 @@
             </div>
         </div>
     </div>
-    
+    <div class="modal fade" id="deliveryModal"
+										data-bs-backdrop="static" data-bs-keyboard="false"
+										tabindex="-1" aria-labelledby="deliveryModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content" style="height: 520px">
+												<!-- Modal Header -->
+												<div class="modal-header">
+													<h5 class="modal-title" id="deliveryModalLabel">Nhập
+														Địa Chỉ Giao Hàng</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+
+												<!-- Modal Body -->
+
+												<div class="modal-body">
+													<div class="mb-3">
+														<label for="fullname" class="form-label">Họ và
+															Tên:</label> <input type="text" class="form-control" id="uname"
+															name="uname" required style="border: solid 2px #ddd;">
+													</div>
+													<div class="mb-3">
+														<label for="phone" class="form-label">Số Điện
+															Thoại:</label> <input type="text" class="form-control" id="phone"
+															name="phone" required style="border: solid 2px #ddd;">
+													</div>
+													<div class="mb-3">
+														<label for="address" class="form-label">Địa Chỉ:</label> <input
+															type="text" class="form-control" id="detail"
+															name="detail" required style="border: solid 2px #ddd";>
+													</div>
+													<div class="mb-3"
+														style="display: flex; align-items: center; padding: 12px 0px;">
+														<label for="province" class="form-label"
+															style="padding-right: 15px; font-size: 20px; width: 50%;">Tỉnh/Thành
+															Phố:</label> <select id="province" name="province" required
+															style="font-size: 20px;">
+															<option value="">Chọn Tỉnh/Thành Phố</option>
+														</select>
+													</div>
+													<div class="mb-3"
+														style="display: flex; align-items: center; padding: 12px 0px;">
+														<label for="district" class="form-label"
+															style="padding-right: 15px; font-size: 20px; width: 50%;">Quận/Huyện:</label>
+														<select id="district" name="district"
+															style="font-size: 20px;" required>
+															<option value="" selected>Chọn Quận/Huyện</option>
+														</select>
+													</div>
+													<div class="mb-3"
+														style="display: flex; align-items: center; padding: 12px 0px;">
+														<label for="ward" class="form-label"
+															style="padding-right: 15px; font-size: 20px; width: 50%;">Phường/Xã:</label>
+														<select id="ward" name="ward" required
+															style="font-size: 20px;">
+															<option value="" selected>Chọn Phường/Xã</option>
+														</select>
+													</div>
+													<button type="button"
+														class="saveAddressBtn btn btn-primary"
+														style="width: 30%; font-size: 15px; padding: 10px;background-color: #629D23;">
+														Xác Nhận Địa Chỉ</button>
+
+												</div>
+
+											</div>
+										</div>
+									</div>
 </div>

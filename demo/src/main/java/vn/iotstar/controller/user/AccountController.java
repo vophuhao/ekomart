@@ -1,6 +1,8 @@
 package vn.iotstar.controller.user;
 
+import java.lang.foreign.Linker.Option;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import vn.iotstar.entity.Address;
 import vn.iotstar.entity.OrderDetail;
 import vn.iotstar.entity.Orders;
 import vn.iotstar.entity.UserInfo;
@@ -25,6 +29,7 @@ import vn.iotstar.repository.OrderDetailRepository;
 import vn.iotstar.repository.UserInfoRepository;
 import vn.iotstar.service.IOderService;
 import vn.iotstar.service.Imp.OderServiceImpl;
+import vn.iotstar.service.user.Imp.AddressServiceImp;
 import vn.iotstar.util.JwtUtil;
 
 @Controller
@@ -33,6 +38,9 @@ public class AccountController {
 	
 	@Autowired
     private JwtUtil jwtUtil;
+	
+	@Autowired
+	private AddressServiceImp addre;
 	
 	@Autowired
 	private UserInfoRepository userInfoRepository;
@@ -52,7 +60,7 @@ public class AccountController {
 	private OrderDetailRepository orderDetailRepository;
 	
 	@GetMapping("")
-	public String AccountUser(HttpServletRequest request, Model model) {
+	public String AccountUser(HttpServletRequest request, Model model,HttpSession session) {
 		
 		String token = null;
 		// Lấy cookie từ request
@@ -69,8 +77,12 @@ public class AccountController {
         UserInfo user = userInfoRepository.findByName(jwtUtil.extractUsername(token))
         	.orElseThrow(() -> new UsernameNotFoundException("Please provide a valid name!"));
         String username = user.getName();
-        model.addAttribute("username", username);
         
+        model.addAttribute("username", username);
+        session.setAttribute("username", username);
+        List<Address> address=addre.findByUser(user);
+        
+        model.addAttribute("addressUser", address);
         String email = user.getEmail();
         model.addAttribute("email", email);
         List<Orders> list = orderRepository.findAll();

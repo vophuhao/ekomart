@@ -27,8 +27,10 @@ public record UserService(UserInfoRepository repository, PasswordEncoder passwor
                 .build();
         emailService.sendSimpleMessage(mailBody);
         
-        userInfo.setOtp(otp);
+        userInfo.setOtp(otp);                     
         repository.save(userInfo);
+        
+        
         
         return "Thêm user thành công!";
 	}

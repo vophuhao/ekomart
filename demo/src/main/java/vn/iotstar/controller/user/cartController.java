@@ -97,6 +97,7 @@ public class cartController {
         
         String username = jwtUtil.extractUsername(token);
 		Optional<UserInfo> user = userservice.findByName(username);
+		 session.setAttribute("username", username);
 		UserInfo userInfo = user.get();
 		Cart cart = cartService.findByUser(userInfo);
 		model.addAttribute("cart", cart);
