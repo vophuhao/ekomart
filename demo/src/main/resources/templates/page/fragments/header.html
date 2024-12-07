@@ -62,7 +62,7 @@
 							</div>		
 							<a th:href="@{/user/wishlist}" class="btn-border-only wishlist" th:if="${session.username !=null}"> 
 							<i
-								class="fa-regular fa-heart"></i> Wishlist <span class="number">2</span>
+								class="fa-regular fa-heart"></i> Wishlist <span class="number" th:text="${session.wishlistCount}"></span>
 							</a>
 							<div th:if="${session.username !=null}" class="btn-border-only cart category-hover-header">
 								<i class="fa-sharp fa-regular fa-cart-shopping"></i> <span

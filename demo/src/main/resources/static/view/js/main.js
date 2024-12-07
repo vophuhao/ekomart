@@ -1219,9 +1219,9 @@ function updateTotal() {
 	});
 
 	// Cập nhật giá trị tổng tiền hàng, phí vận chuyển và tổng thanh toán
-	document.querySelector('.tien-tong-items').textContent = totalItems.toLocaleString() + "₫";
+	/*document.querySelector('.tien-tong-items').textContent = totalItems.toLocaleString() + "₫";
 	document.querySelector('.tien-tong-shipping').textContent = totalShipping.toLocaleString() + "₫";
-	document.querySelector('.tien-tong-total').textContent = (totalItems + totalShipping).toLocaleString() + "₫";
+	document.querySelector('.tien-tong-total').textContent = (totalItems + totalShipping).toLocaleString() + "₫";*/
 }
 
 function updateTotalForOrder(orderElement) {
@@ -1690,21 +1690,32 @@ function removeWishItem()
 }
 document.querySelectorAll('.remove-wishlist').forEach(button => {
 	button.addEventListener("click", removeWishItem);
+	
 });
 
 function addWishItem()
 {
-	const item = this.getAttribute('data-productId');
-	  
+	const messageElement = document.querySelector('.successfully-addedin-wishlist');
+	    
+	    // Hiển thị thông báo
+	    messageElement.style.display = 'flex';  // Hoặc 'block', tùy vào cấu trúc bạn đang sử dụng
+
+	    // Ẩn thông báo sau 5 giây
+	    setTimeout(() => {
+	        messageElement.style.display = 'none';
+	    }, 1500);  // 5000ms = 5s
+	
+	const item = this.getAttribute('data-product-wishlist');
+	 
 		
 	   // Gửi yêu cầu POST tới controller
 	   $.ajax({
 	       url: `/user/wishlist/add-item?item=${item}`,  // Địa chỉ API
 	       type: 'POST',
 	       contentType: 'application/json',  // Định dạng gửi đi là JSON
-	       data: { item: item }, // Gửi orderId dưới dạng JSON
+	        data: { item: item },// Gửi orderId dưới dạng JSON
 	       success: function(response) {
-		 window.location.href = `/user/wishlist`;
+		 	
 	       },
 	       error: function(error) {
 	           // In lỗi nếu có
@@ -1714,4 +1725,5 @@ function addWishItem()
 }
 document.querySelectorAll('.add-wishlist').forEach(button => {
 	button.addEventListener("click", addWishItem);
+	
 });

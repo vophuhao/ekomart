@@ -109,6 +109,10 @@ public class homeController {
 		Cart cart = cartService.findByUser(userInfo);
 		session.setAttribute("cartCount", cart.getItems().size());
         
+		Optional<Wishlist> wish=wishrepo.findByUser(userInfo);
+		Wishlist wishlist=wish.get();
+		session.setAttribute("wishlistCount", wishlist.getItems().size());
+		
         model.addAttribute("Name", username);
 		return "page/home-content";
 	}
@@ -138,7 +142,8 @@ public class homeController {
 	}
 	
 	@PostMapping("/wishlist/add-item")
-	public String addItemToWishlist(@Valid WishlistItem wishItem,HttpServletRequest request, BindingResult result, HttpSession session) {
+	public String addItemToWishlist(@RequestParam("item") String id,HttpServletRequest request, HttpSession session) {
+		System.out.print(id);
 		String token = null;
 		// Lấy cookie từ request
         Cookie[] cookies = request.getCookies();
@@ -147,17 +152,24 @@ public class homeController {
                 if ("JWT".equals(cookie.getName())) {
                     token = cookie.getValue();
                     break;
-                }
+                
             }
         }
         
         String username = jwtUtil.extractUsername(token);
 		Optional<UserInfo> user = userService.findByName(username);
 		UserInfo userInfo = user.get();
-		if (result.hasErrors())
-			return "redirect:/user/wishlist";
+		Optional<Wishlist> wishl=wishrepo.findByUser(userInfo);
+		Wishlist wish=wishl.get();
+		Optional<Product> pro=prorepo.findById(Long.parseLong(id));
+		Product product=pro.get();
+		WishlistItem wishItem =new WishlistItem();
+		wishItem.setProduct(product);
+		wishItem.setWishlist(wish);
 		wishItemrepo.save(wishItem);
-		return "redirect:/user/wishlist";
+		
+	}
+        return "redirect:/user/wishlist";
 	}
 	
 	@PostMapping("/wishlist")
