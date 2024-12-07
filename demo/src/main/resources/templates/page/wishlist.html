@@ -40,12 +40,11 @@
 								<p>Chon</p>
 							</div>
 						</div>
-						<form th:action="@{/user/cart/payment}" th:method="get"
-							th:object="${productPayment}">
+						<form action="/user/add-item" method="POST">
 							<div th:each="pro : ${wish.items}">
 								<div class="single-cart-area-list main item-parent">
 									<div class="product-main-cart1">
-										<div class="close section-activation">
+										<div th:data-productId="${pro.id}" class="close section-activation remove-wishlist">
 											<i class="fa-regular fa-x"></i>
 										</div>
 										<input type="hidden" th:value="${pro.product.image}" />
@@ -56,17 +55,17 @@
 										</div>
 										<div class="information1">
 											<!-- Hidden inputs -->
-											<input type="hidden" th:value="${pro.product.id}" /> 
+											<input type="hidden" name="product.id" th:value="${pro.product.id}" /> 
 											<input
-												type="hidden" th:value="${pro.product.name}" />
+												type="hidden" name="name" th:value="${pro.product.name}" />
 											<h6 class="title" th:text="${pro.product.name}"></h6>
 											<!-- <span th:text="${product.id}"></span> -->
 										</div>
 										<div class="price-wish">
-											<input type="hidden" th:value="${pro.product.price}" />
+											<input type="hidden" name="price" th:value="${pro.product.price}" />
 											<p class="product-price" th:text="${pro.product.price}"></p>
 										</div>
-										<div class="action-add-cart">
+										<div th:data-productId="${pro.id}" class="action-add-cart remove-wishlist">
 											<button class="rts-btn btn-primary" type="submit">Add to Cart</button>
 										</div>
 									</div>

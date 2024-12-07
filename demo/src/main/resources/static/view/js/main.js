@@ -1503,8 +1503,8 @@ function filterByRating(rating) {
 	        .catch(error => console.error('Error:', error));
 }
 
-function loadPage(page) {
-	fetch(`/product?page=${page}&size=16`);
+/*function loadPage(page) {
+	fetch(`/product?vapage=${page}&size=16`);
 	then(response => response.json())
 	        .then(data => {
 			            const productContainer = document.getElementById('product-container');
@@ -1554,7 +1554,7 @@ function loadPage(page) {
 			            `).join('');
 					})
 			        .catch (error => console.error("Error loading products:", error));
-    }
+    }*/
 document.querySelectorAll('.remove-cart').forEach(element => {
 	element.addEventListener("click", removeItem);
 });
@@ -1637,4 +1637,28 @@ document.querySelectorAll('.saveAddressBtn').forEach(button => {
 
 document.querySelectorAll('.remove-address').forEach(button => {
     button.addEventListener("click", removeAddress);
+});
+
+function removeWishItem()
+{
+	const item = this.getAttribute('data-productId');
+	  
+		
+	   // Gửi yêu cầu POST tới controller
+	   $.ajax({
+	       url: `/user/wishlist?item=${item}`,  // Địa chỉ API
+	       type: 'POST',
+	       contentType: 'application/json',  // Định dạng gửi đi là JSON
+	       data: { item: item }, // Gửi orderId dưới dạng JSON
+	       success: function(response) {
+		 window.location.href = `/user/wishlist`;
+	       },
+	       error: function(error) {
+	           // In lỗi nếu có
+	           console.error('Lỗi khi xóa:', error);
+	       }
+	   });
+}
+document.querySelectorAll('.remove-wishlist').forEach(button => {
+	button.addEventListener("click", removeWishItem);
 });
