@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="sidebar_left" th:fragment="sidebar">
+            <a href="index.html" class="logo">
+                <img src="/vendor/images/logo/logo.svg" alt="logo" height="32" width="131">
+            </a>
+
+
+            <!-- nav area start -->
+            <ul class="rts-side-nav-area-left menu-active-parent">
+                <!-- single menu item -->
+                <li class="single-menu-item">
+                    <a href="#" class="with-plus">
+                    	<img src="/vendor/images/icons/01.svg" alt="icon" class="icon">
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="single-menu-item">
+                    <a href="#" class="with-plus">
+                        <img src="/vendor/images/icons/01.svg" alt="icon" class="icon">
+                        <p>My Info</p>
+                    </a>
+                    <ul class="submenu mm-collapse parent-nav">
+                        <li>
+                        	<a class="mobile-menu-link" th:href="@{/vendor/my-info}">My Info</a>
+                        
+                        </li>
+                        
+                    </ul>
+                </li>
+                <!-- single menu item -->
+                <li class="single-menu-item">
+                    <a href="#" class="with-plus">
+                        <img src="/vendor/images/icons/09.svg" alt="icon" class="icon">
+                        <p>Order</p>
+                    </a>
+                    <ul class="submenu mm-collapse parent-nav">
+                        <li><a class="mobile-menu-link" th:href="@{/vendor/order/waiting}">Order Waiting</a></li>
+                        <li><a class="mobile-menu-link" th:href="@{/vendor/order/confirm}">Order Confirm</a></li>
+                        <li><a class="mobile-menu-link" th:href="@{/vendor/order/shipping}">Order Shipping</a></li>
+                        <li><a class="mobile-menu-link" th:href="@{/vendor/order/cancel}">Order Cancel</a></li>
+                        <li><a class="mobile-menu-link" th:href="@{/vendor/order/complete}">Order Complete</a></li>
+                         <li><a class="mobile-menu-link" th:href="@{/vendor/order/refund}">Order Refund</a></li>
+                    </ul>
+                </li>
+                <!-- signle menu item -->
+                <!-- single menu item -->
+                <li class="single-menu-item">
+                    <a href="#" class="with-plus">
+                        <img src="/vendor/images/icons/02.svg" alt="icon" class="icon">
+                        <p>Product</p>
+                    </a>
+                    <ul class="submenu mm-collapse parent-nav">
+                        <li><a class="mobile-menu-link"  th:href="@{/vendor/products/list}">product List</a></li>
+                    </ul>
+                    <ul class="submenu mm-collapse">
+                        <li><a class="mobile-menu-link" th:href="@{/vendor/products/add}">Add Product</a></li>
+                    </ul>
+                </li>
+                <!-- signle menu item -->
+               
+                <!-- single menu item -->
+                <li class="single-menu-item">
+                    <a href="#" class="with-plus">
+                        <img src="/vendor/images/icons/03.svg" alt="icon" class="icon">
+                        <p>Add Product</p>
+                    </a>
+                    
+                </li>
+                <!-- signle menu item -->
+         
+                <!-- single menu item -->
+                <li class="single-menu-item">
+                    <a href="transaction.html">
+                        <img src="/vendor/images/icons/06.svg" alt="icon" class="icon">
+                        <p>Transactions</p>
+                    </a>
+                </li>
+                <!-- signle menu item -->
+                <!-- single menu item -->
+                <li class="single-menu-item">
+                    <a href="review.html">
+                        <img src="/vendor/images/icons/07.svg" alt="icon" class="icon">
+                        <p>Reviews</p>
+                    </a>
+                </li>
+                <!-- signle menu item -->
+              
+                <!-- single menu item -->
+                <li class="single-menu-item">
+                    <a href="#" class="with-plus">
+                        <img src="/vendor/images/icons/05.svg" alt="icon" class="icon">
+                        <p>User Profile</p>
+                    </a>
+                    <ul class="submenu mm-collapse parent-nav">
+                        <li><a class="mobile-menu-link" th:href="@{/vendor/profile}">Profile Setting</a></li>
+                        <li><a class="mobile-menu-link" href="log-in.html">Log In</a></li>
+                        <li><a class="mobile-menu-link" href="registration.html">Registration</a></li>
+                    </ul>
+                </li>
+                <!-- signle menu item -->
+            </ul>
+            <!-- nav area end -->
+        </div>
+        <!-- rts header area end -->

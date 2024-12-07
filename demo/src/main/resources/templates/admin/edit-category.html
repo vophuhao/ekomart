@@ -1,0 +1,87 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/home.html}">
+<div class="main-content" layout:fragment="content">
+	<!-- main-content-wrap -->
+	<div class="main-content-inner">	
+		<!-- main-content-wrap -->
+		<div class="main-content-wrap">
+			<div class="flex items-center flex-wrap justify-between gap20 mb-27">
+				<h3>Edit Category</h3>
+				<ul
+					class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+					<li>
+						<div class="text-tiny">Dashboard</div>
+					</li>
+					<li><i class="icon-chevron-right"></i></li>
+					<li>
+						<div class="text-tiny">All category</div>
+					</li>
+					<li><i class="icon-chevron-right"></i></li>
+					<li>
+						<div class="text-tiny">Edit category</div>
+					</li>
+				</ul>
+			</div>			
+			<!-- form-edit-category -->
+			<form class="form-add-product" th:action="@{/admin/categories/update}" method="POST" th:object="${category}">
+				<div class="wg-box">				
+					<!-- Category id goc -->
+					<fieldset class="category-id" style= "display: none">
+					    <label for="categoryId" class="form-label">ID: </label>
+					    <input type="text" th:field="*{id}" 
+					           class="form-control" id="categoryId" 
+					           aria-describedby="categoryIdid" 
+					           placeholder="ID" readonly>
+					</fieldset>
+					
+					<!-- Category Name -->
+					<fieldset class="category-name">
+						<div class="body-title mb-10">
+							Category Name <span class="tf-color-1">*</span>
+						</div>
+						<input class="mb-10" type="text" placeholder="Enter category name"
+							name="categoryName" tabindex="0" th:field="*{categoryName}" aria-required="true"
+							required>
+						<div class="text-tiny">Do not exceed 20 characters for the
+							category name.</div>
+					</fieldset>
+
+					<!-- Category ID -->
+					<fieldset class="category-id">
+						<div class="body-title mb-10">
+							Category ID <span class="tf-color-1">*</span>
+						</div>
+						<input class="mb-10" type="text" placeholder="Enter category ID"
+							name="categoryId" tabindex="1"  th:field="*{categoryId}" aria-required="true"
+							required>
+					</fieldset>
+
+					<!-- Status Checkbox -->
+					<fieldset class="status">
+						<div class="body-title mb-10">
+							Status <span class="tf-color-1">*</span>
+						</div>
+						
+						<!-- Neu checkbox checked => luu gia tri 1 else luu gia tri 0 -->
+						<label>
+						    <input type="checkbox" name="status" value="1" 
+						           th:checked="${category.status == 1}">Active
+						</label>
+					</fieldset>
+					<div class="">
+						<button class="tf-button w-full" type="submit">Save category</button>	
+				</div>
+				</div>		
+			</form>
+			<!-- /form-add-product -->
+		</div>
+		<!-- /main-content-wrap -->
+	</div>
+	<!-- /main-content-wrap -->
+	<!-- bottom-page -->
+
+	<!-- /bottom-page -->
+			<!-- Javascript -->
+	
+</div>

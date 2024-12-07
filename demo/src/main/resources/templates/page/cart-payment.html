@@ -1,0 +1,240 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="~{page/home.html}">
+
+<div layout:fragment="content">
+	<div class="rts-cart-area rts-section-gap bg_light-1">
+		<div class="container-payment">
+		
+			<div class="row g-5">
+			
+				<div
+					class="col-xl-12 col-lg-12 col-md-12 col-12 order-2 order-xl-1 order-lg-2 order-md-2 order-sm-2">
+					<div class="cart-area-main-wrapper">
+						<div class="cart-top-area-note">
+							<div
+								style="display: flex; align-items: center; justify-content: space-between;">
+								<div style="font-size: 35px; margin: 0; width: 90%;">Địa
+									chỉ giao hàng</div>
+								<div style="width: 10%;">
+									<button type="button" class="btn btn-primary"
+										data-bs-toggle="modal" data-bs-target="#deliveryModal"
+										style="display: flex; align-items: center; padding: 5px 10px; font-size: 16px; cursor: pointer;">
+										Thêm địa chỉ</button>
+									<div class="modal fade" id="deliveryModal"
+										data-bs-backdrop="static" data-bs-keyboard="false"
+										tabindex="-1" aria-labelledby="deliveryModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content" style="height: 520px">
+												<!-- Modal Header -->
+												<div class="modal-header">
+													<h5 class="modal-title" id="deliveryModalLabel">Nhập
+														Địa Chỉ Giao Hàng</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+
+												<!-- Modal Body -->
+
+												<div class="modal-body">
+													<div class="mb-3">
+														<label for="fullname" class="form-label">Họ và
+															Tên:</label> <input type="text" class="form-control" id="uname"
+															name="uname" required style="border: solid 2px #ddd;">
+													</div>
+													<div class="mb-3">
+														<label for="phone" class="form-label">Số Điện
+															Thoại:</label> <input type="text" class="form-control" id="phone"
+															name="phone" required style="border: solid 2px #ddd;">
+													</div>
+													<div class="mb-3">
+														<label for="address" class="form-label">Địa Chỉ:</label> <input
+															type="text" class="form-control" id="detail"
+															name="detail" required style="border: solid 2px #ddd";>
+													</div>
+													<div class="mb-3"
+														style="display: flex; align-items: center; padding: 12px 0px;">
+														<label for="province" class="form-label"
+															style="padding-right: 15px; font-size: 20px; width: 50%;">Tỉnh/Thành
+															Phố:</label> <select id="province" name="province" required
+															style="font-size: 20px;">
+															<option value="">Chọn Tỉnh/Thành Phố</option>
+														</select>
+													</div>
+													<div class="mb-3"
+														style="display: flex; align-items: center; padding: 12px 0px;">
+														<label for="district" class="form-label"
+															style="padding-right: 15px; font-size: 20px; width: 50%;">Quận/Huyện:</label>
+														<select id="district" name="district"
+															style="font-size: 20px;" required>
+															<option value="" selected>Chọn Quận/Huyện</option>
+														</select>
+													</div>
+													<div class="mb-3"
+														style="display: flex; align-items: center; padding: 12px 0px;">
+														<label for="ward" class="form-label"
+															style="padding-right: 15px; font-size: 20px; width: 50%;">Phường/Xã:</label>
+														<select id="ward" name="ward" required
+															style="font-size: 20px;">
+															<option value="" selected>Chọn Phường/Xã</option>
+														</select>
+													</div>
+													<button type="button"
+														class="saveAddressBtn btn btn-primary"
+														style="width: 30%; font-size: 15px; padding: 10px;">
+														Xác Nhận Địa Chỉ</button>
+
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class='row row-address' style="margin-top: 15px;">
+								<div class="col-6 address" style="margin-right: 15px;"
+									th:each="address : ${addressUser}">
+									<div class=" align-items-start"
+										style="padding: 10px; height: 100%">
+										<div style="padding: 10px; height: 80%">
+											<input type="hidden" th:value=${address.id} id="addressid">
+											<p>
+												<strong th:text="${address.uname}"></strong>
+											</p>
+											<p th:text="${address.phone}"></p>
+											<p
+												th:text="${address.detail + ' ' + address.ward + ' ' + address.district + ' ' + address.province}"></p>
+										</div>
+										<!-- Các nút Chỉnh sửa và Xóa -->
+										<div class="d-flex"
+											style="height: 20%; width: 100%; height: 20%; width: 100%; justify-content: flex-end; display: flex;">
+											<i class="fa-solid fa-pencil-alt"
+												style="padding-right: 10px;"> </i> <i
+												class="fa-solid fa-trash-alt remove-address"
+												style="padding-right: 10px;"></i> <a
+												th:text="${address.defaults == 1 ? 'Mặc định' : 'Dat lam  mặc định'}"></a>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="rts-cart-list-area">
+						<div class="container-pro mt-4 mb-5">
+							<div class="product-item">
+								<div class="product-item-title">
+									<h2 class="title-sp">Sản phẩm</h2>
+									<div style="flex: 2"></div>
+									<div class="title-sp-1">Đơn giá</div>
+									<div class="title-sp-1">Số lượng</div>
+									<div class="title-sp-1">Thành tiền</div>
+								</div>
+							</div>
+						
+								<!-- <div th:each="item, i : ${cart.items}"> -->
+								<div class="product-list">
+									<div th:each="product : ${selectedProducts}"
+										class="product-info">
+										<div class="pro-shop" th:text="${product.productName}"></div>
+										
+										<div class="product">
+											<div class="product-info-1">
+												<div style="flex: 4">
+													 <img class="img-pro" th:src="@{'/user/cart/payment/images/' + ${product.productImage}}">
+												</div>
+												<input type="hidden" class="product-id" th:value="${product.productId}">
+												<span style="flex: 2"></span> <span
+													class="title-sp-1" th:text="${product.productPrice}"></span>
+												<span class="title-sp-1 product-quantity"
+													th:text="${product.productQuantity}" th:value="${product.productQuantity}"></span> <span
+													id="total" class="title-sp-1"
+													th:text="${product.productPrice*product.productQuantity}"></span>
+											</div>
+										</div>
+										<div class="ptvanchuyen">
+										<div class="message">
+											<span style="display: flex; width: 80px;">Lời nhắn:</span> <input
+												class="luuy" placeholder="Lưu ý cho người bán"></input>
+										</div>
+										<div class="vanchuyen">
+											<span style="flex: 5">Phương thức vận chuyển:</span> <span
+												style="flex: 4" class="shippingMethod">Chuẩn</span>
+											<button class="changeButton" type="button"
+												style="flex: 4; color: #05a !important;">Thay đổi</button>
+											<span style="flex: 4; text-align: right;"
+												class="shippingCost">20.000</span>
+										</div>
+									</div>
+									<div class="tongtien">
+										<span>Tổng tiền: 100.000</span>
+									</div>
+									</div>
+								</div>
+							
+
+							<div style="margin-top: -13px;">
+								<div class="pro-voucher">
+									<span>Eko Voucher</span>
+									<button class="btn-voucher">Chọn voucher</button>
+								</div>
+							</div>
+							<div class="thanhtoantien">
+								<div class="ptthanhtoan">
+									<span style="display: flex; margin-right: 10px">Phương
+										thức thanh toán:</span>
+									<button class="btn-tt">Thanh toán bằng ngân hàng</button>
+									<button class="btn-tt">Thanh toán khi nhận hàng</button>
+								</div>
+								<div class="thanhtoan-info">
+									<div></div>
+									<div>
+										<div class="thanhtoan-row">
+											<span class="label-tong">Tổng tiền hàng</span> <span
+												class="tien-tong tien-tong-items">100.000</span>
+										</div>
+										<div class="thanhtoan-row">
+											<span class="label-tong">Tổng tiền phí vận chuyển</span> <span
+												class="tien-tong tien-tong-shipping">20.000</span>
+										</div>
+										<div class="thanhtoan-row">
+											<span class="label-tong">Tổng thanh toán</span> <span
+												class="tien-tong tien-tong-total"
+												style="font-size: 20px; color: green">120.000</span>
+										</div>
+									</div>
+								</div>
+							</div>
+								
+							
+							<div id="popup-vanchuyen" class="popup-vanchuyen">
+								<div class="popup-content">
+									<h3>Chọn phương thức vận chuyển</h3>
+									<label class="option"> <input type="radio"
+										name="shipping" value="Nhanh" checked> Nhanh: 20.000₫
+										(Đảm bảo nhận hàng trong 3 ngày)
+									</label> <label class="option"> <input type="radio"
+										name="shipping" value="Hỏa Tốc"> Hỏa Tốc: 45.000₫
+										(Giao hàng trong ngày)
+									</label>
+									<div class="buttons">
+										<button class="btn btn-success confirm-button ml-2">Xác
+											Nhận</button>
+										<button class="btn btn-secondary close-button ml-2">Trở
+											Lại</button>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+		</div>
+	</div>
+</div>

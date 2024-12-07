@@ -1,0 +1,88 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/home.html}" >
+    <!-- vendor-grid-top-area start -->
+<div layout:fragment="content">
+    <div class="vendor-grid-top-search-area" >
+        <h5 class="title">Vendors Card</h5>
+        <form action="#" class="input-area-search-head-vendor">
+            <input type="text" placeholder="Search vendors (by name or ID)...">
+            <a href="#" class="rts-btn btn-primary radious-sm with-icon">
+                <div class="btn-text">
+                    Search
+                </div>
+                <div class="arrow-icon">
+                    <i class="fa-light fa-magnifying-glass"></i>
+                </div>
+                <div class="arrow-icon">
+                    <i class="fa-light fa-magnifying-glass"></i>
+                </div>
+            </a>
+        </form>
+    </div>
+
+    <!-- vendor-grid-top-area end -->
+     <div class="vendor-list-main-wrapper">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Vendors</th> <!--Bao gom name va avatar !-->
+                            <th>Vendor ID</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Status</th>                          
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="vendor: ${list}">
+                            <td width="30%">
+                                <a href="#" class="itemside">
+                                    <div class="left">
+                                        <img th:src="${'/admin/vendor/images/' + vendor.avatar}" alt="Profile-NFT" class="img-fluid rounded-circle">
+                                    </div>
+                                    <div class="info pl-3">
+                                        <h6 class="title" th:text="${vendor.name}"></h6>
+                           
+                                        </div>
+                                   
+                                </a>
+                            </td>
+
+                            <td >
+                                <p th:text="${vendor.shopId}">
+                                </p>
+                            </td>
+
+                            <td width="10%">
+                                <p th:text="${vendor.sdt}">
+                                </p>
+                            </td>
+
+                            <td width="20%">
+                                <p th:text="${vendor.email}">
+                                </p>
+                            </td>
+                     
+
+                            <td width="10%" class="">
+                         
+                                <button th:if="${vendor.status == 0}" type="button" style="margin-top: -15px;color:#FFCC66; margin-left: -30px;"   data-bs-toggle="modal" data-bs-target="#vendorModal" th:onclick="|getVendorById('${vendor.id}')|">Waiting</button>
+                            </td>
+
+                            <td width="20%" class="text-end">
+                                <a class="rts-btn btn-primary " style="display:inline !important" data-bs-toggle="modal" data-bs-target="#shopDetailModal" th:onclick="|getVendorDetailById('${vendor.id}')|">details</a>
+                            </td>
+                        </tr>
+                       
+                                               
+                    </tbody>
+                </table>
+                <!-- table-responsive.// -->
+            </div>
+        </div>
+     </div>
+
+                           

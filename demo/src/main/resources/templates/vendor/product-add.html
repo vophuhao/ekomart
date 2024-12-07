@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{vendor/home.html}">
+<div class="transection" layout:fragment="content">
+                    <div class="vendor-list-main-wrapper product-wrapper add-product-page">
+                        <div class="card-body table-product-select">
+                            <div class=" header-two show right-collups-add-product">
+                                <!-- inner menu area desktop start -->
+                                <form th:action="@{/vendor/products/add}" method="POST" th:object="${products}" enctype="multipart/form-data">
+                                	<div class="right-collups-area-top">
+                                    <h6 class="title" style="font-size: 32px;">Add New Product</h6>
+                                    <p>Add information and add new product</p>
+                                    </div>
+                                    <div class="input-main-wrapper">
+                                        <div class="single-input">
+                                            <label for="name">Product Name</label>
+                                            <input type="text" id="name" name="name" placeholder="Quaker Oats Healthy Meal...">
+                                        </div>
+                                        <div class="single-input">
+                                            <label for="price">Regular Price</label>
+                                            <input type="text" id="price" name="price" placeholder="240">
+                                        </div>
+
+                                        <div class="single-input">
+                                            <label for="count">Stock</label>
+                                            <input type="text" id="count" name="count" placeholder="530">
+                                        </div>
+
+                                        <div class="single-input">
+                                            <label for="cateName">Category</label>
+                                            <select   id="categoryId" name="categoryId" style="height: 62px;border: 1px solid #E8E9EB;border-radius: 4px;padding: 0 15px;">
+                                                    <option th:each="cate : ${cateList}" th:value="${cate.id}" th:text="${cate.categoryName}"> </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="single-input">
+                                            <label for="description">Description</label>
+                                            <textarea name="description" id="description"  placeholder="Type something"></textarea>
+                                        </div>
+                                        <div class="single-input">
+                                            <div class="file-upload-add-product">
+                                                <div class="profile-left">
+                                                    <div class="profile-image mb--30">
+                                                        <img id="rts_image" src="/vendor/images/grocery/16.png" alt="Profile-NFT">
+                                                        <span>Drag and drop Image</span>
+                                                    </div>
+                                                    <div class="button-area">
+                                                        <div class="brows-file-wrapper">
+                                                            <!-- actual upload which is hidden -->
+                                                            <input name="rts_images1" id="rts_images1" type="file">
+                                                            <!-- our custom upload button -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="button-area-botton-wrapper-p-list">
+                                            <button class="rts-btn btn-primary">Save</button>
+                                            <a  th:href="@{/vendor/home}"><button type="button" class="rts-btn btn-primary bg-transparent">Cancel</button></a>
+                                        </div>
+                                    </div>
+                                </form>
+                                
+                            </div>
+                            
+                        </div>
+                     </div>
+                </div>

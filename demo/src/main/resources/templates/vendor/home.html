@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
+<head>
+
+<meta charset="UTF-8">
+<meta name="description"
+	content="Ekomart-Grocery-Store(e-Commerce) HTML Template: A sleek, responsive, and user-friendly HTML template designed for online grocery stores.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="Grocery, Store, stores">
+<title>Dashboard Ekomart-Grocery-Store HTML Template</title>
+<link rel="shortcut icon" type="image/x-icon"
+	href="/admin/images/fav.png">
+<!-- plugins css -->
+<link rel="stylesheet preload" href="/vendor/css/plugins.css" as="style">
+<link rel="stylesheet preload"
+	href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"
+	as="style">
+<link rel="stylesheet preload" href="/vendor/css/style.css" as="style">
+
+<script type="text/javascript">
+	var successMessage = /*[[${successMessage}]]*/null;
+	if (successMessage) {
+		alert(successMessage);
+	}
+</script>
+
+</head>
+<body>
+	<div class="ekomart_dashboard">
+		<div th:replace="~{vendor/fragments/sidebar::sidebar}"></div>
+
+		<div class="right-area-body-content">
+			<div th:replace="~{vendor/fragments/header::header}"></div>
+			<div class="body-root-inner">
+			
+				<div layout:fragment="content"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--  <div id="anywhere-home"></div>
+	<form th:action="@{/admin/categories/save}" method="post" th:object="${category}">
+    <div id="side-bar" class="side-bar header-two right-collups-add-product">
+        <button class="close-icon-menu">
+            <i class="far fa-times"></i>
+        </button>
+        <div class="right-collups-area-top">
+            <h6 class="title" th:text="${category != null && category.isEdit} ? 'Edit Category' : 'Add New Category'"></h6>
+            <p th:text="${category != null && category.isEdit} ? 'Update category information' : 'Add information and add new category'"></p>
+        </div>
+        <div class="input-main-wrapper">
+            <div class="single-input" style="display: none">
+                <label for="one">ID: </label>
+                <input type="text" id="one" th:field="*{id}" placeholder="" />
+            </div>
+            <div class="single-input">
+                <label for="one">Category Name</label>
+                <input type="text" id="one" th:field="*{categoryName}" placeholder="" />
+            </div>
+            <div class="single-input" th:if="${category.id != null}">
+                <label for="Two">Category ID</label>
+                <input type="text" id="Two" th:field="*{categoryId}" readonly />
+            </div>
+            <div class="single-input">
+                <label>
+                    <input type="checkbox" th:field="*{status}" value="1" /> Active
+                </label>
+            </div>
+            <div class="button-area-botton-wrapper-p-list">
+                <button class="rts-btn btn-primary" type="submit">Save</button>
+                <button class="rts-btn btn-primary bg-transparent" type="button">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form> 
+	 -->
+
+	<div id="anywhere-home"></div>
+	<form th:action="@{/admin/categories/save}" method="POST" th:object="${category}" enctype="multipart/form-data" >
+		<div id="side-bar"
+			class="side-bar header-two right-collups-add-product">
+			<button class="close-icon-menu" type="button">
+				<i class="far fa-times"></i>
+			</button>
+			<div class="right-collups-area-top">
+				<h6 class="title">Save Category</h6>
+				<p>Save information of category</p>
+			</div>
+			<div class="input-main-wrapper">
+				<div class="single-input">
+					<label for="categoryName">Category Name</label> <input type="text"
+						id="categoryName" name="categoryName" placeholder=""></input>
+				</div>
+				<div class="single-input">
+					<label for="categoryId">Category ID</label> <input type="text"
+						id="categoryId" name="categoryId" placeholder="">
+				</div>
+				<div class="single-input">
+					<label> <input type="checkbox" id="status" name="status"
+						value="1"> Active
+					</label>
+				</div>			
+				<div class="single-input">
+					<script type="text/javascript">
+					function chooseFile(fileInput) {
+						if (fileInput.files && fileInput.files[0]) {
+							var reader = new FileReader();
+							reader.onload = function(e) {
+								$('#images').attr("src", e.target.result);
+							}
+							reader.readAsDataURI(fileInput.files[0]);
+						}
+					}
+				</script>
+				<img id="images">
+				<label >Category Image</label> 
+				<input type="file" name="imageFile" id="imageFile" aria-describedby="imageFile" onchange="chooseFile(this)" />
+				</div>
+				
+				<div class="button-area-botton-wrapper-p-list">
+					<button class="rts-btn btn-primary" type="submit">Save</button>
+					<button class="rts-btn btn-primary bg-transparent" type="button">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form th:action="@{/vendor/products/displayProduct}" method="POST" th:object="${product}" enctype="multipart/form-data">
+		<div class="modal fade" id="productModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content" style="height: 200px">
+					<div class="modal-header">
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<!-- Modal body -->
+					<div class="modal-body">
+						<h4 id="title" ></h4>
+						<!-- Hidden inputs to pass product id and display status -->
+						<div class="single-input" hidden>
+							<input type="text" id="id" name="id" placeholder="">
+							<input type="text" id="display" name="display" placeholder="">
+						</div>
+						<div style="margin-top:15%">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  style="width: 25%;margin-left:40%; height: 30%">Close</button>
+							<button type="submit" class="btn btn-primary" style="width: 30%;border-color:#629D23; background-color:#629D23; height: 30%">Save changes</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+	<!-- all plugins js here -->
+	<script src="/vendor/js/plugins.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/apexcharts@3.27.0/dist/apexcharts.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+	<!-- main js Custom -->
+	<script src="/vendor/js/main.js"></script>
+	<!-- rts header area end -->
+	<script src="/vendor/js/register-shop.js"></script>
+	<script src="/vendor/js/province.js"></script>
+
+</body>
+</html>

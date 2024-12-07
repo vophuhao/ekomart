@@ -1,0 +1,97 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/home.html}">
+<style>
+    .shop-grid{
+        display : grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 20px;
+        row-gap : 50px;
+        background-color: white;
+    }
+    .shop-info{
+        display : grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        row-gap : 50px;
+    }
+</style>
+<div class="transection" layout:fragment="content">
+                    <div class="vendor-list-main-wrapper product-wrapper add-product-page">
+                        <div class="card-body table-product-select">
+                            <div class=" header-two show right-collups-add-product">
+                                <!-- inner menu area desktop start -->
+                                <div class="right-collups-area-top" style="display:flex;">
+                                    <a th:href="@{/admin/vendor/product}" style="font-size: 20px;width:10%;"> < Back </a>
+                                </div>
+                                <a href="/your-target-url" class="shop-info-link">
+                                <form class="shopInfo p-4 mb-5 mt-5 bg-white" style="box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);" method="POST" th:object="${shop}" enctype="multipart/form-data">
+                                    <div class="row g-0">
+                                        <!-- Avatar Section -->
+                                        <div class="col-md-2 d-flex justify-content-center align-items-center">
+                                            <div class="avatar-shop" style="width: 80px;height: 80px;object-fit: cover;border-radius: 50%">
+                                                <img th:src="${'/admin/vendor/images/' + shop.avatar}" alt="Profile-NFT" class="img-fluid rounded-circle">
+                                            </div>
+                                        </div>
+
+                                        <!-- Shop Info Section -->
+                                        <div class="col-md-4">
+                                            <div class="d-flex flex-column gap-1">
+                                                <div class="shop-name">
+                                                    <label id="sname" th:text="*{name}" class="fw-bold"></label>
+                                                </div>
+                                                <div class="shop-id">
+                                                    <label id="email" th:text="*{shopId}" class="text-muted"></label>
+                                                </div>
+                                                <div class="shop-product">
+                                                    <label id="product" th:text="*{description}" class="text-secondary"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                </a>
+                                <form class="productInfo" method="POST" th:object="${product}" enctype="multipart/form-data">
+                                    <div >
+                                        <div class="right-collups-area-top" style="display:flex;">
+                                            <h6 class="title" style="font-size: 32px;width:90%;">Product info</h6>
+                                        </div>
+                                        <div class="input-main-wrapper">
+                                            <div class="single-input">
+                                                <label for="name">Product Name</label>
+                                                <input type="text" id="name" name="name" th:field="*{name}" readonly>
+                                            </div>
+                                            <div class="single-input">
+                                                <label for="price">Regular Price</label>
+                                                <input type="text" id="price" name="price" th:field="*{price}" readonly>
+                                            </div>
+
+                                            <div class="single-input">
+                                                <label for="count">Stock</label>
+                                                <input type="text" id="count" name="count" th:field="*{count}" readonly>
+                                            </div>
+
+                                            <div class="single-input">
+                                                <label for="cateName">Category</label>
+                                                <input type="text" id="cateName" name="cateName" th:field="*{category.categoryName}" readonly>
+                                            </div>
+
+                                            <div class="single-input">
+                                                <label for="description">Description</label>
+                                                <textarea name="description" id="description" th:field="*{description}"></textarea>
+                                            </div>
+                                            <div class="single-input">
+                                                <label for="description">Product Image</label><br>
+                                                <img th:src="${'/admin/vendor/product/images/' + product.image}" alt="Product Image" style="width: 200px;height: 150px">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </form>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+</div>

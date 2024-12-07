@@ -1,0 +1,117 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="~{vendor/home.html}">
+
+<div layout:fragment="content">
+	<div class="rts-cart-area rts-section-gap bg_light-1">
+		<div class="container-payment">
+		
+			<div class="row g-5">
+			
+				<div
+					class="col-xl-12 col-lg-12 col-md-12 col-12 order-2 order-xl-1 order-lg-2 order-md-2 order-sm-2">
+					<div class="cart-area-main-wrapper">
+						<div class="cart-top-area-note">
+							<div
+								style="display: flex; align-items: center; justify-content: space-between;">
+								<div style="font-size: 35px; margin: 0; width: 90%;">Địa
+									chỉ giao hàng</div>
+							
+
+							</div>
+							<div class='row row-address' style="margin-top: 15px;margin-left: 3px;">
+								<div class="col-6 address" style="margin-right: 15px;background-color: #fff"
+									th:each="address : ${addressUser}">
+									<div class=" align-items-start"
+										style="padding: 10px; height: 100%">
+										<div style="padding: 10px; height: 80%">
+											<input type="hidden" th:value=${address.id} id="addressid">
+											<p>
+												<strong th:text="'Khách Hàng: ' + ${address.uname}"></strong>
+											</p>
+											<p th:text="'Sdt: ' + ${address.phone}" style="margin-top: -15px;"></p>
+											<p
+												th:text="${ 'Dia chi: ' + address.detail + ' ' + address.ward + ' ' + address.district + ' ' + address.province}"></p>
+										</div>
+										<!-- Các nút Chỉnh sửa và Xóa -->										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="rts-cart-list-area">
+						<div class="container-pro mt-4 mb-5">
+							<div class="product-item" style="margin-bottom: 10px !important;">
+								<div class="product-item-title">
+									<h2 class="title-sp">Sản phẩm</h2>
+									<div class="title-sp-1"style="color: #222;font-size: 20px;">Ma san pham</div>
+									<div class="title-sp-1" style="color: #222;font-size: 20px;">Đơn giá</div>
+									<div class="title-sp-1" style="color: #222;font-size: 20px;">Số lượng</div>
+									<div class="title-sp-1" style="color: #222;font-size: 20px;">Thành tiền</div>
+								</div>
+							</div>	
+								<!-- <div th:each="item, i : ${cart.items}"> -->
+							<div class="product-list">
+									<div th:each="order : ${orderlist}"
+										class="product-info">
+										<div class="pro-shop"  style="padding: 10px 30px 60px 30px !important;width:35% !important;color: #222;font-size: 20px;" th:text="${order.product.name}"></div>
+										<div class="product">
+											<div class="product-info-1">
+												<div style="flex: 4">
+													<img class="img-pro"
+														src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/11/Genshin-Impact-Nahida.jpg">
+
+												</div>
+												
+												<span class="title-sp-1" style="color: #222;font-size: 20px;" th:text="${order.product.productId}"></span> 
+												<span class="title-sp-1" style="color: #222;font-size: 20px;" th:text="${order.product.price}"></span>
+												<span class="title-sp-1 product-quantity"
+													th:text="${order.quantity}" th:value="${order.quantity}" style="color: #222;font-size: 20px;"></span> 
+												<span
+													id="total" class="title-sp-1"
+													th:text="${order.price*order.quantity}" style="color: #222;font-size: 20px;"></span>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							
+
+							<div class="thanhtoantien">
+								<div class="ptthanhtoan">
+									<span style="display: flex; margin-right: 10px">Phương
+										thức thanh toán:</span>
+									<button class="btn-tt">Thanh toán bằng ngân hàng</button>
+									<button class="btn-tt">Thanh toán khi nhận hàng</button>
+								</div>
+								<div class="thanhtoan-info">
+									<div></div>
+									<div>
+										<div class="thanhtoan-row">
+											<span class="label-tong">Tổng tiền hàng</span> <span
+												class="tien-tong tien-tong-items">100.000</span>
+										</div>
+										<div class="thanhtoan-row">
+											<span class="label-tong">Tổng tiền phí vận chuyển</span> <span
+												class="tien-tong tien-tong-shipping">20.000</span>
+										</div>
+										<div class="thanhtoan-row">
+											<span class="label-tong">Tổng thanh toán</span> <span
+												class="tien-tong tien-tong-total"
+												style="font-size: 20px; color: green">120.000</span>
+										</div>
+									</div>
+								</div>
+							</div>																					
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		
+			
+			
+		</div>
+	</div>
+</div>

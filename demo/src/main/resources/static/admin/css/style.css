@@ -8078,7 +8078,7 @@ input[type=radio] ~ label {
   padding-left: 25px;
   cursor: pointer;
 }
-input[type=checkbox] ~ label::before,
+/* input[type=checkbox] ~ label::before,
 input[type=radio] ~ label::before {
   content: " ";
   position: absolute;
@@ -8106,7 +8106,7 @@ input[type=radio] ~ label::after {
   transform: rotate(-45deg);
   opacity: 0;
   transition: all 0.3s;
-}
+} */
 input[type=checkbox]:checked ~ label::after,
 input[type=radio]:checked ~ label::after {
   opacity: 1;
@@ -16796,3 +16796,115 @@ edit .quantity-edit button {
   margin-right: auto;
 }
 /*# sourceMappingURL=../maps/style.css.map */
+.modal-footer-2 {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+    padding: calc(var(--bs-modal-padding) - var(--bs-modal-footer-gap)* .5);
+    background-color: var(--bs-modal-footer-bg);
+    border-top: var(--bs-modal-footer-border-width) solid var(--bs-modal-footer-border-color);
+    border-bottom-right-radius: var(--bs-modal-inner-border-radius);
+    border-bottom-left-radius: var(--bs-modal-inner-border-radius);
+    flex-wrap: nowrap;
+}
+
+.cccd-image {
+  width: 300px; /* Chiều rộng ảnh */
+  height: 200px; /* Chiều cao ảnh */
+  object-fit: cover; /* Cắt hoặc co giãn để vừa khung hình */
+  border: 1px solid #ccc; /* Tùy chọn: Viền để dễ nhận biết */
+  border-radius: 5px; /* Tùy chọn: Bo góc nhẹ */
+  margin-top:40px;
+}
+
+/* Overlay Styling */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    display: none; /* Ẩn mặc định */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.overlay-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.beautiful-button {
+    background-color: #007BFF; /* Màu nền xanh dương */
+    color: white; /* Màu chữ trắng */
+    border: none; /* Bỏ viền */
+    border-radius: 50px; /* Bo tròn các góc */
+    padding: 15px 30px; /* Khoảng cách xung quanh chữ */
+    font-size: 16px; /* Kích thước chữ */
+    font-weight: bold;
+    text-transform: uppercase; /* Chữ hoa toàn bộ */
+    cursor: pointer; /* Đổi con trỏ thành tay khi hover */
+    transition: all 0.3s ease; /* Hiệu ứng chuyển động */
+}
+
+/* Hiệu ứng hover cho nút */
+.beautiful-button:hover {
+    background-color: #0056b3; /* Đổi màu nền khi hover */
+    transform: translateY(-5px); /* Nâng nút lên một chút */
+}
+
+/* Hiệu ứng nhấn nút */
+.beautiful-button:active {
+    transform: translateY(2px); /* Đẩy nút xuống khi nhấn */
+}
+
+/* Hiệu ứng focus cho nút */
+.beautiful-button:focus {
+    outline: none; /* Bỏ outline khi focus */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Ánh sáng xung quanh khi focus */
+}
+.btn-shop {
+    cursor: pointer;
+}
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.button-group button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button-group .btn-save {
+    background-color: #28a745;  /* Màu xanh lá */
+    color: white;
+}
+
+.button-group .btn-save:hover {
+    background-color: #218838;  /* Màu xanh lá đậm khi hover */
+    transform: scale(1.05);
+}
+
+.button-group .btn-cancel {
+    background-color: #dc3545;  /* Màu đỏ */
+    color: white;
+}
+
+.button-group .btn-cancel:hover {
+    background-color: #c82333;  /* Màu đỏ đậm khi hover */
+    transform: scale(1.05);
+}
+
+.button-group button:focus {
+    outline: none; /* Loại bỏ viền khi focus */
+}

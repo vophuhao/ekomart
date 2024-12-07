@@ -1,37 +1,73 @@
 <!DOCTYPE html>
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
-    
-<!-- Mirrored from html.themewant.com/ekomart/index-two.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 01 Nov 2024 06:32:08 GMT -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Ekomart-Grocery-Store(e-Commerce) HTML Template: A sleek, responsive, and user-friendly HTML template designed for online grocery stores.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Grocery, Store, stores">
-    <title>Ekomart-Grocery-Store(e-Commerce) HTML Template</title>
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/fav.png">
-    <!-- plugins css -->
-    <link rel="stylesheet preload" th:href="@{/view/css/plugins.css}" as="style">
-    <link rel="stylesheet preload" th:href="@{/view/css/style.css}" as="style">
+
+<meta charset="UTF-8">
+<meta name="description"
+	content="Ekomart-Grocery-Store(e-Commerce) HTML Template: A sleek, responsive, and user-friendly HTML template designed for online grocery stores.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="Grocery, Store, stores">
+<title>Ekomart-Grocery-Store(e-Commerce) HTML Template</title>
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/view/images/fav.png}">
+<!-- plugins css -->
+<link rel="stylesheet preload" th:href="@{/view/css/plugins.css}"
+	as="style">
+<link rel="stylesheet preload" th:href="@{/view/css/style.css}"
+	as="style">
+
+<meta charset="UTF-8">
+<meta name="description"
+	content="Ekomart-Grocery-Store(e-Commerce) HTML Template: A sleek, responsive, and user-friendly HTML template designed for online grocery stores.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="Grocery, Store, stores">
+<title>Ekomart-Grocery-Store(e-Commerce) HTML Template</title>
+<link rel="shortcut icon" type="image/x-icon"
+	href="assets/images/fav.png">
+<!-- plugins css -->
+<link rel="stylesheet preload" th:href="@{/view/css/plugins.css}"
+	as="style">
+<link rel="stylesheet preload" th:href="@{/view/css/style.css}"
+	as="style">
+
+
 
 </head>
 <body>
 	<!-- start header -->
 	<header th:replace="~{page/fragments/header::header}"></header>
 	<!-- end header -->
-
+	<!-- rts header area start -->
 	
+	
+	<div >
+		<div layout:fragment="content"></div>
+	</div>
+	
+	<!-- header style two -->
+	<div id="side-bar" class="side-bar header-two">
+		<button class="close-icon-menu">
+			<i class="far fa-times"></i>
+		</button>
+		<form action="#" class="search-input-area-menu mt--30">
+			<input type="text" placeholder="Search..." required>
+			<button>
+				<i class="fa-light fa-magnifying-glass"></i>
+			</button>
+
+		</form>		
+	</div>
+	
+
+
 	<!-- start footer area -->
 	<div th:replace="~{page/fragments/footer::footer}"></div>
-
 	<!-- end footer area -->
-	 <!-- plugins js -->
-    <script defer src="/view/js/plugins.js"></script>
-
-    <!-- custom js -->
-    <script defer src="/view/js/main.js"></script>
-    <!-- header style two End -->
-       
-	
+	<!-- plugins js -->
+	<script defer src="/view/js/plugins.js"></script>
+	<!-- custom js -->
+	<script defer src="/view/js/main.js"></script>
+	<!-- header style two End -->
 </body>
 </html>
