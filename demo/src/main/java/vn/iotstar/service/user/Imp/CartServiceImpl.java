@@ -53,7 +53,6 @@ public class CartServiceImpl implements ICartService {
     public CartItem updateItemQuantity(Long cartItemId, int quantity) {
         CartItem cartItem = cartItemRepository.findById(cartItemId)
                 .orElseThrow(() -> new RuntimeException("Cart item not found with id: " + cartItemId));
-        cartItem.setQuantity(quantity);
         return cartItemRepository.save(cartItem);
     }
 

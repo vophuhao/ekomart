@@ -39,6 +39,11 @@ public class AddressServiceImp implements IAddressService{
 	public Optional<Address> findByDefaults(int defaults) {
 		return addressrepo.findByDefaults(defaults);
 	}
+	@Override
+	public Optional<Address> findByUserAndDefaults(UserInfo user, int defaults) {
+		// TODO Auto-generated method stub
+		return addressrepo.findByUserAndDefaults(user, defaults);
+	}
 	
 	
 }

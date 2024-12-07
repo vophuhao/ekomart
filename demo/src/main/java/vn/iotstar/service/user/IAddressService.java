@@ -12,5 +12,6 @@ public interface IAddressService {
 	public List<Address> findByUser(UserInfo user);
 	Optional<Address> findByDefaults(int defaults);
 	Optional<Address> findById(Long id);
+	Optional<Address> findByUserAndDefaults(UserInfo user, int defaults);
 	void delete(Long id);
 }

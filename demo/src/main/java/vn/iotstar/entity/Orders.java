@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.catalina.User;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +38,9 @@ public class Orders implements Serializable{/**
     private Long id;
 	private String oderId;
 	private LocalDateTime date; // Thêm ngày giờ
+	private String name;
+	private String phone;
+	private String address;
 
     
     private int status; // New, Confirmed, Shipping, Delivered, Canceled, Returned
@@ -59,10 +63,5 @@ public class Orders implements Serializable{/**
 
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetails;
-
-    @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address userAddress;
-
 
 }

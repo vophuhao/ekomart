@@ -1369,7 +1369,7 @@ function dathang()
 		
 	   // Gửi yêu cầu POST tới controller
 	   $.ajax({
-	       url: '/user/cart/payment',  // Địa chỉ API
+	       url: '/user/cart/payment/save',  // Địa chỉ API
 	       type: 'POST',
 	       contentType: 'application/json',  // Định dạng gửi đi là JSON
 	       data: JSON.stringify(orderData),  // Dữ liệu gửi đi dưới dạng JSON
@@ -1576,37 +1576,45 @@ document.querySelectorAll('.address-none').forEach(button => {
 function setAddressDefault(){
 	const addressDefault = document.querySelector('.address-default');
 
-	           if (addressDefault) {
-	               // Tạo một thẻ mới thay thế thẻ "address-default"
-	               const newAddress = document.createElement('div');
-	               newAddress.className = 'address';
-	               newAddress.setAttribute('data-addressId', addressDefault.getAttribute('data-addressId'));
-	               newAddress.textContent = addressDefault.textContent;
+   if (addressDefault) {
+       // Tạo một thẻ mới thay thế thẻ "address-default"
+       const newAddress = document.createElement('div');
+       newAddress.className = 'address';
+       newAddress.setAttribute('data-addressId', addressDefault.getAttribute('data-addressId'));
+       newAddress.textContent = addressDefault.textContent;
 
-	               // Thay thế thẻ "address-default" bằng thẻ mới
-	               addressDefault.replaceWith(newAddress);
-	           }
+       // Thay thế thẻ "address-default" bằng thẻ mới
+       addressDefault.replaceWith(newAddress);
+   }
 
-	           // Tạo một thẻ mới thay thế thẻ "address"
-	           const newAddressDefault = document.createElement('div');
-	           newAddressDefault.className = 'address-default';
-	           newAddressDefault.setAttribute('data-addressId', address.getAttribute('data-addressId'));
-	           newAddressDefault.textContent = address.textContent;
+   // Tạo một thẻ mới thay thế thẻ "address"
+   const newAddressDefault = document.createElement('div');
+   newAddressDefault.className = 'address-default';
+   newAddressDefault.setAttribute('data-addressId', address.getAttribute('data-addressId'));
+   newAddressDefault.textContent = address.textContent;
 
-	           // Thay thế thẻ "address" được nhấn bằng thẻ mới
-	           address.replaceWith(newAddressDefault);
-			   const addressId = this.getAttribute('data-addressId');
-			   $.ajax({
-			          url: `/user/api/address/default?addressId=${addressId}`,  // Địa chỉ API
-			          type: 'POST',
-			          contentType: 'application/json',  // Định dạng gửi đi là JSON
-			          data: { addressId: addressId }, // Gửi orderId dưới dạng JSON
-			          success: function(response) {
-			   	 window.location.href = `/admin/vendor/detail?shopId=${shopId}`;
-			          },
-			          error: function(error) {
-			              // In lỗi nếu có
-			              console.error('Lỗi khi đặt hàng:', error);
-			          }
-			      });
+   // Thay thế thẻ "address" được nhấn bằng thẻ mới
+   address.replaceWith(newAddressDefault);
+   const addressId = this.getAttribute('data-addressId');
+   $.ajax({
+          url: `/user/api/address/default?addressId=${addressId}`,  // Địa chỉ API
+          type: 'POST',
+          contentType: 'application/json',  // Định dạng gửi đi là JSON
+          data: { addressId: addressId }, // Gửi orderId dưới dạng JSON
+          success: function(response) {
+   	 window.location.href = `/admin/vendor/detail?shopId=${shopId}`;
+          },
+          error: function(error) {
+              // In lỗi nếu có
+              console.error('Lỗi khi đặt hàng:', error);
+          }
+      });
 }
+document.querySelectorAll('.saveAddressBtn').forEach(button => {
+    button.addEventListener("click", saveAddress);
+    button.addEventListener("click", closeAddressModel);
+});
+
+document.querySelectorAll('.remove-address').forEach(button => {
+    button.addEventListener("click", removeAddress);
+});
