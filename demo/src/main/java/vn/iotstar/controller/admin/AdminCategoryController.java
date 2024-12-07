@@ -115,12 +115,12 @@ public class AdminCategoryController {
 		    }
 		    Category entity = new Category();
 		    BeanUtils.copyProperties(cateModel, entity);
-		    if(!cateModel.getImageFile().isEmpty()) {
+		    if(!cateModel.getRts_images1().isEmpty()) {
 		    	//lưu file vào trường poster
 		    	UUID uuid = UUID.randomUUID();
 		    	String uuString = uuid.toString();
-		    	entity.setImage (storageService.getSorageFilename(cateModel.getImageFile(), uuString));
-		    	storageService.store(cateModel.getImageFile(), entity.getImage());
+		    	entity.setImage (storageService.getSorageFilename(cateModel.getRts_images1(), uuString));
+		    	storageService.store(cateModel.getRts_images1(), entity.getImage());
 		    	}
 		    
 		    System.out.print(entity);

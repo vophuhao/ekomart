@@ -17,7 +17,8 @@
 						</ul>
 					</div>
 				</div>
-				<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="|addCategory()|">+ Add</button>
+				<button class="rts-btn btn-primary menu-btn" type="button"
+					th:onclick="|addCategory()|">+ Add</button>
 			</div>
 		</div>
 		<div class="product-top-filter-area-l">
@@ -67,12 +68,13 @@
 								<td width="30%">
 
 									<div class="item-image-and-name">
-										<img th:src="${'/admin/categories/images/' + cate.image}" alt="">
+										<img th:src="${'/admin/categories/images/' + cate.image}"
+											alt="">
 									</div>
 
 								</td>
 								<td>
-									<div class="name" style="color:black;font-weight:bold">
+									<div class="name" style="color: black; font-weight: bold">
 										<p th:text="${cate.categoryId}"></p>
 									</div>
 								</td>
@@ -88,8 +90,12 @@
 								</td>
 								<td class="text-end">
 									<div class="between-stock-table action">
-											<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="|getCategoryById('${cate.id}')|">Edit</button>
-											<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="|getCategoryById('${cate.id}')|">Delete</button>
+										<button class="rts-btn btn-primary menu-btn" type="button"
+											th:onclick="|getCategoryById('${cate.id}')|">Edit</button>
+										<button class="rts-btn btn-primary" type="button"
+											th:onclick="|setCategoryById('${cate.id}', ${cate.status})|"
+											th:text="${cate.status == 1 ? 'Deploy' : 'No Deploy'}">
+										</button>
 									</div>
 
 								</td>
