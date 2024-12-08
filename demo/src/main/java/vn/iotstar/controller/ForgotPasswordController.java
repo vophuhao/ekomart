@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.iotstar.entity.ForgotPassword;
 import vn.iotstar.entity.UserInfo;
@@ -87,7 +88,7 @@ public class ForgotPasswordController {
         model.addAttribute("email", email);
         return "redirect:/forgotPassword/verifyOtp?email=" + email;
     }
-	
+
     // Xác thực OTP
     @PostMapping("/verifyOtp")
     public String verifyOtp(@RequestParam("otp") Integer otp, @RequestParam("email") String email, Model model) {
@@ -113,6 +114,7 @@ public class ForgotPasswordController {
     public String changePasswordHandler(@RequestParam("email") String email,
                                         @RequestParam("password") String password,
                                         @RequestParam("repeatPassword") String repeatPassword,
+                                        RedirectAttributes redirectAttributes,
                                         Model model) {
         if (!password.equals(repeatPassword)) {
             model.addAttribute("error", "Please enter the password again!");
@@ -122,7 +124,7 @@ public class ForgotPasswordController {
         String encodedPassword = passwordEncoder.encode(password);
         userRepository.updatePassword(email, encodedPassword);
         
-        model.addAttribute("message", "Password has been changed!");
+        redirectAttributes.addFlashAttribute("successMessage", "Password has been changed!");
         return "redirect:/login"; // Chuyển hướng đến trang login sau khi đổi mật khẩu thành công
     }
     
