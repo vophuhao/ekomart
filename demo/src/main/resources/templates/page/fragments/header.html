@@ -31,20 +31,27 @@
 							<div class="category-btn category-hover-header">
 								<img class="parent" src="/view/images/icons/bar-1.svg"
 									alt="icons"> <span>Categories</span>
-								
+								<ul class="category-sub-menu" id="category-active-four">
+								<li th:each="cate : ${session.cate}">
+                                     <a th:href="@{/user/product(value=${cate.categoryName})}" class="menu-item">
+                                         <img th:src="@{'/user/home/product-detail/images/' + ${cate.image}}" alt="icons">
+                                         <span th:text="${cate.categoryName}"></span>
+                                     </a>
+                                 </li>
+								</ul>
 							</div>
-							<form action="#" class="search-header">
-								<input type="text" placeholder="Search for products, categories"
-									required=""> <a th:onclick="return false;"
-									class="rts-btn btn-primary radious-sm with-icon">
-									<div class="btn-text">Search</div>
+							<form th:action="@{/user/product}" method="get" class="search-header">
+								<input type="text" name="value" placeholder="Search for products, categories"
+									required=""> 
+									<button type="submit" class="rts-btn btn-primary radious-sm with-icon">
+									<a class="btn-text">Search</a>
 									<div class="arrow-icon">
 										<i class="fa-light fa-magnifying-glass"></i>
 									</div>
 									<div class="arrow-icon">
 										<i class="fa-light fa-magnifying-glass"></i>
 									</div>
-								</a>
+								</button>
 							</form>
 						</div>
 						<div class="accont-wishlist-cart-area-header">
@@ -55,10 +62,9 @@
 							</div>		
 							<a th:href="@{/user/wishlist}" class="btn-border-only wishlist" th:if="${session.username !=null}"> 
 							<i
-								class="fa-regular fa-heart"></i> Wishlist <span class="number">2</span>
+								class="fa-regular fa-heart"></i> Wishlist <span class="number" th:text="${session.wishlistCount}"></span>
 							</a>
 							<div th:if="${session.username !=null}" class="btn-border-only cart category-hover-header">
-								
 								<i class="fa-sharp fa-regular fa-cart-shopping"></i> <span
 									class="text">My Cart</span> <span class="number" th:text="${session.cartCount}"></span>
 								<a th:href="@{/user/cart}" class="over_link"></a>
@@ -95,7 +101,7 @@
 										th:href="@{/user/vendor/list}">Vendors</a>
 									</li>
 									<li class="parent has-dropdown"><a class="nav-link"
-										th:href="@{/user/product}">Product</a>
+										th:href="@{/user/product(value=${value})}">Product</a>
 									</li>
 									<li class="parent has-dropdown"><a class="nav-link"
 										th:href="@{#}">Blog</a>

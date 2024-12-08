@@ -30,20 +30,25 @@ public class AdminCategoryServiceImp implements AdminICategoryService{
 		return categoryRepository.findByCategoryId(categoryId);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public <S extends Category> S save(S entity) {
-		if(entity.getCategoryId() == null) {
+		if(entity.getId() == null) {
+			System.out.print("ở đây");
 			UUID uuid =UUID.randomUUID();
 			String uuString = uuid.toString();
 			entity.setCategoryId(uuString);
 			return categoryRepository.save(entity);
 			}
 		else {
+			
 			if(entity.getId()!=null)
 			{
 				Optional<Category> opt=findById(entity.getId());
 				if(opt.isPresent()) {
-					if(StringUtils.isEmpty(entity.getImage())) { entity.setImage(opt.get().getImage());
+					if(StringUtils.isEmpty(entity.getImage())) { 
+						
+						entity.setImage(opt.get().getImage());
 				}else {
 					entity.setImage(entity.getImage());
 				}

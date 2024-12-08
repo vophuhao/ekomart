@@ -17439,7 +17439,6 @@ li.with-megamenu:hover .rts-megamenu {
 }
 
 .bg-primary-header.header-style-two .category-hover-header:hover {
-  background: var(--color-heading-1) !important;
   color: #fff !important;
 }
 
@@ -29215,4 +29214,57 @@ html.no-scroll {
 .image-and-action-area-wrapper img{
 	width: auto;
 	height: 230px;
+}
+.category-sub-menu img{
+	width: 30px;
+	height: 30px;
+}
+.paginate_button_product a{
+	background: #fff;
+    color: var(--color-primary);
+    border: 1px solid #f1f1f1 !important;
+    border-radius: 2px;
+    padding: 0.5em 1em;
+    text-align: center;
+    margin-left: 5px;
+    width: 90px;
+	height: 40px;
+}
+
+.paginate_button_product a:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.paginate_button_product_current a{
+	background: #fff;
+    color: var(--color-primary);
+    border: 1px solid #f1f1f1 !important;
+    border-radius: 2px;
+    padding: 0.5em 1em;
+    text-align: center;
+    margin-left: 5px;
+    width: 40px;
+	height: 40px;
+}
+.paginate_button_product_current.active a{
+	background-color: var(--color-primary) !important;
+	color: white !important;
+    border: 1px solid #f1f1f1 !important;
+    border-radius: 2px;
+    padding: 0.5em 1em;
+    text-align: center;
+    margin-left: 5px;
+    width: 40px;
+	height: 40px;
+}
+.paginate_button_product_current a:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+.search-vendor{
+	height: 50px;
+    background: #F3F4F6 !important;
+    border-radius: 5px;
+    border: 1px solid transparent !important;
 }

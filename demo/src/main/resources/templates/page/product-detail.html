@@ -1,4 +1,4 @@
-<!-- <!doctype html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
 	layout:decorate="~{page/home.html}">
@@ -40,33 +40,10 @@
                                     <div class="details-product-area">
 
                                         <div class="show-product-area-details">
-                                            <div class="product-thumb-filter-group left">
-                                                <div class="thumb-filter filter-btn active" data-show=".one"><img src="/view/images/shop/01.jpg" alt="product-thumb-filter"></div>
-                                                <div class="thumb-filter filter-btn" data-show=".two"><img src="/view/images/shop/02.jpg" alt="product-thumb-filter"></div>
-                                                <div class="thumb-filter filter-btn" data-show=".three"><img src="/view/images/shop/03.jpg" alt="product-thumb-filter"></div>
-                                                <div class="thumb-filter filter-btn" data-show=".four"><img src="/view/images/shop/04.jpg" alt="product-thumb-filter"></div>
-                                                <div class="thumb-filter filter-btn" data-show=".five"><img src="/view/images/shop/05.jpg" alt="product-thumb-filter"></div>
-                                            </div>
                                             <div class="product-thumb-area">
                                                 <div class="cursor"></div>
                                                 <div class="thumb-wrapper one filterd-items figure">
-                                                    <div class="product-thumb zoom" onmousemove="zoom(event)" style="background-image: url(/view/images/shop/01.jpg)"><img src="/view/images/shop/01.jpg" alt="product-thumb">
-                                                    </div>
-                                                </div>
-                                                <div class="thumb-wrapper two filterd-items hide">
-                                                    <div class="product-thumb zoom" onmousemove="zoom(event)" style="background-image: url(/view/images/shop/02.jpg)"><img src="/view/images/shop/02.jpg" alt="product-thumb">
-                                                    </div>
-                                                </div>
-                                                <div class="thumb-wrapper three filterd-items hide">
-                                                    <div class="product-thumb zoom" onmousemove="zoom(event)" style="background-image: url(/view/images/shop/03.jpg)"><img src="/view/images/shop/03.jpg" alt="product-thumb">
-                                                    </div>
-                                                </div>
-                                                <div class="thumb-wrapper four filterd-items hide">
-                                                    <div class="product-thumb zoom" onmousemove="zoom(event)" style="background-image: url(/view/images/shop/04.jpg)"><img src="/view/images/shop/04.jpg" alt="product-thumb">
-                                                    </div>
-                                                </div>
-                                                <div class="thumb-wrapper five filterd-items hide">
-                                                    <div class="product-thumb zoom" onmousemove="zoom(event)" style="background-image: url(/view/images/shop/05.jpg)"><img src="/view/images/shop/05.jpg" alt="product-thumb">
+                                                    <div class="product-thumb zoom" onmousemove="zoom(event)" th:style="'background-image: url(/user/home/product-detail/images/' + ${product.image} + ')'" ><img th:src="@{'/user/home/product-detail/images/' + ${product.image}}" alt="product-thumb">
                                                     </div>
                                                 </div>
                                             </div>
@@ -89,24 +66,32 @@
                                             </p>
                                             <span class="product-price mb--15 d-block" style="color: #DC2626; font-weight: 600;" th:text="${product.price} + ' đ'"> $36.25<span class="old-price ml--15">$69.35</span></span>
                                             <div class="product-bottom-action">
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
+                                            	<form action="/user/add-item" method="POST">
+													<input type="hidden" name="product.id"
+														th:value="${product.id}">
+													<!-- Product ID -->
+													<input type="hidden" name="price" th:value="${product.price}">
+													<input type="hidden" name="quantity" value="1">
+													<!-- Số lượng sản phẩm -->
+			
+													<button type="submit"
+														class="rts-btn btn-primary radious-sm with-icon">
+														<div class="btn-text">Add To Cart</div>
+														<div class="arrow-icon">
+	                                                        <i class="fa-regular fa-cart-shopping"></i>
+	                                                    </div>
+	                                                    <div class="arrow-icon">
+	                                                        <i class="fa-regular fa-cart-shopping"></i>
+	                                                    </div>
+													</button>
+												</form>
                                                 <a href="javascript:void(0);" class="rts-btn btn-primary ml--20"><i class="fa-light fa-heart"></i></a>
                                             </div>
                                             <div class="product-uniques">
                                                 <span class="sku product-unipue mb--10"><span style="font-weight: 400; margin-right: 10px;" th:text="'ProID: '+${product.productId}">SKU: </span></span>
                                                 <span class="catagorys product-unipue mb--10"><span style="font-weight: 400; margin-right: 10px;" th:text="'Category: '+${product.category.categoryName}"></span></span>
                                                 <span class="tags product-unipue mb--10"><span style="font-weight: 400; margin-right: 10px;" th:text="'Sold: '+${product.sold}"></span></span>
-                                                <span class="tags product-unipue mb--10"><span style="font-weight: 400; margin-right: 10px;">Type: </span> original</span>
+                                                <!-- <span class="tags product-unipue mb--10"><span style="font-weight: 400; margin-right: 10px;">Type: </span> original</span> -->
                                             </div>
                                             <div class="share-option-shop-details">
                                                 <div class="single-share-option">
@@ -122,10 +107,7 @@
                                                     <span>Share On social</span>
                                                 </div>
                                                 <div class="single-share-option">
-                                                    <div class="icon">
-                                                        <i class="fa-light fa-code-compare"></i>
-                                                    </div>
-                                                    <span>Compare</span>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -139,80 +121,43 @@
                                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Product Details</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Additional Information</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="profile-tabt" data-bs-toggle="tab" data-bs-target="#profile-tab-panes" type="button" role="tab" aria-controls="profile-tab-panes" aria-selected="false">Customer Reviews (01)</button>
+                                    <button class="nav-link" id="profile-tabt" data-bs-toggle="tab" data-bs-target="#profile-tab-panes" type="button" role="tab" aria-controls="profile-tab-panes" aria-selected="false" th:text="${'Customer Reviews ('+reviewsCount+')'}">Customer Reviews (01)</button>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade   show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                     <div class="single-tab-content-shop-details">
-                                        <p class="disc">
-                                            Uninhibited carnally hired played in whimpered dear gorilla koala depending and much yikes off far quetzal goodness and from for grimaced goodness unaccountably and meadowlark near unblushingly crucial scallop tightly neurotic hungrily some and dear furiously this apart.
-                                        </p>
                                         <div class="details-row-2">
                                             <div class="left-area">
-                                                <img src="/view/images/shop/06.jpg" alt="shop">
+                                            	<a th:href="@{/user/vendor/detail?(shopId=${shop.shopId})}">
+                                            		<img style="height: 300px !important; width: 100% !important;" th:src="@{'/user/home/product-detail/images/' + ${shop.avatar}}" alt="shop">
+                                            	</a>
+                                             
                                             </div>
                                             <div class="right">
-                                                <h4 class="title">All Natural Italian-Style Chicken Meatballs</h4>
-                                                <p class="mb--25">
-                                                    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. ibero sit amet quam egestas semperAenean ultricies mi vitae est Mauris placerat eleifend.
+                                            	<a th:href="@{/user/vendor/detail?(shopId=${shop.shopId})}">
+                                            		<h4  th:text="${shop.name}" class="title"></h4>
+                                            	</a>
+                                                
+                                                <p th:text="${shop.description}" class="mb--25">
+                                                    
                                                 </p>
                                                 <ul class="bottom-ul">
-                                                    <li>Elementum sociis rhoncus aptent auctor urna justo</li>
-                                                    <li>Habitasse venenatis gravida nisl, sollicitudin posuere</li>
+                                                	<div class="location" style="display: flex;">
+						                                <i style="margin-right: 15px;" class="fa-regular fa-location-dot"></i>
+						                                <p th:text="${shop.address.detail}"></p>
+						                            </div>
+						                            <div class="location" style="display: flex;">
+						                                <i style="margin-right: 15px;" class="fa-solid fa-phone-volume"></i>
+						                                <p th:text="${shop.address.addressSdt}">
+						                                </p>
+						                            </div>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                                    <div class="single-tab-content-shop-details">
-                                        <p class="disc">
-                                            Uninhibited carnally hired played in whimpered dear gorilla koala depending and much yikes off far quetzal goodness and from for grimaced goodness unaccountably and meadowlark near unblushingly crucial scallop tightly neurotic hungrily some and dear furiously this apart.
-                                        </p>
-                                        <div class="table-responsive table-shop-details-pd">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Kitchen Fade Defy</th>
-                                                        <th>5KG</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>PRAN Full Cream Milk Powder</td>
-                                                        <td>3KG</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Net weight</td>
-                                                        <td>8KG</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Brand</td>
-                                                        <td>Reactheme</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Item code</td>
-                                                        <td>4000000005</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Product type</td>
-                                                        <td>Powder milk</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <p class="cansellation mt--20">
-                                            <span> Return/cancellation:</span> No change will be applicable which are already delivered to customer. If product quality or quantity problem found then customer can return/cancel their order on delivery time with presence of delivery person.
-                                        </p>
-                                        <p class="note">
-                                            <span>Note:</span> Product delivery duration may vary due to product availability in stock.
-                                        </p>
-                                    </div>
-                                </div>
+                                
                                 <div class="tab-pane fade" id="profile-tab-panes" role="tabpanel" aria-labelledby="profile-tabt" tabindex="0">
                                     <div class="single-tab-content-shop-details">
                                         <div class="product-details-review-product-style">
@@ -221,7 +166,7 @@
 												
 												   	<h3>Customer Reviews</h3>
 
-													Menu lọc ngang
+													<!-- Menu lọc ngang -->
 													<div class="rating-menu">
 														<button class="rating-button" th:onclick="|filterByRating(5)|">5 ★</button>
 													    <button class="rating-button" th:onclick="|filterByRating(4)|">4 ★</button>
@@ -230,12 +175,12 @@
 													    <button class="rating-button" th:onclick="|filterByRating(1)|">1 ★</button>
 													</div>
 													
-													Hiển thị các đánh giá
+													<!-- Hiển thị các đánh giá -->
 													<div id="reviewContainer" th:each="review : ${reviews}" class="card-body thymeleaf-review">
 														<div class="card-body">
 														    <div class="d-flex justify-content-between align-items-center">
 														        <div class="d-flex align-items-center">
-														            Star Rating
+														            <!-- Star Rating -->
 														            <div class="rating-stars">
 														                <span th:each="star : ${#numbers.sequence(1, 5)}"
 														                      th:classappend="${star <= review.rating} ? 'text-warning' : 'text-muted'">&#9733;</span>
@@ -248,14 +193,14 @@
 														</div>
 													</div>
 								                       
-													<input type="hidden" id="productId" th:value="${product.id}"> Ẩn ID sản phẩm
+													<input type="hidden" id="productId" th:value="${product.id}"> <!-- Ẩn ID sản phẩm -->
 
 												    <div class="submit-review-area">
 													    <form th:action="@{/user/home/product-detail/{id}/addReview(id=${product.id})}" method="post" th:object="${newReview}" class="submit-review-area">
 													        <h5 class="title">Submit Your Review</h5>
 													        <label for="rating">Rating:</label>
 													        
-													        Chọn sao bằng Bootstrap
+													        <!-- Chọn sao bằng Bootstrap -->
 													        <div class="star-rating">
 													            <input type="radio" id="star5" name="rating" value="5" />
 													            <label for="star5" class="star">&#9733;</label>
@@ -327,7 +272,7 @@
         </div>
     </div>
 
-    rts grocery feature area start
+    <!-- rts grocery feature area start -->
     <div class="rts-grocery-feature-area rts-section-gap bg_light-1">
         <div class="container">
             <div class="row">
@@ -379,19 +324,16 @@
                             }
                         }'>
                             <div class="swiper-wrapper">
-                                single swiper start
-                                <div class="swiper-slide">
+                                <!-- single swiper start -->
+                                <div class="swiper-slide" th:each="product:${relatePro}">
                                     <div class="single-shopping-card-one">
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
                                         <div class="image-and-action-area-wrapper">
                                             <a href="#" class="thumbnail-preview">
                                                 <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
                                                     <i class="fa-solid fa-bookmark"></i>
                                                 </div>
-                                                <img src="/view/images/grocery/01.jpg" alt="grocery">
+                                                <img th:src="@{'/user/home/product-detail/images/' + ${product.image}}" alt="grocery">
                                             </a>
                                             <div class="action-share-option">
                                                 <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
@@ -405,446 +347,58 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        iamge and sction area start
+                                        <!-- iamge and sction area start -->
 
                                         <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
                                             <a href="#">
-                                                <h4 class="title">Nestle Cerelac Mixed Fruits &
+                                                <h4 class="title" th:text="${product.name}">Nestle Cerelac Mixed Fruits &
                                                     Wheat with Milk</h4>
                                             </a>
-                                            <span class="availability">500g Pack</span>
+                                            <span class="availability" th:text="${'Sold: '+product.sold}">500g Pack</span>
                                             <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
+                                                <span class="current" th:text="${product.price}">$36.00</span>
                                             </div>
                                             <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
+                                                
+                                                <form action="/user/add-item" method="POST">
+													<input type="hidden" name="product.id"
+														th:value="${product.id}">
+													<!-- Product ID -->
+													<input type="hidden" name="price" th:value="${product.price}">
+													<input type="hidden" name="quantity" value="1">
+													<!-- Số lượng sản phẩm -->
+			
+													<button type="submit"
+														class="rts-btn btn-primary radious-sm with-icon">
+														<div class="btn-text">Add To Cart</div>
+														<div class="arrow-icon">
+	                                                        <i class="fa-regular fa-cart-shopping"></i>
+	                                                    </div>
+	                                                    <div class="arrow-icon">
+	                                                        <i class="fa-regular fa-cart-shopping"></i>
+	                                                    </div>
+													</button>
+												</form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                single swiper start
-                                single swiper start
-                                <div class="swiper-slide">
-                                    <div class="single-shopping-card-one">
-                                        iamge and sction area start
-                                        <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
-                                                <img src="/view/images/grocery/02.jpg" alt="grocery">
-                                            </a>
-                                            <div class="action-share-option">
-                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                                    <i class="fa-light fa-heart"></i>
-                                                </div>
-                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-arrows-retweet"></i>
-                                                </div>
-                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        iamge and sction area start
-                                        <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
-                                            <a href="#">
-                                                <h4 class="title">Peysan Full Fat Fresh Cottage Cheese</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
-                                            <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
-                                            </div>
-                                            <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                single swiper start
-                                single swiper start
-                                <div class="swiper-slide">
-                                    <div class="single-shopping-card-one">
-                                        iamge and sction area start
-                                        <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
-                                                <img src="/view/images/grocery/03.jpg" alt="grocery">
-                                            </a>
-                                            <div class="action-share-option">
-                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                                    <i class="fa-light fa-heart"></i>
-                                                </div>
-                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-arrows-retweet"></i>
-                                                </div>
-                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        iamge and sction area start
-                                        <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
-                                            <a href="#">
-                                                <h4 class="title">Aptamil Gold+ ProNutra Biotik Stage 1 Infant Formula...</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
-                                            <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
-                                            </div>
-                                            <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                single swiper start
-                                single swiper start
-                                <div class="swiper-slide">
-                                    <div class="single-shopping-card-one">
-                                        iamge and sction area start
-                                        <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
-                                                <img src="/view/images/grocery/04.jpg" alt="grocery">
-                                            </a>
-                                            <div class="action-share-option">
-                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                                    <i class="fa-light fa-heart"></i>
-                                                </div>
-                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-arrows-retweet"></i>
-                                                </div>
-                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        iamge and sction area start
-                                        <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
-                                            <a href="#">
-                                                <h4 class="title">Abbott Pediasure Chocolate Refill Pack</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
-                                            <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
-                                            </div>
-                                            <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                single swiper start
-                                single swiper start
-                                <div class="swiper-slide">
-                                    <div class="single-shopping-card-one">
-                                        iamge and sction area start
-                                        <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
-                                                <img src="/view/images/grocery/05.jpg" alt="grocery">
-                                            </a>
-                                            <div class="action-share-option">
-                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                                    <i class="fa-light fa-heart"></i>
-                                                </div>
-                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-arrows-retweet"></i>
-                                                </div>
-                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        iamge and sction area start
-                                        <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
-                                            <a href="#">
-                                                <h4 class="title">Pastine Mellin Filid Angelo 100% Di Grano Tenero</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
-                                            <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
-                                            </div>
-                                            <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                single swiper start
-                                single swiper start
-                                <div class="swiper-slide">
-                                    <div class="single-shopping-card-one">
-                                        iamge and sction area start
-                                        <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
-                                                <img src="/view/images/grocery/06.jpg" alt="grocery">
-                                            </a>
-                                            <div class="action-share-option">
-                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                                    <i class="fa-light fa-heart"></i>
-                                                </div>
-                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-arrows-retweet"></i>
-                                                </div>
-                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        iamge and sction area start
-                                        <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
-                                            <a href="#">
-                                                <h4 class="title">Aussie Bubs Goat Milk Infant Formula Stage 1,</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
-                                            <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
-                                            </div>
-                                            <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                single swiper start
-                                single swiper start
-                                <div class="swiper-slide">
-                                    <div class="single-shopping-card-one">
-                                        iamge and sction area start
-                                        <div class="image-and-action-area-wrapper">
-                                            <a href="#" class="thumbnail-preview">
-                                                <div class="badge">
-                                                    <span>25% <br> 
-                                                        Off
-                                                    </span>
-                                                    <i class="fa-solid fa-bookmark"></i>
-                                                </div>
-                                                <img src="/view/images/grocery/15.jpg" alt="grocery">
-                                            </a>
-                                            <div class="action-share-option">
-                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                                    <i class="fa-light fa-heart"></i>
-                                                </div>
-                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-arrows-retweet"></i>
-                                                </div>
-                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        iamge and sction area start
-                                        <div class="body-content">
-                                            <div class="time-tag">
-                                                <i class="fa-light fa-clock"></i>
-                                                9 MINS
-                                            </div>
-                                            <a href="#">
-                                                <h4 class="title">Nestle Cerelac Mixed Fruits &
-                                                    Wheat with Milk</h4>
-                                            </a>
-                                            <span class="availability">500g Pack</span>
-                                            <div class="price-area">
-                                                <span class="current">$36.00</span>
-                                                <div class="previous">$36.00</div>
-                                            </div>
-                                            <div class="cart-counter-action">
-                                                <div class="quantity-edit">
-                                                    <input type="text" class="input" value="1">
-                                                    <div class="button-wrapper-action">
-                                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add To Cart
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                single swiper start
-                            </div>
-                        </div>
+                                <!-- single swiper start -->
+                                <!-- single swiper start -->
+                    		</div>
                     </div>
-                </div>
-            </div>
+                    </div>
+                    </div>            
         </div>
     </div>
-    rts grocery feature area end
+    <!-- rts grocery feature area end -->
 
 
     <div class="rts-shorts-service-area rts-section-gap bg_primary">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-                    single service area start
+                    <!-- single service area start -->
                     <div class="single-short-service-area-start">
                         <div class="icon-area">
                             <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -861,10 +415,10 @@
                             </p>
                         </div>
                     </div>
-                    single service area end
+                    <!-- single service area end -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-                    single service area start
+                    <!-- single service area start -->
                     <div class="single-short-service-area-start">
                         <div class="icon-area">
                             <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -881,10 +435,10 @@
                             </p>
                         </div>
                     </div>
-                    single service area end
+                    <!-- single service area end -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-                    single service area start
+                    <!-- single service area start -->
                     <div class="single-short-service-area-start">
                         <div class="icon-area">
                             <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -905,10 +459,10 @@
                             </p>
                         </div>
                     </div>
-                    single service area end
+                    <!-- single service area end -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-                    single service area start
+                    <!-- single service area start -->
                     <div class="single-short-service-area-start">
                         <div class="icon-area">
                             <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -926,19 +480,19 @@
                             </p>
                         </div>
                     </div>
-                    single service area end
+                    <!-- single service area end -->
                 </div>
             </div>
         </div>
     </div>
 
-    rts footer one area start
+    <!-- rts footer one area start -->
     <div class="rts-footer-area pt--80 bg_light-1">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer-main-content-wrapper pb--70">
-                        single footer area wrapper
+                        <!-- single footer area wrapper -->
                         <div class="single-footer-wized">
                             <h3 class="footer-title">About Company</h3>
                             <div class="call-area">
@@ -962,8 +516,8 @@
                                 </div>
                             </div>
                         </div>
-                        single footer area wrapper
-                        single footer area wrapper
+                        <!-- single footer area wrapper -->
+                        <!-- single footer area wrapper -->
                         <div class="single-footer-wized">
                             <h3 class="footer-title">Our Stores</h3>
                             <div class="footer-nav">
@@ -976,8 +530,8 @@
                                 </ul>
                             </div>
                         </div>
-                        single footer area wrapper
-                        single footer area wrapper
+                        <!-- single footer area wrapper -->
+                        <!-- single footer area wrapper -->
                         <div class="single-footer-wized">
                             <h3 class="footer-title">Shop Categories</h3>
                             <div class="footer-nav">
@@ -990,8 +544,8 @@
                                 </ul>
                             </div>
                         </div>
-                        single footer area wrapper
-                        single footer area wrapper
+                        <!-- single footer area wrapper -->
+                        <!-- single footer area wrapper -->
                         <div class="single-footer-wized">
                             <h3 class="footer-title">Useful Links</h3>
                             <div class="footer-nav">
@@ -1004,8 +558,8 @@
                                 </ul>
                             </div>
                         </div>
-                        single footer area wrapper
-                        single footer area wrapper
+                        <!-- single footer area wrapper -->
+                        <!-- single footer area wrapper -->
                         <div class="single-footer-wized">
                             <h3 class="footer-title">Our Newsletter</h3>
                             <p class="disc-news-letter">
@@ -1020,7 +574,7 @@
                                 I would like to receive news and special offer
                             </p>
                         </div>
-                        single footer area wrapper
+                        <!-- single footer area wrapper -->
                     </div>
                     <div class="social-and-payment-area-wrapper">
                         <div class="social-one-wrapper">
@@ -1042,9 +596,9 @@
             </div>
         </div>
     </div>
-    rts footer one area end
+    <!-- rts footer one area end -->
 
-    rts copyright-area start
+    <!-- rts copyright-area start -->
     <div class="rts-copyright-area">
         <div class="container">
             <div class="row">
@@ -1063,7 +617,7 @@
             </div>
         </div>
     </div>
-    rts copyright-area end
+    <!-- rts copyright-area end -->
 
 
     <div class="product-details-popup-wrapper">
@@ -1153,18 +707,18 @@
         </div>
     </div>
 
-    successfully add in wishlist
+    <!-- successfully add in wishlist -->
     <div class="successfully-addedin-wishlist">
         <div class="d-flex" style="align-items: center; gap: 15px;">
             <i class="fa-regular fa-check"></i>
             <p>Your item has already added in wishlist successfully</p>
         </div>
     </div>
-    successfully add in wishlist end
+    <!-- successfully add in wishlist end -->
 
 
 
-    Modal
+    <!-- Modal -->
     <div class="modal modal-compare-area-start fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1347,8 +901,8 @@
 
 
 
-    ================= Preloader Section Start Here =================
-    <div id="weiboo-load">
+    <!--================= Preloader Section Start Here =================-->
+ <div id="weiboo-load">
     <div class="preloader-new">
         <svg class="cart_preloader" role="img" aria-label="Shopping cart_preloader line animation"
             viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
@@ -1374,7 +928,7 @@
         </svg>
     </div>
 </div>
-    ================= Preloader End Here =================
+    <!--================= Preloader End Here =================-->
 
 
 
@@ -1392,25 +946,25 @@
         <div id="close" class="search-close-icon"><i class="far fa-times"></i></div>
     </div>
     <div id="anywhere-home" class="anywere"></div>
-    progress area start
+    <!-- progress area start -->
     <div class="progress-wrap">
         <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
         </svg>
     </div>
-    progress area end
+    <!-- progress area end -->
 
 
-    plugins js
+    <!-- plugins js -->
     <script defer src="/view/js/plugins.js"></script>
 
-    custom js
+    <!-- custom js -->
     <script defer src="/view/js/main.js"></script>
-    header style two End
+    <!-- header style two End -->
 
 	</div>
 </body>
 
 
-Mirrored from html.themewant.com/ekomart/shop-details-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 01 Nov 2024 06:32:40 GMT
-</html> -->
+<!-- Mirrored from html.themewant.com/ekomart/shop-details-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 01 Nov 2024 06:32:40 GMT -->
+</html>

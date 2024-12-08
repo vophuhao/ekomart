@@ -218,6 +218,19 @@
                                         <option value="4">Potato</option>
                                     </select>
                                 </div>
+                                <nav>
+						            <ul class="pagination justify-content-center">
+						                <li class="paginate_button_product" th:classappend="${currentPage == 0} ? 'disabled'">
+						                    <a class="page-link" th:href="@{/user/product(value = ${value},page=${currentPage - 1})}">Previous</a>
+						                </li>
+						                <li class="paginate_button_product_current" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+						                    <a class="page-link" onclick="changeBackground(this)" th:href="@{/user/product(value = ${value},page=${i})}" th:text="${i + 1}"></a>
+						                </li>
+						                <li class="paginate_button_product" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+						                    <a class="page-link" th:href="@{/user/product(value = ${value},page=${currentPage + 1})}">Next</a>
+						                </li>
+						            </ul>
+       							</nav>
                             </div>
                             <div class="button-area">
                                 
@@ -290,19 +303,7 @@
                                 </div>
                                 <!-- end 1sp -->
                                 
-								<nav>
-						            <ul class="pagination justify-content-center">
-						                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-						                    <a class="page-link" th:href="@{/user/product(page=${currentPage - 1})}">Previous</a>
-						                </li>
-						                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
-						                    <a class="page-link" th:href="@{/user/product(page=${i})}" th:text="${i + 1}"></a>
-						                </li>
-						                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-						                    <a class="page-link" th:href="@{/user/product(page=${currentPage + 1})}">Next</a>
-						                </li>
-						            </ul>
-        </nav>
+								
                     </div>
                 </div>
             </div>

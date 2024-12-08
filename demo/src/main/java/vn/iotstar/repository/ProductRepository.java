@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Shop;
 import vn.iotstar.entity.Wishlist;
@@ -41,6 +42,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 @Query("SELECT p FROM Product p ORDER BY p.sold DESC")
 	 List<Product> findTop20ByOrderBySoldDesc(Pageable pageable);
 	 
+	 @Query("SELECT p FROM Product p")
+	 List<Product> findTop18Page(Pageable pageable);
+	 
+	 List<Product> findByCategory(Category category);
+	 
 //	 List<Object[]> findTop20ProductsByReviewCount(Pageable pageable);
 	 
 	 @Query("SELECT p " +
@@ -52,5 +58,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 		       "ORDER BY SUM(od.quantity) DESC")
 		List<Product> findTopSellingProductsByShopId(@Param("shopId") long shopId, Pageable pageable);
 	 
+	 @Query("SELECT p FROM Product p JOIN p.category c WHERE (p.name LIKE %:keyword% OR c.categoryName LIKE %:keyword%) AND p.display = 1")
+	 Page<Product> findByNameOrCategoryNameContaining(@Param("keyword") String keyword, Pageable pageable);
 }
 

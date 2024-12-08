@@ -19,10 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.iotstar.config.UserInfoService;
+import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.UserInfo;
+import vn.iotstar.entity.Wishlist;
 import vn.iotstar.model.AuthRequest;
 import vn.iotstar.repository.UserInfoRepository;
+import vn.iotstar.repository.WishlistRepository;
 import vn.iotstar.service.UserService;
+import vn.iotstar.service.user.Imp.CartServiceImpl;
 import vn.iotstar.util.JwtUtil;
 
 import jakarta.servlet.http.Cookie;
@@ -31,6 +35,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @Controller
 public class AuthController {
 
+	@Autowired
+    private WishlistRepository wishrepo;
     @Autowired
     private UserService userService;
     
@@ -46,6 +52,8 @@ public class AuthController {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
+    @Autowired
+	private CartServiceImpl cartService;
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("userInfo", new UserInfo());
@@ -59,12 +67,22 @@ public class AuthController {
             return "register";
         }
         
+		
+		 
+		
         // Add user to Database
         if (!userService.registerUser(userInfo)) {
         	model.addAttribute("error", "Email đã tồn tại");
         	return "register";
         }
         
+        Cart cart=new Cart(); 
+		 cart.setUser(userInfo); 
+		 Wishlist wishlist=new Wishlist(); 
+		 wishlist.setUser(userInfo); 
+		 cartService.save(cart);
+		 wishrepo.save(wishlist);
+		 
         return "redirect:/register/register-verify-otp?email=" + userInfo.getEmail();
     }
     

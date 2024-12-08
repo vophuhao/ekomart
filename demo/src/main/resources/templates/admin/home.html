@@ -111,7 +111,7 @@
 				</div>
 				<div class="single-input">
 					<script type="text/javascript">
-						function chooseFile(fileInput) {
+						function chooseFilees(fileInput) {
 							if (fileInput.files && fileInput.files[0]) {
 								var reader = new FileReader();
 								reader.onload = function(e) {
@@ -121,10 +121,24 @@
 							}
 						}
 					</script>
-					<img id="images"> <label>Category Image</label> <input
+					<!-- <img id="images"> <label>Category Image</label> <input
 						type="file" name="imageFile" id="imageFile"
-						aria-describedby="imageFile" onchange="chooseFile(this)" />
-
+						aria-describedby="imageFile" onchange="chooseFile(this)" /> -->
+					<div class="file-upload-add-product">
+						<div class="profile-left">
+							<div class="profile-image mb--30">
+								<img id="rts_image" src="/admin/images/grocery/16.png"
+									alt="Profile-NFT"> <span>Drag and drop Image</span>
+							</div>
+							<div class="button-area">
+								<div class="brows-file-wrapper">
+									<!-- actual upload which is hidden -->
+									<input name="rts_images1" id="rts_images1" type="file" onchange="chooseFilees(this)" aria-describedby="imageFile">
+									<!-- our custom upload button -->
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="button-area-botton-wrapper-p-list">
@@ -166,7 +180,7 @@
 		document.getElementById("myForm").action = currentUrl;
 	</script>
 	<form th:action="@{/admin/vendor/updateProduct}" method="POST"
-	th:object="${product}" enctype="multipart/form-data">
+		th:object="${product}" enctype="multipart/form-data">
 		<div class="modal fade" id="productModal" aria-hidden="true"
 			aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
@@ -181,15 +195,14 @@
 						<h2>Do you want to approve this product?</h2>
 
 						<!--Id gốc phải để lại để controller nó biết là đang edit,chỉ ẩn nó thâu-->
-						<div class="single-input" >
-							<label for="vendorId">Id</label>
-							<input type="text" id="productId" name="id" placeholder="">
+						<div class="single-input">
+							<label for="vendorId">Id</label> <input type="text"
+								id="productId" name="id" placeholder="">
 						</div>
-						<label>
-							<input type="radio" value="1" id="product-accept" name="display"> Approve
-						</label>
-						<label>
-							<input type="radio" value="-1" id="product-reject" name="display"> Reject
+						<label> <input type="radio" value="1" id="product-accept"
+							name="display"> Approve
+						</label> <label> <input type="radio" value="-1"
+							id="product-reject" name="display"> Reject
 						</label>
 
 					</div>
@@ -224,11 +237,10 @@
 							<label for="vendorId">Id</label> <input type="text" id="vendorId"
 								name="id" placeholder="">
 						</div>
-						<label>
-							<input type="radio" value="1" id="shop-accept" name="display"> Approve
-						</label>
-						<label>
-							<input type="radio" value="-1" id="shop-reject" name="display"> Reject
+						<label> <input type="radio" value="1" id="shop-accept"
+							name="display"> Approve
+						</label> <label> <input type="radio" value="-1" id="shop-reject"
+							name="display"> Reject
 						</label>
 					</div>
 					<!-- Modal footer -->
@@ -307,15 +319,17 @@
 							</div>
 							<div class="row mb-10">
 								<div class="col-md-6">
-									<label  class="form-label">Before
-										Image</label> <div class="item-image-and-name">
-									<img id="beforeImage" alt="Before Image" style="width: 200px; height: 150px;">
-								</div>
+									<label class="form-label">Before Image</label>
+									<div class="item-image-and-name">
+										<img id="beforeImage" alt="Before Image"
+											style="width: 200px; height: 150px;">
+									</div>
 								</div>
 								<div class="col-md-6">
 									<label class="form-label">After Image</label>
 									<div class="item-image-and-name">
-										<img id="afterImage" alt="Before Image" style="width: 200px; height: 150px;">
+										<img id="afterImage" alt="Before Image"
+											style="width: 200px; height: 150px;">
 									</div>
 								</div>
 							</div>

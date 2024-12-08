@@ -1195,6 +1195,7 @@
 
 
 const getCategoryById = (id) => {
+	
 	fetch(`http://localhost:8888/api/v1/admin/edit/${id}`)
 		.then(resp => { return resp.json() })
 		.then(category => {
@@ -1202,16 +1203,34 @@ const getCategoryById = (id) => {
 			const id = document.getElementById("id")
 			const categoryName = document.getElementById("categoryName")
 			const categoryId = document.getElementById("categoryId")
+			const image=document.getElementById("rts_image")
 			const status = document.getElementById("status")
 			const isEdit = document.getElementById("isEdit")
 			id.value = category?.id
 			categoryName.value = category?.categoryName
 			categoryId.value = category?.categoryId
+			image.src = `/admin/categories/images/${category.image}`;
 			status.checked = category?.status === 1
 
 		})
 }
-
+const setCategoryById = (id,status) => {
+	
+	console.log(id)
+	$.ajax({
+	       url: `/api/v1/admin/edit-deloy?id=${id}&status=${status}`,  // Địa chỉ API
+	       type: 'GET',
+	       contentType: 'application/json',  // Định dạng gửi đi là JSON
+	       data:id, // Gửi orderId dưới dạng JSON
+	       success: function(response) {
+		 	window.location.href = "/admin/categories";
+	       },
+	       error: function(error) {
+	           // In lỗi nếu có
+	           console.error('Lỗi khi đặt hàng:', error);
+	       }
+	   });
+}
 
 const addCategory = () => {
 	fetch(`http://localhost:8888/api/v1/admin/add`)

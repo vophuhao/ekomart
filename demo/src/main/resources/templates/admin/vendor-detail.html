@@ -102,10 +102,10 @@
 					<div class="time-tag">
 						<i class="fa-light fa-clock"></i> 9 MINS
 					</div>					
-					<h4 class="title" th:text="product.name"></h4>
-					<span class="availability" th:text="product.productId"></span>
+					<h4 class="title" th:text="${product.name}"></h4>
+					<span class="availability" th:text="${product.productId}"></span>
 					<div class="price-area">
-						<span class="current" th:text="product.price"></span>
+						<span class="current" th:text="${product.price}"></span>
 						
 					</div>
 				</div>

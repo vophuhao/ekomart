@@ -20,7 +20,7 @@
 								<div style="width: 10%;">
 									<button type="button" class="btn btn-primary"
 										data-bs-toggle="modal" data-bs-target="#deliveryModal"
-										style="display: flex; align-items: center; padding: 5px 10px; font-size: 16px; cursor: pointer;">
+										style="display: flex; align-items: center; padding: 5px 10px; font-size: 16px; cursor: pointer;background-color: #629D23;">
 										Thêm địa chỉ</button>
 									<div class="modal fade" id="deliveryModal"
 										data-bs-backdrop="static" data-bs-keyboard="false"
@@ -83,7 +83,7 @@
 													</div>
 													<button type="button"
 														class="saveAddressBtn btn btn-primary"
-														style="width: 30%; font-size: 15px; padding: 10px;">
+														style="width: 30%; font-size: 15px; padding: 10px;background-color: #629D23;">
 														Xác Nhận Địa Chỉ</button>
 
 												</div>
@@ -110,17 +110,17 @@
 										</div>
 										<!-- Các nút Chỉnh sửa và Xóa -->
 										<div class="d-flex"
-											style="height: 20%; width: 100%; height: 20%; width: 100%; justify-content: flex-end; display: flex;">
-											<i class="fa-solid fa-pencil-alt"
-												style="padding-right: 10px;"> </i> <i
-												class="fa-solid fa-trash-alt remove-address"
-												style="padding-right: 10px;"></i>
+											style="height: 20%; width: 100%; height: 20%; width: 100%; justify-content: flex-end; display: flex;padding-top: 14px;">
+											 <i
+												class="fa-solid fa-trash-alt remove-address" th:data-addr-value="${address.id}"
+												style="padding-right: 10px;cursor:pointer;"></i>
 
-											<div th:data-addressId="${address.id}"
-												th:class="${address.defaults == 1} ? 'address-default' : 'address-none'"
-												th:text="${address.defaults == 1 ? 'Mặc định' : 'Đặt làm  mặc định'}">
-
-											</div>
+											 <div 
+							                    th:data-address-id="${address.id}" 
+							                    th:class="${address.defaults == 1} ? 'address-default address-status' : 'address-none address-status'" 
+							                    th:text="${address.defaults == 1 ? 'Mặc định' : 'Đặt làm mặc định'}"
+							                    style="cursor:pointer;">
+							                </div>
 
 										</div>
 									</div>
