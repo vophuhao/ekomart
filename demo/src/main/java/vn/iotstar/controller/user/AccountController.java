@@ -22,10 +22,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import vn.iotstar.entity.Address;
 import vn.iotstar.entity.Cart;
+import vn.iotstar.entity.Category;
 import vn.iotstar.entity.OrderDetail;
 import vn.iotstar.entity.Orders;
 import vn.iotstar.entity.UserInfo;
 import vn.iotstar.entity.Wishlist;
+import vn.iotstar.repository.CategoryRepository;
 import vn.iotstar.repository.OderRepository;
 import vn.iotstar.repository.OrderDetailRepository;
 import vn.iotstar.repository.UserInfoRepository;
@@ -55,6 +57,9 @@ public class AccountController {
 	
 	@Autowired
 	private AddressServiceImp addre;
+	
+	@Autowired
+	private CategoryRepository cateRepo;
 	
 	@Autowired
 	private UserInfoRepository userInfoRepository;
@@ -102,7 +107,10 @@ public class AccountController {
 		Wishlist wish = wishlist.get();
 		model.addAttribute("wish", wish);
         List<Address> address=addre.findByUser(user);
-        
+        List<Category> listcate = cateRepo.findByStatus(1);
+        model.addAttribute("cate", listcate);
+        session.setAttribute("cate", listcate);
+
         model.addAttribute("addressUser", address);
         String email = user.getEmail();
         model.addAttribute("email", email);

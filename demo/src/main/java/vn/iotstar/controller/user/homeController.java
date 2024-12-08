@@ -139,6 +139,8 @@ public class homeController {
         String username = jwtUtil.extractUsername(token);
 		Optional<UserInfo> user = userService.findByName(username);
 		UserInfo userInfo = user.get();
+		   session.setAttribute("username", username);
+	   
 		Cart cart = cartService.findByUser(userInfo);
 		session.setAttribute("cartCount", cart.getItems().size());
 		Optional<Wishlist> wishlist = wishrepo.findByUser(userInfo);
@@ -190,7 +192,30 @@ public class homeController {
 	public ModelAndView getProduct(
 	        @RequestParam(value = "page", defaultValue = "0") int page,
 	        @RequestParam(defaultValue = "16") int size,
-	        @RequestParam("value") String value) {
+	        @RequestParam("value") String value,HttpServletRequest request,HttpSession session,Model model) {
+		String token = null;
+		// Lấy cookie từ request
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        List<Category> listcate = cateRepo.findByStatus(1);
+        model.addAttribute("cate", listcate);
+        session.setAttribute("cate", listcate);
+        String username = jwtUtil.extractUsername(token);
+        Optional<UserInfo> users=userService.findByName(username);
+        UserInfo userss =new UserInfo();
+        if (users.isPresent()) {
+            userss = users.get();
+            // Xử lý logic với user
+        } 
+        session.setAttribute("username", username);
+        session.setAttribute("role", userss.getRoles());
 		ModelAndView modelAndView = new ModelAndView("page/shop-grid-sidebar");
 		Pageable pageable = PageRequest.of(page, size);
 		Page<Product> productPage;
