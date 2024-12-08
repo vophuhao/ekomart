@@ -156,7 +156,7 @@ public class VendorUserController {
 		model.addAttribute("cate", listcate);
 		session.setAttribute("cate", listcate);
 
-
+	
 		UserInfo userInfo = users.get();
 		Cart cart = cartService.findByUser(userInfo);
 		session.setAttribute("cartCount", cart.getItems().size());
