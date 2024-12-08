@@ -1,9 +1,11 @@
 package vn.iotstar.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,25 +16,40 @@ import vn.iotstar.repository.UserInfoRepository;
 @Service
 public record UserService(UserInfoRepository repository, PasswordEncoder passwordEncoder, EmailService emailService) {
 	
-	public String registerUser(UserInfo userInfo) {
-		userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
-		userInfo.setRoles("ROLE_USER"); // Đặt mặc định là USER, có thể thay đổi nếu cần
-		
-		// Send mail
-        int otp = otpGenerator();
-        MailBody mailBody = MailBody.builder()
-                .to(userInfo.getEmail())
-                .text("This is the OTP for your Forgot Password request: " + otp)
-                .subject("OTP for Forgot Password request")
-                .build();
-        emailService.sendSimpleMessage(mailBody);
-        
-        userInfo.setOtp(otp);                     
-        repository.save(userInfo);
-        
-        
-        
-        return "Thêm user thành công!";
+	public boolean registerUser(UserInfo userInfo) {
+		try {
+			userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+			userInfo.setRoles("ROLE_USER"); // Đặt mặc định là USER, có thể thay đổi nếu cần
+			
+			// Send mail
+	        int otp = otpGenerator();
+	        MailBody mailBody = MailBody.builder()
+	                .to(userInfo.getEmail())
+	                .text("This is the OTP for your Forgot Password request: " + otp)
+	                .subject("OTP for Forgot Password request")
+	                .build();
+	        
+	        userInfo.setOtp(otp);
+	        repository.save(userInfo);
+	        emailService.sendSimpleMessage(mailBody);
+	        
+	        return true;
+		} catch (Exception ex) {
+			// Send mail
+	        int otp = otpGenerator();
+	        MailBody mailBody = MailBody.builder()
+	                .to(userInfo.getEmail())
+	                .text("This is the OTP for your Forgot Password request: " + otp)
+	                .subject("OTP for Forgot Password request")
+	                .build();
+			boolean isUserDisabled = repository.existsByEmailAndEnabledFalse(userInfo.getEmail());
+			if (isUserDisabled) {
+				repository.updateOtp(userInfo.getEmail(), otp);
+				emailService.sendSimpleMessage(mailBody);
+			    return true;
+			}
+			return false;
+		}
 	}
 	
 //    public boolean verifyOtp(String otp) {

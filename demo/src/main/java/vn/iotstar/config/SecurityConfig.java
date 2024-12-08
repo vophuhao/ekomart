@@ -67,7 +67,7 @@ public class SecurityConfig {
 					.requestMatchers("/api/v1/admin/**").permitAll()
 					.requestMatchers("/user/**").hasAnyRole("USER","VENDOR")
 					.requestMatchers("/register", "/forgotPassword/**", "/authenticate", "/register/**",
-							"/authenticatelogin", "/css/**", "/fonts/**", "/images/**", "/js/**",
+							"/authenticatelogin", "/css/**", "/fonts/**", "/images/**", "/js/**", "/verify-otp/**",
 							"/admin/**", "/view/**","/vendor/**", "/home/**","/vendor/register/**","/api/v1/vendor/**").permitAll()
 					//.anyRequest().authenticated() 
 			)

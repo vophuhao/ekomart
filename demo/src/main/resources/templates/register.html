@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="Grocery, Store, stores">
     <title>Ekomart-Grocery-Store(e-Commerce) HTML Template</title>
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/fav.png}">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/view/images/fav.png}">
     <!-- plugins css -->
     <link rel="stylesheet preload" th:href="@{/view/css/plugins.css}" as="style">
     <link rel="stylesheet preload" th:href="@{/view/css/style.css}" as="style">
@@ -37,6 +37,7 @@
                             <img class="mb--10" th:src="@{/view/images/logo/fav.png}" alt="logo">
                         </div>
                         <h3 class="title">Register Into Your Account</h3>
+                        <p style="color:red;"><span th:text = "*{error}"></span></p>
                         <form th:action="@{/register}" method="post" th:object="${userInfo}" class="registration-form">
                             <div class="input-wrapper">
                                 <label for="name">Tên*</label>
@@ -52,17 +53,6 @@
                             </div>
                             <button type="submit" class="rts-btn btn-primary">Register Account</button>
                             <div class="another-way-to-registration">
-                                <div class="registradion-top-text">
-                                    <span>Or Register With</span>
-                                </div>
-                                <div class="login-with-brand">
-                                    <a th:href="@{#}" class="single">
-                                        <img th:src="@{/view/images/form/google.svg}" alt="login">
-                                    </a>
-                                    <a th:href="@{#}" class="single">
-                                        <img th:src="@{/view/images/form/facebook.svg}" alt="login">
-                                    </a>
-                                </div>
                                 <p>Already Have Account? <a th:href="@{/login}">Login</a></p>
                             </div>
                         </form>

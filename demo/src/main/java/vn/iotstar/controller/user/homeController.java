@@ -100,7 +100,7 @@ public class homeController {
         
 //        List<Object[]> top20Rate = productService.getTop20ReviewedProducts();
 //        model.addAttribute("top20Rate", top20Rate);
-        List<Category> listcate = cateRepo.findAll();
+        List<Category> listcate = cateRepo.findByStatus(1);
         model.addAttribute("cate", listcate);
         session.setAttribute("cate", listcate);
         
@@ -109,6 +109,14 @@ public class homeController {
 		Cart cart = cartService.findByUser(userInfo);
 		session.setAttribute("cartCount", cart.getItems().size());
         
+		
+		List<Product> listPage = prorepo.findTop18Page(PageRequest.of(0, 18));
+		model.addAttribute("listPage", listPage);
+		
+		Optional<Wishlist> wish=wishrepo.findByUser(userInfo);
+		Wishlist wishlist=wish.get();
+		session.setAttribute("wishlistCount", wishlist.getItems().size());
+		
         model.addAttribute("Name", username);
 		return "page/home-content";
 	}
@@ -131,14 +139,18 @@ public class homeController {
         String username = jwtUtil.extractUsername(token);
 		Optional<UserInfo> user = userService.findByName(username);
 		UserInfo userInfo = user.get();
+		Cart cart = cartService.findByUser(userInfo);
+		session.setAttribute("cartCount", cart.getItems().size());
 		Optional<Wishlist> wishlist = wishrepo.findByUser(userInfo);
 		Wishlist wish = wishlist.get();
+		session.setAttribute("wishlistCount", wish.getItems().size());
 		model.addAttribute("wish", wish);
 		return "page/wishlist";
 	}
 	
 	@PostMapping("/wishlist/add-item")
-	public String addItemToWishlist(@Valid WishlistItem wishItem,HttpServletRequest request, BindingResult result, HttpSession session) {
+	public String addItemToWishlist(@RequestParam("item") String id,HttpServletRequest request, HttpSession session) {
+		System.out.print(id);
 		String token = null;
 		// Lấy cookie từ request
         Cookie[] cookies = request.getCookies();
@@ -147,17 +159,24 @@ public class homeController {
                 if ("JWT".equals(cookie.getName())) {
                     token = cookie.getValue();
                     break;
-                }
+                
             }
         }
         
         String username = jwtUtil.extractUsername(token);
 		Optional<UserInfo> user = userService.findByName(username);
 		UserInfo userInfo = user.get();
-		if (result.hasErrors())
-			return "redirect:/user/wishlist";
+		Optional<Wishlist> wishl=wishrepo.findByUser(userInfo);
+		Wishlist wish=wishl.get();
+		Optional<Product> pro=prorepo.findById(Long.parseLong(id));
+		Product product=pro.get();
+		WishlistItem wishItem =new WishlistItem();
+		wishItem.setProduct(product);
+		wishItem.setWishlist(wish);
 		wishItemrepo.save(wishItem);
-		return "redirect:/user/wishlist";
+		
+	}
+        return "redirect:/user/wishlist";
 	}
 	
 	@PostMapping("/wishlist")

@@ -14,6 +14,8 @@ import vn.iotstar.entity.Category;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 	 Optional<Category> findByCategoryId(String categoryId);
 	 
+	 List<Category> findByStatus(int status);
+	 
 	  @Query("SELECT new vn.iotstar.DTO.CategoryDTO(c.id, c.categoryId, c.categoryName, c.image, c.status) FROM Category c")
 	    List<CategoryDTO> findAllCategoryDTO();
 }
