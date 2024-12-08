@@ -70,7 +70,7 @@ public class RevenueService {
      */
     public BigDecimal calculateRevenueChangePercentage(Long shopId, BigDecimal currentMonthRevenue, BigDecimal previousMonthRevenue) {
         // So sánh phần trăm thay đổi
-        if (previousMonthRevenue.compareTo(BigDecimal.ZERO) == 0) {
+        if ((previousMonthRevenue.compareTo(BigDecimal.ZERO) == 0)) {
             // Nếu doanh thu tháng trước bằng 0, trả về 100% (tăng trưởng tuyệt đối) nếu tháng hiện tại có doanh thu
             return currentMonthRevenue.compareTo(BigDecimal.ZERO) == 0 ? BigDecimal.ZERO : BigDecimal.valueOf(100);
         }

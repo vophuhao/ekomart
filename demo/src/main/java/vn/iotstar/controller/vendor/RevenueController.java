@@ -74,16 +74,28 @@ public class RevenueController {
         
         BigDecimal totalPro = revenueService.totalProducts(shop.getId(), startOfCurrentMonthTime, endOfCurrentMonthTime);
         BigDecimal totalPro2 = revenueService.totalProducts(shop.getId(), startOfPreviousMonthTime, endOfPreviousMonthTime);
-        BigDecimal percentPro = revenueService.calculateRevenueChangePercentage(shop.getId(), totalPro, totalPro2);
+        BigDecimal percentPro = BigDecimal.ZERO;
+        if (totalPro != null && totalPro2 != null) {
+        	 percentPro = revenueService.calculateRevenueChangePercentage(shop.getId(), totalPro, totalPro2);
+        }
         // Tính phần trăm thay đổi doanh thu
         BigDecimal r1 = revenueService.currentMonthRevenue(shop.getId());
         BigDecimal r2 = revenueService.previousMonthRevenue(shop.getId());
-        BigDecimal revenueChangePercentage = revenueService.calculateRevenueChangePercentage(shop.getId(), r1, r2);
+        BigDecimal revenueChangePercentage = BigDecimal.ZERO;
+        if (r1 != null && r2 != null) {
+        	revenueChangePercentage = revenueService.calculateRevenueChangePercentage(shop.getId(), r1, r2);
+        }
+        
         BigDecimal currentMonthRe = revenueService.currentMonthRevenue(shop.getId());
         List<Product> topProducts = revenueService.getTopSellingProducts(shop.getId(), 5);
+        
         BigDecimal totalOrders = revenueService.getTotalOrdersByShop(shop.getId(), startOfCurrentMonthTime, endOfCurrentMonthTime);
         BigDecimal totalOrders2 = revenueService.getTotalOrdersByShop(shop.getId(), startOfPreviousMonthTime, endOfPreviousMonthTime);
-        BigDecimal percentOr = revenueService.calculateRevenueChangePercentage(shop.getId(), totalOrders, totalOrders2);
+        BigDecimal percentOr = BigDecimal.ZERO;
+        if (totalOrders != null && totalOrders2 != null) {
+        	percentOr = revenueService.calculateRevenueChangePercentage(shop.getId(), totalOrders, totalOrders2);
+        }
+        
         
         model.addAttribute("totalOrders", totalOrders);
         model.addAttribute("percentOrder", percentOr);
