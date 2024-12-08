@@ -34,10 +34,7 @@ public class AdminCategoryServiceImp implements AdminICategoryService{
 	@Override
 	public <S extends Category> S save(S entity) {
 		if(entity.getId() == null) {
-			System.out.print("ở đây");
-			UUID uuid =UUID.randomUUID();
-			String uuString = uuid.toString();
-			entity.setCategoryId(uuString);
+			
 			return categoryRepository.save(entity);
 			}
 		else {
