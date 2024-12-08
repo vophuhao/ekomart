@@ -1,0 +1,287 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{page/home-guest.html}">
+<div class="vendor-details">
+	<div layout:fragment="content" class="container">
+		<div class="vendor-name">
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-lg-12">
+	                    <div class="vendor-name-area-details">
+	                        <h1 th:text="${shop.name}" class="title"></h1>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+		<div class="row">
+			<div class="col-xl-3 col-lg-12 pr--60 pr_md--10 pr_sm--10">
+				<div class="filter-area-vendor-details">
+					<div class="single-filter-box">
+						<h5 class="title">Product Categories</h5>
+						<div class="filterbox-body">
+							<div class="category-wrapper">
+								<!-- single category -->
+								<div class="single-category">
+									<input id="cat1" type="checkbox"> <label for="cat1">Beverages
+									</label>
+								</div>
+								<!-- single category end -->
+								<!-- single category -->
+								<div class="single-category">
+									<input id="cat2" type="checkbox"> <label for="cat2">Biscuits
+										&amp; Snacks </label>
+								</div>
+								<!-- single category end -->
+								<!-- single category -->
+								<div class="single-category">
+									<input id="cat3" type="checkbox"> <label for="cat3">Breads
+										&amp; Bakery </label>
+								</div>
+								<!-- single category end -->
+								<!-- single category -->
+								<div class="single-category">
+									<input id="cat4" type="checkbox"> <label for="cat4">Breakfast
+										&amp; Dairy </label>
+								</div>
+								<!-- single category end -->
+								<!-- single category -->
+								<div class="single-category with-more">
+									<input id="cat5" type="checkbox"> <label for="cat5">Frozen
+										Foods </label>
+								</div>
+								<!-- single category end -->
+								<!-- single category -->
+								<div class="single-category">
+									<input id="cat6" type="checkbox"> <label for="cat6">Fruits
+										&amp; Vegetables </label>
+								</div>
+								<!-- single category end -->
+								<!-- single category -->
+								<div class="single-category with-more">
+									<input id="cat7" type="checkbox"> <label for="cat7">Grocery
+										&amp; Staples </label>
+								</div>
+								<!-- single category end -->
+								<!-- single category -->
+								<div class="single-category">
+									<input id="cat8" type="checkbox"> <label for="cat8">Household
+										Needs </label>
+								</div>
+								<!-- single category end -->
+								<!-- single category -->
+								<div class="single-category">
+									<input id="cat10" type="checkbox"> <label for="cat10">Meats
+										&amp; Seafood </label>
+								</div>
+								<!-- single category end -->
+							</div>
+						</div>
+					</div>
+					<div class="single-filter-box">
+						<h5 class="title">Store Time</h5>
+						<div class="filterbox-body vendor-time-opening">
+							<h6 class="title-opeing">Open Hours</h6>
+							<span class="single-opening-hour"> <span class="day">
+									Mon </span> : 8:00 am - 10:00 pm
+							</span> <span class="single-opening-hour"> <span class="day">Tue
+							</span> : 8:00 am - 10:00 pm
+							</span> <span class="single-opening-hour"> <span class="day">Wed
+							</span> : 8:00 am - 10:00 pm
+							</span> <span class="single-opening-hour"> <span class="day">Thu
+							</span> : 8:00 am - 10:00 pm
+							</span> <span class="single-opening-hour"> <span class="day">Fri
+							</span> : 8:00 am - 10:00 pm
+							</span> <span class="single-opening-hour"> <span class="day">
+									Sat </span> : 8:00 am - 10:00 pm
+							</span> <span class="single-opening-hour"> <span class="day">Sun
+							</span> : <span> Off Day</span>
+							</span>
+						</div>
+					</div>
+					<div class="single-filter-box">
+						<h5 class="title">Contact Vendor</h5>
+						<div class="filterbox-body vendor-contact-info-wrapper">
+							<form action="#">
+								<input type="text" placeholder="Your Name" required> <input
+									type="text" placeholder="Email Address"> <input
+									type="text" placeholder="Type Message">
+								<button class="rts-btn btn-primary">Submit Message</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-9 col-lg-12 mt-lg--30">
+				<div class="vendor-details-banner--area">
+					<div class="row g-5">
+						<div class="col-xl-3 col-lg-12 col-md-12">
+							<div class="vendor-banner-left">
+								<img th:src="${'/home/vendor/detail/images/' + shop.avatar}"
+									alt="" style="width: 123px; height: auto">
+								<div class="header-area">
+									<h4 class="title"></h4>
+								</div>
+								<div class="stars-area">
+									<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i> <span>(4.50 out of 5)</span>
+								</div>
+								<div class="location">
+									<i class="fa-regular fa-location-dot"></i>
+									<p th:text="${shop.address.detail}"></p>
+								</div>
+								<div class="location">
+									<i class="fa-regular fa-phone-volume"></i>
+									<p th:text="${shop.sdt}"></p>
+								</div>
+								<div class="location">
+									<i class="fa-regular fa-cart-shopping"></i>
+									<p th:text="${size}"></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-9 col-lg-12 col-md-12">
+							<div class="banner-vendor-details bg_image">
+								<div class="content-area">
+									<a href="#" class="rts-btn btn-primary">Weekend Discount</a>
+									<h3 class="title animated fadeIn" th:text="${shop.description}">
+
+									</h3>
+									<a href="#" class="shop-now-goshop-btn"> <span class="text">Shop
+											Now</span>
+										<div class="plus-icon">
+											<i class="fa-sharp fa-regular fa-plus"></i>
+										</div>
+										<div class="plus-icon">
+											<i class="fa-sharp fa-regular fa-plus"></i>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="product-area-add-wrapper bg_image">
+					<h2 class="title">Products</h2>
+					<img src="/view/images/vendor/01.png" alt="images" class="one">
+					<img src="/view/images/vendor/02.png" alt="images" class="two">
+				</div>
+
+				<div class="row mt--50 ml-v-dec-m">
+					<div class="col-lg-12">
+						<div class="product-filter-area-vendors-details">
+							<div class="search-area">
+								<form action="#" class="search-header">
+									<input type="text" placeholder="Enter Product Name" required="">
+									<a href="#" class="rts-btn btn-primary radious-sm with-icon">
+										<div class="btn-text">Search</div>
+										<div class="arrow-icon">
+											<i class="fa-light fa-magnifying-glass"></i>
+										</div>
+										<div class="arrow-icon">
+											<i class="fa-light fa-magnifying-glass"></i>
+										</div>
+									</a>
+								</form>
+							</div>
+							<!-- <div class="single-select">
+					<div class="nice-select" tabindex="0">
+						<span class="current">last Week</span>
+						<ul class="list">
+							<li data-value="Default Sorting" data-display="last Week"
+								class="option selected">2 Week</li>
+							<li data-value="1" class="option">1 Month</li>
+							<li data-value="2" class="option">6 Month</li>
+						</ul>
+					</div>
+				</div> -->
+						</div>
+					</div>
+				</div>
+				<div class="row g-4 ml-v-dec-m mt--40">
+					<div class="col-lg-4 col-md-6" th:each="product : ${productList}">
+						<div class="single-shopping-card-one tranding-product">
+							<a href="#" class="thumbnail-preview"> <img
+								th:src="${'/home/vendor/detail/images/' + product.image}" alt=""
+								style="width: 100%; max-width: 114px; min-width: auto;height: 120px;">
+							</a>
+							<div class="body-content">
+								<div class="">
+									
+								</div>
+								<a th:href="@{/home/product-detail/{id}(id=${product.id})}">
+									<h4 class="title" style="word-wrap: break-word;white-space: normal;overflow-wrap: break-word; " th:text="${product.name}"></h4>
+								</a> <span class="availability" th:text="${product.productId}"></span>
+								<div class="price-area">
+									<span class="current" th:text="${product.price}"></span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<span>Page [[${currentPage} + 1]] of [[${totalPages}]]</span>
+					</div>
+
+					<nav aria-label="Page navigation" class="mt-4">
+						<ul class="pagination justify-content-center">
+							<!-- Nút Previous -->
+							<li class="paginate_button_product"
+								th:classappend="${currentPage == 0 ? 'disabled' : ''}"><a
+								class="page-link"
+								th:href="@{/home/vendor/detail(shopId=${shop.shopId}, page=${currentPage - 1}, size=${size})}"
+								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+							</a></li>
+
+							<!-- Các số trang -->
+							<li class="paginate_button_product_current"
+								th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+								th:classappend="${i == currentPage ? 'active' : ''}"><a
+								class="page-link"
+								th:href="@{/home/vendor/detail(shopId=${shop.shopId}, page=${i}, size=${size})}"
+								th:text="${i + 1}"></a></li>
+
+							<!-- Nút Next -->
+							<li class="paginate_button_product"
+								th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
+								<a class="page-link"
+								th:href="@{/home/vendor/detail(shopId=${shop.shopId}, page=${currentPage + 1}, size=${size})}"
+								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+							</a>
+							</li>
+						</ul>
+					</nav>
+
+
+					<!-- <div class="col-lg-4 col-md-6">
+             <div class="vendor-details">
+             <div class="single-shopping-card-one tranding-product">
+                 <a href="shop-details.html" class="thumbnail-preview">
+                     <img src="assets/images/grocery/08.jpg" alt="grocery">
+                 </a>
+                 <div class="body-content">
+                     <div class="time-tag">
+                         <i class="fa-light fa-clock"></i>
+                         9 MINS
+                     </div>
+                     <a href="shop-details.html">
+                         <h4 class="title">Pastine Mellin Filid Angelo 100% Di Grano Tenero</h4>
+                     </a>
+                     <span class="availability">500g Pack</span>
+                     <div class="price-area">
+                         <span class="current">$36.00</span>
+                         <div class="previous">$36.00</div>
+                     </div>
+                 </div>
+             </div>
+             </div>
+         </div> -->
+				</div>
+			</div>
+		</div>
+
+		<!-- bottom footer areas start -->
+	</div>
+</div>

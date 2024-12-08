@@ -110,15 +110,28 @@ public class VendorAdminController {
 		return "admin/vendor-list";
 	}
 	
-	
+	@GetMapping("/product/waiting")
+	public String productVendorWaiting(Model model)
+	{
+		
+		 List<Product> listProduct=productService.findByStatus(0);
+		 
+		 model.addAttribute("listProduct",listProduct);
+		 
+		
+		
+		return "admin/product-vendor";
+	}
 	
 	
 	@GetMapping("/product")
 	public String productVendor(Model model)
 	{
-		List<Product> listProduct=productService.findAll();
-	
-		model.addAttribute("listProduct",listProduct);
+		
+		 List<Product> listProduct=productService.findByStatus(1);
+		 
+		 model.addAttribute("listProduct",listProduct);
+		 
 		
 		
 		return "admin/product-vendor";
@@ -189,8 +202,9 @@ public class VendorAdminController {
 			return "admin/home";
 		}
 		Product existingProduct = productService.getById(product.getId());
-		existingProduct.setDisplay(product.getDisplay());
+		
+		existingProduct.setStatus(product.getDisplay());
 		productService.save(existingProduct); // Lưu đối tượng đã cập nhật
-		return "redirect:/admin/vendor/product";
+		return "redirect:/admin/vendor/product/waiting";
 	}
 }

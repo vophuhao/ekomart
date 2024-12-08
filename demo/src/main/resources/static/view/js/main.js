@@ -984,7 +984,7 @@ function openPopup(event) {
 	document.documentElement.classList.add("no-scroll");
 
 	// Tìm phần tử liên quan đến sản phẩm hiện tại
-	const productInfo = event.target.closest('.product-info');
+	const productInfo = event.target.closest('.ptvanchuyen');
 	currentMethodElement = productInfo.querySelector('.shippingMethod');
 	currentCostElement = productInfo.querySelector('.shippingCost');
 
@@ -1059,7 +1059,6 @@ function confirmSelection() {
 	// Cập nhật phần tử phương thức vận chuyển và giá
 	currentMethodElement.textContent = selectedOption;
 	currentCostElement.textContent = priceMap[selectedOption] + "₫";
-	updateTotalForOrder(currentMethodElement.closest('.product-info'));
 	updateTotal();
 	closePopup();
 }
@@ -1204,20 +1203,6 @@ document.querySelectorAll('.changeButton').forEach(button => {
 	button.addEventListener("click", openPopup);
 });
 
-function updateTotalForOrder(orderElement) {
-	let totalItems = 0;
-	let shippingCost = 0;
-	const productPriceText = orderElement.querySelector('#total').textContent;
-	totalItems = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
-	shippingCost = parseInt(orderElement.querySelector('.shippingCost').textContent.replace(/\D/g, '')) || 0;
-
-	// Tính tổng thanh toán
-	const total = totalItems + shippingCost;
-
-	// Cập nhật tổng tiền cho đơn hàng này
-	orderElement.querySelector('.tongtien span').textContent = "Tổng tiền: " + total.toLocaleString() + "₫";
-}
-
 var swiper = new Swiper('.swiper-container', {
   slidesPerView: 5,          // Hiển thị 5 slide mỗi lần
   spaceBetween: 10,          // Khoảng cách giữa các slide
@@ -1260,11 +1245,6 @@ function updateInputAndPrice(quantity, edit) {
 }
 });
 			
-window.addEventListener('load', () => {
-	document.querySelectorAll('.product-info').forEach(order => {
-		updateTotalForOrder(order);
-	});
-});
 document.querySelectorAll('.btn-tt').forEach(button => {
 	button.addEventListener('click', function(event) {
 		event.stopPropagation();
@@ -1335,6 +1315,7 @@ function dathang() {
     const productIds = [];
     const quantities = [];
 
+	
     // Giả sử rằng mỗi sản phẩm có cấu trúc như sau:
     // <input type="hidden" class="product-id" value="productId">
     // <input type="number" class="product-quantity" value="quantity">
@@ -1342,7 +1323,6 @@ function dathang() {
     document.querySelectorAll('.product-info').forEach(product => {
         const productId = product.querySelector('.product-id').value;
         const quantity = product.querySelector('.product-quantity').value;  // Dùng value thay vì textContent
-
         productIds.push(productId);
         quantities.push(quantity);
     });
@@ -1353,7 +1333,6 @@ function dathang() {
         productIds: productIds,
         quantities: quantities
     };
-
     // Gửi yêu cầu POST tới controller
     $.ajax({
         url: '/user/cart/payment/save',  // Địa chỉ API
@@ -1363,7 +1342,7 @@ function dathang() {
         success: function(response) {
             // Xử lý phản hồi từ server
             alert("Tạo đơn hàng thành công");
-            window.location.href = '/user/cart';
+           /* window.location.href = '/user/cart';*/
         },
         error: function(error) {
             // In lỗi nếu có
@@ -1457,7 +1436,34 @@ function shopdetail()
 	       }
 	   });
 }
-
+document.querySelectorAll('.btn-shop-guest').forEach(element => {
+	element.addEventListener("click", shopdetailGuest);
+});
+function shopdetailGuest()
+{
+	const shopId = this.getAttribute('data-shopId');
+	 console.log(shopId)
+	   // Giả sử rằng mỗi sản phẩm có cấu trúc như sau:
+	   // <input type="hidden" class="product-id" value="productId">
+	   // <input type="number" class="product-quantity" value="quantity">	  
+	   // Tạo đối tượng dữ liệu để gửi
+	  
+		
+	   // Gửi yêu cầu POST tới controller
+	   $.ajax({
+	       url: '/home/vendor/detail',  // Địa chỉ API
+	       type: 'GET',
+	       contentType: 'application/json',  // Định dạng gửi đi là JSON
+	       data: { shopId: shopId }, // Gửi orderId dưới dạng JSON
+	       success: function(response) {
+		 window.location.href = `/home/vendor/detail?shopId=${shopId}`;
+	       },
+	       error: function(error) {
+	           // In lỗi nếu có
+	           console.error('Lỗi khi đặt hàng:', error);
+	       }
+	   });
+}
 function filterByRating(rating) {
     const productId = document.getElementById('productId').value; // Ẩn input chứa ID sản phẩm
     const thymeleafReviews = document.querySelectorAll('.thymeleaf-review'); // Lấy các đánh giá mặc định
@@ -1709,18 +1715,18 @@ document.querySelectorAll('.add-wishlist').forEach(button => {
 });
 function updateTotal() {
 	let totalItems = 0;
-	let totalShipping = 0;
+	
+	const totalShipping = parseInt(document.querySelector('.shippingCost').textContent.replace(/\D/g, '')); // Phí vận chuyển;
 	
 	// Lấy tổng tiền hàng và phí vận chuyển từ tất cả các sản phẩm
-	document.querySelectorAll('.product-info').forEach(product => {
+	document.querySelectorAll('.product-info-1').forEach(product => {
 		const productPriceText = product.querySelector('#total').textContent;
 		const itemCost = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
-		const shippingCost = parseInt(product.querySelector('.shippingCost').textContent.replace(/\D/g, '')); // Phí vận chuyển
+		
 
 		totalItems += itemCost;
-		totalShipping += shippingCost;
+		
 	});
-
 	// Cập nhật giá trị tổng tiền hàng, phí vận chuyển và tổng thanh toán
 	document.querySelector('.tien-tong-items').textContent = totalItems.toLocaleString() + "₫";
 	document.querySelector('.tien-tong-shipping').textContent = totalShipping.toLocaleString() + "₫";

@@ -144,7 +144,7 @@ public class AuthController {
             } else if (userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
                 return "redirect:/user/home";   // Điều hướng đến trang user
             } else {
-                return "redirect:/vendor/home"; // Điều hướng đến trang vendor
+                return "redirect:/user/home"; // Điều hướng đến trang vendor
             }
         } catch (AuthenticationException e) {
             model.addAttribute("error", "Invalid username or password");

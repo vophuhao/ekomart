@@ -76,8 +76,8 @@ public class Product implements Serializable {
     }
     
 	@ManyToOne  
-	@JoinColumn(name = "categoryId")
-    @JsonIgnore
+	@JoinColumn(name = "categoryId") 
+	@JsonIgnore
 	private Category category;
 
     @ManyToOne

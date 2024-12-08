@@ -1,0 +1,71 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{page/home-guest.html}" >
+    <!-- rts header area end -->
+<div layout:fragment="content">
+	<div class="body-root-inner">
+	<div class="container">
+                <!-- vendor-grid-top-area start -->
+                <div style="max-width: 615px; margin: auto; text-align: center;" class="vendor-grid-top-search-area">
+                <br>
+                    <h2 class="title">Vendors List</h2>
+                    <form action="#" class="input-area-search-head-vendor">
+                        <input type="text" class = "search-vendor" placeholder="Search vendors (by name or ID)...">
+                        <a href="#" class="rts-btn btn-primary radious-sm with-icon">
+                            <div class="btn-text">
+                                Search
+                            </div>
+                            <div class="arrow-icon">
+                                <i class="fa-light fa-magnifying-glass"></i>
+                            </div>
+                            <div class="arrow-icon">
+                                <i class="fa-light fa-magnifying-glass"></i>
+                            </div>
+                        </a>
+                    </form>
+                </div>
+                <!-- vendor-grid-top-area end -->
+                 <div class="row mt--10 ml--40 mr--40 g-xl-5 g-lg-4 g-4">
+                    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12" th:each="shop : ${listShop}" >
+                        <div class="single-vendor-area">
+                            <div class="logo-vendor">
+                                <img th:src="@{'/home/product-detail/images/' + ${shop.avatar}}" alt="" style="width:123px;height:auto">
+                            </div>
+                            <h3 class="title animated fadeIn" th:text="${shop.name}"></h3>
+                            <div class="stars-area">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>                   
+                            </div>
+                            <div class="location">
+                                <i class="fa-regular fa-location-dot"></i>
+                                <p th:text="${shop.address.detail}"></p>
+                            </div>
+                            <div class="location">
+                                <i class="fa-solid fa-phone-volume"></i>
+                                <p th:text="${shop.sdt}">
+                                </p>
+                            </div>
+                            <div class="rts-btn btn-primary radious-sm with-icon btn-shop-guest" th:data-shopId="${shop.shopId}">
+                                <div class="btn-text btn-shop-guest" style="cursor:pointer" th:data-shopId="${shop.shopId}">
+                                    Visit Store
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                                <div class="arrow-icon">
+                                    <i class="fa-light fa-arrow-right"></i>
+                                </div>
+                            
+                        </div>
+                    </div>
+                    
+                    </div>
+                   
+                 </div>   
+               <br>   
+               </div>      
+	</div>
+</div>

@@ -3,42 +3,6 @@
 	layout:decorate="~{admin/home.html}">
 <div class="body-root-inner" layout:fragment="content">
 	<div class="transection">
-		<div class="title-right-actioin-btn-wrapper-product-list">
-			<h3 class="title">Category</h3>
-			<div class="button-wrapper">
-				<div class="single-select">
-					<div class="nice-select" tabindex="0">
-						<span class="current">Export</span>
-						<ul class="list">
-							<li data-value="Default Sorting" data-display="Export"
-								class="option selected">Export</li>
-							<li data-value="1" class="option">CSV</li>
-							<li data-value="2" class="option">PDF</li>
-						</ul>
-					</div>
-				</div>
-				<button class="rts-btn btn-primary menu-btn" type="button" th:onclick="|addCategory()|">+ Add</button>
-			</div>
-		</div>
-		<div class="product-top-filter-area-l">
-			<div class="left-area-button-fiulter">
-				<!-- single product button -->
-				<div class="signle-product-single-button">
-					<span>All 250 </span>
-				</div>
-				<!-- single product button end -->
-				<!-- single product button -->
-				<div class="signle-product-single-button">
-					<span>New Item 150</span>
-				</div>
-				<!-- single product button end -->
-				<!-- single product button -->
-				<div class="signle-product-single-button">
-					<span>Disabled 154</span>
-				</div>
-				<!-- single product button end -->
-			</div>
-		</div>
 		<div class="vendor-list-main-wrapper product-wrapper">
 			<div class="card-body table-product-select">
 				<div class="table-responsive">
@@ -84,16 +48,16 @@
 								</td>
 								<td>
 									<div class ="name">
-										<p th:if="${product.display} == 1"  style="color:green">Accepted</p>
-										<button th:if="${product.display} == 0" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal" th:onclick="|getProductById('${product.id}')|">Waiting</button>
-										<p th:if="${product.display} == -1" style="color:red">Denied</p>
+										<p th:if="${product.status} == 1"  style="color:green">Accepted</p>
+										<button th:if="${product.status} == 0" type="button" class="btn btn-primary" style="background-color:green!important; " data-bs-toggle="modal" data-bs-target="#productModal" th:onclick="|getProductById('${product.id}')|">Waiting</button>
+										<p th:if="${product.status} == -1" style="color:red">Denied</p>
 									</div>
 								</td>
 								<td class="text-end">
 									<div class="between-stock-table action">																			
 										<!-- Scrollable modal -->
 										<button type="button" class="btn btn-success" >
-											<a th:href="@{/admin/vendor/product/detail/{id}(id= ${product.id})}">View</a>
+											<a th:href="@{/admin/vendor/product/detail/{id}(id= ${product.id})}" style="text-decoration: none;">View</a>
 										</button>
 									</div>
 								</td>

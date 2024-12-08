@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
-	layout:decorate="~{page/home.html}">
+	layout:decorate="~{page/home-guest.html}">
 
 <div layout:fragment="content">
 
@@ -145,8 +145,8 @@
 								<!-- single swiper start -->
 								<div class="swiper-slide" th:each="cate : ${cate}">
 									<div class="single-category-one">
-										<a th:href="@{/user/product(value=${cate.categoryName})}"> <img
-											th:src="@{'/user/home/product-detail/images/' + ${cate.image}}" alt="category">
+										<a th:href="@{/product(value=${cate.categoryName})}"> <img
+											th:src="@{'/home/product-detail/images/' + ${cate.image}}" alt="category">
 											<p th:text="${cate.categoryName}"></p> 
 											<span></span>
 										</a>
@@ -170,7 +170,7 @@
 					<!-- single feature product area -->
 					<div class="feature-product-area-single bg_image">
 						<div class="inner-image">
-							<img src="assets/images/feature/01.png" alt="feature">
+							<img src="/view/images/feature/01.png" alt="feature">
 						</div>
 						<div class="inner-content">
 							<h2 class="title">
@@ -322,8 +322,8 @@
 									<span>New</span>
 								</div>
 								<div class="image-and-action-area-wrapper">
-									<a th:href="@{/user/home/product-detail/{id}(id=${product.id})}" class="thumbnail-preview"> <img
-										th:src="@{'/user/home/product-detail/images/' + ${product.image}}"
+									<a th:href="@{/home/product-detail/{id}(id=${product.id})}" class="thumbnail-preview"> <img
+										th:src="@{'/home/product-detail/images/' + ${product.image}}"
 										alt="grocery">
 									</a>
 									<div class="action-share-option">
@@ -350,15 +350,15 @@
 										<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
 										<i class="fa-solid fa-star"></i>
 									</div>
-									<a th:href="@{/user/home/product-detail/{id}(id=${product.id})}">
+									<a th:href="@{/home/product-detail/{id}(id=${product.id})}">
 										<h4 class="title" th:text="${product.name}">Nestle
 											Cerelac Mixed Fruits &amp; Wheat with Milk</h4>
 									</a> <span class="availability" th:text="'Sold: ' + ${product.sold}">Sold: </span>
 									<div class="price-area">
-										<span class="current" th:text="${product.price}+' VNĐ'">$36.00</span>
+										<span class="current" th:text="${product.price}+'Đ'"></span>
 										
 									</div>
-									<form action="/user/add-item" method="POST">
+									<form action="/add-item" method="POST">
 										<input type="hidden" name="product.id"
 											th:value="${product.id}">
 										<!-- Product ID -->
@@ -407,8 +407,8 @@
 									<span>Hot</span>
 								</div>
 								<div class="image-and-action-area-wrapper">
-									<a href="@{/user/home/product-detail/{id}(id=${product.id})}" class="thumbnail-preview"> <img
-										th:src="@{'/user/home/product-detail/images/' + ${product.image}}"
+									<a href="@{/home/product-detail/{id}(id=${product.id})}" class="thumbnail-preview"> <img
+										th:src="@{'/home/product-detail/images/' + ${product.image}}"
 										alt="grocery">
 									</a>
 									<div class="action-share-option">
@@ -435,14 +435,15 @@
 										<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
 										<i class="fa-solid fa-star"></i>
 									</div>
-									<a th:href="@{/user/home/product-detail/{id}(id=${product.id})}">
-										<h4 class="title" th:text="${product.name}"></h4>
+									<a th:href="@{/home/product-detail/{id}(id=${product.id})}">
+										<h4 class="title" th:text="${product.name}">Nestle
+											Cerelac Mixed Fruits &amp; Wheat with Milk</h4>
 									</a> <span class="availability" th:text="'Sold: ' + ${product.sold}">Sold: </span>
 									<div class="price-area">
-										<span class="current" th:text="${product.price} + 'VND'">$36.00</span>
-									
+										<span class="current" th:text="${product.price}+'Đ'"></span>
+										
 									</div>
-									<form action="/user/add-item" method="POST">
+									<form action="/add-item" method="POST">
 										<input type="hidden" name="product.id"
 											th:value="${product.id}">
 										<!-- Product ID -->
@@ -499,7 +500,7 @@
                 <div class="col-lg-12">
                     <div class="title-area-between">
                         <h2 class="title-left">
-                            All Product
+                            ALL PRODUCT 
                         </h2>
                         
                     </div>
@@ -515,15 +516,16 @@
                                     <div class="single-shopping-card-one">
                                         <!-- iamge and sction area start -->
                                         <div class="image-and-action-area-wrapper">
-                                           <a th:href="@{/user/home/product-detail/{id}(id=${product.id})}" class="thumbnail-preview"> <img
-													th:src="@{'/user/home/product-detail/images/' + ${product.image}}"
-													alt="grocery">
-											</a>
+                                            <a href="shop-details.html" class="thumbnail-preview">
+                                                <div class="badge">
+                                                    <i class="fa-solid fa-bookmark"></i>
+                                                </div>
+                                                <img style = "height: 190px;width:200" th:src="@{'/home/product-detail/images/' + ${product.image}}" alt="grocery">
+                                            </a>
                                             <div class="action-share-option">
-                                               <div class="single-action openuptip message-show-action add-wishlist" th:data-product-wishlist="${product.id}"
-													data-flow="up" title="Add To Wishlist">
-													<i class="fa-light fa-heart"></i>
-												</div>
+                                                <span class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
+                                                    <i class="fa-light fa-heart"></i>
+                                                </span>
                                                 <span class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                     <i class="fa-solid fa-arrows-retweet"></i>
                                                 </span>
@@ -535,17 +537,18 @@
                                         <!-- iamge and sction area start -->
                                         <div class="body-content">
 
-                                            <a th:href="@{/user/home/product-detail/{id}(id=${product.id})}">
-												<h4 class="title" th:text="${product.name}"></h4>
-											</a> 
+                                            <a href="shop-details.html">
+                                                <h4 class="title" th:text="${product.name}">Nestle Cerelac Mixed Fruits &
+                                                    Wheat with Milk</h4>
+                                            </a>
                                             <span class="availability" th:text="${product.sold}"></span>
                                             <div class="price-area">
-                                                <span class="current" th:text="${product.price+' VND'}">$36.00</span>
-                                                
+                                                <span class="current" th:text="${product.price} + 'Đ'">$36.00</span>
+                                              
                                             </div>
                                             <div class="cart-counter-action">
                                                 
-                                                <form action="/user/add-item" method="POST">
+                                                <form action="/add-item" method="POST">
 													<input type="hidden" name="product.id"
 														th:value="${product.id}">
 													<!-- Product ID -->
@@ -651,7 +654,7 @@
 												</div>
 											</div>
 										</div>
-											<div class="col-lg-4 col-md-6 col-sm-12">
+										<div class="col-lg-4 col-md-6 col-sm-12">
 											<!-- single blog area start -->
 											<div class="single-blog-area-start">
 												<a href="blog-details.html" class="thumbnail"> <img

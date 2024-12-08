@@ -33,8 +33,8 @@ import java.util.ArrayList;
 
 
 @Controller
-@RequestMapping("/user/vendor")
-public class VendorUserController {
+@RequestMapping("/home/vendor")
+public class VendorGuestController {
 
 	@Autowired
 	private AdminIProductService productService;
@@ -109,7 +109,7 @@ public class VendorUserController {
 		model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("totalItems", productPage.getTotalElements());
-		return "page/vendor-detail";
+		return "page/vendor-detail-guest";
 	}
 	@GetMapping("/list")
 	public String listVendor(Model model)
@@ -117,7 +117,7 @@ public class VendorUserController {
 		List<Shop> listShop=adminShopService.findByStatus(1);
 		
 		model.addAttribute("listShop",listShop);
-		return "page/vendor-list";
+		return "page/vendor-list-guest";
 	}
 	
 	

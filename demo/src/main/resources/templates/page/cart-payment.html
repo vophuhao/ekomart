@@ -153,17 +153,25 @@
 													th:src="@{'/user/home/product-detail/images/' + ${product.productImage}}">
 											</div>
 											<input type="hidden" class="product-id"
-												th:value="${product.productId}"> <span
-												style="flex: 2"></span> <span class="title-sp-1"
-												th:text="${product.productPrice}"></span> <span
+												th:value="${product.productId}"> 
+												<span
+												style="flex: 2"></span> 
+												<span class="title-sp-1"
+												th:text="${product.productPrice}"></span> 
+												<input type="hidden" class="product-quantity" th:value="${product.productQuantity}">
+												<span
 												class="title-sp-1 product-quantity"
 												th:text="${product.productQuantity}"
-												th:value="${product.productQuantity}"></span> <span
+												th:value="${product.productQuantity}"></span>
+												<span
 												id="total" class="title-sp-1"
 												th:text="${product.productPrice*product.productQuantity}"></span>
 										</div>
 									</div>
-									<div class="ptvanchuyen">
+									
+								</div>
+							</div>
+							<div class="ptvanchuyen">
 										<div class="message">
 											<span style="display: flex; width: 80px;">Lời nhắn:</span> <input
 												class="luuy" placeholder="Lưu ý cho người bán"></input>
@@ -177,12 +185,6 @@
 												class="shippingCost">20.000</span>
 										</div>
 									</div>
-									<div class="tongtien">
-										<span>Tổng tiền: 100.000</span>
-									</div>
-								</div>
-							</div>
-
 
 							<div style="margin-top: -13px;">
 								<div class="pro-voucher">
