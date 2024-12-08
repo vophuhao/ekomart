@@ -22,8 +22,10 @@
                             <img class="mb--10" th:src="@{/view/images/logo/fav.png}" alt="logo">
                         </div>
                         <h3 class="title">Login Into Your Account</h3>
-                        Message
+                        <!-- Message -->
                         <p style="color:red;"><span th:text = "*{error}"></span></p>
+                        <!-- Thông báo thành công -->
+                		<p th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></p>
                         <form th:action="@{/authenticate}" method="post" class="registration-form">
                             <div class="input-wrapper">
                                 <label for="username">User name*</label>
@@ -35,18 +37,7 @@
                             </div>
                             <button type="submit" class="rts-btn btn-primary">Login Account</button>
                             <div class="another-way-to-registration">
-                                <div class="registradion-top-text">
-                                    <span>Or Register With</span>
-                                </div>
-                                <div class="login-with-brand">
-                                    <a th:href="@{#}" class="single">
-                                        <img th:src="@{/view/images/form/google.svg}" alt="login">
-                                    </a>
-                                    <a th:href="@{#}" class="single">
-                                        <img th:src="@{/view/images/form/facebook.svg}" alt="login">
-                                    </a>
-                                </div>
-                                <p>Forgot Password? <a th:href="@{/forgotPassword/verifyMail}">Khôi Phục</a></p>
+                                <p>Quên mật khẩu? <a th:href="@{/forgotPassword/verifyMail}">Khôi Phục</a></p>
                                 <p>Chưa có tài khoản? <a th:href="@{/register}">Đăng Ký</a></p>
                                 
                             </div>
