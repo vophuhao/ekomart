@@ -1,5 +1,7 @@
 package vn.iotstar.controller;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,8 +25,10 @@ import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.UserInfo;
 import vn.iotstar.entity.Wishlist;
 import vn.iotstar.model.AuthRequest;
+import vn.iotstar.model.MailBody;
 import vn.iotstar.repository.UserInfoRepository;
 import vn.iotstar.repository.WishlistRepository;
+import vn.iotstar.service.EmailService;
 import vn.iotstar.service.UserService;
 import vn.iotstar.service.user.Imp.CartServiceImpl;
 import vn.iotstar.util.JwtUtil;
@@ -51,6 +55,9 @@ public class AuthController {
     
     @Autowired
     private UserInfoRepository userInfoRepository;
+    
+    @Autowired
+    private  EmailService emailService;
 
     @Autowired
 	private CartServiceImpl cartService;
@@ -66,23 +73,20 @@ public class AuthController {
         if (result.hasErrors()) {
             return "register";
         }
-        
-		
-		 
-		
         // Add user to Database
         if (!userService.registerUser(userInfo)) {
         	model.addAttribute("error", "Email đã tồn tại");
         	return "register";
         }
-        
-        Cart cart=new Cart(); 
-		 cart.setUser(userInfo); 
-		 Wishlist wishlist=new Wishlist(); 
-		 wishlist.setUser(userInfo); 
-		 cartService.save(cart);
-		 wishrepo.save(wishlist);
-		 
+        UserInfo user = userInfoRepository.findByEmail(userInfo.getEmail()).orElse(null);
+        if (user==null) {
+            Cart cart=new Cart(); 
+    		cart.setUser(userInfo); 
+    		Wishlist wishlist=new Wishlist(); 
+    		wishlist.setUser(userInfo); 
+    		cartService.save(cart);
+    		wishrepo.save(wishlist);
+        }
         return "redirect:/register/register-verify-otp?email=" + userInfo.getEmail();
     }
     
@@ -153,8 +157,7 @@ public class AuthController {
     
     @PostMapping("/register/register-verify-otp")
     public String verifyOtp(@RequestParam("otp") Integer otp, @RequestParam("email") String email, Model model, RedirectAttributes redirectAttributes) {
-    	UserInfo user = userInfoRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Please provide a valid email!"));
+    	UserInfo user = userInfoRepository.findByEmail(email).orElse(null);
 
         if (user != null && user.getOtp().equals(otp)) {
             user.setEnabled(true);
@@ -168,4 +171,22 @@ public class AuthController {
         }
     }
     
+    @GetMapping("/verify-otp/resend-otp")
+    public String ReSendOtp(@RequestParam("email") String email, Model model) {
+    	// Send mail
+        int otp = otpGenerator();
+        MailBody mailBody = MailBody.builder()
+                .to(email)
+                .text("This is the OTP for your Forgot Password request: " + otp)
+                .subject("OTP for Forgot Password request")
+                .build();
+        userInfoRepository.updateOtp(email, otp);
+        emailService.sendSimpleMessage(mailBody);
+        return "verify-otp";
+    }
+    
+    private Integer otpGenerator() {
+        Random random = new Random();
+        return random.nextInt(100_000, 999_999);
+    }
 }
