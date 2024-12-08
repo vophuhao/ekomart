@@ -258,7 +258,9 @@ public class cartController {
 			oders.setPhone(addr.getPhone());
 			oders.setStatus(0);
 			oderservice.save(oders);
+			
 			for (Product product : productList) {
+				System.out.print(product.getName());
 				// Kiểm tra nếu sản phẩm thuộc cửa hàng này
 				if (product.getShop().getId().equals(shop.getId())) {
 					OrderDetail orderDetail = new OrderDetail();

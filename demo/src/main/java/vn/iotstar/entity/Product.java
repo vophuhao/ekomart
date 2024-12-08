@@ -77,10 +77,12 @@ public class Product implements Serializable {
     
 	@ManyToOne  
 	@JoinColumn(name = "categoryId") 
+	@JsonIgnore
 	private Category category;
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
+    @JsonIgnore
     private Shop shop;
 
     private String image;
@@ -92,6 +94,7 @@ public class Product implements Serializable {
 //    private List<OrderDetail> orderDetails;
 //
     @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private List<Review> reviews;
 
 //    @ManyToMany(fetch = FetchType.LAZY)

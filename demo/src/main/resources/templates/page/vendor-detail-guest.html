@@ -117,7 +117,7 @@
 					<div class="row g-5">
 						<div class="col-xl-3 col-lg-12 col-md-12">
 							<div class="vendor-banner-left">
-								<img th:src="${'/user/vendor/detail/images/' + shop.avatar}"
+								<img th:src="${'/home/vendor/detail/images/' + shop.avatar}"
 									alt="" style="width: 123px; height: auto">
 								<div class="header-area">
 									<h4 class="title"></h4>
@@ -203,14 +203,14 @@
 					<div class="col-lg-4 col-md-6" th:each="product : ${productList}">
 						<div class="single-shopping-card-one tranding-product">
 							<a href="#" class="thumbnail-preview"> <img
-								th:src="${'/user/vendor/detail/images/' + product.image}" alt=""
+								th:src="${'/home/vendor/detail/images/' + product.image}" alt=""
 								style="width: 100%; max-width: 114px; min-width: auto;height: 120px;">
 							</a>
 							<div class="body-content">
 								<div class="">
 									
 								</div>
-								<a th:href="@{/user/home/product-detail/{id}(id=${product.id})}">
+								<a th:href="@{/home/product-detail/{id}(id=${product.id})}">
 									<h4 class="title" style="word-wrap: break-word;white-space: normal;overflow-wrap: break-word; " th:text="${product.name}"></h4>
 								</a> <span class="availability" th:text="${product.productId}"></span>
 								<div class="price-area">
@@ -231,7 +231,7 @@
 							<li class="paginate_button_product"
 								th:classappend="${currentPage == 0 ? 'disabled' : ''}"><a
 								class="page-link"
-								th:href="@{/user/vendor/detail(shopId=${shop.shopId}, page=${currentPage - 1}, size=${size})}"
+								th:href="@{/home/vendor/detail(shopId=${shop.shopId}, page=${currentPage - 1}, size=${size})}"
 								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 							</a></li>
 
@@ -240,14 +240,14 @@
 								th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
 								th:classappend="${i == currentPage ? 'active' : ''}"><a
 								class="page-link"
-								th:href="@{/user/vendor/detail(shopId=${shop.shopId}, page=${i}, size=${size})}"
+								th:href="@{/home/vendor/detail(shopId=${shop.shopId}, page=${i}, size=${size})}"
 								th:text="${i + 1}"></a></li>
 
 							<!-- Nút Next -->
 							<li class="paginate_button_product"
 								th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
 								<a class="page-link"
-								th:href="@{/user/vendor/detail(shopId=${shop.shopId}, page=${currentPage + 1}, size=${size})}"
+								th:href="@{/home/vendor/detail(shopId=${shop.shopId}, page=${currentPage + 1}, size=${size})}"
 								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 							</a>
 							</li>

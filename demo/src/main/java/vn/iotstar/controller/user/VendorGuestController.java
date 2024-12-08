@@ -109,7 +109,7 @@ public class VendorGuestController {
 		model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("totalItems", productPage.getTotalElements());
-		return "page/vendor-detail";
+		return "page/vendor-detail-guest";
 	}
 	@GetMapping("/list")
 	public String listVendor(Model model)
@@ -117,7 +117,7 @@ public class VendorGuestController {
 		List<Shop> listShop=adminShopService.findByStatus(1);
 		
 		model.addAttribute("listShop",listShop);
-		return "page/vendor-list";
+		return "page/vendor-list-guest";
 	}
 	
 	
