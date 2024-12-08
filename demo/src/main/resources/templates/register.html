@@ -40,7 +40,7 @@
                         <p style="color:red;"><span th:text = "*{error}"></span></p>
                         <form th:action="@{/register}" method="post" th:object="${userInfo}" class="registration-form">
                             <div class="input-wrapper">
-                                <label for="name">Tên*</label>
+                                <label for="name">User name*</label>
         						<input type="text" id="name" th:field="*{name}" required>
                             </div>
                             <div class="input-wrapper">
@@ -48,7 +48,7 @@
         						<input type="email" id="email" th:field="*{email}" required>
                             </div>
                             <div class="input-wrapper">
-                                <label for="password">Mật Khẩu*</label>
+                                <label for="password">Password*</label>
         						<input type="password" id="password" th:field="*{password}" required>
                             </div>
                             <button type="submit" class="rts-btn btn-primary">Register Account</button>

@@ -378,10 +378,11 @@
 									<div class="single-shopping-card-one">
 										<!-- iamge and sction area start -->
 										<div class="image-and-action-area-wrapper">
-											<a href="#" class="thumbnail-preview">
+											<a th:href="@{/home/product-detail/{id}(id=${product.id})}" class="thumbnail-preview">
 												<div class="badge">
 													<i class="fa-solid fa-bookmark"></i>
-												</div> <img
+												</div> 
+												<img
 												th:src="@{'/home/product-detail/images/' + ${product.image}}"
 												alt="grocery">
 											</a>
@@ -405,7 +406,7 @@
 										<!-- iamge and sction area start -->
 
 										<div class="body-content">
-											<a href="#">
+											<a th:href="@{/home/product-detail/{id}(id=${product.id})}">
 												<h4 class="title" th:text="${product.name}">Nestle
 													Cerelac Mixed Fruits & Wheat with Milk</h4>
 											</a> <span class="availability"

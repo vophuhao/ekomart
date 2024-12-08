@@ -58,7 +58,7 @@
 											<div class="product-info-1">
 												<div style="flex: 4">
 													<img class="img-pro"
-														src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/11/Genshin-Impact-Nahida.jpg">
+														th:src="${'/vendor/order/images/' + order.product.image}">
 
 												</div>
 												
@@ -83,24 +83,7 @@
 									<button class="btn-tt">Thanh toán bằng ngân hàng</button>
 									<button class="btn-tt">Thanh toán khi nhận hàng</button>
 								</div>
-								<div class="thanhtoan-info">
-									<div></div>
-									<div>
-										<div class="thanhtoan-row">
-											<span class="label-tong">Tổng tiền hàng</span> <span
-												class="tien-tong tien-tong-items">100.000</span>
-										</div>
-										<div class="thanhtoan-row">
-											<span class="label-tong">Tổng tiền phí vận chuyển</span> <span
-												class="tien-tong tien-tong-shipping">20.000</span>
-										</div>
-										<div class="thanhtoan-row">
-											<span class="label-tong">Tổng thanh toán</span> <span
-												class="tien-tong tien-tong-total"
-												style="font-size: 20px; color: green">120.000</span>
-										</div>
-									</div>
-								</div>
+								
 							</div>																					
 						</div>
 					</div>

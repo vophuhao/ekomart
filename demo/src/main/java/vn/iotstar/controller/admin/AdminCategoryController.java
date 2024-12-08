@@ -123,7 +123,7 @@ public class AdminCategoryController {
 		    	storageService.store(cateModel.getRts_images1(), entity.getImage());
 		    	}
 		    
-		    System.out.print(entity);
+		
 		    categoryService.save(entity);
 		    redirectAttributes.addFlashAttribute("message", "Category saved successfully!");
 		    return new ModelAndView("redirect:/admin/categories");

@@ -43,6 +43,10 @@ public class UserInfo {
 	@JsonIgnore
 	private Cart cart;
 	
+	
+	@OneToMany(mappedBy="user")
+	private List<Orders> orders;
+	
 	@OneToOne(mappedBy = "user")
 	@JsonIgnore
 	private Wishlist wishlist;

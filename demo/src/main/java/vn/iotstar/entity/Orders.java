@@ -52,11 +52,11 @@ public class Orders implements Serializable{/**
             date = LocalDateTime.now(); // Gán ngày giờ hiện tại khi tạo mới
         }
     }
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "user_id") private User user;
-	 */
+	
+	 @ManyToOne	 
+	 @JoinColumn(name = "user_id") 
+	 private UserInfo user;
+	
     @ManyToOne
     @JoinColumn(name = "shop_id")
     private Shop shop;

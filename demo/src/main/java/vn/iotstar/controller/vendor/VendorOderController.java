@@ -5,15 +5,19 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +29,7 @@ import vn.iotstar.entity.Shop;
 import vn.iotstar.entity.UserInfo;
 import vn.iotstar.repository.ShopRepository;
 import vn.iotstar.service.IOderService;
+import vn.iotstar.service.IStorageService;
 import vn.iotstar.service.UserService;
 import vn.iotstar.service.Imp.OderDetailServiceImpl;
 import vn.iotstar.service.vendor.RevenueService;
@@ -42,6 +47,9 @@ public class VendorOderController {
 	private UserService userService;
 	
 	@Autowired
+	IStorageService storageService;
+	
+	@Autowired
 	JwtUtil jwtUtil;
 	
 	@Autowired
@@ -53,7 +61,14 @@ public class VendorOderController {
 	@Autowired
 	private OderDetailServiceImpl oderdetailservice;
 	
-	
+	@GetMapping("/images/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serverFile(@PathVariable String filename){ 
+		
+		Resource file =storageService.loadAsResource(filename); 
+		
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + file.getFilename() + "\"").body(file);
+	}
 	
 	@GetMapping("/detail")
 	public String oderDetail(@RequestParam("id") String id,Model model)

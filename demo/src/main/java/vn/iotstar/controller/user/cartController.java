@@ -257,14 +257,17 @@ public class cartController {
 			oders.setAddress(addr.getDetail()+" "+addr.getWard()+" "+addr.getDistrict()+" "+addr.getProvince());
 			oders.setPhone(addr.getPhone());
 			oders.setStatus(0);
+			oders.setUser(userInfo);
 			oderservice.save(oders);
-			
+			int total=0;
 			for (Product product : productList) {
 				System.out.print(product.getName());
 				// Kiểm tra nếu sản phẩm thuộc cửa hàng này
 				if (product.getShop().getId().equals(shop.getId())) {
 					OrderDetail orderDetail = new OrderDetail();
+					
 					for (int i = 0; i < productIds.size(); i++) {
+						
 						String productId = productIds.get(i);
 						if (product.getId().toString().equals(productId)) {
 
@@ -274,16 +277,24 @@ public class cartController {
 							orderDetail.setQuantity(Integer.parseInt(quantity)); // Chuyển số lượng thành số nguyên
 							orderDetail.setPrice(product.getPrice());
 							orderDetail.setOrders(oders);
+							
+							total+=product.getPrice()*Integer.parseInt(quantity);
 							// Thêm vào đơn hàng hoặc thực hiện xử lý khác
 
 							// Bạn có thể thêm orderDetail vào đơn hàng hoặc thực hiện hành động khác ở đây
 						}
 						// Thực hiện thêm sản phẩm vào đơn hàng hoặc xử lý đơn hàng tùy theo yêu cầu
 					}
-
+					orderDetail.setTotal(total);
 					oderdetailservice.save(orderDetail);
 				}
 			}
+			Optional<Orders> or=oderservice.findByOderId(odersId);
+			Orders orde=or.get();
+			
+			System.out.print(orde.getId());
+			orde.setTotalPay(total);
+			oderservice.save(orde);
 		}
 		// Thực hiện thanh toán hoặc thêm vào giỏ hàng (tùy yêu cầu)
 		return "redirect:/user/cart"; // Chuyển hướng sau khi thanh toán thành công

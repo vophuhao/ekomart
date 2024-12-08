@@ -1342,7 +1342,7 @@ function dathang() {
         success: function(response) {
             // Xử lý phản hồi từ server
             alert("Tạo đơn hàng thành công");
-           /* window.location.href = '/user/cart';*/
+           window.location.href = '/user/cart';
         },
         error: function(error) {
             // In lỗi nếu có

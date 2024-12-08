@@ -9,10 +9,10 @@
                 <div style="max-width: 615px; margin: auto; text-align: center;" class="vendor-grid-top-search-area">
                 <br>
                     <h2 class="title">Vendors List</h2>
-                    <form action="#" class="input-area-search-head-vendor">
-                        <input type="text" class = "search-vendor" placeholder="Search vendors (by name or ID)...">
-                        <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                            <div class="btn-text">
+                    <form th:action="@{/user/vendor/list}" th:method="get" class="input-area-search-head-vendor">
+                        <input name="value" type="text" class = "search-vendor" placeholder="Search vendors (by name or ID)...">
+                        <a  class="rts-btn btn-primary radious-sm with-icon" >
+                            <div class="btn-text" type="submit">
                                 Search
                             </div>
                             <div class="arrow-icon">

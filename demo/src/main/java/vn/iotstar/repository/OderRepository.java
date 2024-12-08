@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import vn.iotstar.entity.OrderDetail;
 import vn.iotstar.entity.Orders;
+import vn.iotstar.entity.UserInfo;
 
 
 @Repository
@@ -35,4 +36,5 @@ public interface OderRepository extends JpaRepository<Orders, Long> {
 	@Query("SELECT COUNT(o) FROM Orders o WHERE o.shop.id = :shopId AND o.status = 3 AND o.date BETWEEN :d1 AND :d2")
     BigDecimal countOrdersByShopId(@Param("shopId") long shopId, @Param("d1") LocalDateTime d1, 
             @Param("d2") LocalDateTime d2);
+	List<Orders> findByUser(UserInfo userInfo);
 }

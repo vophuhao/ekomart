@@ -68,7 +68,7 @@
 												    (order.status == 5 ? 'Refund' : 'unknown')))))}"></td> <!-- Hiển thị trạng thái -->
 								                <td th:text="${order.totalPay} + ' Đồng'"></td> <!-- Hiển thị tổng cộng -->
 								                <td>
-												    <button class="btn btn-primary btn-sm" 
+												    <button class="btn btn-primary btn-sm" style="background-color:#629D23;width:70px;" 
 												       th:attr="data-order-id=${order.id}" 
 												       onclick="viewOrderDetails(this)">View</button>
 												</td>

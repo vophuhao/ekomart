@@ -78,15 +78,10 @@ public class AuthController {
         	model.addAttribute("error", "Email đã tồn tại");
         	return "register";
         }
-        UserInfo user = userInfoRepository.findByEmail(userInfo.getEmail()).orElse(null);
-        if (user==null) {
-            Cart cart=new Cart(); 
-    		cart.setUser(userInfo); 
-    		Wishlist wishlist=new Wishlist(); 
-    		wishlist.setUser(userInfo); 
-    		cartService.save(cart);
-    		wishrepo.save(wishlist);
-        }
+//        UserInfo user = userInfoRepository.findByEmail(userInfo.getEmail()).orElse(null);
+    
+          
+        
         return "redirect:/register/register-verify-otp?email=" + userInfo.getEmail();
     }
     
@@ -160,6 +155,12 @@ public class AuthController {
     	UserInfo user = userInfoRepository.findByEmail(email).orElse(null);
 
         if (user != null && user.getOtp().equals(otp)) {
+        	 Cart cart=new Cart(); 
+      		cart.setUser(user); 
+      		Wishlist wishlist=new Wishlist(); 
+      		wishlist.setUser(user); 
+      		cartService.save(cart);
+      		wishrepo.save(wishlist);
             user.setEnabled(true);
             user.setOtp(null); // Clear OTP after successful verification
             userInfoRepository.save(user);
@@ -182,7 +183,7 @@ public class AuthController {
                 .build();
         userInfoRepository.updateOtp(email, otp);
         emailService.sendSimpleMessage(mailBody);
-        return "verify-otp";
+        return "register-verify-otp";
     }
     
     private Integer otpGenerator() {

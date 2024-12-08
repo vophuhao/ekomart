@@ -27,7 +27,8 @@ public class OrderDetail implements Serializable{/**
 
     private int quantity;
     private double price;
-
+    private int total;
+    
     @OneToOne
     @JoinColumn(name = "order_id")
     private Orders orders;

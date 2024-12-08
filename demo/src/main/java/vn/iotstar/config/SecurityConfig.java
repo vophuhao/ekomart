@@ -88,7 +88,7 @@ public class SecurityConfig {
 	                    response.addCookie(jwtCookie);
 	                    
 	                    // Điều hướng hoặc trả về response sau khi logout
-	                    response.sendRedirect("/login?logout=true");
+	                    response.sendRedirect("/home?logout=true");
 	                })
 	                .permitAll()
             )

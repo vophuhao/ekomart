@@ -43,3 +43,4 @@ spring:
             protocols: TLSv1.2
 storage:
   location: D:\\upload
+#  location: /Users/trantiendat/Documents/upload
