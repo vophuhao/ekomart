@@ -2,22 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Ekomart-Grocery-Store(e-Commerce) HTML Template: A sleek, responsive, and user-friendly HTML template designed for online grocery stores.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xác Thực OTP</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <meta name="keywords" content="Grocery, Store, stores">
+    <title>Ekomart-Grocery-Store(e-Commerce) HTML Template</title>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/view/images/fav.png}">
+    <!-- plugins css -->
+    <link rel="stylesheet preload" th:href="@{/view/css/plugins.css}" as="style">
+    <link rel="stylesheet preload" th:href="@{/view/css/style.css}" as="style">
 </head>
 <body>
-    <h1>Xác Thực Mã OTP</h1>
-     <p style="color:red;"><span th:text = "*{message}"></span></p>
-    <form th:action="@{/register/register-verify-otp}" method="post">
-        <label for="otp">Mã OTP đã gửi qua Email:</label>
-        <input type="text" th:value="${param.email}" name="email" />
-        <input type="text" id="otp" name="otp" required>
-
-        <button type="submit">Xác Thực</button>
-    </form>
-    <p>Chưa nhận được mã? <a th:href="@{/resend-otp}">Gửi lại mã OTP</a></p>
-    <p><a th:href="@{/login}">Quay lại đăng nhập</a></p>
-    <p style="color:blue;"><span th:text="*{error}"></span></p>
+<!-- rts register area start -->
+    <div class="rts-register-area rts-section-gap bg_light-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="registration-wrapper-1">
+                        <div class="logo-area mb--0">
+                            <img class="mb--10" th:src="@{/view/images/logo/fav.png}" alt="logo">
+                        </div>
+                        <h3 class="title">Xác Thực Mã OTP</h3>
+                        <p style="color:red;"><span th:text="*{error}"></span></p>
+                        <p style="color:red;"><span th:text = "*{message}"></span></p>
+                        <form th:action="@{/register/register-verify-otp}" method="post" class="registration-form">
+                            <div class="input-wrapper">
+                                <label for="otp"> Mã OTP đã gửi qua Email: <strong th:text="${param.email}"></strong></label>
+        						<input type="text" id="otp" name="otp" required>
+        						<input type="hidden" th:value="${param.email}" name="email" required>
+                            </div>
+                            <button type="submit" class="rts-btn btn-primary">Xác Thực</button>
+                            <div class="another-way-to-registration">
+                                
+							    <p><a th:href="@{/login}">Quay lại đăng nhập</a></p>
+							    
+                            </div>
+                        </form>	
+                        <form th:action="@{/verify-otp/resend-otp}" method="get">
+                        	<input type="hidden" th:value="${param.email}" name="email" required>
+						    <p>Chưa nhận được mã?</p>
+						    <button type="submit">Gửi lại mã OTP</button>
+						</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- rts register area end -->
 </body>
 </html>
