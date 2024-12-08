@@ -33,8 +33,8 @@ import java.util.ArrayList;
 
 
 @Controller
-@RequestMapping("/user/vendor")
-public class VendorUserController {
+@RequestMapping("/home/vendor")
+public class VendorGuestController {
 
 	@Autowired
 	private AdminIProductService productService;

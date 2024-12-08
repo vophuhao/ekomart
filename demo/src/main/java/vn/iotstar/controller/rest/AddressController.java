@@ -83,6 +83,7 @@ public class AddressController {
 	}
 	@PostMapping("/user/api/address/default")
 	public ResponseEntity<Void> setAddressDefault(HttpServletRequest request,@RequestBody  Long addressId) {
+		
 	    try {
 	    	String token = null;
 			// Lấy cookie từ request
@@ -106,10 +107,14 @@ public class AddressController {
 	    	
 			
 			 Optional<Address>addressde=addre.findByUserAndDefaults(userss, 1);
-			 Address add=addressde.get();
-			 add=addressde.get();
-			 add.setDefaults(0);	 
-			 addre.save(add);
+			 if(addressde.isPresent())
+			 {
+				 Address add=addressde.get();
+				 add=addressde.get();
+				 add.setDefaults(0);	 
+				 addre.save(add);
+			 }
+			
 			     	
 		       Optional<Address>address=addre.findById(addressId);
 		       

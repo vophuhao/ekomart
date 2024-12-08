@@ -1,0 +1,456 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+	layout:decorate="~{page/homeGuest.html}">
+
+
+<body class="shop-grid-sidebar">
+	<div layout:fragment="content">
+    <div class="section-seperator">
+        <div class="container">
+            <hr class="section-seperator">
+        </div>
+    </div>
+
+    <!-- shop[ grid sidebar wrapper -->
+    <div class="shop-grid-sidebar-area rts-section-gap">
+        <div class="container">
+            <div class="row g-0">
+                <div class="col-xl-2 col-lg-12 pr_lg--10 pr_sm--10 pr_md--5 rts-sticky-column-item">
+                    <div class="sidebar-filter-main theiaStickySidebar">
+                        <div class="single-filter-box">
+                            <h5 class="title">Widget Price Filter</h5>
+                            <div class="filterbox-body">
+                                <form action="#" class="price-input-area">
+                                    <div class="half-input-wrapper">
+                                        <div class="single">
+                                            <label for="min">Min price</label>
+                                            <input id="min" type="text" value="0">
+                                        </div>
+                                        <div class="single">
+                                            <label for="max">Max price</label>
+                                            <input id="max" type="text" value="150">
+                                        </div>
+                                    </div>
+                                    <input type="range" class="range">
+                                    <div class="filter-value-min-max">
+                                        <span>Price: $10 — $90</span>
+                                        <button class="rts-btn btn-primary">Filter</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="single-filter-box">
+                            <h5 class="title">Product Categories</h5>
+                            <div class="filterbox-body">
+                                <div class="category-wrapper ">
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat1" type="checkbox">
+                                        <label for="cat1">Beverages
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat2" type="checkbox">
+                                        <label for="cat2">Biscuits & Snacks
+
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat3" type="checkbox">
+                                        <label for="cat3">Breads & Bakery
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat4" type="checkbox">
+                                        <label for="cat4">Breakfast & Dairy
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat7" type="checkbox">
+                                        <label for="cat7">Grocery & Staples
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat6" type="checkbox">
+                                        <label for="cat6">Fruits & Vegetables
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat8" type="checkbox">
+                                        <label for="cat8">Household Needs
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat10" type="checkbox">
+                                        <label for="cat10">Meats & Seafood
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat80" type="checkbox">
+                                        <label for="cat80">Grocery & Staples
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-filter-box">
+                            <h5 class="title">Product Status</h5>
+                            <div class="filterbox-body">
+                                <div class="category-wrapper">
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat11" type="checkbox">
+                                        <label for="cat11">In Stock
+
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat12" type="checkbox">
+                                        <label for="cat12">On Sale
+
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-filter-box">
+                            <h5 class="title">Select Brands</h5>
+                            <div class="filterbox-body">
+                                <div class="category-wrapper">
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat13" type="checkbox">
+                                        <label for="cat13">Frito Lay
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat14" type="checkbox">
+                                        <label for="cat14">Nespresso
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat15" type="checkbox">
+                                        <label for="cat15">Oreo
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat16" type="checkbox">
+                                        <label for="cat16">Quaker
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                    <!-- single category -->
+                                    <div class="single-category">
+                                        <input id="cat17" type="checkbox">
+                                        <label for="cat17">Welch's
+                                        </label>
+                                    </div>
+                                    <!-- single category end -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-10 col-lg-12 pl--20">
+                    <div class="filter-select-area">
+                        <div class="nice-select-area-wrapper-and-button">
+                            <div class="nice-select-wrapper-1">
+                                <div class="single-select">
+                                    <select>
+                                        <option data-display="All Categories">All Categories</option>
+                                        <option value="1">Some option</option>
+                                        <option value="2">Another option</option>
+                                        <option value="3" disabled>A disabled option</option>
+                                        <option value="4">Potato</option>
+                                    </select>
+                                </div>
+                                <div class="single-select">
+                                    <select>
+                                        <option data-display="All Brands">All Brands</option>
+                                        <option value="1">Some option</option>
+                                        <option value="2">Another option</option>
+                                        <option value="3" disabled>A disabled option</option>
+                                        <option value="4">Potato</option>
+                                    </select>
+                                </div>
+                                <div class="single-select">
+                                    <select>
+                                        <option data-display="All Size">All Size </option>
+                                        <option value="1">Some option</option>
+                                        <option value="2">Another option</option>
+                                        <option value="3" disabled>A disabled option</option>
+                                        <option value="4">Potato</option>
+                                    </select>
+                                </div>
+                                <div class="single-select">
+                                    <select>
+                                        <option data-display="All Weight">All Weight</option>
+                                        <option value="1">Some option</option>
+                                        <option value="2">Another option</option>
+                                        <option value="3" disabled>A disabled option</option>
+                                        <option value="4">Potato</option>
+                                    </select>
+                                </div>
+                                <nav>
+						            <ul class="pagination justify-content-center">
+						                <li class="paginate_button_product" th:classappend="${currentPage == 0} ? 'disabled'">
+						                    <a class="page-link" th:href="@{/home/product(value = ${value},page=${currentPage - 1})}">Previous</a>
+						                </li>
+						                <li class="paginate_button_product_current" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+						                    <a class="page-link" onclick="changeBackground(this)" th:href="@{/home/product(value = ${value},page=${i})}" th:text="${i + 1}"></a>
+						                </li>
+						                <li class="paginate_button_product" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+						                    <a class="page-link" th:href="@{/home/product(value = ${value},page=${currentPage + 1})}">Next</a>
+						                </li>
+						            </ul>
+       							</nav>
+                            </div>
+                            <div class="button-area">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="product-area-wrapper-shopgrid-list mt--20 tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                            <div class="row g-4">
+                            <!--  1sp -->
+                                <div id="product-container" class="col-lg-3 col-md-4 col-sm-6 col-12" th:each="product : ${product}">
+                                    <div class="single-shopping-card-one">
+                                        <!-- iamge and sction area start -->
+                                        <div class="image-and-action-area-wrapper">
+                                            <a th:href="@{/home/product-detail/{id}(id=${product.id})}" class="thumbnail-preview">
+
+                                                <img th:src="@{'/home/product-detail/images/' + ${product.image}}" alt="grocery">
+                                            </a>
+                                            <div class="action-share-option">
+                                                <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
+                                                    <i class="fa-light fa-heart"></i>
+                                                </div>
+                                                <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                    <i class="fa-solid fa-arrows-retweet"></i>
+                                                </div>
+                                                <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
+                                                    <i class="fa-regular fa-eye"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- iamge and sction area start -->
+
+                                        <div class="body-content">
+
+                                            <a th:href="@{/home/product-detail/{id}(id=${product.id})}">
+                                                <h4 class="title" th:text="${product.name}">Best Cerelac Mixed Fruits &amp;
+                                                    Wheat with Milk</h4>
+                                            </a>
+                                            <span class="availability" th:text="'Sold:' + ${product.sold}">500g Pack</span>
+                                            <div class="price-area">
+                                                <span class="current" th:text="${product.price}">$36.00</span>
+                                                <div class="previous"></div>
+                                            </div>
+                                            <form action="/add-item" method="POST">
+                                            	<div class="cart-counter-action">
+													<input type="hidden" name="product.id"
+														th:value="${product.id}">
+													<!-- Product ID -->
+													<input type="hidden" name="price" th:value="${product.price}">
+													<input type="hidden" name="quantity" value="1">
+                                              
+                                                     <button type="submit" class="rts-btn btn-primary radious-sm with-icon">
+	                                                    <div class="btn-text">
+	                                                        Add To Cart
+	                                                    </div>
+	                                                    <div class="arrow-icon">
+	                                                        <i class="fa-regular fa-cart-shopping"></i>
+	                                                    </div>
+	                                                    <div class="arrow-icon">
+	                                                        <i class="fa-regular fa-cart-shopping"></i>
+	                                                    </div>
+                                                	</button>
+                                                	</div>
+                                                </form>
+                                                
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end 1sp -->
+                                
+								
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- shop[ grid sidebar wrapper end -->
+
+
+
+
+
+    <!-- rts footer one area start -->
+    <div class="rts-footer-area pt--80 bg_light-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-main-content-wrapper pb--70">
+                        <!-- single footer area wrapper -->
+                        <div class="single-footer-wized">
+                            <h3 class="footer-title">About Company</h3>
+                            <div class="call-area">
+                                <div class="icon">
+                                    <i class="fa-solid fa-phone-rotary"></i>
+                                </div>
+                                <div class="info">
+                                    <span>Have Question? Call Us 24/7</span>
+                                    <a href="#" class="number">+258 3692 2569</a>
+                                </div>
+                            </div>
+                            <div class="opening-hour">
+                                <div class="single">
+                                    <p>Monday - Friday: <span>8:00am - 6:00pm</span></p>
+                                </div>
+                                <div class="single">
+                                    <p>Saturday: <span>8:00am - 6:00pm</span></p>
+                                </div>
+                                <div class="single">
+                                    <p>Sunday: <span>Service Close</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- single footer area wrapper -->
+                        <!-- single footer area wrapper -->
+                        <div class="single-footer-wized">
+                            <h3 class="footer-title">Our Stores</h3>
+                            <div class="footer-nav">
+                                <ul>
+                                    <li><a href="#">Delivery Information</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">Support Center</a></li>
+                                    <li><a href="#">Careers</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- single footer area wrapper -->
+                        <!-- single footer area wrapper -->
+                        <div class="single-footer-wized">
+                            <h3 class="footer-title">Shop Categories</h3>
+                            <div class="footer-nav">
+                                <ul>
+                                    <li><a href="#">Contact Us</a></li>
+                                    <li><a href="#">Information</a></li>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Careers</a></li>
+                                    <li><a href="#">Nest Stories</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- single footer area wrapper -->
+                        <!-- single footer area wrapper -->
+                        <div class="single-footer-wized">
+                            <h3 class="footer-title">Useful Links</h3>
+                            <div class="footer-nav">
+                                <ul>
+                                    <li><a href="#">Cancellation & Returns</a></li>
+                                    <li><a href="#">Report Infringement</a></li>
+                                    <li><a href="#">Payments</a></li>
+                                    <li><a href="#">Shipping</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- single footer area wrapper -->
+                        <!-- single footer area wrapper -->
+                        <div class="single-footer-wized">
+                            <h3 class="footer-title">Our Newsletter</h3>
+                            <p class="disc-news-letter">
+                                Subscribe to the mailing list to receive updates one <br> the new arrivals and other discounts
+                            </p>
+                            <form class="footersubscribe-form" action="#">
+                                <input type="email" placeholder="Your email address" required>
+                                <button class="rts-btn btn-primary">Subscribe</button>
+                            </form>
+
+                            <p class="dsic">
+                                I would like to receive news and special offer
+                            </p>
+                        </div>
+                        <!-- single footer area wrapper -->
+                    </div>
+                    <div class="social-and-payment-area-wrapper">
+                        <div class="social-one-wrapper">
+                            <span>Follow Us:</span>
+                            <ul>
+                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-whatsapp"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="payment-access">
+                            <span>Payment Accepts:</span>
+                            <img src="assets/images/payment/01.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- rts footer one area end -->
+
+    <!-- rts copyright-area start -->
+    <div class="rts-copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="copyright-between-1">
+                        <p class="disc">
+                            Copyright 2024 <a href="#">©Ekomart</a>. All rights reserved.
+                        </p>
+                        <a href="#" class="playstore-app-area">
+                            <span>Download App</span>
+                            <img src="assets/images/payment/02.png" alt="">
+                            <img src="assets/images/payment/03.png" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+<div>
+</div>
+</body>
+
+
+<!-- Mirrored from html.themewant.com/ekomart/shop-grid-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 01 Nov 2024 06:32:40 GMT -->
+</html>
