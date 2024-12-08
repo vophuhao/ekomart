@@ -407,7 +407,7 @@
 									<span>Hot</span>
 								</div>
 								<div class="image-and-action-area-wrapper">
-									<a href="@{/user/home/product-detail/{id}(id=${product.id})}" class="thumbnail-preview"> <img
+									<a th:href="@{/user/home/product-detail/{id}(id=${product.id})}" class="thumbnail-preview"> <img
 										th:src="@{'/user/home/product-detail/images/' + ${product.image}}"
 										alt="grocery">
 									</a>
