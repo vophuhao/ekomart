@@ -228,7 +228,7 @@
 					<nav aria-label="Page navigation" class="mt-4">
 						<ul class="pagination justify-content-center">
 							<!-- Nút Previous -->
-							<li class="page-item"
+							<li class="paginate_button_product"
 								th:classappend="${currentPage == 0 ? 'disabled' : ''}"><a
 								class="page-link"
 								th:href="@{/user/vendor/detail(shopId=${shop.shopId}, page=${currentPage - 1}, size=${size})}"
@@ -236,7 +236,7 @@
 							</a></li>
 
 							<!-- Các số trang -->
-							<li class="page-item"
+							<li class="paginate_button_product_current"
 								th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
 								th:classappend="${i == currentPage ? 'active' : ''}"><a
 								class="page-link"
@@ -244,7 +244,7 @@
 								th:text="${i + 1}"></a></li>
 
 							<!-- Nút Next -->
-							<li class="page-item"
+							<li class="paginate_button_product"
 								th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
 								<a class="page-link"
 								th:href="@{/user/vendor/detail(shopId=${shop.shopId}, page=${currentPage + 1}, size=${size})}"

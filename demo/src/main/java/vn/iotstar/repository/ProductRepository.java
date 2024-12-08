@@ -42,6 +42,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 @Query("SELECT p FROM Product p ORDER BY p.sold DESC")
 	 List<Product> findTop20ByOrderBySoldDesc(Pageable pageable);
 	 
+	 @Query("SELECT p FROM Product p")
+	 List<Product> findTop18Page(Pageable pageable);
+	 
 	 List<Product> findByCategory(Category category);
 	 
 //	 List<Object[]> findTop20ProductsByReviewCount(Pageable pageable);
