@@ -21,26 +21,26 @@
                         <div class="logo-area mb--0">
                             <img class="mb--10" th:src="@{/view/images/logo/fav.png}" alt="logo">
                         </div>
-                        <h3 class="title">Xác Thực Mã OTP</h3>
+                        <h3 class="title">Verify OTP Code</h3>
                         <p style="color:red;"><span th:text="*{error}"></span></p>
                         <p style="color:red;"><span th:text = "*{message}"></span></p>
                         <form th:action="@{/register/register-verify-otp}" method="post" class="registration-form">
                             <div class="input-wrapper">
-                                <label for="otp"> Mã OTP đã gửi qua Email: <strong th:text="${param.email}"></strong></label>
+                                <label for="otp"> The OTP code has been sent to your email: <strong th:text="${param.email}"></strong></label>
         						<input type="text" id="otp" name="otp" required>
         						<input type="hidden" th:value="${param.email}" name="email" required>
                             </div>
-                            <button type="submit" class="rts-btn btn-primary">Xác Thực</button>
+                            <button type="submit" class="rts-btn btn-primary">Verify</button>
                             <div class="another-way-to-registration">
                                 
-							    <p><a th:href="@{/login}">Quay lại đăng nhập</a></p>
+							    <p><a th:href="@{/login}">Back to Login</a></p>
 							    
                             </div>
                         </form>	
                         <form th:action="@{/verify-otp/resend-otp}" method="get">
                         	<input type="hidden" th:value="${param.email}" name="email" required>
-						    <p>Chưa nhận được mã?</p>
-						    <button type="submit">Gửi lại mã OTP</button>
+						    <p>Didn't receive the code?</p>
+						    <button type="submit">Resend OTP</button>
 						</form>
                     </div>
                 </div>
