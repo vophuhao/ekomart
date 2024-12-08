@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.iotstar.config.UserInfoService;
 import vn.iotstar.entity.UserInfo;
@@ -52,14 +53,17 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("userInfo") @Validated UserInfo userInfo, BindingResult result) {
+    public String registerUser(@ModelAttribute("userInfo") @Validated UserInfo userInfo, BindingResult result, Model model) {
     	// Validation
         if (result.hasErrors()) {
             return "register";
         }
         
         // Add user to Database
-        userService.registerUser(userInfo);
+        if (!userService.registerUser(userInfo)) {
+        	model.addAttribute("error", "Email đã tồn tại");
+        	return "register";
+        }
         
         return "redirect:/register/register-verify-otp?email=" + userInfo.getEmail();
     }
@@ -130,7 +134,7 @@ public class AuthController {
     // để Spring Security tự động lưu vào userInfo  
     
     @PostMapping("/register/register-verify-otp")
-    public String verifyOtp(@RequestParam("otp") Integer otp, @RequestParam("email") String email, Model model) {
+    public String verifyOtp(@RequestParam("otp") Integer otp, @RequestParam("email") String email, Model model, RedirectAttributes redirectAttributes) {
     	UserInfo user = userInfoRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Please provide a valid email!"));
 
@@ -138,7 +142,7 @@ public class AuthController {
             user.setEnabled(true);
             user.setOtp(null); // Clear OTP after successful verification
             userInfoRepository.save(user);
-            model.addAttribute("message", "Account activated successfully!");
+            redirectAttributes.addFlashAttribute("successMessage", "Xác thực OTP thành công. Vui lòng đăng nhập!");
             return "redirect:/login";
         } else {
         	model.addAttribute("message", "Invalid OTP!");
