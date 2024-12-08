@@ -656,17 +656,22 @@
                                             </div>
                                             <div class="cart-counter-action">
                                                 
-                                                <a href="#" class="rts-btn btn-primary radious-sm with-icon">
-                                                    <div class="btn-text">
-                                                        Add
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                    <div class="arrow-icon">
-                                                        <i class="fa-regular fa-cart-shopping"></i>
-                                                    </div>
-                                                </a>
+                                                <form action="/user/add-item" method="POST">
+													<input type="hidden" name="product.id"
+														th:value="${product.id}">
+													<!-- Product ID -->
+													<input type="hidden" name="price" th:value="${product.price}">
+													<input type="hidden" name="quantity" value="1">
+													<!-- Số lượng sản phẩm -->
+			
+													<button type="submit"
+														class="rts-btn btn-primary radious-sm with-icon">
+														<div class="btn-text">Add To Cart</div>
+														<div class="arrow-icon">
+															<i class="fa-regular fa-cart-shopping"></i>
+														</div>
+													</button>
+												</form>
                                             </div>
                                         </div>
                                     </div>

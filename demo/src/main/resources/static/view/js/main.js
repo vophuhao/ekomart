@@ -1204,26 +1204,6 @@ document.querySelectorAll('.changeButton').forEach(button => {
 	button.addEventListener("click", openPopup);
 });
 
-function updateTotal() {
-	let totalItems = 0;
-	let totalShipping = 0;
-	
-	// Lấy tổng tiền hàng và phí vận chuyển từ tất cả các sản phẩm
-	document.querySelectorAll('.product-info').forEach(product => {
-		const productPriceText = product.querySelector('#total').textContent;
-		const itemCost = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
-		const shippingCost = parseInt(product.querySelector('.shippingCost').textContent.replace(/\D/g, '')); // Phí vận chuyển
-
-		totalItems += itemCost;
-		totalShipping += shippingCost;
-	});
-
-	// Cập nhật giá trị tổng tiền hàng, phí vận chuyển và tổng thanh toán
-	/*document.querySelector('.tien-tong-items').textContent = totalItems.toLocaleString() + "₫";
-	document.querySelector('.tien-tong-shipping').textContent = totalShipping.toLocaleString() + "₫";
-	document.querySelector('.tien-tong-total').textContent = (totalItems + totalShipping).toLocaleString() + "₫";*/
-}
-
 function updateTotalForOrder(orderElement) {
 	let totalItems = 0;
 	let shippingCost = 0;
@@ -1727,3 +1707,22 @@ document.querySelectorAll('.add-wishlist').forEach(button => {
 	button.addEventListener("click", addWishItem);
 	
 });
+function updateTotal() {
+	let totalItems = 0;
+	let totalShipping = 0;
+	
+	// Lấy tổng tiền hàng và phí vận chuyển từ tất cả các sản phẩm
+	document.querySelectorAll('.product-info').forEach(product => {
+		const productPriceText = product.querySelector('#total').textContent;
+		const itemCost = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
+		const shippingCost = parseInt(product.querySelector('.shippingCost').textContent.replace(/\D/g, '')); // Phí vận chuyển
+
+		totalItems += itemCost;
+		totalShipping += shippingCost;
+	});
+
+	// Cập nhật giá trị tổng tiền hàng, phí vận chuyển và tổng thanh toán
+	document.querySelector('.tien-tong-items').textContent = totalItems.toLocaleString() + "₫";
+	document.querySelector('.tien-tong-shipping').textContent = totalShipping.toLocaleString() + "₫";
+	document.querySelector('.tien-tong-total').textContent = (totalItems + totalShipping).toLocaleString() + "₫";
+}
