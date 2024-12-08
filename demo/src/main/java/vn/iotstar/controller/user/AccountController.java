@@ -114,7 +114,7 @@ public class AccountController {
         model.addAttribute("addressUser", address);
         String email = user.getEmail();
         model.addAttribute("email", email);
-        List<Orders> list = orderRepository.findAll();
+        List<Orders> list = orderRepository.findByUser(userInfo);
         model.addAttribute("orders", list);
 		return "page/account/account";
 	}

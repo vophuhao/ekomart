@@ -257,6 +257,7 @@ public class cartController {
 			oders.setAddress(addr.getDetail()+" "+addr.getWard()+" "+addr.getDistrict()+" "+addr.getProvince());
 			oders.setPhone(addr.getPhone());
 			oders.setStatus(0);
+			oders.setUser(userInfo);
 			oderservice.save(oders);
 			int total=0;
 			for (Product product : productList) {
