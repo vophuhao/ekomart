@@ -139,8 +139,11 @@ public class homeController {
         String username = jwtUtil.extractUsername(token);
 		Optional<UserInfo> user = userService.findByName(username);
 		UserInfo userInfo = user.get();
+		Cart cart = cartService.findByUser(userInfo);
+		session.setAttribute("cartCount", cart.getItems().size());
 		Optional<Wishlist> wishlist = wishrepo.findByUser(userInfo);
 		Wishlist wish = wishlist.get();
+		session.setAttribute("wishlistCount", wish.getItems().size());
 		model.addAttribute("wish", wish);
 		return "page/wishlist";
 	}

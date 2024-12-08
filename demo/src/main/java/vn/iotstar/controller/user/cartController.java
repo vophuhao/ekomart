@@ -38,9 +38,11 @@ import vn.iotstar.entity.Orders;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Shop;
 import vn.iotstar.entity.UserInfo;
+import vn.iotstar.entity.Wishlist;
 import vn.iotstar.model.OderRequest;
 import vn.iotstar.model.productPayment;
 import vn.iotstar.model.productPayment.SelectedProduct;
+import vn.iotstar.repository.WishlistRepository;
 import vn.iotstar.service.IOderService;
 import vn.iotstar.service.Imp.OderDetailServiceImpl;
 import vn.iotstar.service.admin.AdminShopService;
@@ -56,6 +58,9 @@ import vn.iotstar.util.JwtUtil;
 public class cartController {
 	@Autowired
 	private CartServiceImpl cartService;
+	
+	@Autowired
+    private WishlistRepository wishrepo;
 
 	@Autowired
     private JwtUtil jwtUtil;
@@ -102,6 +107,9 @@ public class cartController {
 		Cart cart = cartService.findByUser(userInfo);
 		session.setAttribute("cartCount", cart.getItems().size());
 		model.addAttribute("cart", cart);
+		Optional<Wishlist> wishlist = wishrepo.findByUser(userInfo);
+		Wishlist wish = wishlist.get();
+		session.setAttribute("wishlistCount", wish.getItems().size());
 		return "page/cart";
 	}
 

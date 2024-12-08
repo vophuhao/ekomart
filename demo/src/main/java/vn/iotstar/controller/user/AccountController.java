@@ -21,15 +21,20 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import vn.iotstar.entity.Address;
+import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.OrderDetail;
 import vn.iotstar.entity.Orders;
 import vn.iotstar.entity.UserInfo;
+import vn.iotstar.entity.Wishlist;
 import vn.iotstar.repository.OderRepository;
 import vn.iotstar.repository.OrderDetailRepository;
 import vn.iotstar.repository.UserInfoRepository;
+import vn.iotstar.repository.WishlistRepository;
 import vn.iotstar.service.IOderService;
 import vn.iotstar.service.Imp.OderServiceImpl;
 import vn.iotstar.service.user.Imp.AddressServiceImp;
+import vn.iotstar.service.user.Imp.CartServiceImpl;
+import vn.iotstar.service.user.Imp.UserInfoServiceImp;
 import vn.iotstar.util.JwtUtil;
 
 @Controller
@@ -38,6 +43,15 @@ public class AccountController {
 	
 	@Autowired
     private JwtUtil jwtUtil;
+	
+	@Autowired
+	private UserInfoServiceImp userservice;
+	
+	@Autowired
+    private WishlistRepository wishrepo;
+	
+	@Autowired
+	private CartServiceImpl cartService;
 	
 	@Autowired
 	private AddressServiceImp addre;
@@ -80,6 +94,13 @@ public class AccountController {
         
         model.addAttribute("username", username);
         session.setAttribute("username", username);
+        Optional<UserInfo> user1 = userservice.findByName((String)session.getAttribute("username"));
+		UserInfo userInfo = user1.get();
+        Cart cart = cartService.findByUser(userInfo);
+		session.setAttribute("cartCount", cart.getItems().size());
+		Optional<Wishlist> wishlist = wishrepo.findByUser(userInfo);
+		Wishlist wish = wishlist.get();
+		model.addAttribute("wish", wish);
         List<Address> address=addre.findByUser(user);
         
         model.addAttribute("addressUser", address);
