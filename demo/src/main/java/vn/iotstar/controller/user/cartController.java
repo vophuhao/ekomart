@@ -197,7 +197,6 @@ public class cartController {
 	@PostMapping("/cart/payment/save")
 	public String processPayment(@RequestBody OderRequest orderRequest, HttpServletRequest request, HttpSession session) {
 		String token = null;
-		// Lấy cookie từ request
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -207,7 +206,6 @@ public class cartController {
                 }
             }
         }
-        
         String username = jwtUtil.extractUsername(token);
 		Optional<UserInfo> user = userservice.findByName(username);
 		UserInfo userInfo = user.get();
@@ -215,35 +213,26 @@ public class cartController {
 		List<String> quantities = orderRequest.getQuantities();
 		Optional<Address> address = addre.findByUserAndDefaults(userInfo, 1);
 		Address addr = address.get();
-
 		List<Product> productList = new ArrayList<>();
 		for (String productId : productIds) {
-			// Tìm sản phẩm theo productId
 			Product product = productservice.getById(Long.parseLong(productId));
-
-			// Nếu sản phẩm tồn tại, thêm vào danh sách productList
 			if (product != null) {
-				// Tìm chỉ số của sản phẩm trong productIds để lấy số lượng tương ứng
 
 				productList.add(product);
 			}
 		}
-
 		Set<Long> shopIds = new HashSet<>();
-
 		// Lọc các shopId duy nhất
 		for (Product product : productList) {
 			if (product.getShop() != null) {
 				shopIds.add(product.getShop().getId());
 			}
 		}
-
 		// Tạo danh sách các Shop từ các shopId duy nhất
 		List<Shop> shopList = new ArrayList<>();
 		for (Long shopId : shopIds) {
 			Optional<Shop> shop = shopservice.findById(shopId);
 			if (shop != null) {
-
 				shop.ifPresent(shopList::add);
 			}
 		}
@@ -251,7 +240,6 @@ public class cartController {
 			Orders oders = new Orders();
 			String odersId = generateRandomString(6);
 			oders.setOderId(odersId);
-			
 			oders.setShop(shop);
 			oders.setName(addr.getUname());
 			oders.setAddress(addr.getDetail()+" "+addr.getWard()+" "+addr.getDistrict()+" "+addr.getProvince());
@@ -261,7 +249,6 @@ public class cartController {
 			oderservice.save(oders);
 			int total=0;
 			for (Product product : productList) {
-				System.out.print(product.getName());
 				// Kiểm tra nếu sản phẩm thuộc cửa hàng này
 				if (product.getShop().getId().equals(shop.getId())) {
 					OrderDetail orderDetail = new OrderDetail();
@@ -291,8 +278,7 @@ public class cartController {
 			}
 			Optional<Orders> or=oderservice.findByOderId(odersId);
 			Orders orde=or.get();
-			
-			System.out.print(orde.getId());
+
 			orde.setTotalPay(total);
 			oderservice.save(orde);
 		}

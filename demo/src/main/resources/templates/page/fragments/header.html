@@ -103,14 +103,7 @@
 									<li class="parent has-dropdown"><a class="nav-link"
 										th:href="@{/user/product(value=${value})}">Product</a>
 									</li>
-									<li class="parent has-dropdown"><a class="nav-link"
-										th:href="@{#}">Blog</a>
-										<ul class="submenu">
-											<li><a class="sub-b">Blog</a></li>
-											<li><a class="sub-b">Blog List Right Sidebar</a></li>
-											<li><a class="sub-b">Blog List Left Sidebar</a></li>
-											<li><a class="sub-b">Blog Details</a></li>
-										</ul></li>
+									
 									<li class="parent" >
 										<div th:if="${session.role == 'ROLE_USER'}">
 											<a th:href="@{/vendor/register}">Register Vendor</a>

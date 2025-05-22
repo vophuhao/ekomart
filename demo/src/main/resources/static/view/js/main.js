@@ -1301,17 +1301,21 @@ document.querySelectorAll('.btn-dathang').forEach(button => {
 	button.addEventListener("click", dathang);
 });
 function dathang() {
-    const addressId = document.querySelector('#addressid').value;
-    
-    // Kiểm tra nếu addressId là null hoặc rỗng
-    if (!addressId) {
-        alert("Vui lòng chọn địa chỉ trước khi đặt hàng!");
-        return; // Dừng việc tiếp tục hàm
-    }
+	const addressElement = document.querySelector('#addressid');
+	if (!addressElement) {
+		alert("Vui lòng chọn địa chỉ trước khi đặt hàng! ");
+		return;
+	}
 
-    console.log(addressId);
+	const addressId = addressElement.value;
+	if (!addressId) {
+		alert("Vui lòng chọn địa chỉ trước khi đặt hàng!");
+		return;
+	}
 
-    // Lấy danh sách các productId và quantity từ các sản phẩm trong giỏ hàng
+
+
+	// Lấy danh sách các productId và quantity từ các sản phẩm trong giỏ hàng
     const productIds = [];
     const quantities = [];
 
