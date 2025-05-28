@@ -7,16 +7,17 @@ server:
     key-alias: my-ssl-key
   servlet:
     session:
-      timeout: 60m 
+      timeout: 60m
+      cookie:
+        same-site: strict
 #  servlet:
 #    context-path: /test
 
-
 spring:
   datasource:
-    url: "jdbc:mysql://100.126.177.112:3306/ekomart"
-    username: username
-    password: password
+    url: "jdbc:mysql://localhost:3306/ekomart"
+    username: root
+    password: 10040109
   servlet:
    multipart:
      enabled: true

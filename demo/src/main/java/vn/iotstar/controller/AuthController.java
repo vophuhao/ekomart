@@ -104,6 +104,7 @@ public class AuthController {
     public String authenticate(@RequestParam("username") String username,
                                @RequestParam("password") String password,
                                HttpServletResponse response, Model model) {
+        System.out.println("Gohere");
         try {
         	// Tìm người dùng trong cơ sở dữ liệu
             UserInfo user = userInfoRepository.findByName(username)
