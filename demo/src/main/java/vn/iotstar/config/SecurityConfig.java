@@ -81,6 +81,7 @@ public class SecurityConfig {
 	                    jwtCookie.setPath("/"); // Áp dụng cho toàn bộ ứng dụng
 	                    jwtCookie.setHttpOnly(true); // Bảo mật cho cookie
 	                    jwtCookie.setMaxAge(0); // Đặt thời gian sống là 0 để xoá cookie
+						jwtCookie.setSecure(true);
 	                    response.addCookie(jwtCookie);
 
 	                    // Điều hướng hoặc trả về response sau khi logout
