@@ -10,57 +10,173 @@
     <!-- plugins css -->
     <link rel="stylesheet preload" th:href="@{/view/css/plugins.css}" as="style">
     <link rel="stylesheet preload" th:href="@{/view/css/style.css}" as="style">
+    <style>
+        .password-requirements {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .requirement-item {
+            margin-left: 20px;
+        }
+        .requirement-met {
+            color: green;
+            text-decoration: line-through;
+        }
+        .requirement-not-met {
+            color: red;
+        }
+        .password-strength {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <!-- <h1>Đăng Ký Tài Khoản</h1>
-    <form th:action="@{/register}" method="post" th:object="${userInfo}">
-        <label for="name">Tên:</label>
-        <input type="text" id="name" th:field="*{name}" required>
+<!-- <h1>Đăng Ký Tài Khoản</h1>
+<form th:action="@{/register}" method="post" th:object="${userInfo}">
+    <label for="name">Tên:</label>
+    <input type="text" id="name" th:field="*{name}" required>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" th:field="*{email}" required>
+    <label for="email">Email:</label>
+    <input type="email" id="email" th:field="*{email}" required>
 
-        <label for="password">Mật Khẩu:</label>
-        <input type="password" id="password" th:field="*{password}" required>
+    <label for="password">Mật Khẩu:</label>
+    <input type="password" id="password" th:field="*{password}" required>
 
-        <button type="submit">Đăng Ký</button>
-    </form>
-    <p>Đã có tài khoản? <a th:href="@{/login}">Đăng Nhập</a></p> -->
-    
-    <!-- rts register area start -->
-    <div class="rts-register-area rts-section-gap bg_light-1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="registration-wrapper-1">
-                        <div class="logo-area mb--0">
-                            <img class="mb--10" th:src="@{/view/images/logo/fav.png}" alt="logo">
-                        </div>
-                        <h3 class="title">Register Into Your Account</h3>
-                        <p style="color:red;"><span th:text = "*{error}"></span></p>
-                        <form th:action="@{/register}" method="post" th:object="${userInfo}" class="registration-form">
-                            <div class="input-wrapper">
-                                <label for="name">User name*</label>
-        						<input type="text" id="name" th:field="*{name}" required>
-                            </div>
-                            <div class="input-wrapper">
-                                <label for="email">Email*</label>
-        						<input type="email" id="email" th:field="*{email}" required>
-                            </div>
-                            <div class="input-wrapper">
-                                <label for="password">Password*</label>
-        						<input type="password" id="password" th:field="*{password}" required>
-                            </div>
-                            <button type="submit" class="rts-btn btn-primary">Register Account</button>
-                            <div class="another-way-to-registration">
-                                <p>Already Have Account? <a th:href="@{/login}">Login</a></p>
-                            </div>
-                        </form>
+    <button type="submit">Đăng Ký</button>
+</form>
+<p>Đã có tài khoản? <a th:href="@{/login}">Đăng Nhập</a></p> -->
+
+<!-- rts register area start -->
+<div class="rts-register-area rts-section-gap bg_light-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="registration-wrapper-1">
+                    <div class="logo-area mb--0">
+                        <img class="mb--10" th:src="@{/view/images/logo/fav.png}" alt="logo">
                     </div>
+                    <h3 class="title">Register Into Your Account</h3>
+                    <p style="color:red;"><span th:text = "*{error}"></span></p>
+                    <form th:action="@{/register}" method="post" th:object="${userInfo}" class="registration-form">
+                        <div class="input-wrapper">
+                            <label for="name">User name*</label>
+                            <input type="text" id="name" th:field="*{name}" required>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="email">Email*</label>
+                            <input type="email" id="email" th:field="*{email}" required>
+                        </div>
+
+                        <!--                            <div class="input-wrapper">-->
+                        <!--                                <label for="password">Password*</label>-->
+                        <!--        						<input type="password" id="password" th:field="*{password}" required>-->
+                        <!--                            </div>-->
+
+                        <div class="input-wrapper">
+                            <label for="password">Password*</label>
+                            <input type="password" id="password" th:field="*{password}" required>
+                            <div class="password-requirements">
+                                Password must contain:
+                                <ul>
+                                    <li id="length" class="requirement-item">At least 8 characters</li>
+                                    <li id="uppercase" class="requirement-item">At least one uppercase letter</li>
+                                    <li id="lowercase" class="requirement-item">At least one lowercase letter</li>
+                                    <li id="number" class="requirement-item">At least one number</li>
+                                    <li id="special" class="requirement-item">At least one special character</li>
+                                </ul>
+                            </div>
+                            <div id="password-strength" class="password-strength"></div>
+                        </div>
+                        <button type="submit" class="rts-btn btn-primary">Register Account</button>
+                        <div class="another-way-to-registration">
+                            <p>Already Have Account? <a th:href="@{/login}">Login</a></p>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- rts register area end -->
+</div>
+<!-- rts register area end -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.getElementById('password');
+        const submitBtn = document.getElementById('submitBtn');
+        const registerForm = document.getElementById('registerForm');
+
+        function validatePassword(password) {
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /[0-9]/.test(password),
+                special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+            };
+
+            // Update requirement list
+            Object.keys(requirements).forEach(req => {
+                const element = document.getElementById(req);
+                if (requirements[req]) {
+                    element.classList.add('requirement-met');
+                    element.classList.remove('requirement-not-met');
+                } else {
+                    element.classList.remove('requirement-met');
+                    element.classList.add('requirement-not-met');
+                }
+            });
+
+            // Calculate password strength
+            const strength = Object.values(requirements).filter(Boolean).length;
+            const strengthElement = document.getElementById('password-strength');
+            let strengthText = '';
+            let strengthColor = '';
+
+            switch(strength) {
+                case 0:
+                case 1:
+                    strengthText = 'Very Weak';
+                    strengthColor = '#ff4444';
+                    break;
+                case 2:
+                    strengthText = 'Weak';
+                    strengthColor = '#ffbb33';
+                    break;
+                case 3:
+                    strengthText = 'Medium';
+                    strengthColor = '#ffbb33';
+                    break;
+                case 4:
+                    strengthText = 'Strong';
+                    strengthColor = '#00C851';
+                    break;
+                case 5:
+                    strengthText = 'Very Strong';
+                    strengthColor = '#007E33';
+                    break;
+            }
+
+            strengthElement.textContent = `Password Strength: ${strengthText}`;
+            strengthElement.style.color = strengthColor;
+
+            // Enable/disable submit button based on all requirements being met
+            submitBtn.disabled = !Object.values(requirements).every(Boolean);
+
+            return Object.values(requirements).every(Boolean);
+        }
+
+        passwordInput.addEventListener('input', function() {
+            validatePassword(this.value);
+        });
+
+        registerForm.addEventListener('submit', function(e) {
+            if (!validatePassword(passwordInput.value)) {
+                e.preventDefault();
+                alert('Please ensure your password meets all requirements.');
+            }
+        });
+    });
+</script>
 </body>
 </html>
