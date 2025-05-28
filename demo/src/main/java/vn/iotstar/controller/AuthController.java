@@ -129,6 +129,7 @@ public class AuthController {
             jwtCookie.setHttpOnly(true); // Bảo mật cookie, không truy cập được từ JavaScript
             jwtCookie.setPath("/"); // Áp dụng cookie cho toàn bộ ứng dụng
             jwtCookie.setMaxAge(60 * 60 * 10); // Thời hạn 10 giờ
+            jwtCookie.setSecure(true);
             response.addCookie(jwtCookie);
             
             // Lưu token vào model để truyền sang view nếu cần
