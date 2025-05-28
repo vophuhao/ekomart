@@ -171,15 +171,8 @@
                                 <button class="rts-btn btn-primary">Save Change</button>
                             </form>	
                             <br><br>
-                            <form action="/user/account/changePassword" method="POST" class="account-details-area">
-                                <h2 class="title">Change Password</h2>
-                                <!-- Message -->
-                        		<p style="color:red;"><span th:text = "*{error}"></span></p>
-                                <input type="password" name="currentPassword" placeholder="Current Password *" required>
-                                <input type="password" name="newPassword" placeholder="New Password *">
-                                <input type="password" name="confirmPassword" placeholder="Confirm Password *">
-                                <button class="rts-btn btn-primary">Save Change</button>
-                            </form>
+                            <button class="rts-btn btn-primary"><a th:href="@{/forgotPassword/verifyMail}">Chang Password</a></button>
+
                         </div>
                         <!-- <div class="tab-pane fade" id="v-pills-changepass" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
                             <div class="tracing-order-account">
