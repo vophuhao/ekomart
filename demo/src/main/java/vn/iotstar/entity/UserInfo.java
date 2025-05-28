@@ -1,5 +1,6 @@
 package vn.iotstar.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -54,6 +55,8 @@ public class UserInfo {
 	@OneToMany(mappedBy = "user")
     @JsonIgnore // Bỏ qua danh sách reviews khi chuyển đổi sang JSON
     private List<Review> reviews;
+	private int failedLoginAttempts = 0;
+	private LocalDateTime lockTime;
 
 	@Override
 		public String toString() {

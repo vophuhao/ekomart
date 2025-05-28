@@ -23,11 +23,9 @@ public record UserService(UserInfoRepository repository, PasswordEncoder passwor
 			
 			// Send mail
 	        int otp = otpGenerator();
-	        MailBody mailBody = MailBody.builder()
-	                .to(userInfo.getEmail())
-	                .text("This is the OTP for your Forgot Password request: " + otp)
-	                .subject("OTP for Forgot Password request")
-	                .build();
+			MailBody mailBody = new MailBody(userInfo.getEmail(),
+					"OTP for Forgot Password request",
+					"This is the OTP for your Forgot Password request: " + otp);
 	        
 	        userInfo.setOtp(otp);
 	        repository.save(userInfo);
@@ -37,11 +35,9 @@ public record UserService(UserInfoRepository repository, PasswordEncoder passwor
 		} catch (Exception ex) {
 			// Send mail
 	        int otp = otpGenerator();
-	        MailBody mailBody = MailBody.builder()
-	                .to(userInfo.getEmail())
-	                .text("This is the OTP for your Forgot Password request: " + otp)
-	                .subject("OTP for Forgot Password request")
-	                .build();
+			MailBody mailBody = new MailBody(userInfo.getEmail(),
+					"OTP for Forgot Password request",
+					"This is the OTP for your Forgot Password request: " + otp);
 			boolean isUserDisabled = repository.existsByEmailAndEnabledFalse(userInfo.getEmail());
 			if (isUserDisabled) {
 				repository.updateOtp(userInfo.getEmail(), otp);

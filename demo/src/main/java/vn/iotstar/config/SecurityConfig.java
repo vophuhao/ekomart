@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -79,11 +80,12 @@ public class SecurityConfig {
 	                    // Xoá cookie JWT khi logout
 	                    Cookie jwtCookie = new Cookie("JWT", null);
 	                    jwtCookie.setPath("/"); // Áp dụng cho toàn bộ ứng dụng
+						jwtCookie.setSecure(true);
 	                    jwtCookie.setHttpOnly(true); // Bảo mật cho cookie
 	                    jwtCookie.setMaxAge(0); // Đặt thời gian sống là 0 để xoá cookie
-						jwtCookie.setSecure(true);
 	                    response.addCookie(jwtCookie);
-
+						// Thiết lập thủ công thuộc tính SameSite
+						response.setHeader("Set-Cookie", "JWT=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0");
 	                    // Điều hướng hoặc trả về response sau khi logout
 	                    response.sendRedirect("/home?logout=true");
 	                })
@@ -92,10 +94,32 @@ public class SecurityConfig {
 			.sessionManagement(session -> session
 	                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 	        )
-				.formLogin(AbstractHttpConfigurer::disable);
+				.formLogin(AbstractHttpConfigurer::disable)
+				.headers(headers -> headers
+						.contentSecurityPolicy(csp -> csp
+								.policyDirectives(
+										"default-src 'self'; " +
+												"script-src 'self'; " +
+												"style-src 'self' https://fonts.googleapis.com; "+
+												"img-src 'self' https://localhost:8888 data:; " +
+												"font-src 'self' data: https://fonts.gstatic.com; " +
+												"connect-src 'self' https://provinces.open-api.vn; "+
+												"frame-ancestors 'none'; " +
+												"form-action 'self'; " +
+												"base-uri 'self'; " +
+												"object-src 'none'; " +
+												"upgrade-insecure-requests;"
+								)
+						)
+						.frameOptions(HeadersConfigurer.FrameOptionsConfig::deny
+						)
+						.xssProtection(xss -> {}
+						)
+						.contentTypeOptions(content -> {})
+				)
+		;
 	    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 		http.csrf(AbstractHttpConfigurer::disable);
 		return http.build();
 	}
-
 }
