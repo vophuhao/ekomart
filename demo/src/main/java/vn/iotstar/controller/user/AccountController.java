@@ -10,11 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -76,7 +72,28 @@ public class AccountController {
 	
 	@Autowired
 	private OrderDetailRepository orderDetailRepository;
-	
+
+	@PostMapping("/change")
+	public String changeInfo(@RequestParam("email") String email, HttpServletRequest request, Model model, HttpSession session) {
+		String token = null;
+		// Lấy cookie từ request
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if ("JWT".equals(cookie.getName())) {
+					token = cookie.getValue();
+					break;
+				}
+			}
+		}
+
+		UserInfo user = userInfoRepository.findByName(jwtUtil.extractUsername(token))
+				.orElseThrow(() -> new UsernameNotFoundException("Please provide a valid name!"));
+		user.setEmail(email);
+		user = userservice.save(user);
+		return "redirect:/user/account";
+	}
+
 	@GetMapping("")
 	public String AccountUser(HttpServletRequest request, Model model,HttpSession session) {
 		

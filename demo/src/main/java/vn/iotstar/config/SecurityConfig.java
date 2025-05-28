@@ -9,6 +9,8 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import vn.iotstar.repository.UserInfoRepository;
 
 import jakarta.servlet.http.Cookie;
+
+import java.util.List;
 
 @Configuration //Đánh dấu lớp này là một lớp 'cấu hình Spring'.
 @EnableWebSecurity //Kích hoạt các tính năng bảo mật của Spring Security cho ứng dụng.
@@ -54,29 +58,21 @@ public class SecurityConfig {
 		authenticationProvider.setPasswordEncoder(passwordEncoder());
 		return authenticationProvider;
 	}
-
+	private String[] PUBLIC_CSS_VENDOR = {"/vendor/js/**","/vendor/css/**","/vendor/fonts/**","/vendor/images/**"};
+	private String[] PUBLIC_END_POINT = {"/login","/register", "/forgotPassword/**", "/authenticate", "/register/**",
+			"/authenticatelogin", "/css/**", "/fonts/**", "/images/**", "/js/**", "/verify-otp/**",
+			"/admin/**", "/view/**","/vendor/**", "/home/**","/vendor/register/**","/api/v1/vendor/**"};
 	// security 6.1+
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { 
-		http.csrf(csrf -> csrf.disable()) 
-			.authorizeHttpRequests(auth -> auth
+		http.authorizeHttpRequests(auth -> auth
 					.requestMatchers("/admin/**","/admin/vendor/**").hasRole("ADMIN")
 					.requestMatchers("/vendor/register/**").hasAnyRole("USER","VENDOR")
-					.requestMatchers("/vendor/js/**","/vendor/css/**","/vendor/fonts/**","/vendor/images/**").hasAnyRole("USER","VENDOR")
+					.requestMatchers(PUBLIC_CSS_VENDOR).hasAnyRole("USER","VENDOR")
 					.requestMatchers("/vendor/**").hasRole("VENDOR")
-					.requestMatchers("/api/v1/admin/**").permitAll()
-					.requestMatchers("/user/**").hasAnyRole("USER","VENDOR")
-					.requestMatchers("/register", "/forgotPassword/**", "/authenticate", "/register/**",
-							"/authenticatelogin", "/css/**", "/fonts/**", "/images/**", "/js/**", "/verify-otp/**",
-							"/admin/**", "/view/**","/vendor/**", "/home/**","/vendor/register/**","/api/v1/vendor/**").permitAll()
-					//.anyRequest().authenticated() 
-			)
-			.formLogin(form -> form
-		            .loginPage("/login")
-		            .defaultSuccessUrl("/default", true) // true ensures redirect always to /default after login
-		            .failureUrl("/login?error=true")
-		            .permitAll()
-		    )
+						.requestMatchers("/user/**").hasAnyRole("USER","VENDOR")
+					.requestMatchers(PUBLIC_END_POINT).permitAll()
+					.anyRequest().authenticated())
 			.logout(logout -> logout
 	                .logoutUrl("/logout")
 	                .logoutSuccessHandler((request, response, authentication) -> {
@@ -86,19 +82,18 @@ public class SecurityConfig {
 	                    jwtCookie.setHttpOnly(true); // Bảo mật cho cookie
 	                    jwtCookie.setMaxAge(0); // Đặt thời gian sống là 0 để xoá cookie
 	                    response.addCookie(jwtCookie);
-	                    
+
 	                    // Điều hướng hoặc trả về response sau khi logout
 	                    response.sendRedirect("/home?logout=true");
 	                })
 	                .permitAll()
             )
 			.sessionManagement(session -> session
-	                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 	        )
-			;
-		
+				.formLogin(AbstractHttpConfigurer::disable);
 	    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-		
+		http.csrf(AbstractHttpConfigurer::disable);
 		return http.build();
 	}
 }

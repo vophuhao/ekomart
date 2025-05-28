@@ -156,7 +156,7 @@
                             </div>
                         </div>
                         <div class="tab-pane fade show active" id="v-pills-settingsa" role="tabpanel" aria-labelledby="v-pills-settingsa-tab" tabindex="0">
-                            <form action="#" class="account-details-area">
+                            <form action="/user/account/change" method="POST" class="account-details-area">
                                 <h2 class="title">Account Details</h2>
                                 <!-- <div class="input-half-area">
                                     <div class="single-input">
@@ -167,7 +167,8 @@
                                     </div>
                                 </div> -->
                                 <input type="text" th:value="*{username}"  required>
-                                <input type="email" th:value="*{email}" required>
+                                <input type="email" name="email" th:value="*{email}" required>
+<!--                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
                                 <button class="rts-btn btn-primary">Save Change</button>
                             </form>	
                             <br><br>
